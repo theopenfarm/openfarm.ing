@@ -1,0 +1,155 @@
+<script server>
+const nodePath = require('node:path')
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+const fieldmap = await import(nodePath.join(process.cwd(), 'app/Support/fieldmap.ts'))
+
+const title = 'How it works - Open Farming'
+const description = 'The loop, in order: an aircraft flies a fixed route, models locate the problem, the findings become a prescription, and the machine you already own treats only the marked ground.'
+const activeNav = 'how-it-works'
+const pagePath = '/how-it-works'
+
+const report = await catalog.fieldReport()
+
+// Each stage of the loop shows the same field with one more layer switched on,
+// so the reader watches the prescription being built rather than reading about
+// it. Same data every time; only the layer selection changes.
+const stageScan = report ? fieldmap.renderFieldMap(report, { title: 'The field boundary and the tramline corridors the sprayer runs on', showDetections: false, showZones: false }) : ''
+const stageDetect = report ? fieldmap.renderFieldMap(report, { title: 'Every weed detection from the flight, sized by mapped area', showZones: false }) : ''
+const stageZones = report ? fieldmap.renderFieldMap(report, { title: 'Detections clustered into the treatment zones a boom can resolve', showDetections: false }) : ''
+const stageTreat = report ? fieldmap.renderFieldMap(report, { title: 'The finished prescription: zones over detections' }) : ''
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-12">
+  <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.6rem] lg:text-[3rem] max-w-[19ch]">
+    Four steps, and a map at the end of them
+  </h1>
+  <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[60ch]">
+    Below is the demonstration field with one more layer switched on at each step. Same flight,
+    same records, nothing added: this is the prescription being built.
+  </p>
+</section>
+
+@if (report)
+<section class="max-w-[1240px] mx-auto px-5 pb-8">
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <figure class="m-0 reveal">
+      <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-3">{!! stageScan !!}</div>
+      <figcaption class="mt-3">
+        <p class="telemetry text-[0.72rem] font-semibold text-[var(--accent)] uppercase tracking-[0.1em]">Fly</p>
+        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-1.5">
+          The boundary and the tramlines the sprayer already runs on. The aircraft flies the same
+          grid every time, so flights compare.
+        </p>
+      </figcaption>
+    </figure>
+
+    <figure class="m-0 reveal">
+      <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-3">{!! stageDetect !!}</div>
+      <figcaption class="mt-3">
+        <p class="telemetry text-[0.72rem] font-semibold text-[var(--accent)] uppercase tracking-[0.1em]">Find</p>
+        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-1.5">
+          {{ report.detections.length }} weeds, each sized by mapped area. Note where they sit:
+          headland, tramlines, and two patches that have been building for seasons.
+        </p>
+      </figcaption>
+    </figure>
+
+    <figure class="m-0 reveal">
+      <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-3">{!! stageZones !!}</div>
+      <figcaption class="mt-3">
+        <p class="telemetry text-[0.72rem] font-semibold text-[var(--accent)] uppercase tracking-[0.1em]">Zone</p>
+        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-1.5">
+          Detections clustered onto a grid a boom's section control can actually resolve.
+          {{ report.zones.length }} zones, cells under 150 m² of weed left out.
+        </p>
+      </figcaption>
+    </figure>
+
+    <figure class="m-0 reveal">
+      <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-3">{!! stageTreat !!}</div>
+      <figcaption class="mt-3">
+        <p class="telemetry text-[0.72rem] font-semibold text-[var(--accent)] uppercase tracking-[0.1em]">Treat</p>
+        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-1.5">
+          The finished prescription: {{ report.treatedHectares }} of {{ report.hectares }} hectares,
+          exported for the machine already on your yard.
+        </p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+@endif
+
+<!-- Who does what. A plain two-column split, no cards. -->
+<section class="border-y border-[var(--line)] bg-[var(--panel)] py-16 md:py-20 mt-10">
+  <div class="max-w-[1240px] mx-auto px-5 grid gap-10 md:grid-cols-2 md:gap-14">
+    <div>
+      <h2 class="text-[1.6rem]">What we bring</h2>
+      <ul class="mt-5 space-y-3 list-none p-0">
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--accent)]">The aircraft, the payloads and the spares.</li>
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--accent)]">Licensed pilots, operator registration and insurance.</li>
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--accent)]">Airspace clearance and the flight log that proves it.</li>
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--accent)]">Processing, the models, and a human reviewing anything they are unsure about.</li>
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--accent)]">Prescriptions in the format your terminal reads.</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-[1.6rem]">What stays yours</h2>
+      <ul class="mt-5 space-y-3 list-none p-0">
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">The machines that do the treating. We do not spray your arable fields.</li>
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">The agronomy. A recommendation is a recommendation, not an instruction.</li>
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">The data. Your imagery and your records are yours, exportable at any point.</li>
+        <li class="text-[0.97rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">The calendar. Move a flight, skip a window, add a field.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- What we cannot do. -->
+<section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
+  <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[24ch]">The limits, stated up front</h2>
+  <div class="prose grid gap-6 md:grid-cols-2 md:gap-12 mt-6">
+    <div>
+      <p>
+        Weather closes windows. A thermal flight needs the right hour, a photogrammetry survey
+        needs light, and wind above the airframe's limit grounds everything. Cancelled flights are
+        reported with the reason and rescheduled, not quietly dropped.
+      </p>
+      <p>
+        Aerial application of plant protection products is prohibited by default under German and
+        EU law, with narrow exemptions, mostly for steep vineyard terrain. Where an exemption
+        applies we can fly the treatment. Everywhere else, the map goes to your machine.
+      </p>
+    </div>
+    <div>
+      <p>
+        A model output is not a diagnosis. Disease flags say a patch has diverged from the rest of
+        the field, and something has to be walked to before a spray decision. The scouting route we
+        send exists precisely because that step is not optional.
+      </p>
+      <p>
+        Counting has a margin. A yield estimate is a range that narrows across the season, and we
+        publish the range rather than the midpoint, because the midpoint is the part that gets
+        quoted and the range is the part that is true.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-[1240px] mx-auto px-5 pb-24 reveal">
+  <div class="rounded-[10px] border border-[var(--line)] bg-[var(--accent-wash)] p-8 md:p-11 flex flex-wrap items-center justify-between gap-6">
+    <div>
+      <h2 class="text-[1.6rem] md:text-[1.9rem] max-w-[22ch]">Start with one field and one flight</h2>
+      <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-2 max-w-[50ch]">
+        You get the report before you commit to a calendar. If the map does not tell you something
+        you did not know, there is nothing to sign.
+      </p>
+    </div>
+    <a href="/contact" class="btn btn-primary">Book a field visit</a>
+  </div>
+</section>
+
+@endsection

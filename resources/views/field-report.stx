@@ -1,0 +1,202 @@
+<script server>
+const nodePath = require('node:path')
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+const fieldmap = await import(nodePath.join(process.cwd(), 'app/Support/fieldmap.ts'))
+
+const title = 'Field report - Open Farming'
+const description = 'The full flight record for a demonstration field: 98 weed detections, 62 treatment zones, and 4.34 of 24.6 hectares flagged for treatment.'
+const activeNav = 'field-report'
+const pagePath = '/field-report'
+
+const report = await catalog.fieldReport()
+
+const fullMap = report ? fieldmap.renderFieldMap(report, { title: `Weed map of ${report.field} with detections and treatment zones` }) : ''
+const treatedBar = report ? fieldmap.renderTreatedBar(report) : ''
+
+// The detection table would be 98 rows, which is a data dump rather than a
+// report. The severity summary answers the question people actually have,
+// and the API serves the full list for anyone who wants every row.
+const severityOrder = ['high', 'medium', 'low']
+const bySeverity = report
+  ? severityOrder.map(level => ({
+      level,
+      count: report.detections.filter(d => d.severity === level).length,
+      area: Math.round(report.detections.filter(d => d.severity === level).reduce((sum, d) => sum + d.area_m2, 0)),
+    }))
+  : []
+
+const totalWeedArea = report ? Math.round(report.detections.reduce((sum, d) => sum + d.area_m2, 0)) : 0
+const meanConfidence = report && report.detections.length > 0
+  ? Number((report.detections.reduce((sum, d) => sum + d.confidence, 0) / report.detections.length * 100).toFixed(1))
+  : 0
+const untreatedHectares = report ? Number((report.hectares - report.treatedHectares).toFixed(2)) : 0
+const topSpecies = report ? report.speciesBreakdown : []
+const maxSpeciesCount = topSpecies.length > 0 ? topSpecies[0].count : 1
+const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / maxSpeciesCount) * 100) }))
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+@if (report)
+<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-10">
+  <span class="chip">Demonstration field, modelled data</span>
+  <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.6rem] lg:text-[3rem] max-w-[22ch] mt-4">
+    One weed map, every number behind it
+  </h1>
+  <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[62ch]">
+    This is the whole record for a single flight: what was flown, what was found and what the
+    prescription asked the machine to do. The field is modelled rather than a customer's, and the
+    same records are served by the public API.
+  </p>
+</section>
+
+<!-- Flight header, hairline separated. -->
+<section class="border-y border-[var(--line)] bg-[var(--panel)]">
+  <div class="max-w-[1240px] mx-auto px-5 py-8 grid gap-y-6 gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <p class="text-[0.78rem] text-[var(--text-3)]">Holding</p>
+      <p class="text-[1.05rem] font-semibold mt-1">{{ report.farm }}</p>
+      <p class="text-[0.85rem] text-[var(--text-2)]">{{ report.region }}</p>
+    </div>
+    <div>
+      <p class="text-[0.78rem] text-[var(--text-3)]">Field</p>
+      <p class="text-[1.05rem] font-semibold mt-1">{{ report.field }}</p>
+      <p class="text-[0.85rem] text-[var(--text-2)]">{{ report.crop }}, {{ report.hectares }} ha</p>
+    </div>
+    <div>
+      <p class="text-[0.78rem] text-[var(--text-3)]">Flown</p>
+      <p class="telemetry text-[1.05rem] font-semibold mt-1">{{ report.flownAt }}</p>
+      <p class="text-[0.85rem] text-[var(--text-2)]">{{ report.durationMinutes }} minutes airborne</p>
+    </div>
+    <div>
+      <p class="text-[0.78rem] text-[var(--text-3)]">Resolution</p>
+      <p class="telemetry text-[1.05rem] font-semibold mt-1">{{ report.resolutionCm }} cm/px</p>
+      <p class="text-[0.85rem] text-[var(--text-2)]">Targeted weed control</p>
+    </div>
+  </div>
+</section>
+
+<!-- The map, full width, with the treated ratio underneath it. -->
+<section class="max-w-[1240px] mx-auto px-5 py-14 md:py-18 reveal">
+  <div class="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14 lg:items-start">
+    <figure class="m-0 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-5">
+      {!! fullMap !!}
+      <figcaption class="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-[0.8rem] text-[var(--text-2)]">
+        <span class="flex items-center gap-1.5"><span class="legend-swatch" style="background:var(--accent)"></span>Treatment zone</span>
+        <span class="flex items-center gap-1.5"><span class="legend-swatch" style="background:var(--accent);border-radius:50%"></span>Weed detection, sized by area</span>
+        <span class="flex items-center gap-1.5"><span class="legend-swatch" style="background:var(--crop-soft);border:1px solid var(--crop)"></span>Untreated crop</span>
+      </figcaption>
+    </figure>
+
+    <div>
+      <h2 class="text-[1.6rem]">What the prescription asks for</h2>
+      <div class="mt-5">
+        {!! treatedBar !!}
+        <div class="flex justify-between mt-2 text-[0.82rem]">
+          <span class="text-[var(--accent)] font-semibold">{{ report.treatedHectares }} ha treated</span>
+          <span class="text-[var(--text-2)]">{{ untreatedHectares }} ha left alone</span>
+        </div>
+      </div>
+
+      <dl class="grid grid-cols-2 gap-x-8 gap-y-6 mt-8 m-0">
+        <div>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">Treated share</dt>
+          <dd class="telemetry text-[1.7rem] font-bold text-[var(--accent)] m-0">{{ report.treatedPercent }}%</dd>
+        </div>
+        <div>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">Treatment zones</dt>
+          <dd class="telemetry text-[1.7rem] font-bold m-0">{{ report.zones.length }}</dd>
+        </div>
+        <div>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">Detections</dt>
+          <dd class="telemetry text-[1.7rem] font-bold m-0">{{ report.detections.length }}</dd>
+        </div>
+        <div>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">Mean confidence</dt>
+          <dd class="telemetry text-[1.7rem] font-bold m-0">{{ meanConfidence }}%</dd>
+        </div>
+      </dl>
+
+      <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-7 max-w-[46ch]">
+        Total mapped weed area was {{ totalWeedArea }} m². The prescription covers more ground than
+        that because a boom cannot switch at the square metre: zones are built on a grid its section
+        control can actually resolve.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Species and severity. Two small tables, one hairline each, not per row. -->
+<section class="border-y border-[var(--line)] bg-[var(--bg-2)] py-14 md:py-18">
+  <div class="max-w-[1240px] mx-auto px-5 grid gap-12 md:grid-cols-2 md:gap-16">
+    <div>
+      <h2 class="text-[1.4rem]">What was found</h2>
+      <ul class="mt-5 space-y-4 list-none p-0">
+        @foreach (speciesRows as s)
+          <li>
+            <div class="flex items-baseline justify-between gap-4">
+              <span class="text-[0.97rem] font-semibold">{{ s.label }}</span>
+              <span class="telemetry text-[0.9rem] text-[var(--text-2)]">{{ s.count }}</span>
+            </div>
+            <div class="h-1.5 rounded-[3px] bg-[var(--accent)] mt-1.5" style="width: {{ s.width }}%"></div>
+          </li>
+        @endforeach
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-[1.4rem]">How bad</h2>
+      <p class="text-[0.88rem] text-[var(--text-3)] leading-relaxed mt-1.5 max-w-[44ch]">
+        Severity follows mapped area: over 900 m² is high, over 260 m² is medium.
+      </p>
+      <ul class="mt-5 divide-y divide-[var(--line)] list-none p-0">
+        @foreach (bySeverity as row)
+          <li class="flex items-baseline justify-between gap-4 py-3">
+            <span class="text-[0.97rem] font-semibold capitalize">{{ row.level }}</span>
+            <span class="telemetry text-[0.9rem] text-[var(--text-2)]">{{ row.count }} detections, {{ row.area }} m²</span>
+          </li>
+        @endforeach
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
+  <div class="grid gap-10 lg:grid-cols-2 lg:gap-14">
+    <div class="prose">
+      <h2 class="text-[1.6rem] mb-4">Read it yourself</h2>
+      <p>
+        Every record on this page is served by the public API: the flight, all
+        {{ report.detections.length }} detections with their coordinates and confidence scores, and
+        the prescription's zone geometry. No key required.
+      </p>
+      <p>
+        The dataset is generated deterministically, so the figures here, in the database and in the
+        API are always the same numbers. If they ever disagree, one of them is a bug.
+      </p>
+    </div>
+    <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6">
+      <p class="mega-col-title">Endpoints</p>
+      <ul class="mt-3 space-y-2.5 list-none p-0">
+        <li><a href="/api/field-report" class="telemetry text-[0.88rem] text-[var(--accent)] no-underline">/api/field-report</a></li>
+        <li><a href="/api/features" class="telemetry text-[0.88rem] text-[var(--accent)] no-underline">/api/features</a></li>
+        <li><a href="/api/use-cases" class="telemetry text-[0.88rem] text-[var(--accent)] no-underline">/api/use-cases</a></li>
+      </ul>
+      <a href="/contact" class="btn btn-primary mt-6 w-full">Book a flight on your field</a>
+    </div>
+  </div>
+</section>
+@else
+<section class="max-w-[1240px] mx-auto px-5 py-24">
+  <h1 class="text-[2rem]">No flight record yet</h1>
+  <p class="text-[1.05rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[52ch]">
+    The demonstration dataset has not been seeded on this instance. Run
+    <span class="telemetry">buddy seed --class=CatalogSeeder</span> to load it.
+  </p>
+  <a href="/" class="btn btn-primary mt-6">Back to the start</a>
+</section>
+@endif
+
+@endsection

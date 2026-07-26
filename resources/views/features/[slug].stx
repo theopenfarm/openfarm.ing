@@ -1,0 +1,190 @@
+<script server>
+const nodePath = require('node:path')
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+const fieldmap = await import(nodePath.join(process.cwd(), 'app/Support/fieldmap.ts'))
+
+// /features/<slug>. Anything outside [a-z0-9-] cannot be a slug we issued, so
+// it is stripped rather than passed to a lookup.
+const slug = String((typeof params === 'object' && params && params.slug) || '').replace(/[^a-z0-9-]/gi, '')
+const feature = await catalog.findFeature(slug)
+
+const title = feature ? `${feature.name} - Open Farming` : 'Capability not found - Open Farming'
+const description = feature ? feature.summary : 'That capability does not exist. Browse all eighteen instead.'
+const activeNav = 'features'
+const pagePath = `/features/${slug}`
+
+// The related use cases are resolved to full records so the cards can carry
+// their own summary rather than a bare slug.
+const allUseCases = feature ? await catalog.allUseCases() : []
+const related = feature ? allUseCases.filter(u => feature.useCases.includes(u.slug)) : []
+const categoryLabel = feature ? catalog.featureCategories[feature.category].label : ''
+
+// Weed control is the capability the demonstration flight actually flew, so
+// its page shows the real map. Every other capability gets its own visual
+// vocabulary from the copy instead of a map that would not be its own.
+const report = feature && feature.slug === 'targeted-weed-control' ? await catalog.fieldReport() : null
+const detailMap = report
+  ? fieldmap.renderFieldMap(report, { title: `Weed map of ${report.field}: ${report.detections.length} detections across ${report.zones.length} treatment zones` })
+  : ''
+
+const siblings = feature
+  ? (await catalog.allFeatures()).filter(f => f.category === feature.category && f.slug !== feature.slug).slice(0, 4)
+  : []
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+@if (feature)
+  <article>
+    <!-- Header: category, name, the line, and the problem it addresses. -->
+    <section class="max-w-[1240px] mx-auto px-5 pt-12 md:pt-16 pb-10">
+      <a href="/features" class="text-[0.85rem] text-[var(--text-2)] no-underline hover:text-[var(--text)]">Capabilities</a>
+      <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:items-start mt-4">
+        <div>
+          <span class="chip">{{ categoryLabel }}</span>
+          <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.5rem] lg:text-[2.9rem] mt-4">{{ feature.name }}</h1>
+          <p class="text-[1.1rem] text-[var(--accent)] font-semibold mt-3">{{ feature.tagline }}</p>
+          <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-4 max-w-[52ch]">{{ feature.summary }}</p>
+          <div class="flex flex-wrap gap-3 mt-7">
+            <a href="/contact" class="btn btn-primary">Book a field visit</a>
+          </div>
+        </div>
+
+        <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6">
+          <h2 class="text-[1.05rem]">What this costs today</h2>
+          <p class="text-[0.95rem] text-[var(--text-2)] leading-relaxed mt-3">{{ feature.problem }}</p>
+        </div>
+      </div>
+    </section>
+
+    @if (report)
+      <section class="border-y border-[var(--line)] bg-[var(--bg-2)] py-14 reveal">
+        <div class="max-w-[1240px] mx-auto px-5 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div>
+            <h2 class="text-[1.7rem] md:text-[2rem] max-w-[20ch]">One flight, {{ report.detections.length }} weeds, {{ report.zones.length }} zones</h2>
+            <p class="text-[1rem] text-[var(--text-2)] leading-relaxed mt-4 max-w-[48ch]">
+              This is the prescription from the demonstration field, drawn from the flight record
+              rather than an illustration. Orange is ground the boom opens over. Everything else
+              stays dry.
+            </p>
+            <dl class="grid grid-cols-2 gap-x-8 gap-y-5 mt-7 m-0">
+              <div>
+                <dt class="text-[0.8rem] text-[var(--text-3)]">Treated</dt>
+                <dd class="telemetry text-[1.5rem] font-bold text-[var(--accent)] m-0">{{ report.treatedHectares }} ha</dd>
+              </div>
+              <div>
+                <dt class="text-[0.8rem] text-[var(--text-3)]">Field</dt>
+                <dd class="telemetry text-[1.5rem] font-bold m-0">{{ report.hectares }} ha</dd>
+              </div>
+              <div>
+                <dt class="text-[0.8rem] text-[var(--text-3)]">Resolution</dt>
+                <dd class="telemetry text-[1.5rem] font-bold m-0">{{ report.resolutionCm }} cm/px</dd>
+              </div>
+              <div>
+                <dt class="text-[0.8rem] text-[var(--text-3)]">Flight time</dt>
+                <dd class="telemetry text-[1.5rem] font-bold m-0">{{ report.durationMinutes }} min</dd>
+              </div>
+            </dl>
+            <a href="/field-report" class="btn btn-ghost mt-7">Read the full flight record</a>
+          </div>
+          <figure class="m-0 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-5">
+            {!! detailMap !!}
+            <figcaption class="text-[0.78rem] text-[var(--text-3)] mt-3">
+              {{ report.field }}, {{ report.crop }}. Modelled demonstration field.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+    @endif
+
+    <!-- How it runs: the steps, then the instruments and outputs side by side. -->
+    <section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
+      <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[20ch]">How the flight runs</h2>
+      <ol class="grid gap-px bg-[var(--line)] rounded-[10px] overflow-hidden mt-8 md:grid-cols-2 lg:grid-cols-4 list-none p-0">
+        @foreach (feature.steps as step)
+          <li class="bg-[var(--panel)] p-6">
+            <p class="telemetry text-[0.72rem] font-semibold text-[var(--accent)] uppercase tracking-[0.1em]">{{ step.title }}</p>
+            <p class="text-[0.92rem] text-[var(--text-2)] leading-relaxed mt-2.5">{{ step.text }}</p>
+          </li>
+        @endforeach
+      </ol>
+    </section>
+
+    <section class="border-y border-[var(--line)] bg-[var(--panel)] py-14 md:py-16">
+      <div class="max-w-[1240px] mx-auto px-5 grid gap-10 md:grid-cols-3">
+        <div>
+          <h2 class="text-[1.15rem]">What the aircraft carries</h2>
+          <ul class="mt-4 space-y-2.5 list-none p-0">
+            @foreach (feature.sensors as sensor)
+              <li class="text-[0.92rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">{{ sensor }}</li>
+            @endforeach
+          </ul>
+          <p class="telemetry text-[0.78rem] text-[var(--text-3)] mt-6">{{ feature.cadence }}</p>
+        </div>
+
+        <div>
+          <h2 class="text-[1.15rem]">What you receive</h2>
+          <ul class="mt-4 space-y-2.5 list-none p-0">
+            @foreach (feature.outputs as output)
+              <li class="text-[0.92rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--accent)]">{{ output }}</li>
+            @endforeach
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-[1.15rem]">What it measures</h2>
+          <p class="text-[0.85rem] text-[var(--text-3)] leading-relaxed mt-1.5">
+            Readings this capability produces on your fields. Measurements, not promises.
+          </p>
+          <ul class="mt-4 space-y-2.5 list-none p-0">
+            @foreach (feature.readings as reading)
+              <li class="text-[0.92rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">{{ reading }}</li>
+            @endforeach
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where it does the most work. -->
+    <section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[22ch]">Where this carries the most weight</h2>
+        <a href="/use-cases" class="btn btn-ghost">All use cases</a>
+      </div>
+      <ul class="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
+        @foreach (related as u)
+          <li>
+            <a href="/use-cases/{{ u.slug }}" class="block h-full rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+              <h3 class="text-[1.05rem]">{{ u.name }}</h3>
+              <p class="text-[0.88rem] text-[var(--text-2)] leading-relaxed mt-2">{{ u.summary }}</p>
+              <p class="telemetry text-[0.75rem] text-[var(--text-3)] mt-4">{{ u.scale }}</p>
+            </a>
+          </li>
+        @endforeach
+      </ul>
+    </section>
+
+    <section class="max-w-[1240px] mx-auto px-5 pb-20">
+      <div class="border-t border-[var(--line)] pt-8">
+        <p class="mega-col-title">More in {{ categoryLabel }}</p>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-3 list-none p-0">
+          @foreach (siblings as s)
+            <li><a href="/features/{{ s.slug }}" class="text-[0.95rem] text-[var(--text-2)] no-underline hover:text-[var(--accent)]">{{ s.name }}</a></li>
+          @endforeach
+        </ul>
+      </div>
+    </section>
+  </article>
+@else
+  <section class="max-w-[1240px] mx-auto px-5 py-24">
+    <h1 class="text-[2rem]">That capability does not exist</h1>
+    <p class="text-[1.05rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[52ch]">
+      The link may be out of date. All eighteen capabilities are listed on one page.
+    </p>
+    <a href="/features" class="btn btn-primary mt-6">See all capabilities</a>
+  </section>
+@endif
+
+@endsection

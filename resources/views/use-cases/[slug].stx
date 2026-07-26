@@ -1,0 +1,140 @@
+<script server>
+const nodePath = require('node:path')
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+
+const slug = String((typeof params === 'object' && params && params.slug) || '').replace(/[^a-z0-9-]/gi, '')
+const useCase = await catalog.findUseCase(slug)
+
+const title = useCase ? `${useCase.name} - Open Farming` : 'Use case not found - Open Farming'
+const description = useCase ? useCase.summary : 'That use case does not exist. Browse all sixteen instead.'
+const activeNav = 'use-cases'
+const pagePath = `/use-cases/${slug}`
+
+// Resolved in the order the use case lists them, most load bearing first, so
+// the page leads with the capability that matters most here.
+const allFeatures = useCase ? await catalog.allFeatures() : []
+const usedFeatures = useCase
+  ? useCase.features.map(s => allFeatures.find(f => f.slug === s)).filter(Boolean)
+  : []
+const segmentLabel = useCase ? catalog.useCaseSegments[useCase.segment].label : ''
+
+const siblings = useCase
+  ? (await catalog.allUseCases()).filter(u => u.segment === useCase.segment && u.slug !== useCase.slug)
+  : []
+
+const segmentPhotos = {
+  arable: { src: '/images/photos/field-aerial.jpg', alt: 'Aerial view of a cereal field divided by a track' },
+  permanent: { src: '/images/photos/vineyard-aerial.jpg', alt: 'Aerial view of vineyard rows following a slope' },
+  protected: { src: '/images/photos/farm-patchwork.jpg', alt: 'Aerial view of a patchwork of cultivated blocks' },
+  livestock: { src: '/images/photos/grassland-aerial.jpg', alt: 'Aerial view of a cut grass field' },
+  operator: { src: '/images/photos/drone-over-wheat.jpg', alt: 'A drone flying low over a wheat crop' },
+}
+const photo = useCase ? segmentPhotos[useCase.segment] : null
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+@if (useCase)
+  <article>
+    <section class="max-w-[1240px] mx-auto px-5 pt-12 md:pt-16 pb-10">
+      <a href="/use-cases" class="text-[0.85rem] text-[var(--text-2)] no-underline hover:text-[var(--text)]">Use cases</a>
+      <div class="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:items-center mt-4">
+        <div>
+          <span class="chip">{{ segmentLabel }}</span>
+          <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.5rem] lg:text-[2.9rem] mt-4">{{ useCase.name }}</h1>
+          <p class="text-[1.1rem] text-[var(--accent)] font-semibold mt-3">{{ useCase.tagline }}</p>
+          <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-4 max-w-[50ch]">{{ useCase.summary }}</p>
+          <p class="telemetry text-[0.82rem] text-[var(--text-3)] mt-5">{{ useCase.scale }}</p>
+          <a href="/contact" class="btn btn-primary mt-7">Book a field visit</a>
+        </div>
+        <img src="{{ photo.src }}" alt="{{ photo.alt }}" width="1200" height="800" class="w-full h-[17rem] object-cover rounded-[10px] border border-[var(--line)]">
+      </div>
+    </section>
+
+    <!-- The problem, then the setup. Two columns of prose, no cards. -->
+    <section class="border-y border-[var(--line)] bg-[var(--panel)] py-14 md:py-18">
+      <div class="max-w-[1240px] mx-auto px-5 grid gap-10 md:grid-cols-2 md:gap-14">
+        <div>
+          <h2 class="text-[1.5rem]">What actually goes wrong</h2>
+          <div class="prose mt-4"><p>{{ useCase.challenge }}</p></div>
+        </div>
+        <div>
+          <h2 class="text-[1.5rem]">How we set it up</h2>
+          <div class="prose mt-4"><p>{{ useCase.approach }}</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The season, as a vertical timeline rather than a row of cards. -->
+    <section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
+      <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[22ch]">The flight calendar across a season</h2>
+      <ol class="mt-8 list-none p-0 border-l-2 border-[var(--line)]">
+        @foreach (useCase.season as stage)
+          <li class="relative pl-7 pb-8 last:pb-0">
+            <span class="absolute left-[-0.4rem] top-[0.45rem] w-3 h-3 rounded-[6px] bg-[var(--accent)]"></span>
+            <p class="telemetry text-[0.78rem] font-semibold text-[var(--text)] uppercase tracking-[0.08em]">{{ stage.window }}</p>
+            <p class="text-[0.97rem] text-[var(--text-2)] leading-relaxed mt-1.5 max-w-[68ch]">{{ stage.focus }}</p>
+          </li>
+        @endforeach
+      </ol>
+    </section>
+
+    <!-- Capabilities in play, ordered by how much work they do here. -->
+    <section class="border-y border-[var(--line)] bg-[var(--bg-2)] py-16 md:py-20">
+      <div class="max-w-[1240px] mx-auto px-5">
+        <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[24ch]">Capabilities in play, in order of how much they carry</h2>
+        <ul class="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
+          @foreach (usedFeatures as f)
+            <li>
+              <a href="/features/{{ f.slug }}" class="block h-full rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+                <h3 class="text-[1.05rem]">{{ f.name }}</h3>
+                <p class="text-[0.84rem] text-[var(--accent)] font-semibold mt-1">{{ f.tagline }}</p>
+                <p class="text-[0.88rem] text-[var(--text-2)] leading-relaxed mt-2.5">{{ f.summary }}</p>
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      </div>
+    </section>
+
+    <!-- What comes out, as measurements. -->
+    <section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
+      <div class="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-14">
+        <div>
+          <h2 class="text-[1.7rem] md:text-[2.1rem]">What you end up with</h2>
+          <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[40ch]">
+            Recorded on your fields, flight by flight. Not a projection.
+          </p>
+        </div>
+        <ul class="grid gap-px bg-[var(--line)] rounded-[10px] overflow-hidden list-none p-0 m-0">
+          @foreach (useCase.outcomes as outcome)
+            <li class="bg-[var(--panel)] px-6 py-5 text-[0.97rem] text-[var(--text-2)] leading-relaxed">{{ outcome }}</li>
+          @endforeach
+        </ul>
+      </div>
+    </section>
+
+    <section class="max-w-[1240px] mx-auto px-5 pb-20">
+      <div class="border-t border-[var(--line)] pt-8">
+        <p class="mega-col-title">More in {{ segmentLabel }}</p>
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-3 list-none p-0">
+          @foreach (siblings as s)
+            <li><a href="/use-cases/{{ s.slug }}" class="text-[0.95rem] text-[var(--text-2)] no-underline hover:text-[var(--accent)]">{{ s.name }}</a></li>
+          @endforeach
+        </ul>
+      </div>
+    </section>
+  </article>
+@else
+  <section class="max-w-[1240px] mx-auto px-5 py-24">
+    <h1 class="text-[2rem]">That use case does not exist</h1>
+    <p class="text-[1.05rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[52ch]">
+      The link may be out of date. All sixteen operations are listed on one page.
+    </p>
+    <a href="/use-cases" class="btn btn-primary mt-6">See all use cases</a>
+  </section>
+@endif
+
+@endsection

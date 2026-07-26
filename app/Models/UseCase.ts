@@ -22,10 +22,11 @@ export default defineModel({
       sortable: ['sort_order', 'name'],
       filterable: ['segment'],
     },
-    useApi: {
-      uri: 'use-cases',
-      routes: ['index', 'show'],
-    },
+    // No `useApi`: the public catalog is served by hand-written actions in
+    // app/Actions/Catalog. The generated resource routes address records by
+    // numeric id, which would shadow the slug-addressed `/api/use-cases/{slug}`
+    // this content is actually published under, and the generated show
+    // response cannot resolve the cross-references the site needs.
   },
 
   attributes: {

@@ -1,0 +1,80 @@
+<script server>
+const nodePath = require('node:path')
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+
+const title = 'Use cases - Open Farming'
+const description = 'How the platform is set up for cereals, maize, beet, potatoes, vines, orchards, berries, hops, grassland, dairy, glasshouses, organic rotations, contractors, cooperatives and restoration.'
+const activeNav = 'use-cases'
+const pagePath = '/use-cases'
+
+const groups = await catalog.useCaseGroups()
+const total = groups.reduce((n, g) => n + g.items.length, 0)
+
+// One photograph per segment, chosen because it shows the ground being
+// described rather than to decorate the row.
+const segmentPhotos = {
+  arable: { src: '/images/photos/field-aerial.jpg', alt: 'Aerial view of a cereal field divided by a track' },
+  permanent: { src: '/images/photos/vineyard-aerial.jpg', alt: 'Aerial view of vineyard rows following a slope' },
+  protected: { src: '/images/photos/farm-patchwork.jpg', alt: 'Aerial view of a patchwork of cultivated blocks' },
+  livestock: { src: '/images/photos/grassland-aerial.jpg', alt: 'Aerial view of a cut grass field' },
+  operator: { src: '/images/photos/drone-over-wheat.jpg', alt: 'A drone flying low over a wheat crop' },
+}
+const groupsWithPhoto = groups.map(g => ({ ...g, photo: segmentPhotos[g.key] }))
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-12">
+  <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.6rem] lg:text-[3rem] max-w-[20ch]">
+    The same platform, set up {{ total }} different ways
+  </h1>
+  <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[62ch]">
+    A wheat field and a hop yard have almost nothing in common except that both are flown. Each
+    operation below has its own flight calendar, its own instruments and its own set of things
+    worth looking for.
+  </p>
+</section>
+
+@foreach (groupsWithPhoto as group)
+  <section class="border-t border-[var(--line)] py-14 md:py-16 reveal">
+    <div class="max-w-[1240px] mx-auto px-5">
+      <div class="grid gap-8 lg:grid-cols-[18rem_1fr] lg:gap-14">
+        <div class="lg:sticky lg:top-24 lg:self-start">
+          <img src="{{ group.photo.src }}" alt="{{ group.photo.alt }}" width="576" height="324" loading="lazy" class="w-full h-36 object-cover rounded-[10px] border border-[var(--line)]">
+          <h2 class="text-[1.6rem] mt-5">{{ group.label }}</h2>
+          <p class="text-[0.95rem] text-[var(--text-2)] leading-relaxed mt-2">{{ group.blurb }}</p>
+        </div>
+
+        <ul class="grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
+          @foreach (group.items as item)
+            <li>
+              <a href="/use-cases/{{ item.slug }}" class="block h-full rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+                <h3 class="text-[1.1rem]">{{ item.name }}</h3>
+                <p class="text-[0.85rem] text-[var(--accent)] font-semibold mt-1">{{ item.tagline }}</p>
+                <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-2.5">{{ item.summary }}</p>
+                <p class="telemetry text-[0.75rem] text-[var(--text-3)] mt-4">{{ item.scale }}</p>
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
+  </section>
+@endforeach
+
+<section class="max-w-[1240px] mx-auto px-5 py-16 reveal">
+  <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-8 md:p-11 flex flex-wrap items-center justify-between gap-6">
+    <div>
+      <h2 class="text-[1.6rem] md:text-[1.9rem] max-w-[24ch]">Your rotation is not on this list</h2>
+      <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-2 max-w-[52ch]">
+        Most of it still applies. Tell us the crop and the hectares and we will say plainly which
+        capabilities earn their keep and which do not.
+      </p>
+    </div>
+    <a href="/contact" class="btn btn-primary">Book a field visit</a>
+  </div>
+</section>
+
+@endsection

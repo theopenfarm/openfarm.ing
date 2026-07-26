@@ -1,0 +1,69 @@
+<script server>
+const nodePath = require('node:path')
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+
+const title = 'Capabilities - Open Farming'
+const description = 'Eighteen jobs a drone does better than a walk: weed mapping, disease surveillance, irrigation analysis, yield counts, wildlife searches and the service that flies them.'
+const activeNav = 'features'
+const pagePath = '/features'
+
+const groups = await catalog.featureGroups()
+const total = groups.reduce((n, g) => n + g.items.length, 0)
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-12">
+  <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.6rem] lg:text-[3rem] max-w-[20ch]">
+    Every capability is the same loop, pointed at a different problem
+  </h1>
+  <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[62ch]">
+    Fly a fixed route, find what is wrong, produce something a machine can act on. What changes
+    between the {{ total }} capabilities below is the sensor on the aircraft and what the model is
+    looking for.
+  </p>
+</section>
+
+@foreach (groups as group)
+  <section class="border-t border-[var(--line)] py-14 md:py-16 reveal">
+    <div class="max-w-[1240px] mx-auto px-5">
+      <div class="grid gap-8 lg:grid-cols-[16rem_1fr] lg:gap-14">
+        <div class="lg:sticky lg:top-24 lg:self-start">
+          <h2 class="text-[1.6rem]">{{ group.label }}</h2>
+          <p class="text-[0.95rem] text-[var(--text-2)] leading-relaxed mt-2">{{ group.blurb }}</p>
+          <p class="telemetry text-[0.78rem] text-[var(--text-3)] mt-4">{{ group.items.length }} capabilities</p>
+        </div>
+
+        <ul class="grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
+          @foreach (group.items as item)
+            <li>
+              <a href="/features/{{ item.slug }}" class="block h-full rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+                <h3 class="text-[1.1rem]">{{ item.name }}</h3>
+                <p class="text-[0.85rem] text-[var(--accent)] font-semibold mt-1">{{ item.tagline }}</p>
+                <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-2.5">{{ item.summary }}</p>
+                <p class="telemetry text-[0.75rem] text-[var(--text-3)] mt-4">{{ item.cadence }}</p>
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
+  </section>
+@endforeach
+
+<section class="max-w-[1240px] mx-auto px-5 py-16 reveal">
+  <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-8 md:p-11 flex flex-wrap items-center justify-between gap-6">
+    <div>
+      <h2 class="text-[1.6rem] md:text-[1.9rem] max-w-[22ch]">Not sure which of these your season needs</h2>
+      <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-2 max-w-[52ch]">
+        The flight calendar is built around your crop, not around a package. Start from your
+        operation instead.
+      </p>
+    </div>
+    <a href="/use-cases" class="btn btn-primary">Browse by operation</a>
+  </div>
+</section>
+
+@endsection
