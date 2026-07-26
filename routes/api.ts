@@ -70,3 +70,14 @@ route.post('/demo-requests', 'Actions/Leads/DemoRequestAction').skipCsrf()
 route.post('/auth/sign-in', 'Actions/Auth/SignInAction').skipCsrf()
 route.post('/auth/sign-up', 'Actions/Auth/SignUpAction').skipCsrf()
 route.post('/auth/sign-out', 'Actions/Auth/SignOutAction').skipCsrf()
+
+/**
+ * Google and Apple sign-in.
+ *
+ * GET on both halves because that is what an OAuth redirect is. The CSRF
+ * defence here is the `state` cookie the redirect sets and the callback
+ * checks, not a form token: the provider posts the farmer back from another
+ * origin, where a token from this site could not travel.
+ */
+route.get('/auth/{provider}/redirect', 'Actions/Auth/SocialRedirectAction').skipCsrf()
+route.get('/auth/{provider}/callback', 'Actions/Auth/SocialCallbackAction').skipCsrf()
