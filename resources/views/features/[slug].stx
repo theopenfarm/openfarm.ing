@@ -39,59 +39,59 @@ const siblings = feature
 @if (feature)
   <article>
     <!-- Header: category, name, the line, and the problem it addresses. -->
-    <section class="max-w-[1240px] mx-auto px-5 pt-12 md:pt-16 pb-10">
-      <a href="/features" class="text-[0.85rem] text-[var(--text-2)] no-underline hover:text-[var(--text)]">Capabilities</a>
-      <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:items-start mt-4">
+    <section class="mx-auto pb-10 pt-12 px-5 md:pt-16 max-w-[1240px]">
+      <a href="/features" class="no-underline text-[0.85rem] text-[var(--text-2)] hover:text-[var(--text)]">Capabilities</a>
+      <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-start mt-4">
         <div>
           <span class="chip">{{ categoryLabel }}</span>
-          <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.5rem] lg:text-[2.9rem] mt-4">{{ feature.name }}</h1>
-          <p class="text-[1.1rem] text-[var(--accent)] font-semibold mt-3">{{ feature.tagline }}</p>
-          <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-4 max-w-[52ch]">{{ feature.summary }}</p>
+          <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem] lg:text-[2.9rem]">{{ feature.name }}</h1>
+          <p class="mt-3 font-semibold text-[1.1rem] text-[var(--accent)]">{{ feature.tagline }}</p>
+          <p class="mt-4 max-w-[52ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">{{ feature.summary }}</p>
           <div class="flex flex-wrap gap-3 mt-7">
             <a href="/contact" class="btn btn-primary">Book a field visit</a>
           </div>
         </div>
 
-        <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6">
+        <div class="p-6 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
           <h2 class="text-[1.05rem]">What this costs today</h2>
-          <p class="text-[0.95rem] text-[var(--text-2)] leading-relaxed mt-3">{{ feature.problem }}</p>
+          <p class="mt-3 leading-relaxed text-[0.95rem] text-[var(--text-2)]">{{ feature.problem }}</p>
         </div>
       </div>
     </section>
 
     @if (report)
-      <section class="border-y border-[var(--line)] bg-[var(--bg-2)] py-14 reveal">
-        <div class="max-w-[1240px] mx-auto px-5 grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+      <section class="py-14 bg-[var(--bg-2)] border-[var(--line)] border-y reveal">
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center mx-auto px-5 max-w-[1240px]">
           <div>
-            <h2 class="text-[1.7rem] md:text-[2rem] max-w-[20ch]">One flight, {{ report.detections.length }} weeds, {{ report.zones.length }} zones</h2>
-            <p class="text-[1rem] text-[var(--text-2)] leading-relaxed mt-4 max-w-[48ch]">
+            <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2rem]">One flight, {{ report.detections.length }} weeds, {{ report.zones.length }} zones</h2>
+            <p class="mt-4 max-w-[48ch] leading-relaxed text-[1rem] text-[var(--text-2)]">
               This is the prescription from the demonstration field, drawn from the flight record
               rather than an illustration. Orange is ground the boom opens over. Everything else
               stays dry.
             </p>
-            <dl class="grid grid-cols-2 gap-x-8 gap-y-5 mt-7 m-0">
+            <dl class="grid gap-x-8 gap-y-5 grid-cols-2 m-0 mt-7">
               <div>
                 <dt class="text-[0.8rem] text-[var(--text-3)]">Treated</dt>
-                <dd class="telemetry text-[1.5rem] font-bold text-[var(--accent)] m-0">{{ report.treatedHectares }} ha</dd>
+                <dd class="m-0 font-bold text-[1.5rem] text-[var(--accent)] telemetry">{{ report.treatedHectares }} ha</dd>
               </div>
               <div>
                 <dt class="text-[0.8rem] text-[var(--text-3)]">Field</dt>
-                <dd class="telemetry text-[1.5rem] font-bold m-0">{{ report.hectares }} ha</dd>
+                <dd class="m-0 font-bold text-[1.5rem] telemetry">{{ report.hectares }} ha</dd>
               </div>
               <div>
                 <dt class="text-[0.8rem] text-[var(--text-3)]">Resolution</dt>
-                <dd class="telemetry text-[1.5rem] font-bold m-0">{{ report.resolutionCm }} cm/px</dd>
+                <dd class="m-0 font-bold text-[1.5rem] telemetry">{{ report.resolutionCm }} cm/px</dd>
               </div>
               <div>
                 <dt class="text-[0.8rem] text-[var(--text-3)]">Flight time</dt>
-                <dd class="telemetry text-[1.5rem] font-bold m-0">{{ report.durationMinutes }} min</dd>
+                <dd class="m-0 font-bold text-[1.5rem] telemetry">{{ report.durationMinutes }} min</dd>
               </div>
             </dl>
-            <a href="/field-report" class="btn btn-ghost mt-7">Read the full flight record</a>
+            <a href="/field-report" class="mt-7 btn btn-ghost">Read the full flight record</a>
           </div>
-          <figure class="m-0 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-5">
+          <figure class="m-0 p-5 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
             {!! detailMap !!}
-            <figcaption class="text-[0.78rem] text-[var(--text-3)] mt-3">
+            <figcaption class="mt-3 text-[0.78rem] text-[var(--text-3)]">
               {{ report.field }}, {{ report.crop }}. Modelled demonstration field.
             </figcaption>
           </figure>
@@ -100,47 +100,47 @@ const siblings = feature
     @endif
 
     <!-- How it runs: the steps, then the instruments and outputs side by side. -->
-    <section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
-      <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[20ch]">How the flight runs</h2>
-      <ol class="grid gap-px bg-[var(--line)] rounded-[10px] overflow-hidden mt-8 md:grid-cols-2 lg:grid-cols-4 list-none p-0">
+    <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
+      <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2.1rem]">How the flight runs</h2>
+      <ol class="grid overflow-hidden gap-px md:grid-cols-2 lg:grid-cols-4 mt-8 p-0 list-none bg-[var(--line)] rounded-[10px]">
         @foreach (feature.steps as step)
-          <li class="bg-[var(--panel)] p-6">
-            <p class="telemetry text-[0.72rem] font-semibold text-[var(--accent)] uppercase tracking-[0.1em]">{{ step.title }}</p>
-            <p class="text-[0.92rem] text-[var(--text-2)] leading-relaxed mt-2.5">{{ step.text }}</p>
+          <li class="p-6 bg-[var(--panel)]">
+            <p class="font-semibold text-[0.72rem] text-[var(--accent)] tracking-[0.1em] uppercase telemetry">{{ step.title }}</p>
+            <p class="mt-2.5 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{{ step.text }}</p>
           </li>
         @endforeach
       </ol>
     </section>
 
-    <section class="border-y border-[var(--line)] bg-[var(--panel)] py-14 md:py-16">
-      <div class="max-w-[1240px] mx-auto px-5 grid gap-10 md:grid-cols-3">
+    <section class="py-14 md:py-16 bg-[var(--panel)] border-[var(--line)] border-y">
+      <div class="grid gap-10 md:grid-cols-3 mx-auto px-5 max-w-[1240px]">
         <div>
           <h2 class="text-[1.15rem]">What the aircraft carries</h2>
-          <ul class="mt-4 space-y-2.5 list-none p-0">
+          <ul class="mt-4 p-0 space-y-2.5 list-none">
             @foreach (feature.sensors as sensor)
-              <li class="text-[0.92rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">{{ sensor }}</li>
+              <li class="pl-4 leading-relaxed text-[0.92rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{{ sensor }}</li>
             @endforeach
           </ul>
-          <p class="telemetry text-[0.78rem] text-[var(--text-3)] mt-6">{{ feature.cadence }}</p>
+          <p class="mt-6 text-[0.78rem] text-[var(--text-3)] telemetry">{{ feature.cadence }}</p>
         </div>
 
         <div>
           <h2 class="text-[1.15rem]">What you receive</h2>
-          <ul class="mt-4 space-y-2.5 list-none p-0">
+          <ul class="mt-4 p-0 space-y-2.5 list-none">
             @foreach (feature.outputs as output)
-              <li class="text-[0.92rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--accent)]">{{ output }}</li>
+              <li class="pl-4 leading-relaxed text-[0.92rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">{{ output }}</li>
             @endforeach
           </ul>
         </div>
 
         <div>
           <h2 class="text-[1.15rem]">What it measures</h2>
-          <p class="text-[0.85rem] text-[var(--text-3)] leading-relaxed mt-1.5">
+          <p class="mt-1.5 leading-relaxed text-[0.85rem] text-[var(--text-3)]">
             Readings this capability produces on your fields. Measurements, not promises.
           </p>
-          <ul class="mt-4 space-y-2.5 list-none p-0">
+          <ul class="mt-4 p-0 space-y-2.5 list-none">
             @foreach (feature.readings as reading)
-              <li class="text-[0.92rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">{{ reading }}</li>
+              <li class="pl-4 leading-relaxed text-[0.92rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{{ reading }}</li>
             @endforeach
           </ul>
         </div>
@@ -148,42 +148,42 @@ const siblings = feature
     </section>
 
     <!-- Where it does the most work. -->
-    <section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[22ch]">Where this carries the most weight</h2>
+    <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
+      <div class="flex flex-wrap gap-4 items-end justify-between">
+        <h2 class="max-w-[22ch] text-[1.7rem] md:text-[2.1rem]">Where this carries the most weight</h2>
         <a href="/use-cases" class="btn btn-ghost">All use cases</a>
       </div>
-      <ul class="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-8 p-0 list-none">
         @foreach (related as u)
           <li>
-            <a href="/use-cases/{{ u.slug }}" class="block h-full rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+            <a href="/use-cases/{{ u.slug }}" class="block p-6 h-full no-underline bg-[var(--panel)] border border-[var(--line)] rounded-[10px] hover:border-[var(--accent)] transition-colors">
               <h3 class="text-[1.05rem]">{{ u.name }}</h3>
-              <p class="text-[0.88rem] text-[var(--text-2)] leading-relaxed mt-2">{{ u.summary }}</p>
-              <p class="telemetry text-[0.75rem] text-[var(--text-3)] mt-4">{{ u.scale }}</p>
+              <p class="mt-2 leading-relaxed text-[0.88rem] text-[var(--text-2)]">{{ u.summary }}</p>
+              <p class="mt-4 text-[0.75rem] text-[var(--text-3)] telemetry">{{ u.scale }}</p>
             </a>
           </li>
         @endforeach
       </ul>
     </section>
 
-    <section class="max-w-[1240px] mx-auto px-5 pb-20">
-      <div class="border-t border-[var(--line)] pt-8">
+    <section class="mx-auto pb-20 px-5 max-w-[1240px]">
+      <div class="pt-8 border-[var(--line)] border-t">
         <p class="mega-col-title">More in {{ categoryLabel }}</p>
-        <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-3 list-none p-0">
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-3 p-0 list-none">
           @foreach (siblings as s)
-            <li><a href="/features/{{ s.slug }}" class="text-[0.95rem] text-[var(--text-2)] no-underline hover:text-[var(--accent)]">{{ s.name }}</a></li>
+            <li><a href="/features/{{ s.slug }}" class="no-underline text-[0.95rem] text-[var(--text-2)] hover:text-[var(--accent)]">{{ s.name }}</a></li>
           @endforeach
         </ul>
       </div>
     </section>
   </article>
 @else
-  <section class="max-w-[1240px] mx-auto px-5 py-24">
+  <section class="mx-auto px-5 py-24 max-w-[1240px]">
     <h1 class="text-[2rem]">That capability does not exist</h1>
-    <p class="text-[1.05rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[52ch]">
+    <p class="mt-3 max-w-[52ch] leading-relaxed text-[1.05rem] text-[var(--text-2)]">
       The link may be out of date. All eighteen capabilities are listed on one page.
     </p>
-    <a href="/features" class="btn btn-primary mt-6">See all capabilities</a>
+    <a href="/features" class="mt-6 btn btn-primary">See all capabilities</a>
   </section>
 @endif
 

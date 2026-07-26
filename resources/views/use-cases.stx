@@ -26,11 +26,11 @@ const groupsWithPhoto = groups.map(g => ({ ...g, photo: segmentPhotos[g.key] }))
 
 @section('content')
 
-<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-12">
-  <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.6rem] lg:text-[3rem] max-w-[20ch]">
+<section class="mx-auto pb-12 pt-14 px-5 md:pt-20 max-w-[1240px]">
+  <h1 class="max-w-[20ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
     The same platform, set up {{ total }} different ways
   </h1>
-  <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[62ch]">
+  <p class="mt-5 max-w-[62ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
     A wheat field and a hop yard have almost nothing in common except that both are flown. Each
     operation below has its own flight calendar, its own instruments and its own set of things
     worth looking for.
@@ -38,23 +38,23 @@ const groupsWithPhoto = groups.map(g => ({ ...g, photo: segmentPhotos[g.key] }))
 </section>
 
 @foreach (groupsWithPhoto as group)
-  <section class="border-t border-[var(--line)] py-14 md:py-16 reveal">
-    <div class="max-w-[1240px] mx-auto px-5">
-      <div class="grid gap-8 lg:grid-cols-[18rem_1fr] lg:gap-14">
+  <section class="py-14 md:py-16 border-[var(--line)] border-t reveal">
+    <div class="mx-auto px-5 max-w-[1240px]">
+      <div class="grid gap-8 lg:gap-14 lg:grid-cols-[18rem_1fr]">
         <div class="lg:sticky lg:top-24 lg:self-start">
-          <img src="{{ group.photo.src }}" alt="{{ group.photo.alt }}" width="576" height="324" loading="lazy" class="w-full h-36 object-cover rounded-[10px] border border-[var(--line)]">
-          <h2 class="text-[1.6rem] mt-5">{{ group.label }}</h2>
-          <p class="text-[0.95rem] text-[var(--text-2)] leading-relaxed mt-2">{{ group.blurb }}</p>
+          <img src="{{ group.photo.src }}" alt="{{ group.photo.alt }}" width="576" height="324" loading="lazy" class="object-cover h-36 w-full border border-[var(--line)] rounded-[10px]">
+          <h2 class="mt-5 text-[1.6rem]">{{ group.label }}</h2>
+          <p class="mt-2 leading-relaxed text-[0.95rem] text-[var(--text-2)]">{{ group.blurb }}</p>
         </div>
 
-        <ul class="grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
+        <ul class="grid gap-4 sm:grid-cols-2 m-0 p-0 list-none">
           @foreach (group.items as item)
             <li>
-              <a href="/use-cases/{{ item.slug }}" class="block h-full rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+              <a href="/use-cases/{{ item.slug }}" class="block p-6 h-full no-underline bg-[var(--panel)] border border-[var(--line)] rounded-[10px] hover:border-[var(--accent)] transition-colors">
                 <h3 class="text-[1.1rem]">{{ item.name }}</h3>
-                <p class="text-[0.85rem] text-[var(--accent)] font-semibold mt-1">{{ item.tagline }}</p>
-                <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-2.5">{{ item.summary }}</p>
-                <p class="telemetry text-[0.75rem] text-[var(--text-3)] mt-4">{{ item.scale }}</p>
+                <p class="mt-1 font-semibold text-[0.85rem] text-[var(--accent)]">{{ item.tagline }}</p>
+                <p class="mt-2.5 leading-relaxed text-[0.9rem] text-[var(--text-2)]">{{ item.summary }}</p>
+                <p class="mt-4 text-[0.75rem] text-[var(--text-3)] telemetry">{{ item.scale }}</p>
               </a>
             </li>
           @endforeach
@@ -64,11 +64,11 @@ const groupsWithPhoto = groups.map(g => ({ ...g, photo: segmentPhotos[g.key] }))
   </section>
 @endforeach
 
-<section class="max-w-[1240px] mx-auto px-5 py-16 reveal">
-  <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-8 md:p-11 flex flex-wrap items-center justify-between gap-6">
+<section class="mx-auto px-5 py-16 max-w-[1240px] reveal">
+  <div class="flex flex-wrap gap-6 items-center justify-between p-8 md:p-11 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
     <div>
-      <h2 class="text-[1.6rem] md:text-[1.9rem] max-w-[24ch]">Your rotation is not on this list</h2>
-      <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-2 max-w-[52ch]">
+      <h2 class="max-w-[24ch] text-[1.6rem] md:text-[1.9rem]">Your rotation is not on this list</h2>
+      <p class="mt-2 max-w-[52ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         Most of it still applies. Tell us the crop and the hectares and we will say plainly which
         capabilities earn their keep and which do not.
       </p>

@@ -15,11 +15,11 @@ const total = groups.reduce((n, g) => n + g.items.length, 0)
 
 @section('content')
 
-<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-12">
-  <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.6rem] lg:text-[3rem] max-w-[20ch]">
+<section class="mx-auto pb-12 pt-14 px-5 md:pt-20 max-w-[1240px]">
+  <h1 class="max-w-[20ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
     Every capability is the same loop, pointed at a different problem
   </h1>
-  <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[62ch]">
+  <p class="mt-5 max-w-[62ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
     Fly a fixed route, find what is wrong, produce something a machine can act on. What changes
     between the {{ total }} capabilities below is the sensor on the aircraft and what the model is
     looking for.
@@ -27,23 +27,23 @@ const total = groups.reduce((n, g) => n + g.items.length, 0)
 </section>
 
 @foreach (groups as group)
-  <section class="border-t border-[var(--line)] py-14 md:py-16 reveal">
-    <div class="max-w-[1240px] mx-auto px-5">
-      <div class="grid gap-8 lg:grid-cols-[16rem_1fr] lg:gap-14">
+  <section class="py-14 md:py-16 border-[var(--line)] border-t reveal">
+    <div class="mx-auto px-5 max-w-[1240px]">
+      <div class="grid gap-8 lg:gap-14 lg:grid-cols-[16rem_1fr]">
         <div class="lg:sticky lg:top-24 lg:self-start">
           <h2 class="text-[1.6rem]">{{ group.label }}</h2>
-          <p class="text-[0.95rem] text-[var(--text-2)] leading-relaxed mt-2">{{ group.blurb }}</p>
-          <p class="telemetry text-[0.78rem] text-[var(--text-3)] mt-4">{{ group.items.length }} capabilities</p>
+          <p class="mt-2 leading-relaxed text-[0.95rem] text-[var(--text-2)]">{{ group.blurb }}</p>
+          <p class="mt-4 text-[0.78rem] text-[var(--text-3)] telemetry">{{ group.items.length }} capabilities</p>
         </div>
 
-        <ul class="grid gap-4 sm:grid-cols-2 list-none p-0 m-0">
+        <ul class="grid gap-4 sm:grid-cols-2 m-0 p-0 list-none">
           @foreach (group.items as item)
             <li>
-              <a href="/features/{{ item.slug }}" class="block h-full rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+              <a href="/features/{{ item.slug }}" class="block p-6 h-full no-underline bg-[var(--panel)] border border-[var(--line)] rounded-[10px] hover:border-[var(--accent)] transition-colors">
                 <h3 class="text-[1.1rem]">{{ item.name }}</h3>
-                <p class="text-[0.85rem] text-[var(--accent)] font-semibold mt-1">{{ item.tagline }}</p>
-                <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-2.5">{{ item.summary }}</p>
-                <p class="telemetry text-[0.75rem] text-[var(--text-3)] mt-4">{{ item.cadence }}</p>
+                <p class="mt-1 font-semibold text-[0.85rem] text-[var(--accent)]">{{ item.tagline }}</p>
+                <p class="mt-2.5 leading-relaxed text-[0.9rem] text-[var(--text-2)]">{{ item.summary }}</p>
+                <p class="mt-4 text-[0.75rem] text-[var(--text-3)] telemetry">{{ item.cadence }}</p>
               </a>
             </li>
           @endforeach
@@ -53,11 +53,11 @@ const total = groups.reduce((n, g) => n + g.items.length, 0)
   </section>
 @endforeach
 
-<section class="max-w-[1240px] mx-auto px-5 py-16 reveal">
-  <div class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-8 md:p-11 flex flex-wrap items-center justify-between gap-6">
+<section class="mx-auto px-5 py-16 max-w-[1240px] reveal">
+  <div class="flex flex-wrap gap-6 items-center justify-between p-8 md:p-11 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
     <div>
-      <h2 class="text-[1.6rem] md:text-[1.9rem] max-w-[22ch]">Not sure which of these your season needs</h2>
-      <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-2 max-w-[52ch]">
+      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">Not sure which of these your season needs</h2>
+      <p class="mt-2 max-w-[52ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         The flight calendar is built around your crop, not around a package. Start from your
         operation instead.
       </p>

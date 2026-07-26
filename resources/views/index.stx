@@ -29,21 +29,21 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 @section('content')
 
 <!-- Hero: asymmetric split. The headline argues, the map proves. -->
-<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-16 md:pb-24">
+<section class="mx-auto pb-16 pt-14 px-5 md:pb-24 md:pt-20 max-w-[1240px]">
   <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1.05fr_1fr] lg:items-center">
     <div>
       <!-- The break is forced from `sm` up so the two sentences sit on two
-           lines. Below that the column is too narrow for either sentence to
-           fit anyway, so it wraps naturally instead of breaking twice. -->
-      <h1 class="enter text-[1.95rem] leading-[1.08] sm:text-[2.5rem] lg:text-[2.9rem]" style="--i:0">
+          lines. Below that the column is too narrow for either sentence to
+          fit anyway, so it wraps naturally instead of breaking twice. -->
+      <h1 class="leading-[1.08] text-[1.95rem] sm:text-[2.5rem] lg:text-[2.9rem] enter" style="--i:0">
         Most of your field is fine.<br class="hidden sm:inline">
         Stop treating it like it isn't.
       </h1>
-      <p class="enter text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[46ch]" style="--i:1">
+      <p class="mt-5 max-w-[46ch] leading-relaxed text-[1.075rem] text-[var(--text-2)] enter" style="--i:1">
         Drones scan the crop, the models mark what is actually wrong, and the machine treats only
         the ground that needs it.
       </p>
-      <div class="enter flex flex-wrap gap-3 mt-8" style="--i:2">
+      <div class="flex flex-wrap gap-3 mt-8 enter" style="--i:2">
         <a href="/contact" class="btn btn-primary">Book a field visit</a>
         <a href="/field-report" class="btn btn-ghost">Read a field report</a>
       </div>
@@ -51,8 +51,8 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 
     <div class="enter" style="--i:3">
       @if (report)
-        <figure class="rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-4 sm:p-5 shadow-[var(--shadow)] m-0">
-          <div class="flex items-baseline justify-between gap-4 mb-3">
+        <figure class="m-0 p-4 sm:p-5 bg-[var(--panel)] border border-[var(--line)] rounded-[10px] shadow-[var(--shadow)]">
+          <div class="flex gap-4 items-baseline justify-between mb-3">
             <figcaption class="text-[0.82rem] text-[var(--text-2)]">
               <span class="font-semibold text-[var(--text)]">{{ report.field }}</span>, {{ report.crop }}, {{ report.hectares }} ha
             </figcaption>
@@ -60,9 +60,9 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
           </div>
           {!! heroMap !!}
           <div class="flex flex-wrap gap-x-5 gap-y-2 mt-3.5 text-[0.78rem] text-[var(--text-2)]">
-            <span class="flex items-center gap-1.5"><span class="legend-swatch" style="background:var(--accent)"></span>Treated: {{ report.treatedHectares }} ha</span>
-            <span class="flex items-center gap-1.5"><span class="legend-swatch" style="background:var(--crop-soft);border:1px solid var(--crop)"></span>Left alone: {{ untreatedHectares }} ha</span>
-            <span class="telemetry ml-auto">{{ report.detections.length }} detections</span>
+            <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--accent)"></span>Treated: {{ report.treatedHectares }} ha</span>
+            <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--crop-soft);border:1px solid var(--crop)"></span>Left alone: {{ untreatedHectares }} ha</span>
+            <span class="ml-auto telemetry">{{ report.detections.length }} detections</span>
           </div>
         </figure>
       @endif
@@ -72,57 +72,57 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 
 <!-- What that one flight measured. Hairline-separated readings, no cards. -->
 @if (report)
-<section class="border-y border-[var(--line)] bg-[var(--panel)]">
-  <div class="max-w-[1240px] mx-auto px-5 py-9 grid gap-y-7 gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+<section class="bg-[var(--panel)] border-[var(--line)] border-y">
+  <div class="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4 mx-auto px-5 py-9 max-w-[1240px]">
     <div>
-      <p class="telemetry text-[2rem] font-bold leading-none text-[var(--accent)]">{{ report.treatedPercent }}%</p>
-      <p class="text-[0.85rem] text-[var(--text-2)] mt-1.5 max-w-[26ch]">of the field flagged for treatment. The other {{ untreatedPercent }}% was left alone.</p>
+      <p class="font-bold leading-none text-[2rem] text-[var(--accent)] telemetry">{{ report.treatedPercent }}%</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">of the field flagged for treatment. The other {{ untreatedPercent }}% was left alone.</p>
     </div>
     <div>
-      <p class="telemetry text-[2rem] font-bold leading-none">{{ report.detections.length }}</p>
-      <p class="text-[0.85rem] text-[var(--text-2)] mt-1.5 max-w-[26ch]">weeds located to the square metre, each with a species and a confidence score.</p>
+      <p class="font-bold leading-none text-[2rem] telemetry">{{ report.detections.length }}</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">weeds located to the square metre, each with a species and a confidence score.</p>
     </div>
     <div>
-      <p class="telemetry text-[2rem] font-bold leading-none">{{ report.durationMinutes }} min</p>
-      <p class="text-[0.85rem] text-[var(--text-2)] mt-1.5 max-w-[26ch]">to fly {{ report.hectares }} hectares at {{ report.resolutionCm }} cm per pixel.</p>
+      <p class="font-bold leading-none text-[2rem] telemetry">{{ report.durationMinutes }} min</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">to fly {{ report.hectares }} hectares at {{ report.resolutionCm }} cm per pixel.</p>
     </div>
     <div>
-      <p class="telemetry text-[2rem] font-bold leading-none">{{ report.zones.length }}</p>
-      <p class="text-[0.85rem] text-[var(--text-2)] mt-1.5 max-w-[26ch]">treatment zones, exported in the format your terminal already reads.</p>
+      <p class="font-bold leading-none text-[2rem] telemetry">{{ report.zones.length }}</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">treatment zones, exported in the format your terminal already reads.</p>
     </div>
   </div>
 </section>
 @endif
 
 <!-- The thesis: three moves, hairline separated. -->
-<section class="max-w-[1240px] mx-auto px-5 py-20 md:py-28 reveal">
-  <h2 class="text-[1.9rem] md:text-[2.4rem] max-w-[18ch]">Scan the block. Mark the problem. Treat the marks.</h2>
-  <p class="text-[1.02rem] text-[var(--text-2)] mt-4 max-w-[58ch]">
+<section class="mx-auto px-5 py-20 md:py-28 max-w-[1240px] reveal">
+  <h2 class="max-w-[18ch] text-[1.9rem] md:text-[2.4rem]">Scan the block. Mark the problem. Treat the marks.</h2>
+  <p class="mt-4 max-w-[58ch] text-[1.02rem] text-[var(--text-2)]">
     Every capability here is a version of the same loop. What changes is the sensor on the aircraft
     and what the model is looking for.
   </p>
 
-  <ol class="grid gap-px bg-[var(--line)] rounded-[10px] overflow-hidden mt-10 md:grid-cols-3 list-none p-0">
-    <li class="bg-[var(--panel)] p-7">
-      <p class="telemetry text-[0.75rem] text-[var(--accent)] font-semibold">Scan</p>
-      <h3 class="text-[1.15rem] mt-2">The aircraft flies a fixed grid</h3>
-      <p class="text-[0.92rem] text-[var(--text-2)] leading-relaxed mt-2">
+  <ol class="grid overflow-hidden gap-px md:grid-cols-3 mt-10 p-0 list-none bg-[var(--line)] rounded-[10px]">
+    <li class="p-7 bg-[var(--panel)]">
+      <p class="font-semibold text-[0.75rem] text-[var(--accent)] telemetry">Scan</p>
+      <h3 class="mt-2 text-[1.15rem]">The aircraft flies a fixed grid</h3>
+      <p class="mt-2 leading-relaxed text-[0.92rem] text-[var(--text-2)]">
         Same route, same altitude, every flight, so today's imagery is comparable with the last one
         rather than a fresh opinion.
       </p>
     </li>
-    <li class="bg-[var(--panel)] p-7">
-      <p class="telemetry text-[0.75rem] text-[var(--accent)] font-semibold">Mark</p>
-      <h3 class="text-[1.15rem] mt-2">Models locate what is wrong</h3>
-      <p class="text-[0.92rem] text-[var(--text-2)] leading-relaxed mt-2">
+    <li class="p-7 bg-[var(--panel)]">
+      <p class="font-semibold text-[0.75rem] text-[var(--accent)] telemetry">Mark</p>
+      <h3 class="mt-2 text-[1.15rem]">Models locate what is wrong</h3>
+      <p class="mt-2 leading-relaxed text-[0.92rem] text-[var(--text-2)]">
         Weeds by species, disease by divergence from the field's own history, dry ground by canopy
         temperature. Each finding gets a coordinate and a confidence score.
       </p>
     </li>
-    <li class="bg-[var(--panel)] p-7">
-      <p class="telemetry text-[0.75rem] text-[var(--accent)] font-semibold">Treat</p>
-      <h3 class="text-[1.15rem] mt-2">The machine follows the map</h3>
-      <p class="text-[0.92rem] text-[var(--text-2)] leading-relaxed mt-2">
+    <li class="p-7 bg-[var(--panel)]">
+      <p class="font-semibold text-[0.75rem] text-[var(--accent)] telemetry">Treat</p>
+      <h3 class="mt-2 text-[1.15rem]">The machine follows the map</h3>
+      <p class="mt-2 leading-relaxed text-[0.92rem] text-[var(--text-2)]">
         Findings become zones and zones become a prescription your sprayer, spreader or hoe loads
         directly. Nothing outside a zone is touched.
       </p>
@@ -131,59 +131,59 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 </section>
 
 <!-- Capability bento: mixed tile sizes, three treatments (map, photo, tint). -->
-<section class="max-w-[1240px] mx-auto px-5 pb-20 md:pb-28 reveal">
-  <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
-    <h2 class="text-[1.9rem] md:text-[2.4rem] max-w-[20ch]">Eighteen jobs a drone does better than a walk</h2>
+<section class="mx-auto pb-20 px-5 md:pb-28 max-w-[1240px] reveal">
+  <div class="flex flex-wrap gap-4 items-end justify-between mb-8">
+    <h2 class="max-w-[20ch] text-[1.9rem] md:text-[2.4rem]">Eighteen jobs a drone does better than a walk</h2>
     <a href="/features" class="btn btn-ghost">All capabilities</a>
   </div>
 
   <div class="grid gap-4 md:grid-cols-3">
     @if (report)
-      <article class="md:col-span-2 md:row-span-2 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] overflow-hidden flex flex-col">
+      <article class="flex overflow-hidden flex-col md:col-span-2 md:row-span-2 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
         <div class="p-6 pb-0">
           <span class="chip">Act</span>
-          <h3 class="text-[1.35rem] mt-3">Targeted weed control</h3>
-          <p class="text-[0.95rem] text-[var(--text-2)] leading-relaxed mt-2 max-w-[52ch]">
+          <h3 class="mt-3 text-[1.35rem]">Targeted weed control</h3>
+          <p class="mt-2 max-w-[52ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">
             Cameras find weeds plant by plant. The prescription switches the boom on over
             {{ report.treatedHectares }} hectares instead of all {{ report.hectares }}.
           </p>
         </div>
-        <div class="p-6 pt-5 mt-auto">
+        <div class="mt-auto p-6 pt-5">
           {!! zonesOnlyMap !!}
-          <a href="/features/targeted-weed-control" class="btn btn-ghost mt-5">How the map is built</a>
+          <a href="/features/targeted-weed-control" class="mt-5 btn btn-ghost">How the map is built</a>
         </div>
       </article>
     @endif
 
-    <article class="rounded-[10px] border border-[var(--line)] overflow-hidden bg-[var(--panel)]">
-      <img src="/images/photos/drone-over-wheat.jpg" alt="A drone flying low over a wheat crop" width="800" height="533" loading="lazy" class="w-full h-40 object-cover">
+    <article class="overflow-hidden bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
+      <img src="/images/photos/drone-over-wheat.jpg" alt="A drone flying low over a wheat crop" width="800" height="533" loading="lazy" class="object-cover h-40 w-full">
       <div class="p-6">
         <span class="chip">Detect</span>
-        <h3 class="text-[1.1rem] mt-3">Early disease detection</h3>
-        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-2">
+        <h3 class="mt-3 text-[1.1rem]">Early disease detection</h3>
+        <p class="mt-2 leading-relaxed text-[0.9rem] text-[var(--text-2)]">
           Multispectral imaging reads chlorophyll loss days before a symptom is visible from the cab.
         </p>
-        <a href="/features/plant-disease-detection" class="text-[0.875rem] font-semibold text-[var(--accent)] no-underline inline-block mt-3">See the flight cadence</a>
+        <a href="/features/plant-disease-detection" class="inline-block mt-3 font-semibold no-underline text-[0.875rem] text-[var(--accent)]">See the flight cadence</a>
       </div>
     </article>
 
-    <article class="rounded-[10px] border border-[var(--line)] bg-[var(--accent-wash)] p-6">
+    <article class="p-6 bg-[var(--accent-wash)] border border-[var(--line)] rounded-[10px]">
       <span class="chip">Detect</span>
-      <h3 class="text-[1.1rem] mt-3">Wildlife detection before mowing</h3>
-      <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-2">
+      <h3 class="mt-3 text-[1.1rem]">Wildlife detection before mowing</h3>
+      <p class="mt-2 leading-relaxed text-[0.9rem] text-[var(--text-2)]">
         A thermal search at dawn finds fawns pressed flat in the sward, and marks them live on the
         phone of whoever is walking the field.
       </p>
-      <a href="/features/wildlife-rescue" class="text-[0.875rem] font-semibold text-[var(--accent)] no-underline inline-block mt-3">Read the search procedure</a>
+      <a href="/features/wildlife-rescue" class="inline-block mt-3 font-semibold no-underline text-[0.875rem] text-[var(--accent)]">Read the search procedure</a>
     </article>
 
     @foreach (groups as group)
-      <article class="rounded-[10px] border border-[var(--line)] bg-[var(--panel-2)] p-6">
+      <article class="p-6 bg-[var(--panel-2)] border border-[var(--line)] rounded-[10px]">
         <p class="mega-col-title">{{ group.label }}</p>
-        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-1.5">{{ group.blurb }}</p>
-        <ul class="mt-3 space-y-1 list-none p-0">
+        <p class="mt-1.5 leading-relaxed text-[0.9rem] text-[var(--text-2)]">{{ group.blurb }}</p>
+        <ul class="mt-3 p-0 space-y-1 list-none">
           @foreach (group.items as item)
-            <li><a href="/features/{{ item.slug }}" class="text-[0.875rem] text-[var(--text)] no-underline hover:text-[var(--accent)]">{{ item.name }}</a></li>
+            <li><a href="/features/{{ item.slug }}" class="no-underline text-[0.875rem] text-[var(--text)] hover:text-[var(--accent)]">{{ item.name }}</a></li>
           @endforeach
         </ul>
       </article>
@@ -192,23 +192,23 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 </section>
 
 <!-- Use-case rail: horizontal scroll-snap, so sixteen operations do not become
-     a sixteen-row list. -->
-<section class="py-20 md:py-28 border-y border-[var(--line)] bg-[var(--bg-2)] reveal">
-  <div class="max-w-[1240px] mx-auto px-5">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <h2 class="text-[1.9rem] md:text-[2.4rem] max-w-[22ch]">Set up around your crop, not a generic farm</h2>
+    a sixteen-row list. -->
+<section class="py-20 md:py-28 bg-[var(--bg-2)] border-[var(--line)] border-y reveal">
+  <div class="mx-auto px-5 max-w-[1240px]">
+    <div class="flex flex-wrap gap-4 items-end justify-between">
+      <h2 class="max-w-[22ch] text-[1.9rem] md:text-[2.4rem]">Set up around your crop, not a generic farm</h2>
       <a href="/use-cases" class="btn btn-ghost">All use cases</a>
     </div>
   </div>
 
-  <div class="mt-8 overflow-x-auto snap-x snap-mandatory" style="scrollbar-width:none">
-    <div class="flex gap-4 px-5 pb-2 w-max">
+  <div class="overflow-x-auto mt-8 snap-mandatory snap-x" style="scrollbar-width:none">
+    <div class="flex gap-4 pb-2 px-5 w-max">
       @foreach (useCases as u)
-        <a href="/use-cases/{{ u.slug }}" class="snap-start shrink-0 w-[19rem] rounded-[10px] border border-[var(--line)] bg-[var(--panel)] p-6 no-underline hover:border-[var(--accent)] transition-colors">
+        <a href="/use-cases/{{ u.slug }}" class="shrink-0 p-6 w-[19rem] no-underline bg-[var(--panel)] border border-[var(--line)] rounded-[10px] hover:border-[var(--accent)] transition-colors snap-start">
           <p class="mega-col-title">{{ u.tagline }}</p>
-          <h3 class="text-[1.1rem] mt-2">{{ u.name }}</h3>
-          <p class="text-[0.88rem] text-[var(--text-2)] leading-relaxed mt-2">{{ u.summary }}</p>
-          <p class="telemetry text-[0.75rem] text-[var(--text-3)] mt-4">{{ u.scale }}</p>
+          <h3 class="mt-2 text-[1.1rem]">{{ u.name }}</h3>
+          <p class="mt-2 leading-relaxed text-[0.88rem] text-[var(--text-2)]">{{ u.summary }}</p>
+          <p class="mt-4 text-[0.75rem] text-[var(--text-3)] telemetry">{{ u.scale }}</p>
         </a>
       @endforeach
     </div>
@@ -216,8 +216,8 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 </section>
 
 <!-- What we do not claim. Two columns of plain text, no cards. -->
-<section class="max-w-[1240px] mx-auto px-5 py-20 md:py-28 reveal">
-  <h2 class="text-[1.9rem] md:text-[2.4rem] max-w-[16ch]">What we do not claim</h2>
+<section class="mx-auto px-5 py-20 md:py-28 max-w-[1240px] reveal">
+  <h2 class="max-w-[16ch] text-[1.9rem] md:text-[2.4rem]">What we do not claim</h2>
   <div class="grid gap-8 md:grid-cols-2 mt-8">
     <div class="prose">
       <p>
@@ -249,16 +249,16 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 </section>
 
 <!-- Close. -->
-<section class="max-w-[1240px] mx-auto px-5 pb-24 reveal">
-  <div class="rounded-[10px] border border-[var(--line)] overflow-hidden grid md:grid-cols-2">
-    <img src="/images/photos/field-aerial.jpg" alt="Aerial view of a wheat field divided by a track" width="1200" height="900" loading="lazy" class="w-full h-full min-h-[16rem] object-cover">
-    <div class="bg-[var(--panel)] p-8 md:p-11 flex flex-col justify-center">
-      <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[18ch]">Bring us one field and we will fly it</h2>
-      <p class="text-[1rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[44ch]">
+<section class="mx-auto pb-24 px-5 max-w-[1240px] reveal">
+  <div class="grid overflow-hidden md:grid-cols-2 border border-[var(--line)] rounded-[10px]">
+    <img src="/images/photos/field-aerial.jpg" alt="Aerial view of a wheat field divided by a track" width="1200" height="900" loading="lazy" class="object-cover h-full min-h-[16rem] w-full">
+    <div class="flex flex-col justify-center p-8 md:p-11 bg-[var(--panel)]">
+      <h2 class="max-w-[18ch] text-[1.7rem] md:text-[2.1rem]">Bring us one field and we will fly it</h2>
+      <p class="mt-3 max-w-[44ch] leading-relaxed text-[1rem] text-[var(--text-2)]">
         Tell us the crop and the hectares. We walk the block, agree a flight calendar around your
         season, and you get the first report before you commit to anything.
       </p>
-      <a href="/contact" class="btn btn-primary mt-6 self-start">Book a field visit</a>
+      <a href="/contact" class="self-start mt-6 btn btn-primary">Book a field visit</a>
     </div>
   </div>
 </section>

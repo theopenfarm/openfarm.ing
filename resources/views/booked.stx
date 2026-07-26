@@ -1,0 +1,37 @@
+<script server>
+const title = 'Booked - Open Farming'
+const description = 'Your field visit is booked. Someone will call within two working days to agree which block to walk first.'
+const activeNav = 'contact'
+const pagePath = '/booked'
+const subscribeSource = 'booked'
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="mx-auto pb-24 pt-20 px-5 md:pt-28 max-w-[1240px]">
+  <div class="max-w-[52ch]">
+    <h1 class="leading-[1.08] text-[2.1rem] sm:text-[2.6rem]">Booked. We will be in touch.</h1>
+    <p class="mt-5 leading-relaxed text-[1.075rem] text-[var(--text-2)]">
+      Someone will call within two working days to agree which block to walk first. Pick the field
+      that has been annoying you: that is the one worth flying.
+    </p>
+
+    <div class="flex flex-wrap gap-3 mt-8">
+      <a href="/field-report" class="btn btn-primary">Read a field report meanwhile</a>
+      <a href="/features" class="btn btn-ghost">Browse the capabilities</a>
+    </div>
+
+    <div class="mt-14 pt-8 border-[var(--line)] border-t">
+      <h2 class="text-[1.15rem]">While you wait</h2>
+      <p class="mt-2 max-w-[46ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">
+        We publish what the flights are finding as each window opens. A few times a season,
+        nothing else.
+      </p>
+      @include('partials/subscribe.stx')
+    </div>
+  </div>
+</section>
+
+@endsection

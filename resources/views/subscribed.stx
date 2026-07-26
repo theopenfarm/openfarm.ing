@@ -1,0 +1,27 @@
+<script server>
+const title = 'You are on the list - Open Farming'
+const description = 'You will get the field notes as each window opens. A few times a season, nothing else.'
+const activeNav = ''
+const pagePath = '/subscribed'
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="mx-auto pb-24 pt-20 px-5 md:pt-28 max-w-[1240px]">
+  <div class="max-w-[52ch]">
+    <h1 class="leading-[1.08] text-[2.1rem] sm:text-[2.6rem]">You are on the list.</h1>
+    <p class="mt-5 leading-relaxed text-[1.075rem] text-[var(--text-2)]">
+      The next set of field notes will come to that address: what the flights are finding, and when
+      the windows open. A few times a season, nothing else. Every one carries an unsubscribe link.
+    </p>
+
+    <div class="flex flex-wrap gap-3 mt-8">
+      <a href="/field-report" class="btn btn-primary">Read a field report</a>
+      <a href="/contact" class="btn btn-ghost">Book a field visit</a>
+    </div>
+  </div>
+</section>
+
+@endsection

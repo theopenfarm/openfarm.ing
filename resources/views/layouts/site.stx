@@ -59,7 +59,7 @@ const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
   @stack('head')
 </head>
 <body>
-  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-[60] focus:m-3 focus:rounded-[10px] focus:bg-[var(--panel)] focus:px-4 focus:py-2">Skip to content</a>
+  <a href="#main" class="focus:absolute focus:z-[60] focus:m-3 focus:px-4 focus:py-2 focus:bg-[var(--panel)] focus:rounded-[10px] sr-only focus:not-sr-only">Skip to content</a>
 
   @include('../partials/nav.stx')
 
@@ -68,6 +68,7 @@ const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
   </main>
 
   @include('../partials/footer.stx')
+
   @stack('scripts')
 </body>
 </html>

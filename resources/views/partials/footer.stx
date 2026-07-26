@@ -8,13 +8,15 @@ const footCatalog = await import(footPath.join(process.cwd(), 'app/Support/catal
 const footFeatures = (await footCatalog.allFeatures()).slice(0, 6)
 const footUseCases = (await footCatalog.allUseCases()).slice(0, 6)
 const footYear = 2026
+// Which form a signup came from, recorded on the subscriber row.
+const subscribeSource = 'footer'
 </script>
 
-<footer class="border-t border-[var(--line)] bg-[var(--bg-2)] mt-24">
-  <div class="max-w-[1240px] mx-auto px-5 py-14">
-    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+<footer class="mt-24 bg-[var(--bg-2)] border-[var(--line)] border-t">
+  <div class="mx-auto px-5 py-14 max-w-[1240px]">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
       <div>
-        <div class="flex items-center gap-2.5">
+        <div class="flex gap-2.5 items-center">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <rect x="1.5" y="1.5" width="21" height="21" rx="4" stroke="var(--text)" stroke-width="1.6"/>
             <circle cx="8" cy="9" r="2.1" fill="var(--accent)"/>
@@ -23,48 +25,57 @@ const footYear = 2026
           </svg>
           <span class="font-bold tracking-[-0.02em]">Open Farming</span>
         </div>
-        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[34ch]">
+        <p class="mt-3 max-w-[34ch] leading-relaxed text-[0.9rem] text-[var(--text-2)]">
           Drone scouting, treatment maps and the flights that produce them. You book the calendar,
           we bring the aircraft, the pilots and the paperwork.
         </p>
-        <a href="/contact" class="btn btn-ghost mt-5">Book a field visit</a>
+        <a href="/contact" class="mt-5 btn btn-ghost">Book a field visit</a>
       </div>
 
       <div>
         <p class="mega-col-title">Capabilities</p>
-        <ul class="space-y-1.5 mt-2 list-none p-0">
+        <ul class="mt-2 p-0 space-y-1.5 list-none">
           @foreach (footFeatures as f)
-            <li><a href="/features/{{ f.slug }}" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">{{ f.name }}</a></li>
+            <li><a href="/features/{{ f.slug }}" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{{ f.name }}</a></li>
           @endforeach
-          <li><a href="/features" class="text-[0.875rem] font-semibold text-[var(--accent)] no-underline">All capabilities</a></li>
+          <li><a href="/features" class="font-semibold no-underline text-[0.875rem] text-[var(--accent)]">All capabilities</a></li>
         </ul>
       </div>
 
       <div>
         <p class="mega-col-title">Use cases</p>
-        <ul class="space-y-1.5 mt-2 list-none p-0">
+        <ul class="mt-2 p-0 space-y-1.5 list-none">
           @foreach (footUseCases as u)
-            <li><a href="/use-cases/{{ u.slug }}" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">{{ u.name }}</a></li>
+            <li><a href="/use-cases/{{ u.slug }}" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{{ u.name }}</a></li>
           @endforeach
-          <li><a href="/use-cases" class="text-[0.875rem] font-semibold text-[var(--accent)] no-underline">All use cases</a></li>
+          <li><a href="/use-cases" class="font-semibold no-underline text-[0.875rem] text-[var(--accent)]">All use cases</a></li>
         </ul>
       </div>
 
       <div>
+        <p class="mega-col-title">Field notes</p>
+        <p class="mt-2 max-w-[30ch] leading-relaxed text-[0.875rem] text-[var(--text-2)]">
+          What the flights are finding this month, and when the windows open. A few times a
+          season, nothing else.
+        </p>
+        @include('../partials/subscribe.stx')
+      </div>
+
+      <div>
         <p class="mega-col-title">Company</p>
-        <ul class="space-y-1.5 mt-2 list-none p-0">
-          <li><a href="/how-it-works" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">How it works</a></li>
-          <li><a href="/field-report" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Field report</a></li>
-          <li><a href="/pricing" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Pricing</a></li>
-          <li><a href="/contact" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Contact</a></li>
-          <li><a href="/api/features" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Public API</a></li>
+        <ul class="mt-2 p-0 space-y-1.5 list-none">
+          <li><a href="/how-it-works" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">How it works</a></li>
+          <li><a href="/field-report" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Field report</a></li>
+          <li><a href="/pricing" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Pricing</a></li>
+          <li><a href="/contact" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Contact</a></li>
+          <li><a href="/api/features" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Public API</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="border-t border-[var(--line)] mt-12 pt-6 flex flex-wrap gap-x-6 gap-y-2 items-baseline justify-between">
+    <div class="flex flex-wrap gap-x-6 gap-y-2 items-baseline justify-between mt-12 pt-6 border-[var(--line)] border-t">
       <p class="text-[0.8rem] text-[var(--text-3)]">Open Farming, {{ footYear }}. openfarm.ing</p>
-      <p class="text-[0.8rem] text-[var(--text-3)] max-w-[62ch]">
+      <p class="max-w-[62ch] text-[0.8rem] text-[var(--text-3)]">
         Figures shown on this site come from a modelled demonstration field, labelled as such
         wherever they appear. Aerial application of plant protection products is restricted under
         EU and German law; our maps are built for the machines already permitted to apply them.

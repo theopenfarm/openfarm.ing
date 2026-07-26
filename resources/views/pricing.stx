@@ -67,61 +67,61 @@ const drivers = [
 
 @section('content')
 
-<section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-10">
-  <h1 class="text-[2.1rem] leading-[1.07] sm:text-[2.6rem] lg:text-[3rem] max-w-[20ch]">
+<section class="mx-auto pb-10 pt-14 px-5 md:pt-20 max-w-[1240px]">
+  <h1 class="max-w-[20ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
     Priced by the hectare, not by the aircraft
   </h1>
-  <p class="text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[60ch]">
+  <p class="mt-5 max-w-[60ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
     We do not print a rate here, because the honest one depends on your block sizes, your travel
     distance and how many flights your season actually needs. What is printed is exactly what each
     way of buying includes, and what moves the number.
   </p>
 </section>
 
-<section class="max-w-[1240px] mx-auto px-5 pb-14">
-  <div class="grid gap-4 lg:grid-cols-3 items-start">
+<section class="mx-auto pb-14 px-5 max-w-[1240px]">
+  <div class="grid gap-4 items-start lg:grid-cols-3">
     @foreach (tiers as tier)
       <article class="rounded-[10px] border p-7 h-full flex flex-col {{ tier.featured ? 'border-[var(--accent)] bg-[var(--panel)]' : 'border-[var(--line)] bg-[var(--panel-2)]' }}">
         <h2 class="text-[1.35rem]">{{ tier.name }}</h2>
-        <p class="text-[0.9rem] text-[var(--accent)] font-semibold mt-1">{{ tier.line }}</p>
-        <p class="text-[0.92rem] text-[var(--text-2)] leading-relaxed mt-3">{{ tier.who }}</p>
+        <p class="mt-1 font-semibold text-[0.9rem] text-[var(--accent)]">{{ tier.line }}</p>
+        <p class="mt-3 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{{ tier.who }}</p>
 
-        <ul class="mt-6 space-y-2.5 list-none p-0 flex-1">
+        <ul class="flex-1 mt-6 p-0 space-y-2.5 list-none">
           @foreach (tier.includes as item)
-            <li class="text-[0.92rem] text-[var(--text-2)] leading-relaxed pl-4 border-l-2 border-[var(--line)]">{{ item }}</li>
+            <li class="pl-4 leading-relaxed text-[0.92rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{{ item }}</li>
           @endforeach
         </ul>
 
-        <p class="telemetry text-[0.78rem] text-[var(--text-3)] leading-relaxed mt-6">{{ tier.note }}</p>
+        <p class="mt-6 leading-relaxed text-[0.78rem] text-[var(--text-3)] telemetry">{{ tier.note }}</p>
         <a href="/contact" class="btn mt-5 {{ tier.featured ? 'btn-primary' : 'btn-ghost' }}">{{ tier.cta }}</a>
       </article>
     @endforeach
   </div>
 </section>
 
-<section class="border-y border-[var(--line)] bg-[var(--bg-2)] py-16 md:py-20">
-  <div class="max-w-[1240px] mx-auto px-5 grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-14">
+<section class="py-16 md:py-20 bg-[var(--bg-2)] border-[var(--line)] border-y">
+  <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1fr_1.4fr] mx-auto px-5 max-w-[1240px]">
     <div>
-      <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[16ch]">What moves the number</h2>
-      <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[40ch]">
+      <h2 class="max-w-[16ch] text-[1.7rem] md:text-[2.1rem]">What moves the number</h2>
+      <p class="mt-3 max-w-[40ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         All four of these are visible from your field register, so a quote takes a conversation
         rather than a survey.
       </p>
     </div>
-    <ul class="grid gap-px bg-[var(--line)] rounded-[10px] overflow-hidden list-none p-0 m-0">
+    <ul class="grid overflow-hidden gap-px m-0 p-0 list-none bg-[var(--line)] rounded-[10px]">
       @foreach (drivers as driver)
-        <li class="bg-[var(--panel)] px-6 py-5">
-          <p class="text-[0.95rem] font-semibold">{{ driver.label }}</p>
-          <p class="text-[0.92rem] text-[var(--text-2)] leading-relaxed mt-1">{{ driver.text }}</p>
+        <li class="px-6 py-5 bg-[var(--panel)]">
+          <p class="font-semibold text-[0.95rem]">{{ driver.label }}</p>
+          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{{ driver.text }}</p>
         </li>
       @endforeach
     </ul>
   </div>
 </section>
 
-<section class="max-w-[1240px] mx-auto px-5 py-16 md:py-20 reveal">
-  <h2 class="text-[1.7rem] md:text-[2.1rem] max-w-[20ch]">Questions we get asked first</h2>
-  <div class="prose grid gap-8 md:grid-cols-2 md:gap-12 mt-7">
+<section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
+  <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2.1rem]">Questions we get asked first</h2>
+  <div class="grid gap-8 md:gap-12 md:grid-cols-2 mt-7 prose">
     <div>
       <p><strong class="text-[var(--text)]">Do we have to buy a drone?</strong> No. That is the point of the service model. The aircraft, the pilots, the registration and the insurance are ours, and they earn their keep across every farm we fly rather than sitting in one shed for forty-six weeks a year.</p>
       <p><strong class="text-[var(--text)]">What if the season is a washout?</strong> Cancelled flights are not billed and are rescheduled where the window allows. If a window closes entirely, the calendar and the invoice both shrink.</p>
@@ -133,11 +133,11 @@ const drivers = [
   </div>
 </section>
 
-<section class="max-w-[1240px] mx-auto px-5 pb-24 reveal">
-  <div class="rounded-[10px] border border-[var(--line)] bg-[var(--accent-wash)] p-8 md:p-11 flex flex-wrap items-center justify-between gap-6">
+<section class="mx-auto pb-24 px-5 max-w-[1240px] reveal">
+  <div class="flex flex-wrap gap-6 items-center justify-between p-8 md:p-11 bg-[var(--accent-wash)] border border-[var(--line)] rounded-[10px]">
     <div>
-      <h2 class="text-[1.6rem] md:text-[1.9rem] max-w-[22ch]">Send us your field register</h2>
-      <p class="text-[0.98rem] text-[var(--text-2)] leading-relaxed mt-2 max-w-[50ch]">
+      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">Send us your field register</h2>
+      <p class="mt-2 max-w-[50ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         Block sizes and crops are enough for a real number. We will also tell you which
         capabilities we would not bother with on your rotation.
       </p>

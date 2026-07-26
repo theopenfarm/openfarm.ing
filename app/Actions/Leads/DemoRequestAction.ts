@@ -1,6 +1,7 @@
 import { Action } from '@stacksjs/actions'
 import { rateLimit } from '@stacksjs/router'
 import DemoRequest from '../../Models/DemoRequest'
+import { seeOther, wantsHtml } from '../../Support/formResponse'
 
 /**
  * `POST /api/demo-requests`
@@ -23,11 +24,24 @@ export default new Action({
     const name = String(request.get('name') || '').trim()
     const email = String(request.get('email') || '').trim()
 
-    if (name.length < 2)
-      return { success: false, message: 'Please give us a name we can use.' }
+    // A browser form post is answered with a redirect to a confirmation page
+    // rather than a JSON body the visitor would be left staring at. A `fetch`
+    // caller gets the JSON contract unchanged. The page (rather than a query
+    // string on /contact) is because stx server scripts receive no request
+    // URL, so a view cannot read its own query string.
+    const html = wantsHtml(request)
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      return { success: false, message: 'That email address does not look right.' }
+    if (name.length < 2) {
+      return html
+        ? seeOther('/contact#book')
+        : { success: false, message: 'Please give us a name we can use.' }
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return html
+        ? seeOther('/contact#book')
+        : { success: false, message: 'That email address does not look right.' }
+    }
 
     // `hectares` arrives from a number input, so it can be an empty string.
     const rawHectares = String(request.get('hectares') || '').trim()
@@ -49,9 +63,13 @@ export default new Action({
       // The visitor gets a usable sentence; the detail goes to the log, where
       // it belongs. Echoing a database error back would leak schema.
       console.error('[DemoRequestAction] could not record enquiry:', error instanceof Error ? error.message : error)
-      return { success: false, message: 'We could not record that. Try again, or email hello@openfarm.ing.' }
+      return html
+        ? seeOther('/contact#book')
+        : { success: false, message: 'We could not record that. Try again, or email hello@openfarm.ing.' }
     }
 
-    return { success: true, message: 'Booked. We will be in touch within two working days.' }
+    return html
+      ? seeOther('/booked')
+      : { success: true, message: 'Booked. We will be in touch within two working days.' }
   },
 })

@@ -1,0 +1,29 @@
+<!--
+  Email capture. Posts to the framework's own subscribe action (published into
+  app/Actions/SubscriberEmailAction.ts): rate limited per IP, deduplicated
+  against the subscribers table, and it sends the confirmation mail.
+
+  Plain server-rendered HTML with a real method and action. The action answers
+  a browser post with a redirect back to this page carrying the outcome, which
+  the including page reads out of the query string. No client bundle has to
+  hydrate for the form to work, which matters on a phone in a yard.
+
+  `subscribeSource` comes from the including page's server script, so a signup
+  made after reading a field report is distinguishable from a footer one on
+  the subscriber row. A successful post lands on /subscribed.
+-->
+<form id="subscribe" class="flex flex-wrap gap-2.5 mt-4" method="post" action="/api/email/subscribe">
+  <label for="subscribe-email-{{ subscribeSource }}" class="sr-only">Email address</label>
+  <input
+    id="subscribe-email-{{ subscribeSource }}"
+    name="email"
+    type="email"
+    required
+    autocomplete="email"
+    placeholder="you@yourfarm.de"
+    class="flex-1 px-3.5 py-2.5 min-w-[13rem] text-[0.95rem] text-[var(--text)] bg-[var(--panel)] border border-[var(--line)] rounded-[10px]"
+  >
+  <input type="hidden" name="source" value="{{ subscribeSource }}">
+  <button type="submit" class="btn btn-primary">Send me the notes</button>
+
+</form>
