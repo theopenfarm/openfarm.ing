@@ -705,9 +705,9 @@ export const tsCloud: TsCloudConfig = {
    * static `/` site for stacksjs.com or it will compete with the app route.
    */
   /**
-   * Site keys map 1:1 to `/var/www/<key>` on the shared box, so every key is
-   * prefixed with `openfarming` to never collide with the owner's `main`,
-   * `api`, `blog` and `docs` directories or another tenant's.
+   * ts-cloud prefixes each site directory with the project slug on a shared
+   * box (`/var/www/openfarming-main`), so the keys stay plain and cannot
+   * collide with the owner's or another tenant's.
    *
    * Ports 3060/3068 are picked clear of every tenant already on this box
    * (stacks 3000/3008, adblock 3010, analyticshq 3024/3025, training
@@ -724,7 +724,7 @@ export const tsCloud: TsCloudConfig = {
     // to the loopback API service below. The sqlite database lives OUTSIDE the
     // atomic release directories (/var/lib/openfarming) so the catalog and any
     // enquiries survive a deploy; preStart migrates and seeds it in place.
-    openfarmingMain: {
+    main: {
       root: '.',
       path: '/',
       domain: 'openfarm.ing',
@@ -758,7 +758,7 @@ export const tsCloud: TsCloudConfig = {
     // API (bun-router). Intentionally NO `domain`/`path`: the rpx gateway
     // skips domain-less sites, so this stays loopback-only and is reached
     // exclusively through the app's same-origin /api proxy.
-    openfarmingApi: {
+    api: {
       root: '.',
       start: 'bun node_modules/@stacksjs/actions/dist/serve/api.js',
       port: 3068,
@@ -775,7 +775,7 @@ export const tsCloud: TsCloudConfig = {
     },
 
     // www → apex redirect (the gateway answers with a 301; nothing is shipped).
-    openfarmingWww: { domain: 'www.openfarm.ing', redirect: 'https://openfarm.ing' },
+    www: { domain: 'www.openfarm.ing', redirect: 'https://openfarm.ing' },
   },
 }
 
