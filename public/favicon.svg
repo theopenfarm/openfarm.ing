@@ -1,11 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <!--
     The mark: a field with two detections on it. Same idea as the site, at 32px.
-    Colours are literal rather than tokens because a favicon is fetched
-    outside the page and has no access to its custom properties.
+
+    Light and dark are handled inside the file rather than by shipping two of
+    them. A browser applies its own colour scheme to an SVG favicon, so the
+    media query below is evaluated in the tab's context: the plate follows the
+    surrounding chrome and the detections stay the one accent colour, which is
+    the only part that is supposed to carry meaning.
   -->
-  <rect width="32" height="32" rx="7" fill="#10160d"/>
-  <path d="M6 24.5 L24.5 6" stroke="#f3f5ef" stroke-width="1.6" stroke-opacity="0.32" stroke-linecap="round"/>
+  <style>
+    .plate { fill: #10160d; }
+    .rule  { stroke: #f3f5ef; }
+    @media (prefers-color-scheme: dark) {
+      .plate { fill: #e9eee4; }
+      .rule  { stroke: #0c0f0b; }
+    }
+  </style>
+  <rect class="plate" width="32" height="32" rx="7"/>
+  <path class="rule" d="M6 24.5 L24.5 6" stroke-width="1.6" stroke-opacity="0.32" stroke-linecap="round"/>
   <circle cx="11" cy="12" r="3.4" fill="#e2571e"/>
   <circle cx="21" cy="20.5" r="2.3" fill="#e2571e"/>
 </svg>
