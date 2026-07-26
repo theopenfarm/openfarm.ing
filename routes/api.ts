@@ -53,3 +53,20 @@ route.post('/demo-requests', 'Actions/Leads/DemoRequestAction').skipCsrf()
 // Launch the site with `./buddy launch`. Maintenance mode (503 page,
 // distinct cookie + state file) is the separate `./buddy down` /
 // `./buddy up` pair.
+
+/**
+ * The farmer's own session.
+ *
+ * These are the site's forms, not the API: they answer a browser post with a
+ * cookie and a redirect. The framework's own token endpoints (`/login`,
+ * `/register`, `/auth/*`) stay registered and unchanged for API clients.
+ *
+ * `skipCsrf()` for the same reason the other public forms do: the pages are
+ * server-rendered HTML with no token round-trip. Sign-in and sign-up carry no
+ * authority to borrow — a forged cross-site post can only sign someone in as
+ * themselves — and both are rate limited per IP and per email. Sign-out is
+ * POST-only so a prefetched link cannot trigger it.
+ */
+route.post('/auth/sign-in', 'Actions/Auth/SignInAction').skipCsrf()
+route.post('/auth/sign-up', 'Actions/Auth/SignUpAction').skipCsrf()
+route.post('/auth/sign-out', 'Actions/Auth/SignOutAction').skipCsrf()
