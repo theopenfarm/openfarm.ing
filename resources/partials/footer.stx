@@ -56,7 +56,7 @@ const subscribeSource = 'footer'
         <p class="mt-2 max-w-[30ch] leading-relaxed text-[0.875rem] text-[var(--text-2)]">
           {t:subscribe.body}
         </p>
-        @include('../partials/subscribe.stx')
+        @include('subscribe.stx')
       </div>
 
       <div>

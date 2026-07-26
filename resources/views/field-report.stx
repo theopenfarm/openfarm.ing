@@ -183,7 +183,7 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
       <p class="mt-1.5 leading-relaxed text-[0.9rem] text-[var(--text-2)]">
         We publish what the flights are finding as each window opens. A few times a season.
       </p>
-      @include('partials/subscribe.stx')
+      @include('subscribe.stx')
 
       <p class="mt-8 mega-col-title">Endpoints</p>
       <ul class="mt-3 p-0 space-y-2.5 list-none">

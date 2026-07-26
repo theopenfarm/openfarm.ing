@@ -30,5 +30,7 @@ export default {
   // Publishes the capability catalog and the demonstration field. Runs on
   // every deploy (config/cloud.ts preStart), so a content edit ships with it.
   'catalog:sync': 'CatalogSync',
+  // Builds the social share cards from the site's photography.
+  'og:generate': 'OgImages',
   'inspire': 'Inspire',
 } satisfies CommandRegistry

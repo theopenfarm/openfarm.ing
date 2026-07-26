@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    The mark: a field with two detections on it. Same idea as the site, at 32px.
+    Colours are literal rather than tokens because a favicon is fetched
+    outside the page and has no access to its custom properties.
+  -->
+  <rect width="32" height="32" rx="7" fill="#10160d"/>
+  <path d="M6 24.5 L24.5 6" stroke="#f3f5ef" stroke-width="1.6" stroke-opacity="0.32" stroke-linecap="round"/>
+  <circle cx="11" cy="12" r="3.4" fill="#e2571e"/>
+  <circle cx="21" cy="20.5" r="2.3" fill="#e2571e"/>
+</svg>

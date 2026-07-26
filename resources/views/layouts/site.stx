@@ -7,6 +7,27 @@ const pagePath = typeof pagePath === 'string' ? pagePath : '/'
 const activeNav = typeof activeNav === 'string' ? activeNav : ''
 const siteUrl = 'https://openfarm.ing'
 const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
+
+// The share card is chosen for what the page is about rather than one image
+// for the whole site: a vineyard page shares a vineyard. Built by
+// `buddy og:generate` from the site's own photography.
+const ogGroup = (() => {
+  if (typeof ogCard === 'string' && ogCard) return ogCard
+  if (pagePath.startsWith('/features')) return 'capabilities'
+  if (pagePath.startsWith('/field-report')) return 'field-report'
+  return 'home'
+})()
+const ogImage = `${siteUrl}/images/og/${ogGroup}/og-facebook.jpg`
+
+// Locale alternates. stx serves the same page under /de and /nl, and without
+// these a crawler treats the three as unrelated near-duplicates.
+const localePath = pagePath === '/' ? '/' : pagePath
+const alternates = [
+  { hreflang: 'en', href: `${siteUrl}${localePath}` },
+  { hreflang: 'de', href: `${siteUrl}/de${localePath === '/' ? '/' : localePath}` },
+  { hreflang: 'nl', href: `${siteUrl}/nl${localePath === '/' ? '/' : localePath}` },
+  { hreflang: 'x-default', href: `${siteUrl}${localePath}` },
+]
 </script>
 
 <!DOCTYPE html>
@@ -26,11 +47,27 @@ const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
   <meta property="og:url" content="{{ canonicalUrl }}">
   <meta property="og:title" content="{{ title }}">
   <meta property="og:description" content="{{ description }}">
-  <meta property="og:image" content="{{ siteUrl }}/images/photos/field-aerial.jpg">
+  <meta property="og:image" content="{{ ogImage }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ title }}">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:locale:alternate" content="nl_NL">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ title }}">
   <meta name="twitter:description" content="{{ description }}">
-  <meta name="twitter:image" content="{{ siteUrl }}/images/photos/field-aerial.jpg">
+  <meta name="twitter:image" content="{{ ogImage }}">
+  <meta name="twitter:image:alt" content="{{ title }}">
+
+  @foreach (alternates as alternate)
+    <link rel="alternate" hreflang="{{ alternate.hreflang }}" href="{{ alternate.href }}">
+  @endforeach
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/images/og/home/og-twitter.jpg">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Open Farming">
 
   <link rel="preload" href="/fonts/satoshi/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/site.css">
@@ -47,6 +84,39 @@ const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
       var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
       document.documentElement.classList.toggle('dark', dark)
 
+      /*
+       * Close a mega menu once one of its links is followed.
+       *
+       * Lives here beside the theme switch rather than in an stx `<script
+       * client>` block because stx binds its event directives inside
+       * client-rendered subtrees only, and this navigation is server-rendered
+       * markup. Three listeners, no framework, nothing to re-bind after an
+       * SPA navigation because they are delegated from the document.
+       */
+      document.addEventListener('click', function (event) {
+        var link = event.target.closest && event.target.closest('.mega a')
+        if (!link) return
+        var panel = link.closest('.has-mega')
+        if (panel) panel.classList.add('mega-dismissed')
+      }, true)
+
+      // Re-arm once the pointer leaves the trigger, so the menu opens again
+      // the next time it is deliberately hovered.
+      document.addEventListener('pointerleave', function (event) {
+        var panel = event.target.closest && event.target.closest('.has-mega')
+        if (panel) panel.classList.remove('mega-dismissed')
+      }, true)
+
+      // Keyboard users close it with Escape, which also drops focus so
+      // :focus-within stops holding it open.
+      document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return
+        var open = document.querySelector('.has-mega:focus-within')
+        if (!open) return
+        open.classList.add('mega-dismissed')
+        if (document.activeElement && document.activeElement.blur) document.activeElement.blur()
+      })
+
       window.ofToggleTheme = function () {
         var next = document.documentElement.classList.contains('dark') ? 'light' : 'dark'
         try { localStorage.setItem('of-theme', next) } catch (e) {}
@@ -61,13 +131,13 @@ const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
 <body>
   <a href="#main" class="focus:absolute focus:z-[60] focus:m-3 focus:px-4 focus:py-2 focus:bg-[var(--panel)] focus:rounded-[10px] sr-only focus:not-sr-only">{t:nav.skip}</a>
 
-  @include('../partials/nav.stx')
+  @include('nav.stx')
 
   <main id="main">
     @yield('content')
   </main>
 
-  @include('../partials/footer.stx')
+  @include('footer.stx')
 
   @stack('scripts')
 </body>

@@ -27,7 +27,7 @@ const subscribeSource = 'booked'
       <p class="mt-2 max-w-[46ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">
         {t:subscribe.body}
       </p>
-      @include('partials/subscribe.stx')
+      @include('subscribe.stx')
     </div>
   </div>
 </section>
