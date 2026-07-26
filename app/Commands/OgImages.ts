@@ -4,8 +4,8 @@ import { dirname, join } from 'node:path'
 import process from 'node:process'
 import { log } from '@stacksjs/cli'
 import { ExitCode } from '@stacksjs/types'
-import { generateSocialCard, loadFont } from 'ts-images'
-import { allFeatures, allUseCases, fieldReport, useCaseSegments } from '../Support/catalog'
+import { drawLine, fillCircle, generateSocialCard, loadFont, strokeRoundedRect } from 'ts-images'
+import { allFeatures, allUseCases, fieldReport, localiseFeatures, localiseUseCases } from '../Support/catalog'
 
 /**
  * `buddy og:generate` — build a share card for every page.
@@ -18,10 +18,51 @@ import { allFeatures, allUseCases, fieldReport, useCaseSegments } from '../Suppo
  * the cards are built from the same catalog the pages render, renaming a
  * capability updates its card on the next run, and the deploy runs this, so a
  * copy edit ships its card with it.
+ *
+ * One set per locale. Sharing a /de/ URL should not put an English card in a
+ * German feed, so the headline, the eyebrow and the subtitle all come from
+ * that locale's translations, falling back to the English where a string is
+ * not translated.
  */
+const LOCALES = ['en', 'de', 'nl'] as const
 
 const BRAND = 'Open Farming'
 const ACCENT = { r: 226, g: 87, b: 30 }
+/** The site's ink, for the mark's outline and rule. */
+const INK = { r: 16, g: 22, b: 13 }
+
+/**
+ * The mark, drawn to the same geometry as the one in the navigation.
+ *
+ * That mark is an SVG in `resources/partials/nav.stx`, on a 24-unit grid: a
+ * rounded-square outline, two detections on it, and the flight line between
+ * them. Redrawn here rather than rasterised from the file because nothing in
+ * the toolchain rasterises SVG, and because the card wants it in the ink
+ * colour on a light plate regardless of the visitor's theme. The unit grid is
+ * shared with the SVG, so the two stay the same shape: change one, change the
+ * numbers in the other.
+ */
+function drawMark(card: Parameters<typeof fillCircle>[0], box: { x: number, y: number, size: number }): void {
+  const unit = box.size / 24
+  const at = (x: number, y: number): { x: number, y: number } => ({ x: box.x + x * unit, y: box.y + y * unit })
+
+  const frame = at(1.5, 1.5)
+  strokeRoundedRect(
+    card,
+    { x: frame.x, y: frame.y, width: 21 * unit, height: 21 * unit, radius: 4 * unit },
+    1.6 * unit,
+    INK,
+  )
+
+  const from = at(4.5, 19.5)
+  const to = at(19.5, 4.5)
+  drawLine(card, { x1: from.x, y1: from.y, x2: to.x, y2: to.y, width: 1.1 * unit }, { ...INK, a: 0.35 })
+
+  const first = at(8, 9)
+  const second = at(15.5, 15)
+  fillCircle(card, { cx: first.x, cy: first.y, radius: 2.1 * unit }, ACCENT)
+  fillCircle(card, { cx: second.x, cy: second.y, radius: 1.5 * unit }, ACCENT)
+}
 
 /** Which photograph belongs to which kind of page. */
 const PHOTOS: Record<string, string> = {
@@ -42,10 +83,10 @@ const FEATURE_PHOTO: Record<string, string> = {
   operate: 'operator',
 }
 
-const CATEGORY_LABEL: Record<string, string> = {
-  detect: 'Detect',
-  act: 'Act',
-  operate: 'Operate',
+/** Translations, read from the same files the stx translation pass uses. */
+function translations(locale: string): Record<string, Record<string, string>> {
+  // eslint-disable-next-line ts/no-require-imports
+  return require(`../../resources/translations/${locale}.json`)
 }
 
 interface Card {
@@ -69,26 +110,35 @@ export default function (cli: CLI) {
           readFile(join(root, 'public/fonts/satoshi/Satoshi-Medium.ttf')).then(bytes => loadFont(new Uint8Array(bytes))),
         ])
 
-        const cards = await collectCards()
+        let built = 0
+        for (const locale of LOCALES) {
+          const cards = await collectCards(locale)
+          built += cards.length
 
-        for (const card of cards) {
-          const outputPath = join(root, 'public/images/og', `${card.slug}.jpg`)
-          await mkdir(dirname(outputPath), { recursive: true })
+          for (const card of cards) {
+            // The English set sits at the root so its paths mirror the URLs;
+            // the others are nested under their locale, exactly as the pages
+            // are.
+            const prefix = locale === 'en' ? '' : `${locale}/`
+            const outputPath = join(root, 'public/images/og', `${prefix}${card.slug}.jpg`)
+            await mkdir(dirname(outputPath), { recursive: true })
 
-          await generateSocialCard(outputPath, {
-            background: join(root, card.photo),
-            brand: BRAND,
-            eyebrow: card.eyebrow,
-            title: card.title,
-            subtitle: card.subtitle,
-            titleFont,
-            bodyFont,
-            accent: ACCENT,
-            quality: 80,
-          })
+            await generateSocialCard(outputPath, {
+              background: join(root, card.photo),
+              brand: BRAND,
+              eyebrow: card.eyebrow,
+              title: card.title,
+              subtitle: card.subtitle,
+              titleFont,
+              bodyFont,
+              accent: ACCENT,
+              drawMark,
+              quality: 80,
+            })
+          }
         }
 
-        log.success(`Built ${cards.length} share cards.`)
+        log.success(`Built ${built} share cards across ${LOCALES.length} locales.`)
       }
       catch (error) {
         log.error(`Could not build the share cards: ${error instanceof Error ? error.message : String(error)}`)
@@ -99,78 +149,82 @@ export default function (cli: CLI) {
     })
 }
 
-async function collectCards(): Promise<Card[]> {
+async function collectCards(locale: string): Promise<Card[]> {
   const report = await fieldReport()
+  const t = translations(locale)
 
   const cards: Card[] = [
     {
       slug: 'home',
-      title: 'Most of your field is fine. Stop treating it like it isn\'t.',
-      subtitle: 'Drone scouting and targeted treatment for farms',
+      title: `${t.home!.headlineOne} ${t.home!.headlineTwo}`,
+      subtitle: t.footer!.blurb!.split('.')[0]!,
       photo: PHOTOS.home!,
     },
     {
       slug: 'features',
-      eyebrow: 'Capabilities',
-      title: 'Every capability is the same loop, pointed at a different problem',
-      subtitle: 'Eighteen jobs a drone does better than a walk',
+      eyebrow: t.nav!.capabilities,
+      title: t.home!.bentoTitle!,
+      subtitle: t.home!.loopTitle!,
       photo: PHOTOS.capabilities!,
     },
     {
       slug: 'use-cases',
-      eyebrow: 'Use cases',
-      title: 'The same platform, set up sixteen different ways',
-      subtitle: 'Cereals, roots, vines, glass, grassland, contractors',
+      eyebrow: t.nav!.useCases,
+      title: t.home!.railTitle!,
+      subtitle: t.megaMenu!.unsureBody!,
       photo: PHOTOS.arable!,
     },
     {
       slug: 'how-it-works',
-      eyebrow: 'How it works',
-      title: 'Four steps, and a map at the end of them',
-      subtitle: 'Fly the grid, find the problem, zone it, treat the zones',
+      eyebrow: t.nav!.howItWorks,
+      title: t.megaMenu!.flightTitle!,
+      subtitle: t.home!.loopTitle!,
       photo: PHOTOS.capabilities!,
     },
     {
       slug: 'pricing',
-      eyebrow: 'Pricing',
-      title: 'Priced by the hectare, not by the aircraft',
-      subtitle: 'A single field, a season calendar, or a docked fleet',
+      eyebrow: t.nav!.pricing,
+      title: t.home!.closeTitle!,
+      subtitle: t.subscribe!.body!,
       photo: PHOTOS.operator!,
     },
     {
       slug: 'contact',
-      eyebrow: 'Book a field visit',
-      title: 'Bring us one field and we will fly it',
-      subtitle: 'You read the report before anyone talks about a calendar',
+      eyebrow: t.cta!.book,
+      title: t.contact!.title!,
+      subtitle: t.contact!.lede!.split('.')[0]!,
       photo: PHOTOS.arable!,
     },
     {
       slug: 'field-report',
-      eyebrow: 'Field report',
-      title: 'One weed map, every number behind it',
-      // The real figure from the seeded flight, so the card cannot drift from
-      // the page it is advertising.
+      eyebrow: t.nav!.fieldReport,
+      title: t.fieldReport!.cardTitle!,
+      // The real figures from the seeded flight, interpolated into the
+      // locale's sentence, so the card cannot drift from the page it
+      // advertises and still reads naturally in each language.
       subtitle: report
-        ? `${report.treatedHectares} of ${report.hectares} hectares flagged for treatment`
-        : 'The whole flight record behind the maps',
+        ? t.fieldReport!.cardSubtitle!
+            .replace('{treated}', String(report.treatedHectares))
+            .replace('{total}', String(report.hectares))
+        : t.nav!.fieldReport!,
       photo: PHOTOS.report!,
     },
   ]
 
-  for (const feature of await allFeatures()) {
+  for (const feature of localiseFeatures(await allFeatures(), locale)) {
     cards.push({
       slug: `features/${feature.slug}`,
-      eyebrow: CATEGORY_LABEL[feature.category] ?? 'Capability',
+      eyebrow: t.nav!.capabilities,
       title: feature.name,
       subtitle: feature.tagline,
       photo: PHOTOS[FEATURE_PHOTO[feature.category] ?? 'capabilities']!,
     })
   }
 
-  for (const useCase of await allUseCases()) {
+  for (const useCase of localiseUseCases(await allUseCases(), locale)) {
     cards.push({
       slug: `use-cases/${useCase.slug}`,
-      eyebrow: useCaseSegments[useCase.segment].label,
+      eyebrow: t.nav!.useCases,
       title: useCase.name,
       subtitle: useCase.tagline,
       photo: PHOTOS[useCase.segment] ?? PHOTOS.arable!,

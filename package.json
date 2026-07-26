@@ -97,7 +97,7 @@
   "dependencies": {
     "bun-query-builder": "^0.1.59",
     "stacks": "0.70.176",
-    "ts-images": "^0.2.3"
+    "ts-images": "^0.2.5"
   },
   "workspaces": [
     "storage/framework",
