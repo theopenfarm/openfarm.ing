@@ -1,22 +1,22 @@
 {
-  "name": "stacks",
+  "name": "openfarming",
   "type": "module",
   "version": "0.70.52",
   "private": true,
-  "description": "Your project description",
-  "author": "your-name <your-email>",
+  "description": "Open Farming - autonomous drone scouting and targeted treatment for farms.",
+  "author": "Chris Breuer <chrisbreuer93@gmail.com>",
   "contributors": [
     "Chris Breuer <chris@stacksjs.org>"
   ],
   "license": "MIT",
   "funding": "https://github.com/sponsors/chrisbbreuer",
-  "homepage": "https://github.com/stacksjs/stacks#readme",
+  "homepage": "https://openfarm.ing",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stacksjs/stacks.git"
+    "url": "git+https://github.com/theopenfarm/openfarm.ing.git"
   },
   "bugs": {
-    "url": "https://github.com/stacksjs/stacks/issues"
+    "url": "https://github.com/theopenfarm/openfarm.ing/issues"
   },
   "scripts": {
     "build:reset": "rm -rf node_modules && pantry install && ./buddy generate:types && ./buddy lint:fix && cd storage/framework && bun run build && cd ../../",

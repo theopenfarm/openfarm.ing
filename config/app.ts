@@ -9,11 +9,11 @@ import { env } from '@stacksjs/env'
  * you have any questions, feel free to reach out via Discord or GitHub Discussions.
  */
 export default {
-  name: env.APP_NAME ?? 'Stacks',
-  description: 'Stacks is a full-stack framework for building modern web applications.',
+  name: env.APP_NAME ?? 'Open Farming',
+  description: 'Autonomous drone scouting for farms. Scan the field, find the problem, treat only the square metres that need it.',
   env: env.APP_ENV ?? 'local',
-  url: env.APP_URL ?? 'stacks.localhost',
-  redirectUrls: ['stacksjs.com'],
+  url: env.APP_URL ?? 'openfarming.localhost',
+  redirectUrls: ['www.openfarm.ing'],
   debug: env.DEBUG ?? false,
   key: env.APP_KEY,
 
@@ -23,7 +23,7 @@ export default {
   // docMode: true, // instead of example.com/docs, deploys example.com as main entry point for docs
   docMode: false,
 
-  timezone: 'America/Los_Angeles',
+  timezone: 'Europe/Berlin',
   locale: 'en',
   fallbackLocale: 'en',
   cipher: 'aes-256-cbc',
