@@ -282,11 +282,22 @@ a { color: inherit; }
 
 /* Capabilities: three category columns plus the callout panel. */
 .mega-features .mega-inner { grid-template-columns: repeat(3, minmax(0, 1fr)) 17rem; }
-/* Use cases: five segments are too many at this width, so they wrap into a
-  four-column grid and the callout takes the remaining space. */
-.mega-usecases .mega-inner { grid-template-columns: repeat(4, minmax(0, 1fr)) 15rem; }
+/* Use cases: one column per segment, then the callout. Five segments plus a
+  callout does not fit the page's 1240px measure, so this panel alone runs
+  wider — it is full-bleed anyway, and the alternative was the callout
+  wrapping onto a second row on its own, marooned under the first column. */
+.mega-usecases .mega-inner {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) 14rem;
+  max-width: 1460px;
+  gap: 1.5rem 1.75rem;
+}
 
 .mega-col + .mega-col { border-left: 1px solid var(--line-soft); padding-left: 2rem; }
+.mega-usecases .mega-col + .mega-col { padding-left: 1.5rem; }
+
+/* The callout sits in the last track, top-aligned with the columns rather
+  than stretched to their full height. */
+.mega-callout { align-self: start; }
 
 .mega-col-title {
   font-size: 0.7rem;

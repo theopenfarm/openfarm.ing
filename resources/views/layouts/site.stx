@@ -22,7 +22,13 @@ const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
 // `ogCard` overrides it for pages whose card is named differently.
 const ogPathSlug = pagePath.split('/').filter(Boolean).join('/') || 'home'
 const ogSlug = typeof ogCard === 'string' && ogCard ? ogCard : ogPathSlug
-const ogImage = `${siteUrl}/images/og/${ogSlug}.jpg`
+// `{t:og.localePrefix}` resolves to '' in English and 'de/' or 'nl/' in the
+// other two, which is exactly where `buddy og:generate` writes each locale's
+// cards. It has to be a token rather than a value from this script: the
+// script runs once, and the locale is only known to the translation pass that
+// runs over the finished HTML. So a shared /de/ URL puts a German card in the
+// feed, which is the whole point of translating them.
+const ogImage = `${siteUrl}/images/og/{t:og.localePrefix}${ogSlug}.jpg`
 
 // Locale alternates. stx serves the same page under /de and /nl, and without
 // these a crawler treats the three as unrelated near-duplicates.
@@ -102,22 +108,29 @@ const alternates = [
        * Lives here beside the theme switch rather than in an stx `<script
        * client>` block because stx binds its event directives inside
        * client-rendered subtrees only, and this navigation is server-rendered
-       * markup. Three listeners, no framework, nothing to re-bind after an
-       * SPA navigation because they are delegated from the document.
+       * markup.
+       *
+       * `pointerleave` is bound to each panel rather than delegated from the
+       * document: it fires for every element the pointer leaves, so a
+       * delegated listener cleared the dismissed flag continuously while the
+       * cursor moved *inside* the panel, and the menu flickered as it fought
+       * the `:hover` rule. Bound directly, it fires once, when the pointer
+       * actually leaves the whole thing.
        */
-      document.addEventListener('click', function (event) {
-        var link = event.target.closest && event.target.closest('.mega a')
-        if (!link) return
-        var panel = link.closest('.has-mega')
-        if (panel) panel.classList.add('mega-dismissed')
-      }, true)
+      function bindMegaMenus() {
+        document.querySelectorAll('.has-mega').forEach(function (panel) {
+          if (panel.dataset.megaBound === '1') return
+          panel.dataset.megaBound = '1'
 
-      // Re-arm once the pointer leaves the trigger, so the menu opens again
-      // the next time it is deliberately hovered.
-      document.addEventListener('pointerleave', function (event) {
-        var panel = event.target.closest && event.target.closest('.has-mega')
-        if (panel) panel.classList.remove('mega-dismissed')
-      }, true)
+          panel.addEventListener('click', function (event) {
+            if (event.target.closest('.mega a')) panel.classList.add('mega-dismissed')
+          })
+
+          panel.addEventListener('pointerleave', function () {
+            panel.classList.remove('mega-dismissed')
+          })
+        })
+      }
 
       // Keyboard users close it with Escape, which also drops focus so
       // :focus-within stops holding it open.
@@ -129,28 +142,10 @@ const alternates = [
         if (document.activeElement && document.activeElement.blur) document.activeElement.blur()
       })
 
-      /*
-       * Re-apply the theme after a client-side navigation.
-       *
-       * This script runs once, before first paint. stx's router swaps the
-       * document on navigation and does not re-execute already-executed head
-       * scripts, so anything it does to <html> (including replacing the
-       * element's attributes with the incoming document's) is not undone —
-       * and the incoming server-rendered HTML never carries the `dark` class,
-       * because the class only ever exists client-side. Switching language
-       * therefore dropped the reader's chosen theme. Re-applying on every
-       * navigation makes the choice survive whatever the router does.
-       */
-      function applyTheme() {
-        var choice = ''
-        try { choice = localStorage.getItem('of-theme') || '' } catch (e) {}
-        var wantDark = choice === 'dark' || (choice !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        document.documentElement.classList.toggle('dark', wantDark)
-      }
-
-      window.addEventListener('stx:navigate', applyTheme)
-      window.addEventListener('popstate', applyTheme)
-      document.addEventListener('stx:load', applyTheme)
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindMegaMenus)
+      else bindMegaMenus()
+      document.addEventListener('stx:load', bindMegaMenus)
+      window.addEventListener('stx:navigate', bindMegaMenus)
 
       window.ofToggleTheme = function () {
         var next = document.documentElement.classList.contains('dark') ? 'light' : 'dark'
