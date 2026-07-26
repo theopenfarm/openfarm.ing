@@ -1,10 +1,10 @@
 import type { CLI } from '@stacksjs/types'
-import { mkdir, readFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import process from 'node:process'
 import { log } from '@stacksjs/cli'
 import { ExitCode } from '@stacksjs/types'
-import { drawLine, fillCircle, generateSocialCard, loadFont, strokeRoundedRect } from 'ts-images'
+import { createImageData, drawLine, encode, fillCircle, fillRoundedRect, generateSocialCard, loadFont, strokeRoundedRect } from 'ts-images'
 import { allFeatures, allUseCases, fieldReport, localiseFeatures, localiseUseCases } from '../Support/catalog'
 
 /**
@@ -98,6 +98,43 @@ interface Card {
   photo: string
 }
 
+/**
+ * The home-screen icon, drawn rather than scaled from a photograph.
+ *
+ * iOS wants a square opaque PNG: it applies its own rounded mask and does not
+ * composite transparency, so the plate is filled here. The page used to point
+ * `apple-touch-icon` at the 1200x630 share card, which iOS squashed into a
+ * square.
+ */
+async function writeTouchIcon(root: string, size: number, file: string): Promise<void> {
+  const icon = createImageData(size, size)
+
+  // An opaque plate first: iOS composites the icon on a white background of
+  // its own if it is transparent, and the edges show it.
+  fillRoundedRect(icon, { x: 0, y: 0, width: size, height: size, radius: 0 }, { r: 243, g: 245, b: 239 })
+
+  const unit = size / 24
+  const at = (x: number, y: number): { x: number, y: number } => ({ x: x * unit, y: y * unit })
+
+  const frame = at(2.5, 2.5)
+  strokeRoundedRect(
+    icon,
+    { x: frame.x, y: frame.y, width: 19 * unit, height: 19 * unit, radius: 4 * unit },
+    1.6 * unit,
+    INK,
+  )
+
+  const from = at(5.2, 18.8)
+  const to = at(18.8, 5.2)
+  drawLine(icon, { x1: from.x, y1: from.y, x2: to.x, y2: to.y, width: 1.1 * unit }, { ...INK, a: 0.35 })
+
+  fillCircle(icon, { cx: at(8.6, 9.4).x, cy: at(8.6, 9.4).y, radius: 2.1 * unit }, ACCENT)
+  fillCircle(icon, { cx: at(15.4, 14.8).x, cy: at(15.4, 14.8).y, radius: 1.5 * unit }, ACCENT)
+
+  await mkdir(dirname(join(root, file)), { recursive: true })
+  await writeFile(join(root, file), await encode(icon, 'png'))
+}
+
 export default function (cli: CLI) {
   cli
     .command('og:generate', 'Build a share card for every page into public/images/og')
@@ -138,7 +175,12 @@ export default function (cli: CLI) {
           }
         }
 
-        log.success(`Built ${built} share cards across ${LOCALES.length} locales.`)
+        // The home-screen icons come from the same mark, so they cannot drift
+        // from the one in the navigation or on the cards.
+        await writeTouchIcon(root, 180, 'public/apple-touch-icon.png')
+        await writeTouchIcon(root, 512, 'public/icon-512.png')
+
+        log.success(`Built ${built} share cards across ${LOCALES.length} locales, plus the home-screen icons.`)
       }
       catch (error) {
         log.error(`Could not build the share cards: ${error instanceof Error ? error.message : String(error)}`)

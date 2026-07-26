@@ -284,7 +284,9 @@
     }
   },
   "og": {
-    "localePrefix": "nl/"
+    "localePrefix": "nl/",
+    "locale": "nl_NL",
+    "lang": "nl"
   },
   "auth": {
     "eyebrow": "Uw account",

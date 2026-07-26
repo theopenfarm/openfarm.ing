@@ -6,7 +6,13 @@ const description = 'Autonomous drone scouting for farms. Scan the field, find t
 const pagePath = typeof pagePath === 'string' ? pagePath : '/'
 const activeNav = typeof activeNav === 'string' ? activeNav : ''
 const siteUrl = 'https://openfarm.ing'
-const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
+// The locale prefix is a translation token for the same reason the share
+// card's is: this script runs once, and which locale is being rendered is
+// only known to the translation pass over the finished HTML. Without it every
+// /de/ page told a crawler its canonical was the English one, and a shared
+// German link resolved to English copy with an English card.
+const canonicalPath = pagePath === '/' ? '' : pagePath.replace(/^\//, '')
+const canonicalUrl = `${siteUrl}/{t:og.localePrefix}${canonicalPath}`
 
 // Every page has its own card, carrying that page's headline. The file mirrors
 // the URL (`/use-cases/vineyards` -> `use-cases/vineyards.jpg`), so a new page
@@ -42,7 +48,7 @@ const alternates = [
 </script>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{t:og.lang}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,7 +68,7 @@ const alternates = [
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="{{ title }}">
-  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale" content="{t:og.locale}">
   <meta property="og:locale:alternate" content="de_DE">
   <meta property="og:locale:alternate" content="nl_NL">
   <meta name="twitter:card" content="summary_large_image">
@@ -83,7 +89,11 @@ const alternates = [
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/images/og/home.jpg">
+  <!-- A square opaque PNG, drawn from the same mark by `buddy og:generate`.
+      This pointed at the 1200x630 share card, which iOS squashed into a
+      square on the home screen. -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Open Farming">
 

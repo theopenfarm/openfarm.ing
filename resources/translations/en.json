@@ -284,7 +284,9 @@
     }
   },
   "og": {
-    "localePrefix": ""
+    "localePrefix": "",
+    "locale": "en_GB",
+    "lang": "en"
   },
   "auth": {
     "eyebrow": "Your account",
