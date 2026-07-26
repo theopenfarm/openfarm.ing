@@ -20,34 +20,31 @@ const useCases = await catalog.allUseCases()
 <section class="mx-auto pb-20 pt-14 px-5 md:pt-20 max-w-[1240px]">
   <div class="grid gap-12 lg:gap-16 lg:grid-cols-[1fr_1.05fr]">
     <div>
-      <h1 class="max-w-[16ch] leading-[1.07] text-[2.1rem] sm:text-[2.5rem] lg:text-[2.9rem]">
-        Bring us one field and we will fly it
-      </h1>
+      <h1 class="max-w-[16ch] leading-[1.07] text-[2.1rem] sm:text-[2.5rem] lg:text-[2.9rem]">{t:contact.title}</h1>
       <p class="mt-5 max-w-[48ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
-        We walk the block with you, agree what is worth looking for, and fly it. You read the
-        report before anyone talks about a calendar.
+        {t:contact.lede}
       </p>
 
       <ol class="mt-9 p-0 list-none border-[var(--line)] border-l-2">
         <li class="relative pb-7 pl-7">
           <span class="absolute left-[-0.4rem] top-[0.4rem] h-3 w-3 bg-[var(--accent)] rounded-[6px]"></span>
-          <p class="font-semibold text-[0.97rem]">We call within two working days</p>
-          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">Enough to understand the rotation and whether we can fly where you are.</p>
+          <p class="font-semibold text-[0.97rem]">{t:contact.step1}</p>
+          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{t:contact.step1Body}</p>
         </li>
         <li class="relative pb-7 pl-7">
           <span class="absolute left-[-0.4rem] top-[0.4rem] h-3 w-3 bg-[var(--accent)] rounded-[6px]"></span>
-          <p class="font-semibold text-[0.97rem]">We walk one block with you</p>
-          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">Pick the field that has been annoying you. That is the one worth flying first.</p>
+          <p class="font-semibold text-[0.97rem]">{t:contact.step2}</p>
+          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{t:contact.step2Body}</p>
         </li>
         <li class="relative pl-7">
           <span class="absolute left-[-0.4rem] top-[0.4rem] h-3 w-3 bg-[var(--accent)] rounded-[6px]"></span>
-          <p class="font-semibold text-[0.97rem]">You get the report</p>
-          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">Problem areas, recommendations, and a prescription if the capability produces one.</p>
+          <p class="font-semibold text-[0.97rem]">{t:contact.step3}</p>
+          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{t:contact.step3Body}</p>
         </li>
       </ol>
 
       <p class="mt-10 max-w-[44ch] leading-relaxed text-[0.9rem] text-[var(--text-2)]">
-        Would you rather write to a person? <a href="mailto:hello@openfarm.ing" class="font-semibold text-[var(--accent)]">hello@openfarm.ing</a>
+        {t:contact.writeInstead} <a href="mailto:hello@openfarm.ing" class="font-semibold text-[var(--accent)]">hello@openfarm.ing</a>
       </p>
     </div>
 
@@ -58,22 +55,22 @@ const useCases = await catalog.allUseCases()
       <form id="book" method="post" action="/api/demo-requests">
         <div class="grid gap-5">
           <div class="grid gap-2">
-            <label for="name" class="font-semibold text-[0.88rem]">Your name</label>
+            <label for="name" class="font-semibold text-[0.88rem]">{t:contact.name}</label>
             <input id="name" name="name" type="text" required autocomplete="name"
               :value="visitName()" @input="e => visitName.set(e.target.value)"
               class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px]">
-            <p class="text-[0.78rem] text-[var(--text-3)]">So we know who we are calling.</p>
+            <p class="text-[0.78rem] text-[var(--text-3)]">{t:contact.nameHelp}</p>
           </div>
 
           <div class="grid gap-2">
-            <label for="email" class="font-semibold text-[0.88rem]">Email</label>
+            <label for="email" class="font-semibold text-[0.88rem]">{t:contact.email}</label>
             <input id="email" name="email" type="email" required autocomplete="email"
               :value="visitEmail()" @input="e => visitEmail.set(e.target.value)"
               class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px]">
           </div>
 
           <div class="grid gap-2">
-            <label for="farm_name" class="font-semibold text-[0.88rem]">Holding</label>
+            <label for="farm_name" class="font-semibold text-[0.88rem]">{t:contact.holding}</label>
             <input id="farm_name" name="farm_name" type="text" autocomplete="organization"
               :value="farmName()" @input="e => farmName.set(e.target.value)"
               class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px]">
@@ -81,27 +78,27 @@ const useCases = await catalog.allUseCases()
 
           <div class="grid gap-5 sm:grid-cols-2">
             <div class="grid gap-2">
-              <label for="segment" class="font-semibold text-[0.88rem]">Closest to your operation</label>
+              <label for="segment" class="font-semibold text-[0.88rem]">{t:contact.operation}</label>
               <select id="segment" name="segment"
                 class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px]">
                 @foreach (useCases as u)
                   <option value="{{ u.slug }}">{{ u.name }}</option>
                 @endforeach
-                <option value="other">Something else</option>
+                <option value="other">{t:contact.somethingElse}</option>
               </select>
             </div>
 
             <div class="grid gap-2">
-              <label for="hectares" class="font-semibold text-[0.88rem]">Hectares</label>
+              <label for="hectares" class="font-semibold text-[0.88rem]">{t:contact.hectares}</label>
               <input id="hectares" name="hectares" type="number" min="0" step="1" inputmode="numeric"
                 :value="hectares()" @input="e => hectares.set(e.target.value)"
                 class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px]">
-              <p class="text-[0.78rem] text-[var(--text-3)]">Roughly is fine.</p>
+              <p class="text-[0.78rem] text-[var(--text-3)]">{t:contact.hectaresHelp}</p>
             </div>
           </div>
 
           <div class="grid gap-2">
-            <label for="message" class="font-semibold text-[0.88rem]">What is the field that annoys you</label>
+            <label for="message" class="font-semibold text-[0.88rem]">{t:contact.message}</label>
             <textarea id="message" name="message" rows="4"
               :value="visitMessage()" @input="e => visitMessage.set(e.target.value)"
               class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px] resize-y"></textarea>
@@ -109,10 +106,10 @@ const useCases = await catalog.allUseCases()
 
           <input type="hidden" name="source" value="contact">
 
-          <button type="submit" class="w-full btn btn-primary">Book a field visit</button>
+          <button type="submit" class="w-full btn btn-primary">{t:cta.book}</button>
 
           <p class="leading-relaxed text-[0.78rem] text-[var(--text-3)]">
-            We use this to reply and to plan the visit. Nothing else, and nobody else.
+            {t:contact.privacy}
           </p>
         </div>
       </form>

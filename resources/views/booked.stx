@@ -12,22 +12,20 @@ const subscribeSource = 'booked'
 
 <section class="mx-auto pb-24 pt-20 px-5 md:pt-28 max-w-[1240px]">
   <div class="max-w-[52ch]">
-    <h1 class="leading-[1.08] text-[2.1rem] sm:text-[2.6rem]">Booked. We will be in touch.</h1>
+    <h1 class="leading-[1.08] text-[2.1rem] sm:text-[2.6rem]">{t:booked.title}</h1>
     <p class="mt-5 leading-relaxed text-[1.075rem] text-[var(--text-2)]">
-      Someone will call within two working days to agree which block to walk first. Pick the field
-      that has been annoying you: that is the one worth flying.
+      {t:booked.body}
     </p>
 
     <div class="flex flex-wrap gap-3 mt-8">
-      <a href="/field-report" class="btn btn-primary">Read a field report meanwhile</a>
-      <a href="/features" class="btn btn-ghost">Browse the capabilities</a>
+      <a href="/field-report" class="btn btn-primary">{t:cta.readReport}</a>
+      <a href="/features" class="btn btn-ghost">{t:cta.allCapabilities}</a>
     </div>
 
     <div class="mt-14 pt-8 border-[var(--line)] border-t">
-      <h2 class="text-[1.15rem]">While you wait</h2>
+      <h2 class="text-[1.15rem]">{t:booked.whileYouWait}</h2>
       <p class="mt-2 max-w-[46ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">
-        We publish what the flights are finding as each window opens. A few times a season,
-        nothing else.
+        {t:subscribe.body}
       </p>
       @include('partials/subscribe.stx')
     </div>

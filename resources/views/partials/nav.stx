@@ -10,7 +10,7 @@ const navUseCases = await navCatalog.useCaseGroups()
 
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="/" class="flex gap-2.5 items-center shrink-0" aria-label="Open Farming home">
+    <a href="/" class="flex gap-2.5 items-center shrink-0" aria-label="{t:nav.home}">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <rect x="1.5" y="1.5" width="21" height="21" rx="4" stroke="var(--text)" stroke-width="1.6"/>
         <circle cx="8" cy="9" r="2.1" fill="var(--accent)"/>
@@ -23,7 +23,7 @@ const navUseCases = await navCatalog.useCaseGroups()
     <nav class="flex flex-1 gap-6 items-center min-w-0 nav-scroll" aria-label="Main">
       <div class="has-mega">
         <a href="/features" class="nav-link" @if (activeNav === 'features') aria-current="page" @endif>
-          Capabilities
+          {t:nav.capabilities}
           <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
         </a>
 
@@ -43,12 +43,11 @@ const navUseCases = await navCatalog.useCaseGroups()
             @endforeach
 
             <div class="self-start p-5 bg-[var(--bg-2)] border border-[var(--line)] rounded-[10px]">
-              <p class="font-bold text-[0.95rem]">The flight that ties it together</p>
+              <p class="font-bold text-[0.95rem]">{t:megaMenu.flightTitle}</p>
               <p class="mt-1.5 leading-relaxed text-[0.85rem] text-[var(--text-2)]">
-                One aircraft scans, the models build a treatment map, and the machine that is already
-                allowed to treat the crop opens its nozzles only over the marked ground.
+                {t:megaMenu.flightBody}
               </p>
-              <a href="/how-it-works" class="mt-4 w-full btn btn-primary">See how it works</a>
+              <a href="/how-it-works" class="mt-4 w-full btn btn-primary">{t:cta.howItWorks}</a>
             </div>
           </div>
         </div>
@@ -56,7 +55,7 @@ const navUseCases = await navCatalog.useCaseGroups()
 
       <div class="has-mega">
         <a href="/use-cases" class="nav-link" @if (activeNav === 'use-cases') aria-current="page" @endif>
-          Use cases
+          {t:nav.useCases}
           <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
         </a>
 
@@ -77,31 +76,42 @@ const navUseCases = await navCatalog.useCaseGroups()
             <div class="overflow-hidden self-start border border-[var(--line)] rounded-[10px]">
               <img src="/images/photos/farm-patchwork.jpg" alt="Aerial view of a patchwork of farmed fields" width="640" height="480" loading="lazy" class="object-cover h-32 w-full">
               <div class="p-4">
-                <p class="font-bold text-[0.9rem]">Not sure where you fit?</p>
+                <p class="font-bold text-[0.9rem]">{t:megaMenu.unsureTitle}</p>
                 <p class="mt-1 leading-relaxed text-[0.82rem] text-[var(--text-2)]">
-                  Tell us your crop and your hectares and we will map the flight calendar around them.
+                  {t:megaMenu.unsureBody}
                 </p>
-                <a href="/contact" class="mt-3 w-full btn btn-ghost">Book a field visit</a>
+                <a href="/contact" class="mt-3 w-full btn btn-ghost">{t:cta.book}</a>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <a href="/field-report" class="nav-link" @if (activeNav === 'field-report') aria-current="page" @endif>Field report</a>
-      <a href="/how-it-works" class="nav-link" @if (activeNav === 'how-it-works') aria-current="page" @endif>How it works</a>
-      <a href="/pricing" class="nav-link" @if (activeNav === 'pricing') aria-current="page" @endif>Pricing</a>
+      <a href="/field-report" class="nav-link" @if (activeNav === 'field-report') aria-current="page" @endif>{t:nav.fieldReport}</a>
+      <a href="/how-it-works" class="nav-link" @if (activeNav === 'how-it-works') aria-current="page" @endif>{t:nav.howItWorks}</a>
+      <a href="/pricing" class="nav-link" @if (activeNav === 'pricing') aria-current="page" @endif>{t:nav.pricing}</a>
     </nav>
 
     <div class="flex gap-2 items-center shrink-0">
-      <button type="button" data-theme-toggle onclick="window.ofToggleTheme()" aria-label="Switch theme"
+      <button type="button" data-theme-toggle onclick="window.ofToggleTheme()" aria-label="{t:nav.switchTheme}"
         class="hidden sm:inline-flex items-center justify-center h-9 w-9 text-[var(--text-2)] hover:text-[var(--text)] border border-[var(--line)] rounded-[10px]">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/>
           <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
         </svg>
       </button>
-      <a href="/contact" class="btn btn-primary">Book a field visit</a>
+      <!-- The locale picker stx looks for (`pickerSelector` in site.config.ts).
+          Real links, so it works with no JavaScript and a middle-click opens
+          the other language in a tab; the injected picker script upgrades the
+          same `data-lang` elements into in-place navigation and keeps
+          `aria-current` in step. -->
+      <nav id="lang-picker" class="hidden sm:flex gap-0.5 items-center p-0.5 border border-[var(--line)] rounded-[10px]" aria-label="{t:nav.language}">
+        <a href="/" data-lang="en" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold no-underline text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] rounded-[6px]">EN</a>
+        <a href="/de/" data-lang="de" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold no-underline text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] rounded-[6px]">DE</a>
+        <a href="/nl/" data-lang="nl" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold no-underline text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] rounded-[6px]">NL</a>
+      </nav>
+
+      <a href="/contact" class="btn btn-primary">{t:cta.book}</a>
     </div>
   </div>
 </header>

@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "capabilities": "Leistungen",
+    "useCases": "Anwendungen",
+    "fieldReport": "Feldbericht",
+    "howItWorks": "So funktioniert es",
+    "pricing": "Preise",
+    "home": "Open Farming Startseite",
+    "switchTheme": "Design wechseln",
+    "language": "Sprache",
+    "skip": "Zum Inhalt springen"
+  },
+  "cta": {
+    "book": "Feldtermin buchen",
+    "readReport": "Feldbericht lesen",
+    "allCapabilities": "Alle Leistungen",
+    "allUseCases": "Alle Anwendungen",
+    "howItWorks": "So funktioniert es",
+    "browseByOperation": "Nach Betriebsart suchen"
+  },
+  "megaMenu": {
+    "flightTitle": "Der Flug, der alles verbindet",
+    "flightBody": "Eine Drohne scannt, die Modelle erstellen eine Behandlungskarte, und die Maschine, die den Bestand ohnehin behandeln darf, öffnet ihre Düsen nur über den markierten Flächen.",
+    "unsureTitle": "Nicht sicher, wo Sie hingehören?",
+    "unsureBody": "Nennen Sie uns Ihre Kultur und Ihre Hektar, und wir legen den Flugkalender darum herum."
+  },
+  "home": {
+    "headlineOne": "Der Großteil Ihres Feldes ist in Ordnung.",
+    "headlineTwo": "Behandeln Sie es nicht länger so.",
+    "lede": "Drohnen scannen den Bestand, die Modelle markieren, was tatsächlich nicht stimmt, und die Maschine behandelt nur die Flächen, die es brauchen.",
+    "demoField": "Demonstrationsfeld",
+    "treated": "Behandelt",
+    "leftAlone": "Unberührt",
+    "detections": "Funde",
+    "statTreated": "des Feldes wurden zur Behandlung markiert. Die übrigen {rest}% blieben unberührt.",
+    "statDetections": "Unkräuter auf den Quadratmeter genau verortet, jedes mit Art und Konfidenzwert.",
+    "statFlight": "für {hectares} Hektar bei {resolution} cm pro Pixel.",
+    "statZones": "Behandlungszonen, exportiert in dem Format, das Ihr Terminal ohnehin liest.",
+    "loopTitle": "Fläche scannen. Problem markieren. Nur Markiertes behandeln.",
+    "loopLede": "Jede Leistung hier ist eine Variante desselben Ablaufs. Was sich ändert, ist der Sensor an der Drohne und wonach das Modell sucht.",
+    "scan": "Scannen",
+    "scanTitle": "Die Drohne fliegt ein festes Raster",
+    "scanBody": "Gleiche Route, gleiche Höhe, bei jedem Flug. So sind die heutigen Aufnahmen mit den letzten vergleichbar und nicht bloß eine neue Momentaufnahme.",
+    "mark": "Markieren",
+    "markTitle": "Modelle verorten, was nicht stimmt",
+    "markBody": "Unkräuter nach Art, Krankheiten anhand der Abweichung von der eigenen Feldhistorie, Trockenstellen über die Bestandstemperatur. Jeder Fund erhält Koordinate und Konfidenzwert.",
+    "treat": "Behandeln",
+    "treatTitle": "Die Maschine folgt der Karte",
+    "treatBody": "Aus Funden werden Zonen und aus Zonen eine Applikationskarte, die Ihre Spritze, Ihr Streuer oder Ihre Hacke direkt lädt. Außerhalb einer Zone wird nichts angefasst.",
+    "bentoTitle": "Achtzehn Aufgaben, die eine Drohne besser erledigt als ein Feldgang",
+    "railTitle": "Eingerichtet für Ihre Kultur, nicht für einen Musterbetrieb",
+    "limitsTitle": "Was wir nicht behaupten",
+    "closeTitle": "Geben Sie uns ein Feld, und wir fliegen es",
+    "closeBody": "Nennen Sie uns Kultur und Hektar. Wir gehen die Fläche mit Ihnen ab, stimmen einen Flugkalender auf Ihre Saison ab, und Sie erhalten den ersten Bericht, bevor Sie sich zu irgendetwas verpflichten."
+  },
+  "subscribe": {
+    "title": "Feldnotizen",
+    "body": "Was die Flüge in diesem Monat finden und wann sich die Fenster öffnen. Ein paar Mal pro Saison, sonst nichts.",
+    "placeholder": "sie@ihrhof.de",
+    "submit": "Notizen zusenden",
+    "emailLabel": "E-Mail-Adresse"
+  },
+  "footer": {
+    "blurb": "Drohnenerkundung, Behandlungskarten und die Flüge, die sie erzeugen. Sie buchen den Kalender, wir bringen die Drohnen, die Piloten und den Papierkram.",
+    "capabilities": "Leistungen",
+    "useCases": "Anwendungen",
+    "company": "Unternehmen",
+    "contact": "Kontakt",
+    "publicApi": "Öffentliche API",
+    "disclaimer": "Die auf dieser Seite gezeigten Zahlen stammen von einem modellierten Demonstrationsfeld und sind überall als solche gekennzeichnet. Die Ausbringung von Pflanzenschutzmitteln aus der Luft ist nach EU- und deutschem Recht eingeschränkt; unsere Karten sind für die Maschinen gemacht, die ohnehin ausbringen dürfen."
+  },
+  "contact": {
+    "title": "Geben Sie uns ein Feld, und wir fliegen es",
+    "lede": "Wir gehen die Fläche mit Ihnen ab, stimmen ab, worauf es zu achten gilt, und fliegen sie. Sie lesen den Bericht, bevor jemand über einen Kalender spricht.",
+    "step1": "Wir melden uns innerhalb von zwei Werktagen",
+    "step1Body": "Genug, um die Fruchtfolge zu verstehen und zu klären, ob wir bei Ihnen fliegen dürfen.",
+    "step2": "Wir gehen eine Fläche mit Ihnen ab",
+    "step2Body": "Wählen Sie das Feld, das Ihnen Ärger macht. Genau das lohnt sich zuerst.",
+    "step3": "Sie erhalten den Bericht",
+    "step3Body": "Problemzonen, Handlungsempfehlungen und eine Applikationskarte, sofern die Leistung eine erzeugt.",
+    "writeInstead": "Lieber an einen Menschen schreiben?",
+    "name": "Ihr Name",
+    "nameHelp": "Damit wir wissen, wen wir anrufen.",
+    "email": "E-Mail",
+    "holding": "Betrieb",
+    "operation": "Passt am ehesten zu Ihrem Betrieb",
+    "somethingElse": "Etwas anderes",
+    "hectares": "Hektar",
+    "hectaresHelp": "Ungefähr genügt.",
+    "message": "Welches Feld macht Ihnen Ärger?",
+    "privacy": "Wir nutzen das, um zu antworten und den Termin zu planen. Sonst nichts, und niemand sonst."
+  },
+  "booked": {
+    "title": "Gebucht. Wir melden uns.",
+    "body": "Jemand ruft innerhalb von zwei Werktagen an, um zu klären, welche Fläche wir zuerst abgehen. Wählen Sie das Feld, das Ihnen Ärger macht: genau das lohnt sich zu fliegen.",
+    "whileYouWait": "Bis dahin"
+  },
+  "subscribed": {
+    "title": "Sie stehen auf der Liste.",
+    "body": "Die nächsten Feldnotizen gehen an diese Adresse: was die Flüge finden und wann sich die Fenster öffnen. Ein paar Mal pro Saison, sonst nichts. Jede Nachricht enthält einen Abmeldelink."
+  }
+}

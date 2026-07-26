@@ -104,3 +104,45 @@ describe('form response negotiation', () => {
     expect(wantsHtml(request)).toBe(true)
   })
 })
+
+describe('translations', () => {
+  const locales = ['en', 'de', 'nl'] as const
+
+  const flatten = (value: Record<string, unknown>, prefix = ''): string[] =>
+    Object.entries(value).flatMap(([key, child]) =>
+      child !== null && typeof child === 'object'
+        ? flatten(child as Record<string, unknown>, `${prefix}${key}.`)
+        : [`${prefix}${key}`])
+
+  const load = (locale: string) =>
+    // eslint-disable-next-line ts/no-require-imports
+    require(`../../resources/translations/${locale}.json`) as Record<string, unknown>
+
+  test('every locale carries exactly the same keys', () => {
+    // A missing key does not throw, it renders the raw `{t:...}` token to a
+    // visitor, so the only way to catch it is to compare the sets.
+    const english = flatten(load('en')).sort()
+
+    for (const locale of locales)
+      expect({ locale, keys: flatten(load(locale)).sort() }).toEqual({ locale, keys: english })
+  })
+
+  test('nothing is left untranslated by accident', () => {
+    const english = load('en') as Record<string, Record<string, string>>
+
+    for (const locale of locales.filter(l => l !== 'en')) {
+      const translated = load(locale) as Record<string, Record<string, string>>
+      // Words that are genuinely identical in the target language, not
+      // oversights: the brand name, and "Contact", which is the same in Dutch.
+      const allowed = new Set(['nav.home', 'footer.contact'])
+      const untranslated = flatten(english)
+        .filter(key => !allowed.has(key))
+        .filter((key) => {
+          const [group, leaf] = key.split('.') as [string, string]
+          return english[group]?.[leaf] === translated[group]?.[leaf]
+        })
+
+      expect({ locale, untranslated }).toEqual({ locale, untranslated: [] })
+    }
+  })
+})

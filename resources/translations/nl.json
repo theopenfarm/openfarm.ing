@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "capabilities": "Toepassingen",
+    "useCases": "Praktijk",
+    "fieldReport": "Veldrapport",
+    "howItWorks": "Hoe het werkt",
+    "pricing": "Tarieven",
+    "home": "Open Farming startpagina",
+    "switchTheme": "Thema wisselen",
+    "language": "Taal",
+    "skip": "Naar de inhoud"
+  },
+  "cta": {
+    "book": "Veldbezoek boeken",
+    "readReport": "Veldrapport lezen",
+    "allCapabilities": "Alle toepassingen",
+    "allUseCases": "Alle praktijkgevallen",
+    "howItWorks": "Bekijk hoe het werkt",
+    "browseByOperation": "Zoeken op bedrijfstype"
+  },
+  "megaMenu": {
+    "flightTitle": "De vlucht die alles verbindt",
+    "flightBody": "Eén drone scant, de modellen bouwen een behandelkaart, en de machine die het gewas toch al mag behandelen opent zijn doppen alleen boven de gemarkeerde grond.",
+    "unsureTitle": "Niet zeker waar u past?",
+    "unsureBody": "Noem uw gewas en uw hectares, dan leggen wij de vluchtkalender daaromheen."
+  },
+  "home": {
+    "headlineOne": "Het grootste deel van uw perceel mankeert niets.",
+    "headlineTwo": "Behandel het dan ook niet zo.",
+    "lede": "Drones scannen het gewas, de modellen markeren wat er werkelijk mis is, en de machine behandelt alleen de grond die het nodig heeft.",
+    "demoField": "Demonstratieperceel",
+    "treated": "Behandeld",
+    "leftAlone": "Onbehandeld",
+    "detections": "vondsten",
+    "statTreated": "van het perceel is gemarkeerd voor behandeling. De overige {rest}% bleef onaangeroerd.",
+    "statDetections": "onkruiden tot op de vierkante meter gelokaliseerd, elk met soort en betrouwbaarheidsscore.",
+    "statFlight": "voor {hectares} hectare op {resolution} cm per pixel.",
+    "statZones": "behandelzones, geëxporteerd in het formaat dat uw terminal toch al leest.",
+    "loopTitle": "Scan het perceel. Markeer het probleem. Behandel de markeringen.",
+    "loopLede": "Elke toepassing hier is een variant van dezelfde cyclus. Wat verandert is de sensor aan de drone en waar het model naar zoekt.",
+    "scan": "Scannen",
+    "scanTitle": "De drone vliegt een vast raster",
+    "scanBody": "Dezelfde route, dezelfde hoogte, elke vlucht. Zo zijn de beelden van vandaag vergelijkbaar met die van de vorige keer in plaats van een losse momentopname.",
+    "mark": "Markeren",
+    "markTitle": "Modellen lokaliseren wat er mis is",
+    "markBody": "Onkruid per soort, ziekte aan de hand van afwijking van de eigen perceelhistorie, droogte via de gewastemperatuur. Elke vondst krijgt een coördinaat en een betrouwbaarheidsscore.",
+    "treat": "Behandelen",
+    "treatTitle": "De machine volgt de kaart",
+    "treatBody": "Vondsten worden zones en zones worden een taakkaart die uw spuit, strooier of schoffel direct inleest. Buiten een zone wordt niets aangeraakt.",
+    "bentoTitle": "Achttien taken die een drone beter doet dan een rondje lopen",
+    "railTitle": "Ingericht op uw gewas, niet op een doorsneebedrijf",
+    "limitsTitle": "Wat wij niet beweren",
+    "closeTitle": "Geef ons één perceel en wij vliegen het",
+    "closeBody": "Noem het gewas en de hectares. Wij lopen het perceel met u door, spreken een vluchtkalender af rond uw seizoen, en u krijgt het eerste rapport voordat u zich ergens aan vastlegt."
+  },
+  "subscribe": {
+    "title": "Veldnotities",
+    "body": "Wat de vluchten deze maand vinden en wanneer de vensters opengaan. Een paar keer per seizoen, verder niets.",
+    "placeholder": "u@uwbedrijf.nl",
+    "submit": "Stuur mij de notities",
+    "emailLabel": "E-mailadres"
+  },
+  "footer": {
+    "blurb": "Droneverkenning, behandelkaarten en de vluchten die ze opleveren. U boekt de kalender, wij brengen de drones, de piloten en de papieren.",
+    "capabilities": "Toepassingen",
+    "useCases": "Praktijk",
+    "company": "Bedrijf",
+    "contact": "Contact",
+    "publicApi": "Publieke API",
+    "disclaimer": "De cijfers op deze site komen van een gemodelleerd demonstratieperceel en zijn overal als zodanig aangeduid. Toediening van gewasbeschermingsmiddelen vanuit de lucht is onder EU- en Duits recht beperkt; onze kaarten zijn gemaakt voor de machines die toch al mogen toedienen."
+  },
+  "contact": {
+    "title": "Geef ons één perceel en wij vliegen het",
+    "lede": "Wij lopen het perceel met u door, spreken af waar we op letten, en vliegen het. U leest het rapport voordat iemand het over een kalender heeft.",
+    "step1": "Wij bellen binnen twee werkdagen",
+    "step1Body": "Genoeg om het bouwplan te begrijpen en te weten of wij bij u mogen vliegen.",
+    "step2": "Wij lopen één perceel met u door",
+    "step2Body": "Kies het perceel waar u last van heeft. Dat is het perceel dat het eerst gevlogen moet worden.",
+    "step3": "U krijgt het rapport",
+    "step3Body": "Probleemzones, aanbevelingen, en een taakkaart als de toepassing er een oplevert.",
+    "writeInstead": "Liever iemand schrijven?",
+    "name": "Uw naam",
+    "nameHelp": "Zodat wij weten wie wij bellen.",
+    "email": "E-mail",
+    "holding": "Bedrijf",
+    "operation": "Komt het dichtst bij uw bedrijf",
+    "somethingElse": "Iets anders",
+    "hectares": "Hectare",
+    "hectaresHelp": "Ongeveer is genoeg.",
+    "message": "Van welk perceel heeft u last?",
+    "privacy": "Wij gebruiken dit om te antwoorden en het bezoek te plannen. Verder niets, en niemand anders."
+  },
+  "booked": {
+    "title": "Geboekt. Wij nemen contact op.",
+    "body": "Iemand belt binnen twee werkdagen om af te spreken welk perceel wij het eerst doorlopen. Kies het perceel waar u last van heeft: dat is het perceel dat het waard is om te vliegen.",
+    "whileYouWait": "In de tussentijd"
+  },
+  "subscribed": {
+    "title": "U staat op de lijst.",
+    "body": "De volgende veldnotities gaan naar dat adres: wat de vluchten vinden en wanneer de vensters opengaan. Een paar keer per seizoen, verder niets. Elke mail bevat een afmeldlink."
+  }
+}

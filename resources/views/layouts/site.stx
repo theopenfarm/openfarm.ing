@@ -59,7 +59,7 @@ const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
   @stack('head')
 </head>
 <body>
-  <a href="#main" class="focus:absolute focus:z-[60] focus:m-3 focus:px-4 focus:py-2 focus:bg-[var(--panel)] focus:rounded-[10px] sr-only focus:not-sr-only">Skip to content</a>
+  <a href="#main" class="focus:absolute focus:z-[60] focus:m-3 focus:px-4 focus:py-2 focus:bg-[var(--panel)] focus:rounded-[10px] sr-only focus:not-sr-only">{t:nav.skip}</a>
 
   @include('../partials/nav.stx')
 

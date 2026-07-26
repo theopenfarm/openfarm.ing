@@ -26,49 +26,47 @@ const subscribeSource = 'footer'
           <span class="font-bold tracking-[-0.02em]">Open Farming</span>
         </div>
         <p class="mt-3 max-w-[34ch] leading-relaxed text-[0.9rem] text-[var(--text-2)]">
-          Drone scouting, treatment maps and the flights that produce them. You book the calendar,
-          we bring the aircraft, the pilots and the paperwork.
+          {t:footer.blurb}
         </p>
-        <a href="/contact" class="mt-5 btn btn-ghost">Book a field visit</a>
+        <a href="/contact" class="mt-5 btn btn-ghost">{t:cta.book}</a>
       </div>
 
       <div>
-        <p class="mega-col-title">Capabilities</p>
+        <p class="mega-col-title">{t:footer.capabilities}</p>
         <ul class="mt-2 p-0 space-y-1.5 list-none">
           @foreach (footFeatures as f)
             <li><a href="/features/{{ f.slug }}" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{{ f.name }}</a></li>
           @endforeach
-          <li><a href="/features" class="font-semibold no-underline text-[0.875rem] text-[var(--accent)]">All capabilities</a></li>
+          <li><a href="/features" class="font-semibold no-underline text-[0.875rem] text-[var(--accent)]">{t:cta.allCapabilities}</a></li>
         </ul>
       </div>
 
       <div>
-        <p class="mega-col-title">Use cases</p>
+        <p class="mega-col-title">{t:footer.useCases}</p>
         <ul class="mt-2 p-0 space-y-1.5 list-none">
           @foreach (footUseCases as u)
             <li><a href="/use-cases/{{ u.slug }}" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{{ u.name }}</a></li>
           @endforeach
-          <li><a href="/use-cases" class="font-semibold no-underline text-[0.875rem] text-[var(--accent)]">All use cases</a></li>
+          <li><a href="/use-cases" class="font-semibold no-underline text-[0.875rem] text-[var(--accent)]">{t:cta.allUseCases}</a></li>
         </ul>
       </div>
 
       <div>
-        <p class="mega-col-title">Field notes</p>
+        <p class="mega-col-title">{t:subscribe.title}</p>
         <p class="mt-2 max-w-[30ch] leading-relaxed text-[0.875rem] text-[var(--text-2)]">
-          What the flights are finding this month, and when the windows open. A few times a
-          season, nothing else.
+          {t:subscribe.body}
         </p>
         @include('../partials/subscribe.stx')
       </div>
 
       <div>
-        <p class="mega-col-title">Company</p>
+        <p class="mega-col-title">{t:footer.company}</p>
         <ul class="mt-2 p-0 space-y-1.5 list-none">
-          <li><a href="/how-it-works" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">How it works</a></li>
-          <li><a href="/field-report" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Field report</a></li>
-          <li><a href="/pricing" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Pricing</a></li>
-          <li><a href="/contact" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Contact</a></li>
-          <li><a href="/api/features" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">Public API</a></li>
+          <li><a href="/how-it-works" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:nav.howItWorks}</a></li>
+          <li><a href="/field-report" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:nav.fieldReport}</a></li>
+          <li><a href="/pricing" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:nav.pricing}</a></li>
+          <li><a href="/contact" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:footer.contact}</a></li>
+          <li><a href="/api/features" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:footer.publicApi}</a></li>
         </ul>
       </div>
     </div>

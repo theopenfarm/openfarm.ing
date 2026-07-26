@@ -13,17 +13,17 @@
   the subscriber row. A successful post lands on /subscribed.
 -->
 <form id="subscribe" class="flex flex-wrap gap-2.5 mt-4" method="post" action="/api/email/subscribe">
-  <label for="subscribe-email-{{ subscribeSource }}" class="sr-only">Email address</label>
+  <label for="subscribe-email-{{ subscribeSource }}" class="sr-only">{t:subscribe.emailLabel}</label>
   <input
     id="subscribe-email-{{ subscribeSource }}"
     name="email"
     type="email"
     required
     autocomplete="email"
-    placeholder="you@yourfarm.de"
+    placeholder="{t:subscribe.placeholder}"
     class="flex-1 px-3.5 py-2.5 min-w-[13rem] text-[0.95rem] text-[var(--text)] bg-[var(--panel)] border border-[var(--line)] rounded-[10px]"
   >
   <input type="hidden" name="source" value="{{ subscribeSource }}">
-  <button type="submit" class="btn btn-primary">Send me the notes</button>
+  <button type="submit" class="btn btn-primary">{t:subscribe.submit}</button>
 
 </form>

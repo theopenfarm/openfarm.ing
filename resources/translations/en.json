@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "capabilities": "Capabilities",
+    "useCases": "Use cases",
+    "fieldReport": "Field report",
+    "howItWorks": "How it works",
+    "pricing": "Pricing",
+    "home": "Open Farming home",
+    "switchTheme": "Switch theme",
+    "language": "Language",
+    "skip": "Skip to content"
+  },
+  "cta": {
+    "book": "Book a field visit",
+    "readReport": "Read a field report",
+    "allCapabilities": "All capabilities",
+    "allUseCases": "All use cases",
+    "howItWorks": "See how it works",
+    "browseByOperation": "Browse by operation"
+  },
+  "megaMenu": {
+    "flightTitle": "The flight that ties it together",
+    "flightBody": "One aircraft scans, the models build a treatment map, and the machine that is already allowed to treat the crop opens its nozzles only over the marked ground.",
+    "unsureTitle": "Not sure where you fit?",
+    "unsureBody": "Tell us your crop and your hectares and we will map the flight calendar around them."
+  },
+  "home": {
+    "headlineOne": "Most of your field is fine.",
+    "headlineTwo": "Stop treating it like it isn't.",
+    "lede": "Drones scan the crop, the models mark what is actually wrong, and the machine treats only the ground that needs it.",
+    "demoField": "Demonstration field",
+    "treated": "Treated",
+    "leftAlone": "Left alone",
+    "detections": "detections",
+    "statTreated": "of the field flagged for treatment. The other {rest}% was left alone.",
+    "statDetections": "weeds located to the square metre, each with a species and a confidence score.",
+    "statFlight": "to fly {hectares} hectares at {resolution} cm per pixel.",
+    "statZones": "treatment zones, exported in the format your terminal already reads.",
+    "loopTitle": "Scan the block. Mark the problem. Treat the marks.",
+    "loopLede": "Every capability here is a version of the same loop. What changes is the sensor on the aircraft and what the model is looking for.",
+    "scan": "Scan",
+    "scanTitle": "The aircraft flies a fixed grid",
+    "scanBody": "Same route, same altitude, every flight, so today's imagery is comparable with the last one rather than a fresh opinion.",
+    "mark": "Mark",
+    "markTitle": "Models locate what is wrong",
+    "markBody": "Weeds by species, disease by divergence from the field's own history, dry ground by canopy temperature. Each finding gets a coordinate and a confidence score.",
+    "treat": "Treat",
+    "treatTitle": "The machine follows the map",
+    "treatBody": "Findings become zones and zones become a prescription your sprayer, spreader or hoe loads directly. Nothing outside a zone is touched.",
+    "bentoTitle": "Eighteen jobs a drone does better than a walk",
+    "railTitle": "Set up around your crop, not a generic farm",
+    "limitsTitle": "What we do not claim",
+    "closeTitle": "Bring us one field and we will fly it",
+    "closeBody": "Tell us the crop and the hectares. We walk the block, agree a flight calendar around your season, and you get the first report before you commit to anything."
+  },
+  "subscribe": {
+    "title": "Field notes",
+    "body": "What the flights are finding this month, and when the windows open. A few times a season, nothing else.",
+    "placeholder": "you@yourfarm.de",
+    "submit": "Send me the notes",
+    "emailLabel": "Email address"
+  },
+  "footer": {
+    "blurb": "Drone scouting, treatment maps and the flights that produce them. You book the calendar, we bring the aircraft, the pilots and the paperwork.",
+    "capabilities": "Capabilities",
+    "useCases": "Use cases",
+    "company": "Company",
+    "contact": "Contact",
+    "publicApi": "Public API",
+    "disclaimer": "Figures shown on this site come from a modelled demonstration field, labelled as such wherever they appear. Aerial application of plant protection products is restricted under EU and German law; our maps are built for the machines already permitted to apply them."
+  },
+  "contact": {
+    "title": "Bring us one field and we will fly it",
+    "lede": "We walk the block with you, agree what is worth looking for, and fly it. You read the report before anyone talks about a calendar.",
+    "step1": "We call within two working days",
+    "step1Body": "Enough to understand the rotation and whether we can fly where you are.",
+    "step2": "We walk one block with you",
+    "step2Body": "Pick the field that has been annoying you. That is the one worth flying first.",
+    "step3": "You get the report",
+    "step3Body": "Problem areas, recommendations, and a prescription if the capability produces one.",
+    "writeInstead": "Would you rather write to a person?",
+    "name": "Your name",
+    "nameHelp": "So we know who we are calling.",
+    "email": "Email",
+    "holding": "Holding",
+    "operation": "Closest to your operation",
+    "somethingElse": "Something else",
+    "hectares": "Hectares",
+    "hectaresHelp": "Roughly is fine.",
+    "message": "What is the field that annoys you",
+    "privacy": "We use this to reply and to plan the visit. Nothing else, and nobody else."
+  },
+  "booked": {
+    "title": "Booked. We will be in touch.",
+    "body": "Someone will call within two working days to agree which block to walk first. Pick the field that has been annoying you: that is the one worth flying.",
+    "whileYouWait": "While you wait"
+  },
+  "subscribed": {
+    "title": "You are on the list.",
+    "body": "The next set of field notes will come to that address: what the flights are finding, and when the windows open. A few times a season, nothing else. Every one carries an unsubscribe link."
+  }
+}
