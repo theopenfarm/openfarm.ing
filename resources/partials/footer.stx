@@ -5,8 +5,8 @@ const footCatalog = await import(footPath.join(process.cwd(), 'app/Support/catal
 // The footer lists the capabilities that answer the questions people arrive
 // with, not all eighteen: a full dump would be a sitemap, and there is one of
 // those at /features.
-const footFeatures = (await footCatalog.allFeatures()).slice(0, 6)
-const footUseCases = (await footCatalog.allUseCases()).slice(0, 6)
+const footFeatures = (await footCatalog.displayFeatures()).slice(0, 6)
+const footUseCases = (await footCatalog.displayUseCases()).slice(0, 6)
 const footYear = 2026
 // Which form a signup came from, recorded on the subscriber row.
 const subscribeSource = 'footer'

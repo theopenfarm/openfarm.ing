@@ -8,8 +8,8 @@ const description = 'Drones scan the field, the models find the weeds, disease a
 const activeNav = ''
 const pagePath = '/'
 
-const groups = await catalog.featureGroups()
-const useCases = await catalog.allUseCases()
+const groups = await catalog.displayFeatureGroups()
+const useCases = await catalog.displayUseCases()
 const report = await catalog.fieldReport()
 
 // The hero map is the real prescription: boundary, tramlines, every detection

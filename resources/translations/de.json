@@ -98,5 +98,190 @@
   "subscribed": {
     "title": "Sie stehen auf der Liste.",
     "body": "Die nächsten Feldnotizen gehen an diese Adresse: was die Flüge finden und wann sich die Fenster öffnen. Ein paar Mal pro Saison, sonst nichts. Jede Nachricht enthält einen Abmeldelink."
+  },
+  "features": {
+    "targeted-weed-control": {
+      "name": "Gezielte Unkrautbekämpfung",
+      "tagline": "Das Unkraut spritzen, nicht das Feld"
+    },
+    "plant-disease-detection": {
+      "name": "Früherkennung von Krankheiten",
+      "tagline": "Den Befall sehen, bevor das Auge es kann"
+    },
+    "pest-monitoring": {
+      "name": "Automatische Schädlingsüberwachung",
+      "tagline": "Ständige Kontrolle über jedem Hektar"
+    },
+    "precision-fertilisation": {
+      "name": "Präzisionsdüngung",
+      "tagline": "Die Reihen versorgen, denen etwas fehlt"
+    },
+    "irrigation-analysis": {
+      "name": "Bewässerungsanalyse",
+      "tagline": "Die trockene Ecke und das vergrabene Leck finden"
+    },
+    "yield-forecasting": {
+      "name": "Ernteprognosen",
+      "tagline": "Zählen, was tatsächlich auf dem Feld steht"
+    },
+    "field-mapping": {
+      "name": "Automatische Feldkartierung",
+      "tagline": "Die Grundlage, auf der alles andere aufbaut"
+    },
+    "wildlife-rescue": {
+      "name": "Wildtiererkennung vor der Mahd",
+      "tagline": "Das Kitz finden, bevor der Mäher es tut"
+    },
+    "drone-seeding": {
+      "name": "Aussaat mit Drohnen",
+      "tagline": "Säen, wo die Drillmaschine nicht hinkommt"
+    },
+    "frost-protection": {
+      "name": "Frostschutz",
+      "tagline": "Wissen, welche Senke heute Nacht gefriert"
+    },
+    "pollination-support": {
+      "name": "Bestäubungsunterstützung",
+      "tagline": "Einspringen, wo die Bienen es nicht können"
+    },
+    "livestock-and-fences": {
+      "name": "Zaun- und Viehkontrolle",
+      "tagline": "Der tägliche Rundgang ohne die Fahrt"
+    },
+    "bird-deterrence": {
+      "name": "Autonome Vogelabwehr",
+      "tagline": "Den Schwarm vertreiben, ohne Knallschreck"
+    },
+    "soil-compaction": {
+      "name": "Erkennung von Bodenverdichtung",
+      "tagline": "Die Fahrspuren lesen, die der Bestand zeichnet"
+    },
+    "sustainability-dashboard": {
+      "name": "Nachhaltigkeitsberichte",
+      "tagline": "Der Papierkram schreibt sich aus den Flügen"
+    },
+    "drone-service": {
+      "name": "Flüge als Dienstleistung",
+      "tagline": "Die Flüge buchen, nicht die Drohne"
+    },
+    "autonomous-network": {
+      "name": "Autonomes Drohnennetzwerk",
+      "tagline": "Angedockt, geladen, im Morgengrauen wieder los"
+    },
+    "field-assistant": {
+      "name": "KI-Assistent für Feldentscheidungen",
+      "tagline": "Eine Empfehlung, kein weiterer Bilderordner"
+    }
+  },
+  "useCases": {
+    "winter-wheat": {
+      "name": "Winterweizen und Gerste",
+      "tagline": "Die lange Saison, in Etappen geflogen"
+    },
+    "maize": {
+      "name": "Mais",
+      "tagline": "Die ersten Wochen entscheiden, Vögel beenden es"
+    },
+    "oilseed-rape": {
+      "name": "Raps",
+      "tagline": "Ungleich vom ersten Tag an"
+    },
+    "sugar-beet": {
+      "name": "Zuckerrüben",
+      "tagline": "Wo sich die Punktbehandlung zuerst rechnet"
+    },
+    "potatoes": {
+      "name": "Kartoffeln",
+      "tagline": "Kraut- und Knollenfäule, Beregnung, ein unsichtbarer Bestand"
+    },
+    "vineyards": {
+      "name": "Weinbau",
+      "tagline": "Steile Lagen, enge Gassen, hoher Wert"
+    },
+    "orchards": {
+      "name": "Obstanlagen",
+      "tagline": "Die Früchte zählen, die Blüte schützen"
+    },
+    "berries": {
+      "name": "Beeren und Weichobst",
+      "tagline": "Hoher Wert je Quadratmeter, kurze Fenster"
+    },
+    "hops": {
+      "name": "Hopfen",
+      "tagline": "Eine Wand aus Laub, in die niemand hineinsieht"
+    },
+    "grassland-and-hay": {
+      "name": "Grünland und Silage",
+      "tagline": "Suchen, bevor der Mäher losfährt"
+    },
+    "dairy-pasture": {
+      "name": "Milchvieh und Weidehaltung",
+      "tagline": "Die abgelegene Koppel, jeden Morgen kontrolliert"
+    },
+    "organic-farms": {
+      "name": "Biobetriebe",
+      "tagline": "Mechanisches Hacken braucht die Karte am dringendsten"
+    },
+    "greenhouses": {
+      "name": "Gewächshäuser und Unterglasanbau",
+      "tagline": "Drinnen, wo das Wetter nie hilft"
+    },
+    "contractors": {
+      "name": "Lohnunternehmen",
+      "tagline": "Eine Leistung, die Sie je Hektar weitergeben"
+    },
+    "cooperatives": {
+      "name": "Genossenschaften und Großbetriebe",
+      "tagline": "Ein Bild über alle Mitgliedsflächen"
+    },
+    "reforestation": {
+      "name": "Aufforstung und Renaturierung",
+      "tagline": "Den Hang bepflanzen, den niemand begehen kann"
+    }
+  },
+  "fieldReport": {
+    "cardTitle": "Eine Unkrautkarte, mit jeder Zahl dahinter",
+    "cardSubtitle": "{treated} von {total} Hektar zur Behandlung markiert"
+  },
+  "groups": {
+    "features": {
+      "detect": {
+        "label": "Erkennen",
+        "blurb": "Messflüge, die das Problem finden, solange es noch klein ist."
+      },
+      "act": {
+        "label": "Behandeln",
+        "blurb": "Behandlung nach Karte, damit nur die betroffene Fläche berührt wird."
+      },
+      "operate": {
+        "label": "Betreiben",
+        "blurb": "Der Service, die Flotte und die Auswertung, die den Betrieb tragen."
+      }
+    },
+    "useCases": {
+      "arable": {
+        "label": "Ackerbau",
+        "blurb": "Druschfrüchte und Hackfrüchte, über eine lange Saison in Etappen beflogen."
+      },
+      "permanent": {
+        "label": "Dauerkulturen",
+        "blurb": "Reben, Bäume und Ruten, bei denen dieselben Pflanzen jede Entscheidung weitertragen."
+      },
+      "protected": {
+        "label": "Geschützter Anbau",
+        "blurb": "Glas und Folie, wo nichts dem Wetter überlassen bleibt."
+      },
+      "livestock": {
+        "label": "Grünland und Vieh",
+        "blurb": "Silage, Weide und die Wildtierpflicht, die zum Mähwerk gehoert."
+      },
+      "operator": {
+        "label": "Dienstleister",
+        "blurb": "Lohnunternehmen, Genossenschaften und Renaturierungsprojekte mit vielen Flächen."
+      }
+    }
+  },
+  "og": {
+    "localePrefix": "de/"
   }
 }

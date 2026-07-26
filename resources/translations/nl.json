@@ -98,5 +98,190 @@
   "subscribed": {
     "title": "U staat op de lijst.",
     "body": "De volgende veldnotities gaan naar dat adres: wat de vluchten vinden en wanneer de vensters opengaan. Een paar keer per seizoen, verder niets. Elke mail bevat een afmeldlink."
+  },
+  "features": {
+    "targeted-weed-control": {
+      "name": "Gerichte onkruidbestrijding",
+      "tagline": "Spuit het onkruid, niet het perceel"
+    },
+    "plant-disease-detection": {
+      "name": "Vroege ziekteherkenning",
+      "tagline": "De aantasting zien voordat het oog het kan"
+    },
+    "pest-monitoring": {
+      "name": "Automatische plaagmonitoring",
+      "tagline": "Doorlopende controle over elke hectare"
+    },
+    "precision-fertilisation": {
+      "name": "Precisiebemesting",
+      "tagline": "Voed de rijen die tekortkomen"
+    },
+    "irrigation-analysis": {
+      "name": "Beregeningsanalyse",
+      "tagline": "Vind de droge hoek en het verborgen lek"
+    },
+    "yield-forecasting": {
+      "name": "Oogstprognoses",
+      "tagline": "Tel wat er werkelijk staat"
+    },
+    "field-mapping": {
+      "name": "Automatische perceelkartering",
+      "tagline": "De basislaag waar al het andere op rust"
+    },
+    "wildlife-rescue": {
+      "name": "Wilddetectie voor het maaien",
+      "tagline": "Vind het reekalf voordat de maaier dat doet"
+    },
+    "drone-seeding": {
+      "name": "Zaaien met drones",
+      "tagline": "Zaai waar de zaaimachine niet komt"
+    },
+    "frost-protection": {
+      "name": "Vorstbescherming",
+      "tagline": "Weet welke laagte vannacht bevriest"
+    },
+    "pollination-support": {
+      "name": "Bestuivingsondersteuning",
+      "tagline": "Vang op wat de bijen niet kunnen"
+    },
+    "livestock-and-fences": {
+      "name": "Vee- en afrasteringscontrole",
+      "tagline": "De dagelijkse ronde zonder de rit"
+    },
+    "bird-deterrence": {
+      "name": "Autonome vogelverjaging",
+      "tagline": "Verjaag de zwerm zonder knalapparaat"
+    },
+    "soil-compaction": {
+      "name": "Detectie van bodemverdichting",
+      "tagline": "Lees de sporen die het gewas tekent"
+    },
+    "sustainability-dashboard": {
+      "name": "Duurzaamheidsrapportage",
+      "tagline": "Het papierwerk schrijft zichzelf uit de vluchten"
+    },
+    "drone-service": {
+      "name": "Vluchten als dienst",
+      "tagline": "Boek de vluchten, niet het toestel"
+    },
+    "autonomous-network": {
+      "name": "Autonoom dronenetwerk",
+      "tagline": "Gedockt, geladen, bij het eerste licht weer op"
+    },
+    "field-assistant": {
+      "name": "Beslisassistent voor het perceel",
+      "tagline": "Een advies, niet nog een map met beelden"
+    }
+  },
+  "useCases": {
+    "winter-wheat": {
+      "name": "Wintertarwe en gerst",
+      "tagline": "Het lange seizoen, in etappes gevlogen"
+    },
+    "maize": {
+      "name": "Mais",
+      "tagline": "De eerste weken beslissen, vogels maken het af"
+    },
+    "oilseed-rape": {
+      "name": "Koolzaad",
+      "tagline": "Ongelijk vanaf de dag van zaaien"
+    },
+    "sugar-beet": {
+      "name": "Suikerbieten",
+      "tagline": "Waar plaatsspecifiek spuiten het eerst loont"
+    },
+    "potatoes": {
+      "name": "Aardappelen",
+      "tagline": "Phytophthora, beregening, een gewas dat je niet ziet"
+    },
+    "vineyards": {
+      "name": "Wijngaarden",
+      "tagline": "Steile grond, nauwe rijen, hoge waarde"
+    },
+    "orchards": {
+      "name": "Boomgaarden",
+      "tagline": "Tel de vruchten, bescherm de bloei"
+    },
+    "berries": {
+      "name": "Klein fruit en bessen",
+      "tagline": "Hoge waarde per vierkante meter, korte vensters"
+    },
+    "hops": {
+      "name": "Hop",
+      "tagline": "Een muur van gewas waar niemand in kijkt"
+    },
+    "grassland-and-hay": {
+      "name": "Grasland en kuilvoer",
+      "tagline": "Zoeken voordat de maaier rijdt"
+    },
+    "dairy-pasture": {
+      "name": "Melkvee en weidegang",
+      "tagline": "Het verre perceel, elke ochtend gecontroleerd"
+    },
+    "organic-farms": {
+      "name": "Biologische bedrijven",
+      "tagline": "Mechanisch wieden heeft de kaart het hardst nodig"
+    },
+    "greenhouses": {
+      "name": "Kassen en bedekte teelt",
+      "tagline": "Binnen, waar het weer nooit meehelpt"
+    },
+    "contractors": {
+      "name": "Loonwerkers",
+      "tagline": "Een dienst die u per hectare doorberekent"
+    },
+    "cooperatives": {
+      "name": "Coöperaties en grote bedrijven",
+      "tagline": "Eén beeld over alle aangesloten percelen"
+    },
+    "reforestation": {
+      "name": "Herbebossing en natuurherstel",
+      "tagline": "Beplant de helling waar niemand kan lopen"
+    }
+  },
+  "fieldReport": {
+    "cardTitle": "Eén onkruidkaart, met elk getal erachter",
+    "cardSubtitle": "{treated} van {total} hectare gemarkeerd voor behandeling"
+  },
+  "groups": {
+    "features": {
+      "detect": {
+        "label": "Detecteren",
+        "blurb": "Meetvluchten die het probleem vinden zolang het nog klein is."
+      },
+      "act": {
+        "label": "Behandelen",
+        "blurb": "Behandeling volgens de kaart, zodat alleen de aangetaste grond wordt geraakt."
+      },
+      "operate": {
+        "label": "Uitvoeren",
+        "blurb": "De dienst, de vloot en de rapportage die het draaiend houden."
+      }
+    },
+    "useCases": {
+      "arable": {
+        "label": "Akkerbouw",
+        "blurb": "Maaidorsbare gewassen en hakvruchten, in fasen gevlogen over een lang seizoen."
+      },
+      "permanent": {
+        "label": "Meerjarige teelten",
+        "blurb": "Wijnstokken, bomen en ranken, waar dezelfde planten elk besluit meedragen."
+      },
+      "protected": {
+        "label": "Bedekte teelt",
+        "blurb": "Glas en folie, waar niets aan het weer wordt overgelaten."
+      },
+      "livestock": {
+        "label": "Grasland en vee",
+        "blurb": "Kuilgras, beweiding en de wildplicht die bij een maaier hoort."
+      },
+      "operator": {
+        "label": "Loonwerkers",
+        "blurb": "Loonbedrijven, coöperaties en herstelprojecten met veel percelen tegelijk."
+      }
+    }
+  },
+  "og": {
+    "localePrefix": "nl/"
   }
 }

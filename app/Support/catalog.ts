@@ -23,6 +23,114 @@ import { useCaseSegments, useCases as authoredUseCases } from './content/use-cas
 export type { FeatureCategory, FeatureContent, FeatureStep, SeasonStage, UseCaseContent, UseCaseSegment }
 export { featureCategories, useCaseSegments }
 
+/**
+ * Short-form catalog copy in another language.
+ *
+ * Names and taglines are what appear in the menus, the cards and the share
+ * images, so they are translated; the long-form prose on a detail page is
+ * not, and falls through to the English. Reading the same JSON the stx
+ * translation pass uses keeps one file per locale rather than two.
+ */
+type LocalisedEntry = { name?: string, tagline?: string }
+
+function localisedCopy(locale: string): { features: Record<string, LocalisedEntry>, useCases: Record<string, LocalisedEntry> } {
+  if (!locale || locale === 'en')
+    return { features: {}, useCases: {} }
+
+  try {
+    // eslint-disable-next-line ts/no-require-imports
+    const translations = require(`../../resources/translations/${locale}.json`)
+    return { features: translations.features ?? {}, useCases: translations.useCases ?? {} }
+  }
+  catch {
+    return { features: {}, useCases: {} }
+  }
+}
+
+/** Apply a locale's names and taglines over the English catalog. */
+export function localiseFeatures(features: FeatureContent[], locale: string): FeatureContent[] {
+  const copy = localisedCopy(locale).features
+  return features.map(feature => ({
+    ...feature,
+    name: copy[feature.slug]?.name ?? feature.name,
+    tagline: copy[feature.slug]?.tagline ?? feature.tagline,
+  }))
+}
+
+export function localiseUseCases(useCases: UseCaseContent[], locale: string): UseCaseContent[] {
+  const copy = localisedCopy(locale).useCases
+  return useCases.map(useCase => ({
+    ...useCase,
+    name: copy[useCase.slug]?.name ?? useCase.name,
+    tagline: copy[useCase.slug]?.tagline ?? useCase.tagline,
+  }))
+}
+
+/**
+ * The same catalog with its short copy replaced by translation tokens.
+ *
+ * A view's `<script server>` runs once, before stx knows which locale it is
+ * rendering: the translation pass runs over the finished HTML, once per
+ * locale. So a view cannot ask the catalog for German — it prints
+ * `{t:features.<slug>.name}` and lets that pass resolve it, exactly as the
+ * hand-written copy in the templates already does. A missing key falls back
+ * to the English through the same mechanism as every other token.
+ *
+ * The raw functions stay for the two callers that want the string itself:
+ * the API, whose consumers want a name rather than a token, and
+ * `buddy og:generate`, which knows the locale it is drawing and takes the
+ * translation directly.
+ */
+function tokenise<T extends { slug: string, name: string, tagline: string }>(
+  items: T[],
+  kind: 'features' | 'useCases',
+): T[] {
+  return items.map(item => ({
+    ...item,
+    name: `{t:${kind}.${item.slug}.name}`,
+    tagline: `{t:${kind}.${item.slug}.tagline}`,
+  }))
+}
+
+/** A group's own label and blurb, as tokens keyed by the group. */
+function tokeniseGroup<T extends { slug: string, name: string, tagline: string }>(
+  group: Group<T>,
+  kind: 'features' | 'useCases',
+): Group<T> {
+  return {
+    ...group,
+    label: `{t:groups.${kind}.${group.key}.label}`,
+    blurb: `{t:groups.${kind}.${group.key}.blurb}`,
+    items: tokenise(group.items, kind),
+  }
+}
+
+export async function displayFeatures(): Promise<FeatureContent[]> {
+  return tokenise(await allFeatures(), 'features')
+}
+
+export async function displayUseCases(): Promise<UseCaseContent[]> {
+  return tokenise(await allUseCases(), 'useCases')
+}
+
+export async function displayFeature(slug: string): Promise<FeatureContent | undefined> {
+  const feature = await findFeature(slug)
+  return feature ? tokenise([feature], 'features')[0] : undefined
+}
+
+export async function displayUseCase(slug: string): Promise<UseCaseContent | undefined> {
+  const useCase = await findUseCase(slug)
+  return useCase ? tokenise([useCase], 'useCases')[0] : undefined
+}
+
+export async function displayFeatureGroups(): Promise<Group<FeatureContent>[]> {
+  return (await featureGroups()).map(group => tokeniseGroup(group, 'features'))
+}
+
+export async function displayUseCaseGroups(): Promise<Group<UseCaseContent>[]> {
+  return (await useCaseGroups()).map(group => tokeniseGroup(group, 'useCases'))
+}
+
 /** JSON columns come back as strings; a malformed one must not take a page down. */
 function parseJson<T>(value: unknown, fallback: T): T {
   if (Array.isArray(value) || (value !== null && typeof value === 'object'))

@@ -7,7 +7,7 @@ const description = 'Eighteen jobs a drone does better than a walk: weed mapping
 const activeNav = 'features'
 const pagePath = '/features'
 
-const groups = await catalog.featureGroups()
+const groups = await catalog.displayFeatureGroups()
 const total = groups.reduce((n, g) => n + g.items.length, 0)
 </script>
 

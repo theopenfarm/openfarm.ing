@@ -9,7 +9,7 @@ const pagePath = '/contact'
 
 // The segment select is built from the catalog so the options stay in step
 // with the use cases, and the reply can be specific rather than generic.
-const useCases = await catalog.allUseCases()
+const useCases = await catalog.displayUseCases()
 
 </script>
 

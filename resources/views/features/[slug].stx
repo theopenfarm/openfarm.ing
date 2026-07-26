@@ -6,7 +6,7 @@ const fieldmap = await import(nodePath.join(process.cwd(), 'app/Support/fieldmap
 // /features/<slug>. Anything outside [a-z0-9-] cannot be a slug we issued, so
 // it is stripped rather than passed to a lookup.
 const slug = String((typeof params === 'object' && params && params.slug) || '').replace(/[^a-z0-9-]/gi, '')
-const feature = await catalog.findFeature(slug)
+const feature = await catalog.displayFeature(slug)
 
 const title = feature ? `${feature.name} - Open Farming` : 'Capability not found - Open Farming'
 const description = feature ? feature.summary : 'That capability does not exist. Browse all eighteen instead.'
@@ -15,7 +15,7 @@ const pagePath = `/features/${slug}`
 
 // The related use cases are resolved to full records so the cards can carry
 // their own summary rather than a bare slug.
-const allUseCases = feature ? await catalog.allUseCases() : []
+const allUseCases = feature ? await catalog.displayUseCases() : []
 const related = feature ? allUseCases.filter(u => feature.useCases.includes(u.slug)) : []
 const categoryLabel = feature ? catalog.featureCategories[feature.category].label : ''
 
@@ -28,7 +28,7 @@ const detailMap = report
   : ''
 
 const siblings = feature
-  ? (await catalog.allFeatures()).filter(f => f.category === feature.category && f.slug !== feature.slug).slice(0, 4)
+  ? (await catalog.displayFeatures()).filter(f => f.category === feature.category && f.slug !== feature.slug).slice(0, 4)
   : []
 </script>
 

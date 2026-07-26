@@ -3,7 +3,7 @@ const nodePath = require('node:path')
 const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
 
 const slug = String((typeof params === 'object' && params && params.slug) || '').replace(/[^a-z0-9-]/gi, '')
-const useCase = await catalog.findUseCase(slug)
+const useCase = await catalog.displayUseCase(slug)
 
 const title = useCase ? `${useCase.name} - Open Farming` : 'Use case not found - Open Farming'
 const description = useCase ? useCase.summary : 'That use case does not exist. Browse all sixteen instead.'
@@ -12,14 +12,14 @@ const pagePath = `/use-cases/${slug}`
 
 // Resolved in the order the use case lists them, most load bearing first, so
 // the page leads with the capability that matters most here.
-const allFeatures = useCase ? await catalog.allFeatures() : []
+const allFeatures = useCase ? await catalog.displayFeatures() : []
 const usedFeatures = useCase
   ? useCase.features.map(s => allFeatures.find(f => f.slug === s)).filter(Boolean)
   : []
 const segmentLabel = useCase ? catalog.useCaseSegments[useCase.segment].label : ''
 
 const siblings = useCase
-  ? (await catalog.allUseCases()).filter(u => u.segment === useCase.segment && u.slug !== useCase.slug)
+  ? (await catalog.displayUseCases()).filter(u => u.segment === useCase.segment && u.slug !== useCase.slug)
   : []
 
 const segmentPhotos = {

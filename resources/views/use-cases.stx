@@ -7,7 +7,7 @@ const description = 'How the platform is set up for cereals, maize, beet, potato
 const activeNav = 'use-cases'
 const pagePath = '/use-cases'
 
-const groups = await catalog.useCaseGroups()
+const groups = await catalog.displayUseCaseGroups()
 const total = groups.reduce((n, g) => n + g.items.length, 0)
 
 // One photograph per segment, chosen because it shows the ground being

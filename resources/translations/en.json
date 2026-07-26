@@ -98,5 +98,190 @@
   "subscribed": {
     "title": "You are on the list.",
     "body": "The next set of field notes will come to that address: what the flights are finding, and when the windows open. A few times a season, nothing else. Every one carries an unsubscribe link."
+  },
+  "features": {
+    "targeted-weed-control": {
+      "name": "Targeted weed control",
+      "tagline": "Spray the weeds, not the field"
+    },
+    "plant-disease-detection": {
+      "name": "Early disease detection",
+      "tagline": "See the infection before the eye can"
+    },
+    "pest-monitoring": {
+      "name": "Automated pest monitoring",
+      "tagline": "Standing patrol over every hectare"
+    },
+    "precision-fertilisation": {
+      "name": "Precision fertilisation",
+      "tagline": "Feed the rows that are short"
+    },
+    "irrigation-analysis": {
+      "name": "Irrigation analysis",
+      "tagline": "Find the dry corner and the buried leak"
+    },
+    "yield-forecasting": {
+      "name": "Yield forecasting",
+      "tagline": "Count what is actually out there"
+    },
+    "field-mapping": {
+      "name": "Automated field mapping",
+      "tagline": "The base layer everything else sits on"
+    },
+    "wildlife-rescue": {
+      "name": "Wildlife detection before mowing",
+      "tagline": "Find the fawn before the mower does"
+    },
+    "drone-seeding": {
+      "name": "Drone seeding",
+      "tagline": "Sow where the drill cannot go"
+    },
+    "frost-protection": {
+      "name": "Frost protection",
+      "tagline": "Know which hollow will freeze tonight"
+    },
+    "pollination-support": {
+      "name": "Pollination support",
+      "tagline": "Cover the gap when the bees cannot"
+    },
+    "livestock-and-fences": {
+      "name": "Livestock and fence checks",
+      "tagline": "The daily round without the drive"
+    },
+    "bird-deterrence": {
+      "name": "Autonomous bird deterrence",
+      "tagline": "Move the flock without living next to a gas gun"
+    },
+    "soil-compaction": {
+      "name": "Soil compaction detection",
+      "tagline": "Read the tramlines the crop is drawing for you"
+    },
+    "sustainability-dashboard": {
+      "name": "Sustainability reporting",
+      "tagline": "The paperwork writes itself from the flights"
+    },
+    "drone-service": {
+      "name": "Flights as a service",
+      "tagline": "Book the flights, not the aircraft"
+    },
+    "autonomous-network": {
+      "name": "Autonomous drone network",
+      "tagline": "Docked, charged, and out again at first light"
+    },
+    "field-assistant": {
+      "name": "Field decision assistant",
+      "tagline": "A recommendation, not another image folder"
+    }
+  },
+  "useCases": {
+    "winter-wheat": {
+      "name": "Winter wheat and barley",
+      "tagline": "The long season, flown in stages"
+    },
+    "maize": {
+      "name": "Maize",
+      "tagline": "Early weeks decide it, and birds finish it"
+    },
+    "oilseed-rape": {
+      "name": "Oilseed rape",
+      "tagline": "Uneven from the day it goes in"
+    },
+    "sugar-beet": {
+      "name": "Sugar beet",
+      "tagline": "Where spot spraying pays first"
+    },
+    "potatoes": {
+      "name": "Potatoes",
+      "tagline": "Blight, irrigation and a crop you cannot see"
+    },
+    "vineyards": {
+      "name": "Vineyards",
+      "tagline": "Steep ground, tight rows, high value"
+    },
+    "orchards": {
+      "name": "Orchards",
+      "tagline": "Count the fruit, protect the blossom"
+    },
+    "berries": {
+      "name": "Soft fruit and berries",
+      "tagline": "High value per square metre, short windows"
+    },
+    "hops": {
+      "name": "Hops",
+      "tagline": "A wall of canopy you cannot see into"
+    },
+    "grassland-and-hay": {
+      "name": "Grassland and silage",
+      "tagline": "Search before the mower moves"
+    },
+    "dairy-pasture": {
+      "name": "Dairy and grazing livestock",
+      "tagline": "The outlying block, checked every morning"
+    },
+    "organic-farms": {
+      "name": "Organic farms",
+      "tagline": "Mechanical weeding needs a map more than anyone"
+    },
+    "greenhouses": {
+      "name": "Glasshouses and protected crops",
+      "tagline": "Indoors, where the weather never helps"
+    },
+    "contractors": {
+      "name": "Agricultural contractors",
+      "tagline": "A service you can resell by the hectare"
+    },
+    "cooperatives": {
+      "name": "Cooperatives and large estates",
+      "tagline": "One picture across every member holding"
+    },
+    "reforestation": {
+      "name": "Reforestation and land restoration",
+      "tagline": "Plant the slope nobody can walk"
+    }
+  },
+  "fieldReport": {
+    "cardTitle": "One weed map, every number behind it",
+    "cardSubtitle": "{treated} of {total} hectares flagged for treatment"
+  },
+  "groups": {
+    "features": {
+      "detect": {
+        "label": "Detect",
+        "blurb": "Sensing flights that find the problem while it is still small."
+      },
+      "act": {
+        "label": "Act",
+        "blurb": "Treatment that follows the map, so only the affected ground is touched."
+      },
+      "operate": {
+        "label": "Operate",
+        "blurb": "The service, the fleet and the reporting that keep it running."
+      }
+    },
+    "useCases": {
+      "arable": {
+        "label": "Arable",
+        "blurb": "Combinable crops and root crops, flown in stages across a long season."
+      },
+      "permanent": {
+        "label": "Permanent crops",
+        "blurb": "Vines, trees and canes, where the same plants carry every decision forward."
+      },
+      "protected": {
+        "label": "Protected crops",
+        "blurb": "Glass and plastic, where nothing is left to the weather."
+      },
+      "livestock": {
+        "label": "Grassland and livestock",
+        "blurb": "Silage, grazing and the wildlife obligation that comes with a mower."
+      },
+      "operator": {
+        "label": "Operators",
+        "blurb": "Contractors, cooperatives and restoration projects running many holdings at once."
+      }
+    }
+  },
+  "og": {
+    "localePrefix": ""
   }
 }
