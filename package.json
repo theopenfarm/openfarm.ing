@@ -95,7 +95,7 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "stacks": "^0.70.163"
+    "stacks": "^0.70.165"
   },
   "workspaces": [
     "storage/framework",
