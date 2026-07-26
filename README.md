@@ -1,396 +1,156 @@
-![Social Card of Stacks](./public/images/social.png)
+# Open Farming
 
-# Rapid App & Library Development
+Autonomous drone scouting for farms, at [openfarm.ing](https://openfarm.ing).
 
-[![npm version](https://img.shields.io/npm/v/stacks?style=flat-square)](https://npmjs.com/package/stacks)
-[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/stacksjs/stacks/ci.yml?style=flat-square&branch=main)](https://github.com/stacksjs/stacks/actions?query=workflow%3Aci)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![npm downloads](https://img.shields.io/npm/dm/stacks?style=flat-square)](https://npmjs.com/package/stacks)
-<!-- [![Codecov][codecov-src]][codecov-href] -->
+A drone flies a fixed route over a field, models locate what is actually wrong
+(weeds by species, disease by divergence from the field's own history, dry
+ground by canopy temperature), and the findings become a prescription the
+machine you already own can load. On the demonstration field that means the
+boom opens over **4.34 of 24.6 hectares** instead of all of it.
 
-> [!NOTE]
-> Stacks is in active development and usable today — every section below
-> is real, runnable functionality. Expect occasional breaking changes
-> while we cut the official 1.0. Feedback and issue reports are welcome.
+This repository is the marketing site and the public API behind it, built on
+[Stacks](https://github.com/stacksjs/stacks).
 
-Stacks is a rapid development framework, where the goal is to _help you_ create & maintain frontends, backends, and clouds—without having to worry about the boilerplate. _An all-in-one toolkit that meets all your full stack needs._
+---
 
-[![Stacks runtime architecture](./docs/diagrams/stacks-runtime.png)](./docs/diagrams/stacks-runtime.html)
+## What is here
 
-_Open the diagram for light and dark themes plus SVG, PNG, JPEG, and WebP exports._
+| Path | What lives there |
+|---|---|
+| `app/Support/content/` | The source of truth for all site content: 18 capabilities, 16 use cases, and the demonstration field's generator |
+| `app/Support/catalog.ts` | The shared read layer. Every page and every endpoint goes through it |
+| `app/Support/fieldmap.ts` | Renders a field to SVG, server side, from the flight record |
+| `app/Models/` | Nine models: `Feature`, `UseCase`, the operational domain (`Farm`, `Field`, `Drone`, `Mission`, `Detection`, `TreatmentMap`) and `DemoRequest` |
+| `app/Actions/Catalog/` | The public read API |
+| `app/Actions/Leads/` | The field-visit booking endpoint, the only public write of its own |
+| `app/Actions/SubscriberEmailAction.ts` | The framework's subscribe handler, published into userland |
+| `app/Commands/CatalogSync.ts` | `buddy catalog:sync`, which publishes the content into the database |
+| `resources/views/` | The site. `features/[slug].stx` and `use-cases/[slug].stx` render every detail page |
+| `public/site.css` | The design tokens, and the CSS that utilities cannot express |
+| `config/cloud.ts` | Deploy configuration: a tenant on the shared Stacks box |
 
-- Web & Desktop Applications _(including system tray apps)_
-- Serverless & Traditional APIs
-- Cloud Infrastructure Creation & Maintenance
-- Interactive CLIs
-- Framework-agnostic Component & Function Libraries
-- Deployment & Release Manager _(CI & CD)_
+### The maps are real
 
-## Convention Over Configuration
+Every orange mark on this site is a row in the database. `demo-field.ts`
+generates the dataset deterministically (a fixed-seed PRNG, no `Date`, no
+`Math.random`) with the spatial structure weed pressure actually has: a
+headland band where the sprayer turns, four tramline corridors, and two
+established patches. 98 detections cluster into 62 treatment zones on a grid a
+boom's section control can resolve.
 
-As a developer, Stacks helps you every step along the way—in beginner & expert-friendly ways, allowing you to focus on the _what & why_ of your project, all while enabling you to stay in control & ownership of your _(& your users’)_ data.
+Because it is deterministic, the database, the API and the rendered SVG always
+agree, and the figures quoted in the copy cannot drift. It is **modelled** data
+rather than a customer's field, and the site says so wherever it appears.
 
-> “It is the framework’s responsibility to remove patterns that lead to boilerplate code. And Stacks is really good at that.” _- Chris_
+---
 
-<!-- ![Atomic UI & FX Design](./docs/assets/diagram.png) -->
+## Running it
 
-## Prerequisites
-
-Stacks uses [Pantry](https://pantry.dev) to provision Bun, Git, SQLite, and the project-specific tools declared by the framework. You'll need:
-
-- **Pantry** - install it with `curl -fsSL https://pantry.dev | bash`, then run `pantry bootstrap` once to configure your shell.
-- **macOS, Linux, or WSL** - Windows-native support is on the roadmap. The current toolchain assumes a POSIX shell.
-
-Pantry installs and pins Bun 1.3 or newer for each Stacks project, then keeps the rest of the machine and project dependencies in sync. Features such as PostgreSQL, Redis, and cloud deployment add their requirements through the same Pantry manifest where possible, with feature-specific configuration documented alongside them.
-
-Stacks pins Pantry [`v0.10.36`](https://github.com/pantry-pm/pantry/tree/v0.10.36)
-as an external toolchain contract. Resolution sources, lockfile and integrity
-rules, lifecycle trust, registry routes, authentication, storage, and failure
-modes are documented in the source-linked whitepaper references for the
-[package manager](https://whitepaper.stacksjs.com/reference/package-manager) and
-[registry](https://whitepaper.stacksjs.com/reference/registry). Stacks does not
-redefine those behaviors.
-
-## Get Started
-
-The fastest path after Pantry is installed:
+Requires Bun >= 1.3.0.
 
 ```bash
-panx @stacksjs/buddy new my-project
+bun install
 ```
-
-Pantry executes Buddy in an isolated environment and provisions the generated project's declared toolchain during setup.
-
-For frontend experiments in the browser, open the live stx starter:
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/stacksjs/stackblitz?title=Stacks%20Starter)
-
-## Usage
-
-Stacks ships with `buddy`, a single CLI for everything you'll do day to day. The handful below covers the common workflows; the full reference is collapsed underneath.
 
 ```bash
-buddy dev          # start the dev server (frontend, API, dashboard, …)
-buddy build        # build for production (CLI prompts for what to build)
-buddy test         # run tests
-buddy migrate      # run database migrations
-buddy make:action UpdateUser   # scaffold a new Action (also: model, view, job, …)
-buddy --help       # show every available command
+./buddy migrate && ./buddy catalog:sync
 ```
-
-For the full command reference, see the collapsible section below or the [Buddy CLI documentation](https://stacksjs.org/docs/cli).
-
-<details>
-<summary>View the complete Buddy Toolkit</summary>
 
 ```bash
-buddy --version # get the Stacks version
-buddy --help # view help menu
-# please note: you may suffix any command with the
-# `command --help` flag to review the help menu
-
-buddy new my-project # creates a new Stacks project
-buddy install # installs dependencies
-buddy add calendar # pulls a registered project-shaped stack into this project
-buddy fresh # fresh reinstall of all deps (--force skips the confirmation)
-buddy clean # removes all deps (--force skips the confirmation)
-buddy setup # sets up the project initially
-buddy setup:oh-my-zsh # optional: sets up Oh My Zsh with auto-completions & "aliases"
-
-buddy upgrade # upgrades the Stacks framework (alias: buddy update)
-buddy upgrade:dependencies # auto-upgrades package.json deps
-buddy upgrade:shell # upgrades the shell integration
-buddy upgrade:binary # upgrades the `stacks` binary
-buddy upgrade:bun # upgrades to latest project-defined Bun version
-buddy upgrade:all # auto-upgrades all of the above
-
-# if you need any more info on any command listed here, you may suffix
-# any of them via the "help option", i.e. `buddy ... --help`
-
-buddy dev # starts the dev servers (frontend, api & docs)
-buddy dev -i # prompts you to select which dev server to start
-buddy dev:api # starts the API dev server
-buddy dev:dashboard # starts the Admin/Dashboard dev server
-buddy dev:desktop # starts the Desktop dev server
-buddy dev:views # starts frontend dev server
-buddy dev:components # starts component dev server
-buddy dev:docs # starts local docs dev server
-buddy dev docs # also starts the local docs dev server (dev takes the server name as an argument)
-
-buddy share # creates a sharable link to your local project
-
-# production servers (the same entries the deploy target runs as services)
-buddy serve # starts the production HTTP server (STX views + /api proxy)
-buddy serve:api # starts the production API server
-
-# building for production (e.g. AWS, Google Cloud, npm, Vercel, Netlify, et al.)
-buddy build # select a specific build (follow CLI prompts)
-buddy build:frontend # builds the frontend (aliases: build:views, build:pages)
-buddy build:desktop # builds Desktop application
-buddy build:functions # builds function library
-buddy build:components # builds the STX component library and Web Component library
-buddy build:web-components # builds framework agnostic Web Component library (i.e. Custom Elements)
-buddy build:cli # builds the Buddy CLI binary
-buddy build:server # builds the Stacks cloud server (Docker image)
-buddy build:docs # builds the documentation site
-
-# `buddy build:*` aliases
-buddy prod:components # alias for build:components
-buddy prod:desktop # alias for build:desktop
-buddy prod:web-components # alias for build:web-components
-buddy prod:frontend # alias for build:frontend
-buddy prod:cli # alias for build:cli
-buddy prod:server # alias for build:server
-buddy prod:docs # alias for build:docs
-buddy prod:frontend-static # alias for build:frontend-static
-
-# sets your application key
-buddy key:generate
-
-buddy make:component HelloWorld # bootstraps a HelloWorld component
-buddy make:function hello-world # bootstraps a hello-world function
-buddy make:view hello-world # bootstraps a hello-word page
-buddy make:model Car # bootstraps a Car model
-buddy make:database cars # prints guidance: tables come from models + migrations, there is no separate create step
-buddy make:migration create_cars_table # creates a cars migration file
-buddy make:factory cars # creates a Car factory file
-buddy make:notification welcome-email # bootstraps a welcome-email notification
-buddy make:lang de # bootstraps a lang/de.yml language file
-buddy make:stack my-plugin # scaffolds a project-shaped registry stack (new project? use `panx @stacksjs/buddy new`)
-
-buddy migrate # runs database migrations
-buddy migrate:fresh # drops all tables & re-runs migrations (destroys all data; --seed reseeds)
-buddy migrate:dns # sets the ./config/dns.ts file
-buddy seed # runs database seeders
-
-buddy dns example.com # list all DNS records for example.com
-buddy dns example.com --type MX # list MX records for example.com
-
-buddy http example.com/api/hello # sends a GET request & prints the response
-buddy http -v example.com/api/get # same, with verbose output
-
-buddy lint # runs linter
-buddy lint:fix # runs linter and fixes issues
-buddy format # formats your project codebase
-buddy format:check # checks formatting without making changes
-
-buddy commit # follow CLI prompts for committing staged changes
-buddy release # creates the releases for the stack & triggers the Release Action (workflow)
-buddy changelog # generates CHANGELOG.md
-
-# when deploying your app/s to a remote server or cloud provider
-buddy deploy # select a specific deployment (follow CLI prompts)
-buddy undeploy # be careful: "undeploys" removes/deletes your deployed resources (--yes skips the confirmation)
-
-buddy cloud:remove # removes cloud setup
-buddy cloud:cleanup # removes cloud setup & cleans up all potentially leftover resources
-buddy cloud:add --jump-box # adds a jump box to your cloud setup
-
-# you likely won’t need to run these commands as they are auto-triggered, but they are available
-buddy generate  # prompts you to select which generator to run
-buddy generate:types # generates types for your components, functions, & views
-buddy generate:entries # generates entry files for components, functions, & views
-buddy generate:web-types # generates Web Component types
-buddy generate:vscode-custom-data # generates VSCode custom data
-buddy generate:ide-helpers # generates IDE helpers
-buddy generate:component-meta # generates component meta
-
-# generates your application key
-buddy key:generate # generates your application key
-
-# manage your environment variables
-buddy env:get # get an environment variable
-buddy env:set # set an environment variable
-buddy env:encrypt # encrypt an environment variable
-buddy env:decrypt # decrypt an environment variable
-buddy env:keypair # generate a keypair
-buddy env:rotate # rotate a keypair
-
-# generate your TypeScript declarations
-buddy types:generate # generates types for your components, functions, & views
-buddy types:fix # auto-fixes types for your components, functions, & views
-
-buddy domains:add stacksjs.com # adds a domain
-buddy domains:remove stacksjs.com # removes a domain
-buddy domains:purchase stacksjs.com # purchase a new domain
-
-# handy utilities
-buddy doctor # runs health checks on your Stacks installation
-buddy list # lists all available Buddy commands
-buddy route:list # lists your routes
-buddy ports # checks your project for port issues & misconfigurations
-buddy outdated # lists outdated project dependencies
-buddy env:check # checks your environment configuration & validates setup
-buddy tinker # interactive REPL with the Stacks framework preloaded
-buddy down # puts the app into maintenance mode
-buddy up # brings the app out of maintenance mode
-
-# test your stack
-buddy test # runs your test suite
-buddy test:unit # runs unit tests
-buddy test:feature # runs feature tests
-buddy test:types # runs typecheck
-
-# the published @stacksjs/buddy package ships
-# `buddy`, `bud`, & `stx` bins; inside this repo
-# the CLI is invoked as ./buddy
-./buddy fresh
+./buddy dev
 ```
 
-</details>
+The site is then on `http://localhost:3100`. This project owns :3100/:3108/:3106
+so it can run alongside another Stacks app. For pretty HTTPS URLs
+(`https://openfarming.localhost`) run `./buddy setup:ssl` once; it needs sudo to
+bind :443 and to trust the local certificate authority.
 
-Read more about the Buddy CLI in the [official docs](https://stacksjs.org/docs/cli) — every command, every flag, every prompt explained.
+### Editing content
 
-## Features
-
-The Stacks framework is a harmony of several “engines” to build any web and/or desktop application, in highly scalable & privacy-friendly ways. It consists of the following engines:
-
-### Frontend Development
-
-_Develop dynamic UIs with helpers for atomic design, and much more._
-
-- 🧩 **Components** _primitive to develop user interfaces_
-- 🤖 **Functions** _primitive to develop business logic (and grant your UI superpowers)_
-- 🎨 **UI Kit** _modern & deeply-integrated components_
-- 🌐 **Web** _“a routing & templating engine that makes sense”_
-- 🖥️ **Desktop** _transforms your web app into a desktop app, plus more_
-- 📝 **Documentation** _markdown-based documentation, auto-generated_
-- 📚 **Library** _auto-builds & manages component & function libraries_
-- ⚡️ Powered by Bun, Craft, Headwind
-
-### Backend Development
-
-_Develop serverless (or server) functions with countless helpers to build scalable & fast APIs._
-
-- 🪄 **AI** _deep AI integrations to simplify building agentic workflow_
-- 🤖 **APIs** _scalability & maintainability built-in_
-- 🏎️ **Cache** _unified caching for DynamoDB, Redis and more_
-- ⚙️ **CLIs** _create beautiful CLIs for Linux, Windows, and Mac (dependency-free binaries)_
-- 🛍️ **Commerce** _own & grow your own online business with ease (SaaS-optimized)_
-- 📀 **Database** _DynamoDB, SQLite, MySQL, Postgres, and more_
-- 👾 **Errors** _native type-safe error handling_
-- 🗓️ **Events** _functional event (front & backend) communication_
-- 📢 **Notifications** _emails, SMSs, direct, and push notifications & webhooks_
-- 🗺️ **ORM** _automated schemas for scale & a pretty API_
-- 💳 **Payments** _unified API for one-off & subscription billing methods for Stripe_
-- ⚙️ **Queues** _run any heavy workload in the background_
-- 🛠️ **Query Builder** _powerful, type-safe SQL query builder_
-- 💬 **Realtime** _“everything you need to build dynamic real-time apps”_
-- 🧭 **Router** _smart routing, file-based or Laravel-like_
-- 🔎 **Search Engine** _smart searching, advanced filtering & sorting, pagination, headless UI_
-- 💾 **Storage** _a secure-by-default File API that feels right_
-- 🧪 **Tinker** _a powerful TypeScript REPL_
-- 🌪️ **Validation** _e2e type-safety (true frontend & backend harmony)_
-
-### Cloud Development
-
-_Develop & maintain cloud infrastructure with ease. “Imagine Vercel, Vapor and Forge having been unified.”_
-
-- ☁️ **Server** _local development server & production-ready servers out-of-the-box_
-- ⛅️ **Serverless** _on-demand, auto-scaling, zero maintenance_
-- ⏰ **Alarms** _built-in cloud infrastructure monitoring to avoid surprises_
-- 🚏 **CDN** _zero-config, low-latency, request life-cycle hooks, optimized request compressions (Brotli & gzip)_
-- 🔀 **Domain** _version-controlled & zero-config domain management (e.g. DNS management)_
-- 🤖 **AI** _fine-tune a foundational model using your application data_
-- 📧 **Email** _secure & zero-setup <easy-peasy@custom-domains.com> mailboxes_
-- 🔐 **Firewall** _native web application firewall support_
-- 📦 **Storage** _unlimited cloud storage & automatic backups_
-- 🚜 **Maintenance** _maintain your cloud infrastructure with ease using Buddy & Stacks_
-- 🚦 **Infrastructure as Code** _version-controlled cloud infrastructure (AWS, Google next?)_
-
-### CI/CD
-
-_Focus on coding, not publishing._
-
-- 🚀 **Deployment Manager** _takes the sweat out of production deployments—zero-setup push-to-deploy_
-- 0️⃣ **Zero Downtime** _deploy with confidence using a zero-downtime deployment strategy_
-- 📫 **Release Manager** _libraries (component & function) auto-published to npm, git helpers, and more_
-
-### Developer Experience (DX)
-
-Convention over configuration, while staying wholly configurable. _No more boilerplate._
-
-- 🧠 **LLM-Friendly Authoring** _models generate compact application intent instead of repeating framework glue or reading `node_modules`_
-- 💎 **Automated Upgrades** _no need to worry about upgrading to the latest versions, Stacks upgrades you_
-- 🦋 **Pretty Dev URLs** _your-project.localhost instead of localhost:3000_
-- 💡 **IDE Integration** _auto-completions, inline docs & a powerful IDE setup_
-- 🪄 **Zero-Config** _yet highly configurable—convention over configuration_
-- 💅 **Linter & Formatter** _auto-configured & built into your IDE_
-- 💪🏼 **Type Strong** _built-in e2e type-safety_
-- ✨ **Git Workflows** _committing with ease_
-- 🚗 **Auto Imports** _your components & functions, including date, string, array, & object helpers_
-- ⏩ **Code Snippets** _goodbye to the boilerplate code—thank you Sarah Drasner_
-- 🔤 **Spell Checker** _be notified once there are typos_
-- 🛠️ **Essential Utilities** _powers at your fingertips. Collections, STX composables, and more_
-- 👥 **Team Management** _manage your team & their permissions_
-- 🧪 **Streamlined Testing** _unit & e2e tests powered by Bun, Vitest & Playwright_
-
-No matter whether you are a beginner or an expert, the approachable Stacks design allows you to learn at your own pace, using our thorough documentation covering every aspect of the framework. Stacks is extremely beginner & expert-friendly.
-
-Develop beautiful, reactive, composable UIs without learning a new set of languages. HTML, CSS, and minimal JavaScript—that’s all you need to dive in now! _Or TypeScript ✌🏼_
-
-> _An actual rapid application development framework for all Full Stack needs. Next-level simplicity & DX._
-
-## Testing
+Capability and use-case copy lives in `app/Support/content/`. After an edit:
 
 ```bash
-./buddy test
+./buddy catalog:sync
 ```
 
-## Changelog
+The command truncates and rewrites, so it is safe to re-run, and it validates
+that every cross-reference between a feature and a use case resolves before
+writing anything. A deploy runs it automatically, so content edits ship with
+the code.
 
-Please see our [releases](https://github.com/stacksjs/stacks/releases) page for more information on what has changed recently.
+---
 
-## Contributing
+## The API
 
-Please see the [Contributing Guide](https://github.com/stacksjs/contributing) for details.
+Public and unauthenticated. It serves exactly what the pages render, so the two
+cannot drift apart.
 
-## Community
+| Endpoint | Returns |
+|---|---|
+| `GET /api/features` | Every capability, grouped. `?category=detect\|act\|operate` filters |
+| `GET /api/features/{slug}` | One capability with its related use cases resolved |
+| `GET /api/use-cases` | Every operation, grouped by segment |
+| `GET /api/use-cases/{slug}` | One operation with its capabilities in priority order |
+| `GET /api/field-report` | The whole flight record: every detection and the prescription geometry |
+| `POST /api/demo-requests` | Records a field-visit enquiry. Rate limited |
+| `POST /api/email/subscribe` | Records a subscriber. Rate limited, deduplicated |
 
-For help, discussion about best practices, or any other conversation that would benefit from being searchable:
+`/api/field-report` carries `sample: true` in the payload so no consumer can
+present those figures as a customer's results by accident.
 
-[Discussions on GitHub](https://github.com/stacksjs/stacks/discussions)
+Both write endpoints answer a browser form post with a redirect to a
+confirmation page (`/booked`, `/subscribed`) and a `fetch` caller with JSON. The
+forms are plain server-rendered HTML and work with no client bundle at all,
+which is the point on a phone in a farmyard.
 
-For casual chit-chat with others using this package:
+---
 
-[Join the Stacks Discord Server](https://stacksjs.com/discord)
+## Deploying
 
-## Postcardware
+The site runs as a tenant on the shared Stacks Hetzner box: this project does
+not own a server. `config/cloud.ts` attaches to the `stacks` project, ships
+three sites (`main` on :3060, a loopback-only `api` on :3068, and a `www`
+redirect) and adds its own rpx gateway fragment. SQLite lives at
+`/var/lib/openfarming/stacks.sqlite`, outside the atomic release directories,
+so the catalog and any enquiries survive a deploy.
 
-“Software that is free, but hopes for a postcard.” We love receiving postcards from around the world showing where Stacks is being used! We showcase them on our website too.
+**Pushing to `main` deploys production.** The CI workflow gates the deploy on
+lint, typecheck and tests, so a red build means no deploy. The credentials it
+needs are repository secrets: `DEPLOY_SSH_KEY`, `HCLOUD_TOKEN`,
+`PORKBUN_API_KEY`, `PORKBUN_SECRET_KEY`, `APP_KEY` and
+`DOTENV_PRIVATE_KEY_PRODUCTION`.
 
-Our address: Stacks.js, 12665 Village Ln #2306, Playa Vista, CA 90094, United States 🌎
+To deploy by hand:
 
-## Sponsors
+```bash
+APP_ENV=production APP_URL=openfarm.ing ./buddy deploy --prod --yes
+```
 
-We would like to extend our thanks to the following sponsors for funding Stacks development. If you are interested in becoming a sponsor, please reach out to us.
+`.env.production` is committed with every value encrypted; the deploy decrypts
+it locally with the key in `.env.keys` (gitignored) and ships plaintext to the
+box. Nothing readable is in git.
 
-- [JetBrains](https://www.jetbrains.com/)
-- [The Solana Foundation](https://solana.com/)
+One thing the deploy does not do is issue the TLS certificate. On a first
+deploy to a new domain, run the generated renewal script on the box once, or
+the site serves another tenant's certificate:
 
-## Credits
+```bash
+ssh root@178.105.248.188 'sh /etc/rpx/renew-certs-openfarming.sh'
+```
 
-- [Laravel](https://laravel.com) _many thanks to their community_
-- [Chris Breuer](https://github.com/chrisbbreuer)
-- [All Contributors](../../contributors)
+---
 
-And a special thanks to [Dan Scanlon](https://twitter.com/danscan) for donating the `stacks` name on npm ✨
+## Conventions
 
-## License
+- Lint with `bunx --bun pickier .`, never eslint. `--fix` handles class ordering.
+- Typecheck the application with `bun run typecheck:app`.
+- This project runs on the **published** `@stacksjs/*` packages rather than a
+  vendored `storage/framework/core`. `buddy unpublish:core --all` is what moved
+  it there; `buddy publish:core <pkg>` brings one package back when you need to
+  edit framework source in place.
+- stx directives take bare identifiers: `@foreach (items as item)`, `{{ item.name }}`.
+- No em-dashes in anything a visitor reads.
 
-The MIT License (MIT). Please see [LICENSE](LICENSE.md) for more information.
+## Licence
 
-Made with 💙
-
-<!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/stacks?style=flat-square
-[npm-version-href]: https://npmjs.com/package/stacks
-
-[npm-downloads-src]: https://img.shields.io/npm/dm/stacks?style=flat-square
-[npm-downloads-href]: https://npmjs.com/package/stacks
-
-[github-actions-src]: https://img.shields.io/github/actions/workflow/status/stacksjs/stacks/ci.yml?style=flat-square&branch=main
-[github-actions-href]: https://github.com/stacksjs/stacks/actions?query=workflow%3Aci
-
-<!-- [codecov-src]: https://img.shields.io/codecov/c/gh/stacksjs/stacks/main?style=flat-square
-[codecov-href]: https://codecov.io/gh/stacksjs/buddy -->
+MIT.

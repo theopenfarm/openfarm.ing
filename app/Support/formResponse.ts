@@ -12,11 +12,19 @@
  * and a marketing form that only works once a client bundle has hydrated is
  * a form that fails on the connection a farmer actually has.
  */
-export function wantsHtml(request: { header?: (name: string) => string | undefined, headers?: any }): boolean {
+export function wantsHtml(request: unknown): boolean {
+  // Deliberately structural and defensive: the request object differs between
+  // the router's RequestInstance and a bare Request, and this only ever needs
+  // one header off whichever one it was handed.
+  const req = request as {
+    header?: (name: string) => string | undefined
+    headers?: { get?: (name: string) => string | null, accept?: string }
+  }
+
   const accept = String(
-    request?.header?.('accept')
-    ?? request?.headers?.get?.('accept')
-    ?? request?.headers?.accept
+    req?.header?.('accept')
+    ?? req?.headers?.get?.('accept')
+    ?? req?.headers?.accept
     ?? '',
   ).toLowerCase()
 
