@@ -269,6 +269,16 @@ jobs:
         run: ./buddy deploy "$DEPLOY_FLAG" --yes
         env:
           APP_ENV: ${{ env.DEPLOY_ENVIRONMENT }}
+          APP_URL: openfarm.ing
+          # This project attaches to the shared stacks box, so the deploy needs
+          # the Hetzner token to find it and the Porkbun credentials to
+          # reconcile openfarm.ing's records. APP_KEY is read by config/cloud.ts
+          # and written into each site's env.
+          HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
+          PORKBUN_API_KEY: ${{ secrets.PORKBUN_API_KEY }}
+          PORKBUN_SECRET_KEY: ${{ secrets.PORKBUN_SECRET_KEY }}
+          APP_KEY: ${{ secrets.APP_KEY }}
+          # .env.production is committed encrypted; this is what decrypts it.
           DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_PRODUCTION }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COPYFILE_DISABLE: '1'
