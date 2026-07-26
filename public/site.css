@@ -269,12 +269,44 @@ a { color: inherit; }
 .mega-item strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); }
 .mega-item span { display: block; font-size: 0.8rem; color: var(--text-3); line-height: 1.4; }
 
-/* Below `lg` the mega panels would not fit on one line, so the whole bar
- * collapses into a scrollable link row and the panels never open. */
+/* Below `lg` a mega panel cannot fit, and the five top-level links cannot fit
+ * beside the wordmark and the CTA either. Rather than hide the navigation
+ * behind a hamburger (one more tap, and this site's whole job is getting
+ * people into the capability and use-case pages), the bar becomes two rows:
+ * the wordmark and the CTA stay on the first, the links move to a
+ * horizontally scrollable second row. The panels simply never open; the link
+ * still goes to the index page that lists everything in them. */
 @media (max-width: 1023px) {
   .mega { display: none; }
-  .nav-scroll { overflow-x: auto; scrollbar-width: none; }
+
+  .nav-inner {
+    height: auto;
+    flex-wrap: wrap;
+    padding-top: 0.7rem;
+    padding-bottom: 0.15rem;
+    gap: 0.75rem;
+  }
+
+  .nav-inner > a:first-child { margin-right: auto; }
+
+  .nav-scroll {
+    order: 3;
+    flex-basis: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 1.25rem;
+    padding-bottom: 0.55rem;
+    /* Bleed to the viewport edges so the row reads as scrollable rather than
+     * as a list that happens to be clipped. */
+    margin: 0 -1.25rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
   .nav-scroll::-webkit-scrollbar { display: none; }
+  .nav-scroll .nav-link { white-space: nowrap; }
+  /* The chevrons point at panels that cannot open at this width. */
+  .nav-scroll .nav-link svg { display: none; }
 }
 
 /* -------------------------------------------------------------------------

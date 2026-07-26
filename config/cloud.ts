@@ -22,8 +22,8 @@ export const tsCloud: TsCloudConfig = {
    * Project configuration
    */
   project: {
-    name: 'stacks',
-    slug: 'stacks',
+    name: 'openfarming',
+    slug: 'openfarming',
     region: 'us-east-1', // Default AWS region
   },
 
@@ -40,9 +40,14 @@ export const tsCloud: TsCloudConfig = {
    */
   stateDir: 'storage/cloud',
 
-  // Deploy compute to Hetzner Cloud (apiToken falls back to HCLOUD_TOKEN env).
+  // This project does NOT own a server. It attaches to the shared Hetzner box
+  // owned by the `stacks` project: the deploy targets `stacks-production-app`,
+  // ships only the sites below, and adds an additive rpx gateway fragment at
+  // /etc/rpx/sites.d/openfarming.json. The owner keeps managing the box, the
+  // firewall and TLS.
   cloud: {
     provider: 'hetzner',
+    attachTo: 'stacks',
   },
 
   /**
@@ -699,107 +704,78 @@ export const tsCloud: TsCloudConfig = {
    * The Stacks root is served by the `main` server app; do not add a second
    * static `/` site for stacksjs.com or it will compete with the app route.
    */
+  /**
+   * Site keys map 1:1 to `/var/www/<key>` on the shared box, so every key is
+   * prefixed with `openfarming` to never collide with the owner's `main`,
+   * `api`, `blog` and `docs` directories or another tenant's.
+   *
+   * Ports 3060/3068 are picked clear of every tenant already on this box
+   * (stacks 3000/3008, adblock 3010, analyticshq 3024/3025, training
+   * 3032/3033, chrisbreuer 3040/3048, wildloop 3049/3050). Both services bind
+   * loopback and are reachable only through the rpx gateway.
+   *
+   * Entry points are `node_modules/@stacksjs/*` paths rather than the vendored
+   * `storage/framework/core/*` ones the owner uses: this project runs on the
+   * published packages (see `buddy unpublish:core --all`), so the vendored
+   * directory does not exist here.
+   */
   sites: {
-    main: {
-      // Ship the repo (source only; node_modules/.git excluded by the packager)
-      // and install on the server via preStart, matching the Forge-style deploy.
-      // server-app: has `start` + `port` (systemd service on :3000).
+    // The stx app server (`buddy serve`): renders the views and proxies /api
+    // to the loopback API service below. The sqlite database lives OUTSIDE the
+    // atomic release directories (/var/lib/openfarming) so the catalog and any
+    // enquiries survive a deploy; preStart migrates and seeds it in place.
+    openfarmingMain: {
       root: '.',
       path: '/',
-      domain: env.APP_DOMAIN || 'stacksjs.com',
-      // Bun-runnable entry (ts-cloud prepends the runtime, so this must be a
-      // JS/TS file bun can execute — NOT the ./buddy shell wrapper). stacks
-      // vendors storage/framework, so the CLI resolves here directly.
-      start: 'bun --conditions development storage/framework/core/buddy/src/cli.ts serve',
-      port: 3000,
-      // preStart runs (in order) after the repo is shipped + the resolved
-      // production env is in place, before the systemd service starts.
-      //   1. install deps
-      //   2. migrate the database (stacksjs/stacks#1950) — without this a fresh
-      //      box served the API against a schema-less / stale-dev SQLite file.
-      //
-      // Migrate runs ONLY on `main`, the single DB owner: the `api` site shares
-      // the same box + SQLite file, so migrating from both would race two
-      // writers on one file (the file lock would make one fail; see the
-      // "SQLite migrate gotchas" — `busy_timeout`/single-writer). Same
-      // `bun --conditions development … cli.ts` entry as `start` so resolution
-      // matches. No `--force`: additive migrations apply on every deploy (a
-      // no-op when none pend). A *destructive* change is refused in this
-      // non-interactive context — migrate logs the refusal and skips it
-      // (leaving prod data intact) rather than dropping columns/tables
-      // unattended; apply those deliberately with `--force`.
-      preStart: ['bun install', 'bun --conditions development storage/framework/core/buddy/src/cli.ts migrate'],
+      domain: 'openfarm.ing',
+      // ts-cloud prepends the runtime, so this has to be a file bun can
+      // execute — not the ./buddy shell wrapper.
+      start: 'bun node_modules/@stacksjs/buddy/dist/cli.js serve',
+      port: 3060,
+      // Runs after the repo and the resolved production env are in place and
+      // before the systemd service starts. Migrate runs ONLY here: the API
+      // site shares the same SQLite file, so migrating from both would put two
+      // writers on one file. Seeding is idempotent (the seeder truncates
+      // first) and is what publishes catalog edits with the deploy.
+      preStart: [
+        'bun install',
+        'mkdir -p /var/lib/openfarming',
+        'bun node_modules/@stacksjs/buddy/dist/cli.js migrate || true',
+        'bun node_modules/@stacksjs/buddy/dist/cli.js seed --class=CatalogSeeder || true',
+      ],
+      env: {
+        HOST: '127.0.0.1',
+        APP_ENV: 'production',
+        APP_NAME: 'Open Farming',
+        APP_URL: 'openfarm.ing',
+        APP_KEY: env.APP_KEY || '',
+        PORT_API: '3068',
+        DB_CONNECTION: 'sqlite',
+        DB_DATABASE_PATH: '/var/lib/openfarming/stacks.sqlite',
+      },
     },
 
-    // API (bun-router) behind `buddy serve`'s same-origin /api proxy.
-    // server-app: has `start` + `port` → systemd service on :3008.
-    // Intentionally NO `domain`/`path`: ts-cloud's rpx gateway skips
-    // domain-less sites, so the service stays loopback-only and is
-    // reached exclusively via the :3000 proxy (stacksjs/stacks#1950).
-    // Loopback isolation is enforced at the firewall too: the Hetzner
-    // deploy strips this port from the provision config
-    // (scrubLoopbackSitePortsForFirewall in buddy's deploy command), so
-    // ts-cloud never opens :3008 to 0.0.0.0/0 — without that, the
-    // HOST=127.0.0.1 bind below would be the only thing keeping the full
-    // API off the public internet.
-    api: {
+    // API (bun-router). Intentionally NO `domain`/`path`: the rpx gateway
+    // skips domain-less sites, so this stays loopback-only and is reached
+    // exclusively through the app's same-origin /api proxy.
+    openfarmingApi: {
       root: '.',
-      start: 'bun --conditions development storage/framework/core/actions/src/serve/api.ts',
-      port: 3008,
+      start: 'bun node_modules/@stacksjs/actions/dist/serve/api.js',
+      port: 3068,
       preStart: ['bun install'],
-      env: { HOST: '127.0.0.1', APP_ENV: 'production' },
+      env: {
+        HOST: '127.0.0.1',
+        APP_ENV: 'production',
+        APP_NAME: 'Open Farming',
+        APP_URL: 'openfarm.ing',
+        APP_KEY: env.APP_KEY || '',
+        DB_CONNECTION: 'sqlite',
+        DB_DATABASE_PATH: '/var/lib/openfarming/stacks.sqlite',
+      },
     },
 
-    // ---- server-static sites (migrated off AWS S3 + CloudFront) ----
-    // NO `start`/`port` ⇒ resolveSiteKind() === 'server-static'. The built
-    // `root` dir is shipped to /var/www/<key> and served by the reverse proxy's
-    // `file_server`. `build` runs locally before packaging to produce `root`.
-
-    // Documentation (BunPress). ~82 MB.
-    // BunPress writes the rendered site into the `.bunpress` subdir of --outdir,
-    // so the SERVED root is `dist/docs/.bunpress`.
-    docs: {
-      deploy: 'server',
-      root: 'dist/docs/.bunpress',
-      path: '/docs',
-      domain: env.APP_DOMAIN || 'stacksjs.com',
-      build: 'bunx @stacksjs/bunpress build --dir ./docs --outdir ./dist/docs',
-      // Extensionless docs URLs resolve to <path>/index.html (BunPress default).
-      pathRewriteStyle: 'directory',
-    },
-
-    // Blog (BunPress static build of content/blog/, same engine as /docs).
-    // `buildBlog` renders the markdown posts with the custom Stacks theme into
-    // clean-URL pages (`<slug>/index.html`) plus the listing, feed.xml, and
-    // sitemap.xml — the static twin of the dev-server's onRequest renderer.
-    blog: {
-      deploy: 'server',
-      root: 'dist/blog',
-      path: '/blog',
-      domain: env.APP_DOMAIN || 'stacksjs.com',
-      build: 'bun -e "const {buildBlog}=await import(\'./storage/framework/core/actions/src/blog\'); await buildBlog({outDir:\'./dist/blog\', baseUrl: (process.env.APP_URL?(/^https?:/.test(process.env.APP_URL)?process.env.APP_URL:\'https://\'+process.env.APP_URL):\'https://stacksjs.com\')})"',
-      // Extensionless blog URLs resolve to <path>/index.html.
-      pathRewriteStyle: 'directory',
-    },
-
-    // Redirect-only sites (gateway answers with a 301; nothing is shipped).
-    // The alternate adblock domain → canonical, and www → apex for stacksjs.com.
-    wwwStacksjs: { domain: 'www.stacksjs.com', redirect: 'https://stacksjs.com' },
-
-    // Vanity invite link. Every README/doc links the community as
-    // stacksjs.com/discord so the invite code lives in exactly one place (here)
-    // and can be rotated without touching thousands of markdown files.
-    //
-    // This is a path-scoped redirect route on the apex domain: the gateway
-    // resolves longest-prefix-first, so `/discord` wins over the `main` app's
-    // `/` route without competing with it. `preservePath: false` is required —
-    // the default appends the request path, which would send visitors to
-    // discord.gg/<invite>
-    discord: {
-      domain: env.APP_DOMAIN || 'stacksjs.com',
-      path: '/discord',
-      redirect: { to: 'https://discord.gg/gD8KTSzhBd', preservePath: false },
-    },
+    // www → apex redirect (the gateway answers with a 301; nothing is shipped).
+    openfarmingWww: { domain: 'www.openfarm.ing', redirect: 'https://openfarm.ing' },
   },
 }
 
@@ -826,6 +802,7 @@ const config: CloudConfig = {
    * FRONTEND_, MEILISEARCH_, SEARCH_, HCLOUD_, TS_, DOTENV_, SUDO_, GITHUB_).
    */
   tenants: [
+    'stacks',
     'analyticshq',
     'ghost',
     'bughq',

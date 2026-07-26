@@ -32,8 +32,11 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 <section class="max-w-[1240px] mx-auto px-5 pt-14 md:pt-20 pb-16 md:pb-24">
   <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1.05fr_1fr] lg:items-center">
     <div>
-      <h1 class="enter text-[2.1rem] leading-[1.06] sm:text-[2.5rem] lg:text-[2.9rem]" style="--i:0">
-        Most of your field is fine.<br>
+      <!-- The break is forced from `sm` up so the two sentences sit on two
+           lines. Below that the column is too narrow for either sentence to
+           fit anyway, so it wraps naturally instead of breaking twice. -->
+      <h1 class="enter text-[1.95rem] leading-[1.08] sm:text-[2.5rem] lg:text-[2.9rem]" style="--i:0">
+        Most of your field is fine.<br class="hidden sm:inline">
         Stop treating it like it isn't.
       </h1>
       <p class="enter text-[1.075rem] text-[var(--text-2)] leading-relaxed mt-5 max-w-[46ch]" style="--i:1">

@@ -25,9 +25,13 @@ export default new Action({
       data: {
         ...useCase,
         features: useCase.features
-          .map(s => features.find(f => f.slug === s))
-          .filter(Boolean)
-          .map(f => ({ slug: f.slug, name: f.name, category: f.category, tagline: f.tagline, summary: f.summary })),
+          .flatMap((s) => {
+            const f = features.find(feature => feature.slug === s)
+            // A slug with no matching feature is dropped rather than emitted
+            // as a null: the seeder already rejects that state, so if one gets
+            // through, a consumer should see a shorter list, not a hole in it.
+            return f ? [{ slug: f.slug, name: f.name, category: f.category, tagline: f.tagline, summary: f.summary }] : []
+          }),
       },
     }
   },

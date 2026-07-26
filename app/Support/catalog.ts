@@ -49,7 +49,10 @@ async function query<T>(run: () => Promise<T>, fallback: T): Promise<T> {
   }
 }
 
-function toFeature(row: Record<string, unknown>): FeatureContent {
+type FeatureRow = Awaited<ReturnType<typeof Feature.first>>
+type UseCaseRow = Awaited<ReturnType<typeof UseCase.first>>
+
+function toFeature(row: NonNullable<FeatureRow>): FeatureContent {
   return {
     slug: String(row.slug),
     name: String(row.name),
@@ -67,7 +70,7 @@ function toFeature(row: Record<string, unknown>): FeatureContent {
   }
 }
 
-function toUseCase(row: Record<string, unknown>): UseCaseContent {
+function toUseCase(row: NonNullable<UseCaseRow>): UseCaseContent {
   return {
     slug: String(row.slug),
     name: String(row.name),
@@ -85,7 +88,7 @@ function toUseCase(row: Record<string, unknown>): UseCaseContent {
 }
 
 export async function allFeatures(): Promise<FeatureContent[]> {
-  const rows = await query(() => Feature.orderBy('sort_order').get() as Promise<Record<string, unknown>[]>, [])
+  const rows = await query(() => Feature.orderBy('sort_order').get(), [])
 
   if (rows.length === 0)
     return [...authoredFeatures]
@@ -94,7 +97,7 @@ export async function allFeatures(): Promise<FeatureContent[]> {
 }
 
 export async function allUseCases(): Promise<UseCaseContent[]> {
-  const rows = await query(() => UseCase.orderBy('sort_order').get() as Promise<Record<string, unknown>[]>, [])
+  const rows = await query(() => UseCase.orderBy('sort_order').get(), [])
 
   if (rows.length === 0)
     return [...authoredUseCases]
@@ -103,7 +106,7 @@ export async function allUseCases(): Promise<UseCaseContent[]> {
 }
 
 export async function findFeature(slug: string): Promise<FeatureContent | undefined> {
-  const row = await query(() => Feature.where('slug', slug).first() as Promise<Record<string, unknown> | null>, null)
+  const row = await query(() => Feature.where('slug', slug).first(), undefined)
 
   if (row)
     return toFeature(row)
@@ -112,7 +115,7 @@ export async function findFeature(slug: string): Promise<FeatureContent | undefi
 }
 
 export async function findUseCase(slug: string): Promise<UseCaseContent | undefined> {
-  const row = await query(() => UseCase.where('slug', slug).first() as Promise<Record<string, unknown> | null>, null)
+  const row = await query(() => UseCase.where('slug', slug).first(), undefined)
 
   if (row)
     return toUseCase(row)
@@ -177,16 +180,23 @@ export interface FieldReport {
 
 export async function fieldReport(): Promise<FieldReport | null> {
   return query(async () => {
-    const field = await Field.with('farm').first() as Record<string, any> | null
+    const field = await Field.with('farm').first()
     if (!field)
       return null
 
-    const mission = await Mission.where('field_id', field.id).first() as Record<string, any> | null
+    // `with()` narrows the relation NAME but not the loaded record's shape:
+    // resolving 'farm' to the Farm model's attributes would need a type-level
+    // registry mapping relation names to definitions, which the ORM does not
+    // have. Everything else on this path is fully inferred, so the cast is
+    // confined to the one property that genuinely is not.
+    const farm = field.farm as { name?: string, region?: string } | undefined
+
+    const mission = await Mission.where('field_id', field.id).first()
     if (!mission)
       return null
 
-    const detections = await Detection.where('mission_id', mission.id).get() as Record<string, any>[]
-    const map = await TreatmentMap.where('mission_id', mission.id).first() as Record<string, any> | null
+    const detections = await Detection.where('mission_id', mission.id).get()
+    const map = await TreatmentMap.where('mission_id', mission.id).first()
 
     const counts = new Map<string, number>()
     for (const d of detections) counts.set(String(d.label), (counts.get(String(d.label)) ?? 0) + 1)
@@ -196,8 +206,8 @@ export async function fieldReport(): Promise<FieldReport | null> {
 
     return {
       sample: true,
-      farm: String(field.farm?.name ?? ''),
-      region: String(field.farm?.region ?? ''),
+      farm: String(farm?.name ?? ''),
+      region: String(farm?.region ?? ''),
       field: String(field.name),
       crop: String(field.crop),
       hectares,
