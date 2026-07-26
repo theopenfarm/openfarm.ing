@@ -1,0 +1,74 @@
+<script server>
+const footPath = require('node:path')
+const footCatalog = await import(footPath.join(process.cwd(), 'app/Support/catalog.ts'))
+
+// The footer lists the capabilities that answer the questions people arrive
+// with, not all eighteen: a full dump would be a sitemap, and there is one of
+// those at /features.
+const footFeatures = (await footCatalog.allFeatures()).slice(0, 6)
+const footUseCases = (await footCatalog.allUseCases()).slice(0, 6)
+const footYear = 2026
+</script>
+
+<footer class="border-t border-[var(--line)] bg-[var(--bg-2)] mt-24">
+  <div class="max-w-[1240px] mx-auto px-5 py-14">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="21" height="21" rx="4" stroke="var(--text)" stroke-width="1.6"/>
+            <circle cx="8" cy="9" r="2.1" fill="var(--accent)"/>
+            <circle cx="15.5" cy="15" r="1.5" fill="var(--accent)"/>
+            <path d="M4.5 19.5 L19.5 4.5" stroke="var(--text)" stroke-width="1.1" stroke-opacity="0.35"/>
+          </svg>
+          <span class="font-bold tracking-[-0.02em]">Open Farming</span>
+        </div>
+        <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-3 max-w-[34ch]">
+          Drone scouting, treatment maps and the flights that produce them. You book the calendar,
+          we bring the aircraft, the pilots and the paperwork.
+        </p>
+        <a href="/contact" class="btn btn-ghost mt-5">Book a field visit</a>
+      </div>
+
+      <div>
+        <p class="mega-col-title">Capabilities</p>
+        <ul class="space-y-1.5 mt-2 list-none p-0">
+          @foreach (footFeatures as f)
+            <li><a href="/features/{{ f.slug }}" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">{{ f.name }}</a></li>
+          @endforeach
+          <li><a href="/features" class="text-[0.875rem] font-semibold text-[var(--accent)] no-underline">All capabilities</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="mega-col-title">Use cases</p>
+        <ul class="space-y-1.5 mt-2 list-none p-0">
+          @foreach (footUseCases as u)
+            <li><a href="/use-cases/{{ u.slug }}" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">{{ u.name }}</a></li>
+          @endforeach
+          <li><a href="/use-cases" class="text-[0.875rem] font-semibold text-[var(--accent)] no-underline">All use cases</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="mega-col-title">Company</p>
+        <ul class="space-y-1.5 mt-2 list-none p-0">
+          <li><a href="/how-it-works" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">How it works</a></li>
+          <li><a href="/field-report" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Field report</a></li>
+          <li><a href="/pricing" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Pricing</a></li>
+          <li><a href="/contact" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Contact</a></li>
+          <li><a href="/api/features" class="text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)] no-underline">Public API</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-[var(--line)] mt-12 pt-6 flex flex-wrap gap-x-6 gap-y-2 items-baseline justify-between">
+      <p class="text-[0.8rem] text-[var(--text-3)]">Open Farming, {{ footYear }}. openfarm.ing</p>
+      <p class="text-[0.8rem] text-[var(--text-3)] max-w-[62ch]">
+        Figures shown on this site come from a modelled demonstration field, labelled as such
+        wherever they appear. Aerial application of plant protection products is restricted under
+        EU and German law; our maps are built for the machines already permitted to apply them.
+      </p>
+    </div>
+  </div>
+</footer>

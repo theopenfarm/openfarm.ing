@@ -1,0 +1,336 @@
+/*
+ * Open Farming design system.
+ *
+ * Direction: field instrument. The product's whole argument is that a field is
+ * not uniform, so the visual language is measurement rather than lifestyle:
+ * real maps rendered from real flight data, one signal colour used only where
+ * something was detected, and neutrals tinted toward the crop rather than the
+ * warm-paper palette every agri brand reaches for.
+ *
+ * ONE accent (signal orange) across every surface. It means "the system found
+ * something here" on a map and "this is the action" on a control, and it is
+ * never used decoratively. The greens are neutrals, not a second accent: they
+ * carry the crop in map fills and in the tinted section surfaces.
+ *
+ * Theming is CSS custom properties, switched by `.dark` on <html> (set before
+ * first paint by the inline script in the layout) and defaulting to the
+ * operating system preference. Utilities read the tokens through
+ * `bg-[var(--panel)]`-style arbitrary values, so no utility needs a `dark:`
+ * twin and the two modes can never drift apart.
+ *
+ * ONE radius scale: 10px for panels, cards, inputs, buttons and images; 6px
+ * for chips and the small map legend swatches. Nothing is a pill.
+ */
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi/Satoshi-Variable.woff2') format('woff2-variations');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi/Satoshi-VariableItalic.woff2') format('woff2-variations');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --bg: #f3f5ef;
+  --bg-2: #e8ede0;
+  --panel: #ffffff;
+  --panel-2: #fbfcf9;
+  --line: #d5ddc9;
+  --line-soft: #e4e9db;
+  --text: #10160d;
+  --text-2: #4c5745;
+  --text-3: #77836d;
+  --accent: #c7511b;
+  --accent-2: #a8420f;
+  --accent-ink: #ffffff;
+  --accent-wash: rgb(199 81 27 / 0.09);
+  /* Map only: the crop, the untreated ground, the boundary. */
+  --crop: #4a6b3f;
+  --crop-soft: #dbe4d0;
+  --map-bg: #eef2e7;
+  --shadow: 0 1px 2px rgb(16 22 13 / 0.04), 0 8px 24px rgb(16 22 13 / 0.06);
+  --r: 10px;
+  --r-sm: 6px;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0c0f0b;
+  --bg-2: #11150f;
+  --panel: #151a13;
+  --panel-2: #1a2018;
+  --line: #29321f;
+  --line-soft: #1f2619;
+  --text: #e9eee4;
+  --text-2: #a3b09a;
+  --text-3: #76826d;
+  --accent: #f0762f;
+  --accent-2: #ff8b48;
+  --accent-ink: #180a03;
+  --accent-wash: rgb(240 118 47 / 0.14);
+  --crop: #7ba36e;
+  --crop-soft: #23301d;
+  --map-bg: #101610;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.35);
+  color-scheme: dark;
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 450;
+  line-height: 1.6;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+a { color: inherit; }
+
+/* Focus is the same everywhere and always visible on keyboard navigation. */
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+::selection { background: var(--accent-wash); }
+
+/* Numbers that are readings, not prose: flight figures, hectares, rates. */
+.telemetry {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* -------------------------------------------------------------------------
+ * Controls
+ * ---------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: var(--r);
+  border: 1px solid transparent;
+  padding: 0.7rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Feedback: the control acknowledges the press physically. */
+.btn:active { transform: translateY(1px); }
+
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--accent-2); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+}
+.btn-ghost:hover { border-color: var(--text-3); background: var(--panel); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+/* -------------------------------------------------------------------------
+ * Navigation and the mega menu
+ *
+ * Opens on hover AND on focus-within, so it is reachable from the keyboard
+ * without any script. A `<details>` element would collapse on every link
+ * activation and fight the SPA router, so the panel is plain CSS state.
+ * ---------------------------------------------------------------------- */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 68px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.925rem;
+  font-weight: 550;
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 0.4rem 0;
+  transition: color 0.15s ease;
+}
+.nav-link:hover, .nav-link[aria-current='page'] { color: var(--text); }
+.nav-link[aria-current='page'] { font-weight: 650; }
+
+.has-mega { position: static; }
+
+.mega {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 68px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.16s;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.has-mega:hover > .mega,
+.has-mega:focus-within > .mega {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.mega-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 2rem;
+  display: grid;
+  gap: 1.75rem;
+}
+
+.mega-col-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.15rem;
+}
+
+.mega-item {
+  display: block;
+  padding: 0.55rem 0.65rem;
+  margin-left: -0.65rem;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: background-color 0.14s ease;
+}
+.mega-item:hover { background: var(--accent-wash); }
+.mega-item strong { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text); }
+.mega-item span { display: block; font-size: 0.8rem; color: var(--text-3); line-height: 1.4; }
+
+/* Below `lg` the mega panels would not fit on one line, so the whole bar
+ * collapses into a scrollable link row and the panels never open. */
+@media (max-width: 1023px) {
+  .mega { display: none; }
+  .nav-scroll { overflow-x: auto; scrollbar-width: none; }
+  .nav-scroll::-webkit-scrollbar { display: none; }
+}
+
+/* -------------------------------------------------------------------------
+ * Motion
+ *
+ * Two effects, both about hierarchy: the hero settles once on load so the eye
+ * lands on the headline before the map, and each section fades up as it
+ * enters so the page reads as a sequence rather than a wall. Both are pure
+ * CSS (a `view()` timeline needs no observer) and both collapse to static
+ * under reduced motion.
+ * ---------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: enter-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  @keyframes enter-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: enter-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 42%;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * Field map
+ *
+ * The maps on this site are rendered server side from the seeded flight data,
+ * so these rules style real output rather than an illustration.
+ * ---------------------------------------------------------------------- */
+
+.fieldmap { display: block; width: 100%; height: auto; border-radius: var(--r); background: var(--map-bg); }
+.fieldmap .boundary { fill: var(--crop-soft); stroke: var(--crop); stroke-width: 0.006; vector-effect: non-scaling-stroke; }
+.fieldmap .zone { fill: var(--accent); fill-opacity: 0.5; }
+.fieldmap .detection { fill: var(--accent); }
+.fieldmap .tramline { stroke: var(--crop); stroke-opacity: 0.28; stroke-width: 0.0025; }
+
+.legend-swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 3px;
+  display: inline-block;
+  flex: none;
+}
+
+/* -------------------------------------------------------------------------
+ * Long-form copy on the detail pages
+ * ---------------------------------------------------------------------- */
+
+.prose p { color: var(--text-2); font-size: 1.0625rem; line-height: 1.72; max-width: 68ch; }
+.prose p + p { margin-top: 1rem; }

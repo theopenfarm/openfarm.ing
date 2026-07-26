@@ -1,0 +1,107 @@
+<script server>
+const navPath = require('node:path')
+const navCatalog = await import(navPath.join(process.cwd(), 'app/Support/catalog.ts'))
+
+// Both menus are built from the catalog, so adding a capability or an
+// operation puts it in the navigation without anyone editing this file.
+const navFeatures = await navCatalog.featureGroups()
+const navUseCases = await navCatalog.useCaseGroups()
+</script>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="flex items-center gap-2.5 shrink-0" aria-label="Open Farming home">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="21" height="21" rx="4" stroke="var(--text)" stroke-width="1.6"/>
+        <circle cx="8" cy="9" r="2.1" fill="var(--accent)"/>
+        <circle cx="15.5" cy="15" r="1.5" fill="var(--accent)"/>
+        <path d="M4.5 19.5 L19.5 4.5" stroke="var(--text)" stroke-width="1.1" stroke-opacity="0.35"/>
+      </svg>
+      <span class="font-bold text-[1.02rem] tracking-[-0.02em]">Open Farming</span>
+    </a>
+
+    <nav class="nav-scroll flex items-center gap-6 flex-1 min-w-0" aria-label="Main">
+      <div class="has-mega">
+        <a href="/features" class="nav-link" @if (activeNav === 'features') aria-current="page" @endif>
+          Capabilities
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+        </a>
+
+        <div class="mega">
+          <div class="mega-inner lg:grid-cols-[repeat(3,minmax(0,1fr))_18rem]">
+            @foreach (navFeatures as group)
+              <div>
+                <p class="mega-col-title">{{ group.label }}</p>
+                <p class="text-[0.8rem] text-[var(--text-3)] leading-snug mb-2 max-w-[24ch]">{{ group.blurb }}</p>
+                @foreach (group.items as item)
+                  <a class="mega-item" href="/features/{{ item.slug }}">
+                    <strong>{{ item.name }}</strong>
+                    <span>{{ item.tagline }}</span>
+                  </a>
+                @endforeach
+              </div>
+            @endforeach
+
+            <div class="rounded-[10px] border border-[var(--line)] bg-[var(--bg-2)] p-5 self-start">
+              <p class="font-bold text-[0.95rem]">The flight that ties it together</p>
+              <p class="text-[0.85rem] text-[var(--text-2)] leading-relaxed mt-1.5">
+                One aircraft scans, the models build a treatment map, and the machine that is already
+                allowed to treat the crop opens its nozzles only over the marked ground.
+              </p>
+              <a href="/how-it-works" class="btn btn-primary mt-4 w-full">See how it works</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="has-mega">
+        <a href="/use-cases" class="nav-link" @if (activeNav === 'use-cases') aria-current="page" @endif>
+          Use cases
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+        </a>
+
+        <div class="mega">
+          <div class="mega-inner lg:grid-cols-[repeat(4,minmax(0,1fr))_16rem]">
+            @foreach (navUseCases as group)
+              <div>
+                <p class="mega-col-title">{{ group.label }}</p>
+                @foreach (group.items as item)
+                  <a class="mega-item" href="/use-cases/{{ item.slug }}">
+                    <strong>{{ item.name }}</strong>
+                    <span>{{ item.tagline }}</span>
+                  </a>
+                @endforeach
+              </div>
+            @endforeach
+
+            <div class="rounded-[10px] overflow-hidden border border-[var(--line)] self-start">
+              <img src="/images/photos/farm-patchwork.jpg" alt="Aerial view of a patchwork of farmed fields" width="640" height="480" loading="lazy" class="w-full h-32 object-cover">
+              <div class="p-4">
+                <p class="font-bold text-[0.9rem]">Not sure where you fit?</p>
+                <p class="text-[0.82rem] text-[var(--text-2)] leading-relaxed mt-1">
+                  Tell us your crop and your hectares and we will map the flight calendar around them.
+                </p>
+                <a href="/contact" class="btn btn-ghost mt-3 w-full">Book a field visit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="/field-report" class="nav-link" @if (activeNav === 'field-report') aria-current="page" @endif>Field report</a>
+      <a href="/how-it-works" class="nav-link" @if (activeNav === 'how-it-works') aria-current="page" @endif>How it works</a>
+      <a href="/pricing" class="nav-link" @if (activeNav === 'pricing') aria-current="page" @endif>Pricing</a>
+    </nav>
+
+    <div class="flex items-center gap-2 shrink-0">
+      <button type="button" data-theme-toggle onclick="window.ofToggleTheme()" aria-label="Switch theme"
+        class="hidden sm:inline-flex items-center justify-center h-9 w-9 rounded-[10px] border border-[var(--line)] text-[var(--text-2)] hover:text-[var(--text)]">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <a href="/contact" class="btn btn-primary">Book a field visit</a>
+    </div>
+  </div>
+</header>
