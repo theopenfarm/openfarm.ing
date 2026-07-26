@@ -30,8 +30,6 @@ const segmentPhotos = {
   operator: { src: '/images/photos/drone-over-wheat.jpg', alt: 'A drone flying low over a wheat crop' },
 }
 const photo = useCase ? segmentPhotos[useCase.segment] : null
-// The share card follows the segment, so a vineyard page shares a vineyard.
-const ogCard = useCase ? useCase.segment : 'home'
 </script>
 
 @layout('layouts/site')

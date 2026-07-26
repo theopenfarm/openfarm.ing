@@ -8,16 +8,21 @@ const activeNav = typeof activeNav === 'string' ? activeNav : ''
 const siteUrl = 'https://openfarm.ing'
 const canonicalUrl = `${siteUrl}${pagePath === '/' ? '/' : pagePath}`
 
-// The share card is chosen for what the page is about rather than one image
-// for the whole site: a vineyard page shares a vineyard. Built by
-// `buddy og:generate` from the site's own photography.
-const ogGroup = (() => {
-  if (typeof ogCard === 'string' && ogCard) return ogCard
-  if (pagePath.startsWith('/features')) return 'capabilities'
-  if (pagePath.startsWith('/field-report')) return 'field-report'
-  return 'home'
-})()
-const ogImage = `${siteUrl}/images/og/${ogGroup}/og-facebook.jpg`
+// Every page has its own card, carrying that page's headline. The file mirrors
+// the URL (`/use-cases/vineyards` -> `use-cases/vineyards.jpg`), so a new page
+// gets one from `buddy og:generate` without anything here changing. `ogCard`
+// overrides it for pages whose card is named differently.
+// Plain expressions rather than an IIFE: stx evaluates the server script in a
+// scope where a self-invoking function silently yields undefined, which put
+// `og/undefined.jpg` on every page.
+//
+// Every page has its own card carrying that page's headline, and the file
+// mirrors the URL (`/use-cases/vineyards` -> `use-cases/vineyards.jpg`), so a
+// new page gets one from `buddy og:generate` with nothing to change here.
+// `ogCard` overrides it for pages whose card is named differently.
+const ogPathSlug = pagePath.split('/').filter(Boolean).join('/') || 'home'
+const ogSlug = typeof ogCard === 'string' && ogCard ? ogCard : ogPathSlug
+const ogImage = `${siteUrl}/images/og/${ogSlug}.jpg`
 
 // Locale alternates. stx serves the same page under /de and /nl, and without
 // these a crawler treats the three as unrelated near-duplicates.

@@ -9,7 +9,6 @@ const pagePath = '/features'
 
 const groups = await catalog.featureGroups()
 const total = groups.reduce((n, g) => n + g.items.length, 0)
-const ogCard = 'capabilities'
 </script>
 
 @layout('layouts/site')

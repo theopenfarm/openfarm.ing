@@ -20,7 +20,6 @@ const segmentPhotos = {
   operator: { src: '/images/photos/drone-over-wheat.jpg', alt: 'A drone flying low over a wheat crop' },
 }
 const groupsWithPhoto = groups.map(g => ({ ...g, photo: segmentPhotos[g.key] }))
-const ogCard = 'arable'
 </script>
 
 @layout('layouts/site')

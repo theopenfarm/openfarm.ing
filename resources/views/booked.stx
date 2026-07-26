@@ -2,6 +2,8 @@
 const title = 'Booked - Open Farming'
 const description = 'Your field visit is booked. Someone will call within two working days to agree which block to walk first.'
 const activeNav = 'contact'
+// No card of its own: this page is a confirmation, not a share target.
+const ogCard = 'contact'
 const pagePath = '/booked'
 const subscribeSource = 'booked'
 </script>

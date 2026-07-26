@@ -2,6 +2,8 @@
 const title = 'You are on the list - Open Farming'
 const description = 'You will get the field notes as each window opens. A few times a season, nothing else.'
 const activeNav = ''
+// No card of its own: this page is a confirmation, not a share target.
+const ogCard = 'home'
 const pagePath = '/subscribed'
 </script>
 
