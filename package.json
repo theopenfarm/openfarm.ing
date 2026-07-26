@@ -95,14 +95,12 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "stacks": "workspace:*"
+    "stacks": "^0.70.163"
   },
   "workspaces": [
     "storage/framework",
     "storage/framework/libs/*",
-    "storage/framework/views/*",
-    "storage/framework/core",
-    "storage/framework/core/*"
+    "storage/framework/views/*"
   ],
   "catalog": {
     "@stacksjs/clapp": "^0.2.12",
