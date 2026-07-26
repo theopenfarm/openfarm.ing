@@ -19,8 +19,8 @@
     "url": "https://github.com/theopenfarm/openfarm.ing/issues"
   },
   "scripts": {
-    "build:reset": "rm -rf node_modules && pantry install && ./buddy generate:types && ./buddy lint:fix && cd storage/framework && bun run build && cd ../../",
-    "buddy": "bun ./storage/framework/core/buddy/src/cli.ts",
+    "build:reset": "rm -rf node_modules && bun install && ./buddy generate:types && ./buddy lint:fix",
+    "buddy": "./buddy",
     "stacks": "./buddy",
     "setup": "./bootstrap",
     "fresh": "./buddy fresh",
@@ -53,7 +53,7 @@
     "release:major": "./buddy release --bump major",
     "changelog": "./buddy changelog",
     "generate": "./buddy generate",
-    "typecheck": "bun x --bun tsc --noEmit -p storage/framework/tsconfig.framework.json --pretty false",
+    "typecheck": "bun x --bun tsc --noEmit -p tsconfig.json --pretty false",
     "typecheck:app": "bun x --bun tsc --noEmit -p tsconfig.json --pretty false",
     "typecheck:clean": "bunx --bun rimraf storage/framework/.cache/typescript",
     "types:check": "bun run typecheck",
