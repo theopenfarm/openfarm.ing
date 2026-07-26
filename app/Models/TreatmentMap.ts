@@ -17,12 +17,6 @@ export default defineModel({
   traits: {
     useUuid: true,
     useTimestamps: true,
-    useSearch: {
-      displayable: ['id', 'product', 'treated_hectares', 'status'],
-      searchable: ['product', 'notes'],
-      sortable: ['treated_hectares'],
-      filterable: ['status', 'format'],
-    },
     useApi: {
       uri: 'treatment-maps',
       routes: ['index', 'show'],

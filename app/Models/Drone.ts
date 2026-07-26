@@ -11,12 +11,6 @@ export default defineModel({
   traits: {
     useUuid: true,
     useTimestamps: true,
-    useSearch: {
-      displayable: ['id', 'callsign', 'model', 'status'],
-      searchable: ['callsign', 'model', 'station'],
-      sortable: ['callsign'],
-      filterable: ['status', 'payload'],
-    },
     useApi: {
       uri: 'drones',
       routes: ['index', 'show'],

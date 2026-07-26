@@ -735,13 +735,15 @@ export const tsCloud: TsCloudConfig = {
       // Runs after the repo and the resolved production env are in place and
       // before the systemd service starts. Migrate runs ONLY here: the API
       // site shares the same SQLite file, so migrating from both would put two
-      // writers on one file. Seeding is idempotent (the seeder truncates
-      // first) and is what publishes catalog edits with the deploy.
+      // writers on one file. `catalog:sync` is idempotent (it truncates first)
+      // and is what publishes catalog edits with the deploy — deliberately
+      // NOT `|| true`, because a deploy that silently ships an empty catalog
+      // is worse than one that fails loudly.
       preStart: [
         'bun install',
         'mkdir -p /var/lib/openfarming',
         'bun node_modules/@stacksjs/buddy/dist/cli.js migrate || true',
-        'bun node_modules/@stacksjs/buddy/dist/cli.js seed --class=CatalogSeeder || true',
+        'bun node_modules/@stacksjs/buddy/dist/cli.js catalog:sync',
       ],
       env: {
         HOST: '127.0.0.1',

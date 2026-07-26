@@ -27,5 +27,8 @@ export type CommandRegistry = Record<string, string | CommandConfig>
  * },
  */
 export default {
+  // Publishes the capability catalog and the demonstration field. Runs on
+  // every deploy (config/cloud.ts preStart), so a content edit ships with it.
+  'catalog:sync': 'CatalogSync',
   'inspire': 'Inspire',
 } satisfies CommandRegistry

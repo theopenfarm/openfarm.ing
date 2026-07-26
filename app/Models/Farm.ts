@@ -12,12 +12,6 @@ export default defineModel({
     useUuid: true,
     useTimestamps: true,
     useSoftDeletes: true,
-    useSearch: {
-      displayable: ['id', 'name', 'region', 'hectares'],
-      searchable: ['name', 'region'],
-      sortable: ['hectares', 'name'],
-      filterable: ['segment'],
-    },
     useApi: {
       uri: 'farms',
       routes: ['index', 'show'],

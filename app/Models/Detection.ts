@@ -17,12 +17,6 @@ export default defineModel({
   traits: {
     useUuid: true,
     useTimestamps: true,
-    useSearch: {
-      displayable: ['id', 'kind', 'label', 'severity', 'confidence'],
-      searchable: ['kind', 'label'],
-      sortable: ['severity', 'confidence', 'area_m2'],
-      filterable: ['kind', 'status'],
-    },
     useApi: {
       uri: 'detections',
       routes: ['index', 'show'],

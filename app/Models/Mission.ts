@@ -17,12 +17,6 @@ export default defineModel({
     useUuid: true,
     useTimestamps: true,
     observe: true,
-    useSearch: {
-      displayable: ['id', 'purpose', 'status', 'flown_at'],
-      searchable: ['purpose', 'summary'],
-      sortable: ['flown_at'],
-      filterable: ['status', 'purpose'],
-    },
     useApi: {
       uri: 'missions',
       routes: ['index', 'show'],

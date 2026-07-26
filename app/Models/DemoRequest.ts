@@ -16,12 +16,6 @@ export default defineModel({
     useUuid: true,
     useTimestamps: true,
     observe: true,
-    useSearch: {
-      displayable: ['id', 'name', 'email', 'farm_name', 'status'],
-      searchable: ['name', 'email', 'farm_name', 'message'],
-      sortable: ['created_at'],
-      filterable: ['status', 'segment'],
-    },
   },
 
   attributes: {
