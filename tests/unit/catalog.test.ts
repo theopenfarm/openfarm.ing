@@ -133,9 +133,17 @@ describe('translations', () => {
     for (const locale of locales.filter(l => l !== 'en')) {
       const translated = load(locale) as Record<string, Record<string, string>>
       // Words that are genuinely identical in the target language, not
-      // oversights: the brand name, and "Contact" and "Account", which are
-      // the same in Dutch.
-      const allowed = new Set(['nav.home', 'footer.contact', 'nav.account'])
+      // oversights: the brand name, "Contact" and "Account" (the same in
+      // Dutch), and "Ha", which is the hectare symbol everywhere.
+      const allowed = new Set([
+        'nav.home',
+        'footer.contact',
+        'nav.account',
+        // Units read the same in all three: "Ha" is the symbol, and Dutch
+        // spells hectares exactly as English does.
+        'dashboard.ha',
+        'dashboard.hectares',
+      ])
       const untranslated = flatten(english)
         .filter(key => !allowed.has(key))
         .filter((key) => {

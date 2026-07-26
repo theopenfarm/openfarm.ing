@@ -1,0 +1,181 @@
+<script server>
+const nodePath = require('node:path')
+const session = await import(nodePath.join(process.cwd(), 'app/Support/session.ts'))
+const board = await import(nodePath.join(process.cwd(), 'app/Support/dashboard.ts'))
+const account = await import(nodePath.join(process.cwd(), 'app/Support/account.ts'))
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+
+const title = 'Your farm - Open Farming'
+const description = 'Your fields, your flights and the treatment maps that came out of them.'
+const activeNav = 'account'
+const pagePath = '/dashboard'
+const ogCard = 'account'
+
+const farmer = await session.currentUser()
+const data = farmer ? await board.dashboardFor(farmer.id) : null
+
+// A farmer whose first flight has not happened yet still gets a dashboard:
+// their booked visits, and the demonstration field as the worked example of
+// what lands here afterwards.
+const visits = farmer ? await account.visitsFor(farmer.email) : []
+const report = farmer && !data?.farm ? await catalog.fieldReport() : null
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="mx-auto pb-24 pt-14 px-5 md:pt-20 max-w-[1240px]">
+  @if (farmer)
+    <div class="flex flex-wrap gap-6 items-end justify-between">
+      <div>
+        <p class="font-semibold text-[0.78rem] text-[var(--accent)] tracking-[0.14em] uppercase">{t:dashboard.eyebrow}</p>
+        @if (data.farm)
+          <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem]">{{ data.farm.name }}</h1>
+          <p class="mt-3 text-[1rem] text-[var(--text-2)]">{{ data.farm.region }}</p>
+        @else
+          <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem]">{{ farmer.name }}</h1>
+          <p class="mt-3 text-[1rem] text-[var(--text-2)]">{{ farmer.email }}</p>
+        @endif
+      </div>
+
+      <a href="/account" class="px-4 py-2.5 font-semibold no-underline text-[0.9rem] text-[var(--text)] border border-[var(--line)] rounded-[10px]">{t:dashboard.settings}</a>
+    </div>
+
+    @if (data.farm)
+      <dl class="grid overflow-hidden gap-px grid-cols-2 lg:grid-cols-4 mt-10 bg-[var(--line)] border border-[var(--line)] rounded-[10px]">
+        <div class="p-5 bg-[var(--panel)]">
+          <dt class="text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:dashboard.fields}</dt>
+          <dd class="ml-0 mt-2 font-semibold text-[1.6rem]">{{ data.totals.fields }}</dd>
+        </div>
+        <div class="p-5 bg-[var(--panel)]">
+          <dt class="text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:dashboard.hectares}</dt>
+          <dd class="ml-0 mt-2 font-semibold text-[1.6rem]">{{ data.totals.hectares }}</dd>
+        </div>
+        <div class="p-5 bg-[var(--panel)]">
+          <dt class="text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:dashboard.detections}</dt>
+          <dd class="ml-0 mt-2 font-semibold text-[1.6rem]">{{ data.totals.detections }}</dd>
+        </div>
+        <div class="p-5 bg-[var(--panel)]">
+          <dt class="text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:dashboard.treated}</dt>
+          <dd class="ml-0 mt-2 font-semibold text-[1.6rem] text-[var(--accent)]">{{ data.totals.treatedHectares }}</dd>
+        </div>
+      </dl>
+
+      <div class="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] mt-10">
+        <div class="p-6 md:p-8 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
+          <h2 class="text-[1.25rem]">{t:dashboard.fieldsTitle}</h2>
+
+          @if (data.fields.length)
+            <div class="overflow-x-auto mt-5">
+              <table class="w-full text-[0.9rem] border-collapse">
+                <thead>
+                  <tr class="text-left">
+                    <th class="pb-2 pr-4 font-semibold text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase border-[var(--line)] border-b">{t:dashboard.field}</th>
+                    <th class="pb-2 pr-4 font-semibold text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase border-[var(--line)] border-b">{t:dashboard.crop}</th>
+                    <th class="pb-2 pr-4 font-semibold text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase border-[var(--line)] border-b">{t:dashboard.ha}</th>
+                    <th class="pb-2 pr-4 font-semibold text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase border-[var(--line)] border-b">{t:dashboard.lastFlown}</th>
+                    <th class="pb-2 font-semibold text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase border-[var(--line)] border-b">{t:dashboard.found}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach (data.fields as field)
+                    <tr>
+                      <td class="pr-4 py-3 font-semibold border-[var(--line-soft)] border-b">{{ field.name }}</td>
+                      <td class="pr-4 py-3 text-[var(--text-2)] border-[var(--line-soft)] border-b">{{ field.crop }}</td>
+                      <td class="pr-4 py-3 text-[var(--text-2)] border-[var(--line-soft)] border-b">{{ field.hectares }}</td>
+                      <td class="pr-4 py-3 text-[var(--text-2)] border-[var(--line-soft)] border-b">{{ field.lastFlown }}</td>
+                      <td class="py-3 font-semibold text-[var(--accent)] border-[var(--line-soft)] border-b">{{ field.detections }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          @else
+            <p class="mt-4 max-w-[46ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">{t:dashboard.noFields}</p>
+          @endif
+        </div>
+
+        <div class="p-6 md:p-8 h-fit bg-[var(--bg-2)] border border-[var(--line)] rounded-[10px]">
+          <h2 class="text-[1.2rem]">{t:dashboard.flightsTitle}</h2>
+
+          @if (data.flights.length)
+            <ul class="mt-5 p-0 list-none">
+              @foreach (data.flights as flight)
+                <li class="py-3 border-[var(--line-soft)] border-b last:border-b-0">
+                  <div class="flex flex-wrap gap-3 items-baseline justify-between">
+                    <p class="font-semibold text-[0.95rem]">{{ flight.field }}</p>
+                    <p class="text-[0.8rem] text-[var(--text-3)]">{{ flight.flownOn }}</p>
+                  </div>
+                  <p class="mt-1 text-[0.85rem] text-[var(--text-2)]">{{ flight.hectares }} ha · {{ flight.detections }} · {{ flight.status }}</p>
+                </li>
+              @endforeach
+            </ul>
+          @else
+            <p class="mt-4 leading-relaxed text-[0.93rem] text-[var(--text-2)]">{t:dashboard.noFlights}</p>
+          @endif
+        </div>
+      </div>
+    @else
+      <!-- No holding on this account yet. Rather than an empty shell, show
+          what is actually true: the visits they have booked, and the worked
+          example of what a flight puts here. -->
+      <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] mt-10">
+        <div class="p-7 md:p-9 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
+          <h2 class="text-[1.3rem]">{t:account.visitsTitle}</h2>
+
+          @if (visits.length)
+            <ul class="mt-6 p-0 list-none">
+              @foreach (visits as visit)
+                <li class="py-4 border-[var(--line-soft)] border-b last:border-b-0">
+                  <div class="flex flex-wrap gap-3 items-baseline justify-between">
+                    <p class="font-semibold text-[0.98rem]">{{ visit.farmName }}</p>
+                    <p class="text-[0.82rem] text-[var(--text-3)]">{{ visit.requestedOn }}</p>
+                  </div>
+                  <p class="mt-1 text-[0.88rem] text-[var(--text-2)]">{{ visit.summary }}</p>
+                  <p class="inline-block mt-2 px-2.5 py-1 font-semibold text-[0.74rem] text-[var(--accent)] tracking-[0.1em] uppercase bg-[var(--accent-wash)] rounded-[6px]">{{ visit.status }}</p>
+                </li>
+              @endforeach
+            </ul>
+          @else
+            <p class="mt-4 max-w-[46ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">{t:account.noVisits}</p>
+            <a href="/contact" class="inline-flex items-center mt-6 px-5 py-3 font-semibold no-underline text-[0.95rem] text-white bg-[var(--accent)] rounded-[10px]">{t:cta.book}</a>
+          @endif
+        </div>
+
+        <div class="p-7 md:p-9 h-fit bg-[var(--bg-2)] border border-[var(--line)] rounded-[10px]">
+          <h2 class="text-[1.2rem]">{t:account.reportTitle}</h2>
+          <p class="mt-3 max-w-[40ch] leading-relaxed text-[0.93rem] text-[var(--text-2)]">{t:account.reportBody}</p>
+
+          @if (report)
+            <dl class="grid gap-4 grid-cols-2 mt-6">
+              <div>
+                <dt class="text-[0.76rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:account.hectares}</dt>
+                <dd class="ml-0 mt-1 font-semibold text-[1.4rem]">{{ report.hectares }}</dd>
+              </div>
+              <div>
+                <dt class="text-[0.76rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:account.treated}</dt>
+                <dd class="ml-0 mt-1 font-semibold text-[1.4rem] text-[var(--accent)]">{{ report.treatedHectares }}</dd>
+              </div>
+            </dl>
+          @endif
+
+          <a href="/field-report" class="inline-flex items-center mt-6 font-semibold no-underline text-[0.92rem] text-[var(--accent)]">{t:account.openReport}</a>
+        </div>
+      </div>
+    @endif
+  @else
+    <div class="max-w-[46ch]">
+      <p class="font-semibold text-[0.78rem] text-[var(--accent)] tracking-[0.14em] uppercase">{t:dashboard.eyebrow}</p>
+      <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem]">{t:account.signedOutTitle}</h1>
+      <p class="mt-5 leading-relaxed text-[1.05rem] text-[var(--text-2)]">{t:account.signedOutBody}</p>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="/login" class="inline-flex items-center px-5 py-3 font-semibold no-underline text-[0.95rem] text-white bg-[var(--accent)] rounded-[10px]">{t:auth.signIn}</a>
+        <a href="/register" class="inline-flex items-center px-5 py-3 font-semibold no-underline text-[0.95rem] text-[var(--text)] border border-[var(--line)] rounded-[10px]">{t:auth.signUp}</a>
+      </div>
+    </div>
+  @endif
+</section>
+
+@endsection

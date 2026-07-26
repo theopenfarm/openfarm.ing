@@ -9,7 +9,8 @@
     "switchTheme": "Design wechseln",
     "language": "Sprache",
     "skip": "Zum Inhalt springen",
-    "account": "Konto"
+    "account": "Konto",
+    "dashboard": "Übersicht"
   },
   "cta": {
     "book": "Feldtermin buchen",
@@ -287,16 +288,16 @@
   },
   "auth": {
     "eyebrow": "Ihr Konto",
-    "signInTitle": "Anmelden zu Ihren Flügen",
-    "signInLede": "Jeder Scan, jede Erkennung und jede Behandlungskarte, die wir für Sie geflogen haben, an einem Ort.",
-    "point1": "Die Flüge der Reihe nach",
-    "point1Body": "Was wann geflogen wurde und wie das Wetter dabei war.",
-    "point2": "Die Erkennungen hinter jeder Karte",
+    "signInTitle": "Anmelden zu Ihrem Betrieb",
+    "signInLede": "Ihre Schläge, Ihre Flüge und die Behandlungskarten daraus, an einem Ort.",
+    "point1": "Ihre Schläge, Stück für Stück",
+    "point1Body": "Hektar, Kultur und wann zuletzt geflogen wurde.",
+    "point2": "Was die Scans gefunden haben",
     "point2Body": "Jeder markierte Quadratmeter, mit dem Bild dazu.",
     "point3": "Was tatsächlich behandelt wurde",
     "point3Body": "Behandelte gegen beflogene Hektar, pro Überflug.",
-    "signUpTitle": "Konto anlegen",
-    "signUpLede": "Ein Ort für Ihre Feldtermine, Ihre Flüge und die Berichte, die daraus entstehen.",
+    "signUpTitle": "Betrieb einrichten",
+    "signUpLede": "Ein Ort für Ihre Schläge, Ihre Feldtermine und die Berichte daraus.",
     "signUpNote": "Das Konto ist kostenlos und verpflichtet zu keinem Flug. Es gibt ihm nur einen Platz, wo unsere Arbeit für Sie liegt.",
     "bookInstead": "Lieber erst sprechen?",
     "email": "E-Mail-Adresse",
@@ -315,7 +316,11 @@
     "locked": "Zu viele Versuche für diese Adresse. Bitte in einigen Minuten erneut versuchen.",
     "exists": "Dieses Konto konnte nicht angelegt werden. Falls die Adresse bereits registriert ist, melden Sie sich an.",
     "weak": "Passwörter brauchen mindestens 8 Zeichen.",
-    "invalid": "Ein Name mit mindestens zwei Zeichen wird benötigt."
+    "invalid": "Ein Name mit mindestens zwei Zeichen wird benötigt.",
+    "orContinue": "oder weiter mit",
+    "google": "Weiter mit Google",
+    "apple": "Weiter mit Apple",
+    "socialNote": "Beim ersten Anmelden mit Google oder Apple wird Ihr Konto angelegt."
   },
   "account": {
     "visitsTitle": "Ihre Feldtermine",
@@ -327,5 +332,22 @@
     "openReport": "Feldbericht öffnen",
     "signedOutTitle": "Zum Konto bitte anmelden",
     "signedOutBody": "Ihre Flüge, Erkennungen und Behandlungskarten liegen hinter der Anmeldung. Ein Konto anzulegen dauert einen Moment und kostet nichts."
+  },
+  "dashboard": {
+    "eyebrow": "Ihr Betrieb",
+    "settings": "Kontoeinstellungen",
+    "fields": "Schläge",
+    "hectares": "Hektar",
+    "detections": "Erkennungen",
+    "treated": "Behandelte Hektar",
+    "fieldsTitle": "Ihre Schläge",
+    "field": "Schlag",
+    "crop": "Kultur",
+    "ha": "Ha",
+    "lastFlown": "Zuletzt geflogen",
+    "found": "Gefunden",
+    "noFields": "Noch keine Schläge auf diesem Betrieb. Sie erscheinen hier nach dem ersten Erkundungsflug, eine Zeile je Schlag.",
+    "flightsTitle": "Letzte Flüge",
+    "noFlights": "Noch keine Flüge. Der erste landet hier mit dem, was er gefunden und was er vorgeschlagen hat."
   }
 }

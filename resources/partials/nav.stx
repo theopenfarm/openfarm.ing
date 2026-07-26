@@ -119,7 +119,7 @@ const navFarmer = await navSession.currentUser()
       </nav>
 
       @if (navFarmer)
-        <a href="/account" class="hidden sm:inline-flex nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:nav.account}</a>
+        <a href="/dashboard" class="hidden sm:inline-flex nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:nav.dashboard}</a>
       @else
         <a href="/login" class="hidden sm:inline-flex nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:auth.signIn}</a>
       @endif

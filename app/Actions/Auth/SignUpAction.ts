@@ -82,7 +82,7 @@ export default new Action({
       return new Response(null, {
         status: 303,
         headers: {
-          'Location': '/account',
+          'Location': '/dashboard',
           'Set-Cookie': authCookie(String(result.token)),
         },
       })

@@ -9,7 +9,8 @@
     "switchTheme": "Thema wisselen",
     "language": "Taal",
     "skip": "Naar de inhoud",
-    "account": "Account"
+    "account": "Account",
+    "dashboard": "Overzicht"
   },
   "cta": {
     "book": "Veldbezoek boeken",
@@ -287,16 +288,16 @@
   },
   "auth": {
     "eyebrow": "Uw account",
-    "signInTitle": "Aanmelden bij uw vluchten",
-    "signInLede": "Elke scan, elke detectie en elke behandelkaart die we voor u vlogen, op een plek.",
-    "point1": "De vluchten op volgorde",
-    "point1Body": "Wat er wanneer gevlogen is en wat het weer deed.",
-    "point2": "De detecties achter elke kaart",
+    "signInTitle": "Aanmelden bij uw bedrijf",
+    "signInLede": "Uw percelen, uw vluchten en de behandelkaarten die eruit kwamen, op een plek.",
+    "point1": "Uw percelen, stuk voor stuk",
+    "point1Body": "Hectares, gewas en wanneer er voor het laatst gevlogen is.",
+    "point2": "Wat de scans vonden",
     "point2Body": "Elke gemarkeerde vierkante meter, met het beeld erbij.",
     "point3": "Wat er werkelijk behandeld is",
     "point3Body": "Behandelde tegen gevlogen hectares, per ronde.",
-    "signUpTitle": "Maak uw account aan",
-    "signUpLede": "Een plek voor uw veldbezoeken, uw vluchten en de rapporten die eruit komen.",
+    "signUpTitle": "Richt uw bedrijf in",
+    "signUpLede": "Een plek voor uw percelen, uw veldbezoeken en de rapporten die eruit komen.",
     "signUpNote": "Een account is gratis en verplicht u tot geen enkele vlucht. Het geeft ons werk voor u alleen een plek om te staan.",
     "bookInstead": "Liever eerst overleggen?",
     "email": "E-mailadres",
@@ -315,7 +316,11 @@
     "locked": "Te veel pogingen op dit adres. Probeer het over een paar minuten opnieuw.",
     "exists": "Dit account kon niet worden aangemaakt. Is het adres al geregistreerd, meld u dan aan.",
     "weak": "Wachtwoorden hebben minstens 8 tekens nodig.",
-    "invalid": "Een naam van minstens twee tekens is nodig."
+    "invalid": "Een naam van minstens twee tekens is nodig.",
+    "orContinue": "of ga verder met",
+    "google": "Verder met Google",
+    "apple": "Verder met Apple",
+    "socialNote": "De eerste keer aanmelden met Google of Apple maakt uw account aan."
   },
   "account": {
     "visitsTitle": "Uw veldbezoeken",
@@ -327,5 +332,22 @@
     "openReport": "Open het veldrapport",
     "signedOutTitle": "Meld u aan voor uw account",
     "signedOutBody": "Uw vluchten, detecties en behandelkaarten staan achter een aanmelding. Een account aanmaken kost een moment en verder niets."
+  },
+  "dashboard": {
+    "eyebrow": "Uw bedrijf",
+    "settings": "Accountinstellingen",
+    "fields": "Percelen",
+    "hectares": "Hectares",
+    "detections": "Detecties",
+    "treated": "Behandelde hectares",
+    "fieldsTitle": "Uw percelen",
+    "field": "Perceel",
+    "crop": "Gewas",
+    "ha": "Ha",
+    "lastFlown": "Laatst gevlogen",
+    "found": "Gevonden",
+    "noFields": "Nog geen percelen op dit bedrijf. Ze verschijnen hier na de eerste verkenningsvlucht, een regel per perceel.",
+    "flightsTitle": "Recente vluchten",
+    "noFlights": "Nog geen vluchten. De eerste komt hier binnen met wat hij vond en wat hij voorschreef."
   }
 }

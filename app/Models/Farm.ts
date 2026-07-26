@@ -18,6 +18,12 @@ export default defineModel({
     },
   },
 
+  // A holding belongs to the account that signed up for it, which is what
+  // scopes the dashboard: a farmer sees their own fields and nobody else's.
+  // The demonstration farm has no owner, so it belongs to no account and
+  // shows up on no dashboard.
+  belongsTo: ['User'],
+
   hasMany: ['Field', 'Drone', 'Mission'],
 
   attributes: {

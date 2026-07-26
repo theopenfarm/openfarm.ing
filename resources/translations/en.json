@@ -9,7 +9,8 @@
     "switchTheme": "Switch theme",
     "language": "Language",
     "skip": "Skip to content",
-    "account": "Account"
+    "account": "Account",
+    "dashboard": "Dashboard"
   },
   "cta": {
     "book": "Book a field visit",
@@ -287,16 +288,16 @@
   },
   "auth": {
     "eyebrow": "Your account",
-    "signInTitle": "Sign in to your flights",
-    "signInLede": "Every scan, every detection and every treatment map we have flown for you, in one place.",
-    "point1": "The flights, in order",
-    "point1Body": "What was flown, when, and what the weather was doing.",
-    "point2": "The detections behind each map",
+    "signInTitle": "Sign in to your farm",
+    "signInLede": "Your fields, your flights and the treatment maps that came out of them, in one place.",
+    "point1": "Your fields, block by block",
+    "point1Body": "Hectares, crop and the last time each one was flown.",
+    "point2": "What the scans found",
     "point2Body": "Every marked square metre, with the image it came from.",
     "point3": "What was actually treated",
     "point3Body": "Hectares touched against hectares flown, per pass.",
-    "signUpTitle": "Create your account",
-    "signUpLede": "A place to keep your field visits, your flights and the reports that come out of them.",
+    "signUpTitle": "Set up your farm",
+    "signUpLede": "A place for your fields, your field visits and the reports that come out of them.",
     "signUpNote": "An account is free and does not commit you to a flight. It exists so the work we do for you has somewhere to live.",
     "bookInstead": "Would rather talk first?",
     "email": "Email address",
@@ -315,7 +316,11 @@
     "locked": "Too many attempts on this address. Try again in a few minutes.",
     "exists": "That account could not be created. If the address is already registered, sign in instead.",
     "weak": "Passwords need to be at least 8 characters.",
-    "invalid": "A name of at least two characters is required."
+    "invalid": "A name of at least two characters is required.",
+    "orContinue": "or continue with",
+    "google": "Continue with Google",
+    "apple": "Continue with Apple",
+    "socialNote": "Signing in with Google or Apple creates your account the first time."
   },
   "account": {
     "visitsTitle": "Your field visits",
@@ -327,5 +332,22 @@
     "openReport": "Open the field report",
     "signedOutTitle": "Sign in to see your account",
     "signedOutBody": "Your flights, detections and treatment maps live behind a sign-in. Creating an account takes a moment and costs nothing."
+  },
+  "dashboard": {
+    "eyebrow": "Your farm",
+    "settings": "Account settings",
+    "fields": "Fields",
+    "hectares": "Hectares",
+    "detections": "Detections",
+    "treated": "Hectares treated",
+    "fieldsTitle": "Your fields",
+    "field": "Field",
+    "crop": "Crop",
+    "ha": "Ha",
+    "lastFlown": "Last flown",
+    "found": "Found",
+    "noFields": "No fields on this holding yet. They appear here after the first survey flight, one row per block.",
+    "flightsTitle": "Recent flights",
+    "noFlights": "No flights yet. The first one lands here with what it found and what it prescribed."
   }
 }
