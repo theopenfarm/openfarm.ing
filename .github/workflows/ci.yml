@@ -1,0 +1,305 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pantry
+        uses: pantry-pm/pantry/packages/action@d738d5fd2e543e3b8380e5fbd5d01ba8936c1790 # v0.10.47
+        with:
+          version: '0.10.47'
+          install: 'false'
+
+      - name: Use cached node_modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
+      - name: Check lockfile version
+        run: bun .github/scripts/check-lockfile-version.ts
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Check dependency state
+        env:
+          DEPENDENCY_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          DEPENDENCY_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: bun .github/scripts/check-dependency-commits.ts
+
+      - name: Lint
+        run: bun buddy lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Setup Pantry
+        uses: pantry-pm/pantry/packages/action@d738d5fd2e543e3b8380e5fbd5d01ba8936c1790 # v0.10.47
+        with:
+          version: '0.10.47'
+          install: 'false'
+
+      - name: Use cached node_modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bun run typecheck
+
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+        ports:
+          - 3306:3306
+
+      dynamodb:
+        image: amazon/dynamodb-local
+        ports:
+          - 8000:8000
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Setup Pantry
+        uses: pantry-pm/pantry/packages/action@d738d5fd2e543e3b8380e5fbd5d01ba8936c1790 # v0.10.47
+        with:
+          version: '0.10.47'
+          install: 'false'
+          services: redis@8.8.0
+
+      - name: Use cached node_modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Test Suite
+        env:
+          AWS_DYNAMODB_ENDPOINT: http://localhost:8000
+        run: bun run test
+
+  protocol-conformance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pantry
+        uses: pantry-pm/pantry/packages/action@d738d5fd2e543e3b8380e5fbd5d01ba8936c1790 # v0.10.47
+        with:
+          version: '0.10.47'
+          install: 'false'
+          services: redis@8.8.0
+
+      - name: Use cached node_modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Verify pinned protocol suite
+        run: |
+          bun run protocol:check
+          bun run protocol:manifest:check
+          bun run protocol:release:check
+          bun run protocol:drivers:check
+          bun run protocol:desktop:check
+          bun run protocol:pantry:check
+          bun run protocol:craft:check
+          bun run docs:buddy:check
+          bun run docs:artifacts:check
+          bun run docs:links:check
+
+      - name: Run protocol adapter
+        env:
+          PROTOCOL_REPORT_DIR: .github/protocol/reports
+        run: |
+          bun test ./storage/framework/core/buddy/src/commands/protocol/run-conformance.test.ts
+          bun test ./storage/framework/core/buddy/src/commands/protocol/craft-evidence.test.ts ./storage/framework/core/buddy/src/commands/protocol/desktop-lifecycle-report.test.ts
+          bun test ./.github/scripts/deploy/resolve-target.test.ts
+          bun run protocol:drivers:test
+          bun run protocol:conformance
+          cat .github/protocol/reports/driver-matrix.md >> "$GITHUB_STEP_SUMMARY"
+          cat .github/protocol/reports/stacks-conformance.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Retain attributable conformance report
+        uses: actions/upload-artifact@v7
+        with:
+          name: stacks-protocol-conformance-${{ github.sha }}
+          path: .github/protocol/reports/
+          if-no-files-found: error
+
+  deployment-target:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.target.outputs.environment }}
+      flag: ${{ steps.target.outputs.flag }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Setup Pantry
+        uses: pantry-pm/pantry/packages/action@d738d5fd2e543e3b8380e5fbd5d01ba8936c1790 # v0.10.47
+        with:
+          version: '0.10.47'
+          install: 'false'
+
+      - name: Resolve provisioned deployment target
+        id: target
+        run: bun .github/scripts/deploy/resolve-target.ts --ref "$GITHUB_REF" --github-output "$GITHUB_OUTPUT"
+
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    needs: [lint, typecheck, test, protocol-conformance, deployment-target]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: ${{ needs.deployment-target.outputs.environment }}
+    permissions:
+      contents: read
+      deployments: write
+      id-token: write
+    env:
+      DEPLOY_ENVIRONMENT: ${{ needs.deployment-target.outputs.environment }}
+      DEPLOY_FLAG: ${{ needs.deployment-target.outputs.flag }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+
+      - name: Setup Pantry
+        uses: pantry-pm/pantry/packages/action@d738d5fd2e543e3b8380e5fbd5d01ba8936c1790 # v0.10.47
+        with:
+          version: '0.10.47'
+          install: 'false'
+
+      - name: Use cached node_modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Prepare Deploy SSH Key
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          if [ -z "$DEPLOY_SSH_KEY" ]; then
+            echo "No deploy SSH key configured; continuing without one."
+            exit 0
+          fi
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keygen -y -f ~/.ssh/id_ed25519 > ~/.ssh/id_ed25519.pub
+          chmod 644 ~/.ssh/id_ed25519.pub
+
+      - name: Deploy ${{ env.DEPLOY_ENVIRONMENT }}
+        run: ./buddy deploy "$DEPLOY_FLAG" --yes
+        env:
+          APP_ENV: ${{ env.DEPLOY_ENVIRONMENT }}
+          DOTENV_PRIVATE_KEY_PRODUCTION: ${{ secrets.DOTENV_PRIVATE_KEY_PRODUCTION }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COPYFILE_DISABLE: '1'
+
+  publish-commit:
+    if: github.event_name == 'pull_request'
+    needs: [lint, typecheck, test, protocol-conformance]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Pantry
+        uses: pantry-pm/pantry/packages/action@d738d5fd2e543e3b8380e5fbd5d01ba8936c1790 # v0.10.47
+        with:
+          version: '0.10.47'
+          install: 'false'
+
+      - name: Use cached node_modules
+        uses: actions/cache@v5
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            node-modules-
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Publish Commit
+        run: ./storage/framework/scripts/publish-commit
