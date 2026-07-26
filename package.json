@@ -95,7 +95,7 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "bun-query-builder": "^0.1.58",
+    "bun-query-builder": "^0.1.59",
     "stacks": "^0.70.167"
   },
   "workspaces": [
@@ -103,19 +103,6 @@
     "storage/framework/libs/*",
     "storage/framework/views/*"
   ],
-  "catalog": {
-    "@stacksjs/clapp": "^0.2.12",
-    "@stacksjs/components": "^0.2.82",
-    "@stacksjs/gitlint": "^0.1.7",
-    "@stacksjs/stx": "^0.2.100",
-    "@stacksjs/ts-cloud": "^0.7.60",
-    "better-dx": "^0.2.17",
-    "bun-git-hooks": "^0.3.2",
-    "bun-query-builder": "^0.1.56",
-    "pickier": "^0.1.35",
-    "redis": "^5.12.1",
-    "web-ext": "^10.5.0"
-  },
   "git-hooks": {
     "pre-commit": {
       "staged-lint": {
@@ -124,8 +111,7 @@
     },
     "commit-msg": "bun x gitlint --edit \"$1\""
   },
-  "devDependencies": {
-    "ajv": "^8.20.0",
-    "ajv-formats": "^3.0.1"
+  "overrides": {
+    "bun-query-builder": "^0.1.59"
   }
 }

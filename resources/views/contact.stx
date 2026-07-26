@@ -46,7 +46,7 @@ const useCases = await catalog.allUseCases()
       </ol>
 
       <p class="text-[0.9rem] text-[var(--text-2)] leading-relaxed mt-10 max-w-[44ch]">
-        Would rather write to a person? <a href="mailto:hello@openfarm.ing" class="text-[var(--accent)] font-semibold">hello@openfarm.ing</a>
+        Would you rather write to a person? <a href="mailto:hello@openfarm.ing" class="text-[var(--accent)] font-semibold">hello@openfarm.ing</a>
       </p>
     </div>
 
