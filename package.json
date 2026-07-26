@@ -95,8 +95,8 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "@stacksjs/stx": "^0.2.103",
-    "bun-plugin-stx": "^0.2.103",
+    "@stacksjs/stx": "^0.2.104",
+    "bun-plugin-stx": "^0.2.104",
     "bun-query-builder": "^0.1.59",
     "stacks": "^0.70.179",
     "ts-images": "^0.2.5"
