@@ -117,6 +117,29 @@ const alternates = [
         if (document.activeElement && document.activeElement.blur) document.activeElement.blur()
       })
 
+      /*
+       * Re-apply the theme after a client-side navigation.
+       *
+       * This script runs once, before first paint. stx's router swaps the
+       * document on navigation and does not re-execute already-executed head
+       * scripts, so anything it does to <html> (including replacing the
+       * element's attributes with the incoming document's) is not undone —
+       * and the incoming server-rendered HTML never carries the `dark` class,
+       * because the class only ever exists client-side. Switching language
+       * therefore dropped the reader's chosen theme. Re-applying on every
+       * navigation makes the choice survive whatever the router does.
+       */
+      function applyTheme() {
+        var choice = ''
+        try { choice = localStorage.getItem('of-theme') || '' } catch (e) {}
+        var wantDark = choice === 'dark' || (choice !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.classList.toggle('dark', wantDark)
+      }
+
+      window.addEventListener('stx:navigate', applyTheme)
+      window.addEventListener('popstate', applyTheme)
+      document.addEventListener('stx:load', applyTheme)
+
       window.ofToggleTheme = function () {
         var next = document.documentElement.classList.contains('dark') ? 'light' : 'dark'
         try { localStorage.setItem('of-theme', next) } catch (e) {}

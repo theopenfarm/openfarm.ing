@@ -27,12 +27,12 @@ const navUseCases = await navCatalog.useCaseGroups()
           <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
         </a>
 
-        <div class="mega">
-          <div class="lg:grid-cols-[repeat(3,minmax(0,1fr))_18rem] mega-inner">
+        <div class="mega mega-features">
+          <div class="mega-inner">
             @foreach (navFeatures as group)
-              <div>
+              <div class="mega-col">
                 <p class="mega-col-title">{{ group.label }}</p>
-                <p class="mb-2 max-w-[24ch] leading-snug text-[0.8rem] text-[var(--text-3)]">{{ group.blurb }}</p>
+                <p class="mega-col-blurb">{{ group.blurb }}</p>
                 @foreach (group.items as item)
                   <a class="mega-item" href="/features/{{ item.slug }}">
                     <strong>{{ item.name }}</strong>
@@ -59,10 +59,10 @@ const navUseCases = await navCatalog.useCaseGroups()
           <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
         </a>
 
-        <div class="mega">
-          <div class="lg:grid-cols-[repeat(4,minmax(0,1fr))_16rem] mega-inner">
+        <div class="mega mega-usecases">
+          <div class="mega-inner">
             @foreach (navUseCases as group)
-              <div>
+              <div class="mega-col">
                 <p class="mega-col-title">{{ group.label }}</p>
                 @foreach (group.items as item)
                   <a class="mega-item" href="/use-cases/{{ item.slug }}">
@@ -101,14 +101,16 @@ const navUseCases = await navCatalog.useCaseGroups()
         </svg>
       </button>
       <!-- The locale picker stx looks for (`pickerSelector` in site.config.ts).
-          Real links, so it works with no JavaScript and a middle-click opens
-          the other language in a tab; the injected picker script upgrades the
-          same `data-lang` elements into in-place navigation and keeps
-          `aria-current` in step. -->
+          Buttons, not links: stx rewrites every internal href through its own
+          locale-aware resolver, so an <a href="/nl/"> sitting on a /de/ page
+          was resolved relative to the CURRENT locale and the switch landed on
+          /de/ instead of /nl/<same page>. A button carries no href to rewrite,
+          and the injected picker script computes the destination itself from
+          `data-lang` plus the current path. -->
       <nav id="lang-picker" class="hidden sm:flex gap-0.5 items-center p-0.5 border border-[var(--line)] rounded-[10px]" aria-label="{t:nav.language}">
-        <a href="/" data-lang="en" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold no-underline text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] rounded-[6px]">EN</a>
-        <a href="/de/" data-lang="de" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold no-underline text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] rounded-[6px]">DE</a>
-        <a href="/nl/" data-lang="nl" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold no-underline text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] rounded-[6px]">NL</a>
+        <button type="button" data-lang="en" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">EN</button>
+        <button type="button" data-lang="de" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">DE</button>
+        <button type="button" data-lang="nl" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">NL</button>
       </nav>
 
       <a href="/contact" class="btn btn-primary">{t:cta.book}</a>

@@ -262,6 +262,62 @@ a { color: inherit; }
   transition: none;
 }
 
+/*
+ * The panel's own layout.
+ *
+ * These rules were lost in an edit to the block above; without them the menu
+ * rendered as a run of unstyled text pushed into the document flow. Restored
+ * with the column widths set here rather than in a utility on the markup, so
+ * the panel's shape lives in one place.
+ */
+.mega-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 2.25rem;
+  display: grid;
+  gap: 2rem 2.5rem;
+  /* Overridden per menu below; this is the safe single-column default. */
+  grid-template-columns: 1fr;
+}
+
+/* Capabilities: three category columns plus the callout panel. */
+.mega-features .mega-inner { grid-template-columns: repeat(3, minmax(0, 1fr)) 17rem; }
+/* Use cases: five segments are too many at this width, so they wrap into a
+  four-column grid and the callout takes the remaining space. */
+.mega-usecases .mega-inner { grid-template-columns: repeat(4, minmax(0, 1fr)) 15rem; }
+
+.mega-col + .mega-col { border-left: 1px solid var(--line-soft); padding-left: 2rem; }
+
+.mega-col-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0 0 0.15rem;
+}
+
+.mega-col-blurb {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--text-3);
+  max-width: 24ch;
+  margin: 0 0 0.75rem;
+}
+
+.mega-item {
+  display: block;
+  padding: 0.5rem 0.65rem;
+  margin-left: -0.65rem;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transition: background-color 0.14s ease;
+}
+
+.mega-item:hover { background: var(--accent-wash); }
+.mega-item strong { display: block; font-size: 0.875rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+.mega-item span { display: block; font-size: 0.78rem; color: var(--text-3); line-height: 1.35; margin-top: 0.05rem; }
+
 /* Below `lg` a mega panel cannot fit, and the five top-level links cannot fit
  * beside the wordmark and the CTA either. Rather than hide the navigation
  * behind a hamburger (one more tap, and this site's whole job is getting
