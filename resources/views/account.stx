@@ -1,0 +1,99 @@
+<script server>
+const nodePath = require('node:path')
+const session = await import(nodePath.join(process.cwd(), 'app/Support/session.ts'))
+const account = await import(nodePath.join(process.cwd(), 'app/Support/account.ts'))
+const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
+
+const title = 'Your account - Open Farming'
+const description = 'Your field visits, your flights and the reports that came out of them.'
+const activeNav = 'account'
+const pagePath = '/account'
+const ogCard = 'account'
+
+const farmer = await session.currentUser()
+
+// Everything below is scoped to the signed-in address. A page rendered for a
+// signed-out visitor asks them to sign in rather than 302ing: stx renders the
+// page, and a redirect from inside a server script is not something it can do.
+const visits = farmer ? await account.visitsFor(farmer.email) : []
+const report = farmer ? await catalog.fieldReport() : null
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="mx-auto pb-24 pt-14 px-5 md:pt-20 max-w-[1240px]">
+  @if (farmer)
+    <div class="flex flex-wrap gap-6 items-end justify-between">
+      <div>
+        <p class="font-semibold text-[0.78rem] text-[var(--accent)] tracking-[0.14em] uppercase">{t:auth.eyebrow}</p>
+        <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem]">{{ farmer.name }}</h1>
+        <p class="mt-3 text-[1rem] text-[var(--text-2)]">{{ farmer.email }}</p>
+      </div>
+
+      <!-- POST, so no prefetch, no image tag and no other site can sign this
+          farmer out; the action revokes the token before clearing the cookie. -->
+      <form method="post" action="/api/auth/sign-out">
+        <button type="submit" class="px-4 py-2.5 font-semibold text-[0.9rem] text-[var(--text)] bg-transparent border border-[var(--line)] rounded-[10px] cursor-pointer">{t:auth.signOut}</button>
+      </form>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] mt-12">
+      <div class="p-7 md:p-9 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
+        <h2 class="text-[1.3rem]">{t:account.visitsTitle}</h2>
+
+        @if (visits.length)
+          <ul class="mt-6 p-0 list-none">
+            @foreach (visits as visit)
+              <li class="py-4 border-[var(--line-soft)] border-b last:border-b-0">
+                <div class="flex flex-wrap gap-3 items-baseline justify-between">
+                  <p class="font-semibold text-[0.98rem]">{{ visit.farmName }}</p>
+                  <p class="text-[0.82rem] text-[var(--text-3)]">{{ visit.requestedOn }}</p>
+                </div>
+                <p class="mt-1 text-[0.88rem] text-[var(--text-2)]">{{ visit.summary }}</p>
+                <p class="inline-block mt-2 px-2.5 py-1 font-semibold text-[0.74rem] text-[var(--accent)] tracking-[0.1em] uppercase bg-[var(--accent-wash)] rounded-[6px]">{{ visit.status }}</p>
+              </li>
+            @endforeach
+          </ul>
+        @else
+          <p class="mt-4 max-w-[46ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">{t:account.noVisits}</p>
+          <a href="/contact" class="inline-flex items-center mt-6 px-5 py-3 font-semibold no-underline text-[0.95rem] text-white bg-[var(--accent)] rounded-[10px]">{t:cta.book}</a>
+        @endif
+      </div>
+
+      <div class="p-7 md:p-9 h-fit bg-[var(--bg-2)] border border-[var(--line)] rounded-[10px]">
+        <h2 class="text-[1.2rem]">{t:account.reportTitle}</h2>
+        <p class="mt-3 max-w-[40ch] leading-relaxed text-[0.93rem] text-[var(--text-2)]">{t:account.reportBody}</p>
+
+        @if (report)
+          <dl class="grid gap-4 grid-cols-2 mt-6">
+            <div>
+              <dt class="text-[0.76rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:account.hectares}</dt>
+              <dd class="ml-0 mt-1 font-semibold text-[1.4rem]">{{ report.hectares }}</dd>
+            </div>
+            <div>
+              <dt class="text-[0.76rem] text-[var(--text-3)] tracking-[0.1em] uppercase">{t:account.treated}</dt>
+              <dd class="ml-0 mt-1 font-semibold text-[1.4rem] text-[var(--accent)]">{{ report.treatedHectares }}</dd>
+            </div>
+          </dl>
+        @endif
+
+        <a href="/field-report" class="inline-flex items-center mt-6 font-semibold no-underline text-[0.92rem] text-[var(--accent)]">{t:account.openReport}</a>
+      </div>
+    </div>
+  @else
+    <div class="max-w-[46ch]">
+      <p class="font-semibold text-[0.78rem] text-[var(--accent)] tracking-[0.14em] uppercase">{t:auth.eyebrow}</p>
+      <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem]">{t:account.signedOutTitle}</h1>
+      <p class="mt-5 leading-relaxed text-[1.05rem] text-[var(--text-2)]">{t:account.signedOutBody}</p>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="/login" class="inline-flex items-center px-5 py-3 font-semibold no-underline text-[0.95rem] text-white bg-[var(--accent)] rounded-[10px]">{t:auth.signIn}</a>
+        <a href="/register" class="inline-flex items-center px-5 py-3 font-semibold no-underline text-[0.95rem] text-[var(--text)] border border-[var(--line)] rounded-[10px]">{t:auth.signUp}</a>
+      </div>
+    </div>
+  @endif
+</section>
+
+@endsection

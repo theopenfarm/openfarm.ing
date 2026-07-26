@@ -8,7 +8,8 @@
     "home": "Open Farming startpagina",
     "switchTheme": "Thema wisselen",
     "language": "Taal",
-    "skip": "Naar de inhoud"
+    "skip": "Naar de inhoud",
+    "account": "Account"
   },
   "cta": {
     "book": "Veldbezoek boeken",
@@ -283,5 +284,48 @@
   },
   "og": {
     "localePrefix": "nl/"
+  },
+  "auth": {
+    "eyebrow": "Uw account",
+    "signInTitle": "Aanmelden bij uw vluchten",
+    "signInLede": "Elke scan, elke detectie en elke behandelkaart die we voor u vlogen, op een plek.",
+    "point1": "De vluchten op volgorde",
+    "point1Body": "Wat er wanneer gevlogen is en wat het weer deed.",
+    "point2": "De detecties achter elke kaart",
+    "point2Body": "Elke gemarkeerde vierkante meter, met het beeld erbij.",
+    "point3": "Wat er werkelijk behandeld is",
+    "point3Body": "Behandelde tegen gevlogen hectares, per ronde.",
+    "signUpTitle": "Maak uw account aan",
+    "signUpLede": "Een plek voor uw veldbezoeken, uw vluchten en de rapporten die eruit komen.",
+    "signUpNote": "Een account is gratis en verplicht u tot geen enkele vlucht. Het geeft ons werk voor u alleen een plek om te staan.",
+    "bookInstead": "Liever eerst overleggen?",
+    "email": "E-mailadres",
+    "password": "Wachtwoord",
+    "passwordHelp": "Minstens 8 tekens.",
+    "name": "Uw naam",
+    "signIn": "Aanmelden",
+    "signUp": "Account aanmaken",
+    "createAccount": "Account aanmaken",
+    "signOut": "Afmelden",
+    "noAccount": "Nog geen account?",
+    "haveAccount": "Heeft u al een account?",
+    "alreadyIn": "U bent aangemeld",
+    "toAccount": "Naar uw account",
+    "failed": "Deze gegevens horen bij geen account.",
+    "locked": "Te veel pogingen op dit adres. Probeer het over een paar minuten opnieuw.",
+    "exists": "Dit account kon niet worden aangemaakt. Is het adres al geregistreerd, meld u dan aan.",
+    "weak": "Wachtwoorden hebben minstens 8 tekens nodig.",
+    "invalid": "Een naam van minstens twee tekens is nodig."
+  },
+  "account": {
+    "visitsTitle": "Uw veldbezoeken",
+    "noVisits": "Nog niets geboekt. Een veldbezoek is een ronde over het perceel en een vluchtkalender rond uw seizoen, met het eerste rapport voordat u zich vastlegt.",
+    "reportTitle": "De demonstratievlucht",
+    "reportBody": "Tot uw eigen eerste vlucht binnen is, is dit het uitgewerkte voorbeeld: een perceel, een scan, een behandelkaart.",
+    "hectares": "Gevlogen hectares",
+    "treated": "Behandelde hectares",
+    "openReport": "Open het veldrapport",
+    "signedOutTitle": "Meld u aan voor uw account",
+    "signedOutBody": "Uw vluchten, detecties en behandelkaarten staan achter een aanmelding. Een account aanmaken kost een moment en verder niets."
   }
 }

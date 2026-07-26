@@ -1,0 +1,96 @@
+<script server>
+const nodePath = require('node:path')
+const session = await import(nodePath.join(process.cwd(), 'app/Support/session.ts'))
+
+const title = 'Sign in - Open Farming'
+const description = 'Sign in to see your flights, your detections and the treatment maps that came out of them.'
+const activeNav = 'account'
+const pagePath = '/login'
+const ogCard = 'account'
+
+// A farmer who is already signed in has no business on this page.
+const farmer = await session.currentUser()
+
+// The form posts here on failure with a reason in the query string. Reading
+// it needs the request URL, which `requestContext` carries; a page rendered
+// outside a request (a build, a test) simply has no reason.
+const requestUrl = (typeof requestContext !== 'undefined' && requestContext.url) ? requestContext.url() : ''
+const reason = requestUrl.includes('e=locked') ? 'locked' : (requestUrl.includes('e=failed') ? 'failed' : '')
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+<section class="mx-auto pb-24 pt-14 px-5 md:pt-20 max-w-[1240px]">
+  <div class="grid gap-12 lg:gap-20 lg:grid-cols-[1fr_0.9fr]">
+    <div>
+      <p class="font-semibold text-[0.78rem] text-[var(--accent)] tracking-[0.14em] uppercase">{t:auth.eyebrow}</p>
+      <h1 class="mt-4 max-w-[15ch] leading-[1.07] text-[2.1rem] sm:text-[2.5rem] lg:text-[2.9rem]">{t:auth.signInTitle}</h1>
+      <p class="mt-5 max-w-[46ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">{t:auth.signInLede}</p>
+
+      <ul class="mt-9 p-0 list-none border-[var(--line)] border-l-2">
+        <li class="relative pb-6 pl-7">
+          <span class="absolute left-[-0.4rem] top-[0.45rem] h-3 w-3 bg-[var(--accent)] rounded-[6px]"></span>
+          <p class="font-semibold text-[0.97rem]">{t:auth.point1}</p>
+          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{t:auth.point1Body}</p>
+        </li>
+        <li class="relative pb-6 pl-7">
+          <span class="absolute left-[-0.4rem] top-[0.45rem] h-3 w-3 bg-[var(--accent)] rounded-[6px]"></span>
+          <p class="font-semibold text-[0.97rem]">{t:auth.point2}</p>
+          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{t:auth.point2Body}</p>
+        </li>
+        <li class="relative pl-7">
+          <span class="absolute left-[-0.4rem] top-[0.45rem] h-3 w-3 bg-[var(--accent)] rounded-[6px]"></span>
+          <p class="font-semibold text-[0.97rem]">{t:auth.point3}</p>
+          <p class="mt-1 leading-relaxed text-[0.92rem] text-[var(--text-2)]">{t:auth.point3Body}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="p-7 md:p-9 h-fit bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
+      @if (farmer)
+        <h2 class="text-[1.25rem]">{t:auth.alreadyIn}</h2>
+        <p class="mt-3 leading-relaxed text-[0.95rem] text-[var(--text-2)]">{{ farmer.email }}</p>
+        <a href="/account" class="inline-flex items-center justify-center mt-6 px-5 py-3 w-full font-semibold no-underline text-[0.95rem] text-white bg-[var(--accent)] rounded-[10px]">{t:auth.toAccount}</a>
+      @else
+        @if (reason === 'locked')
+          <!-- Deliberately the same wording for a locked account as for a
+              wrong password would be too vague to act on: a farmer who is
+              locked out needs to know waiting is the fix. -->
+          <p class="mb-5 p-3.5 text-[0.88rem] text-[var(--text)] bg-[var(--accent-wash)] border border-[var(--accent)] rounded-[10px]">{t:auth.locked}</p>
+        @endif
+        @if (reason === 'failed')
+          <p class="mb-5 p-3.5 text-[0.88rem] text-[var(--text)] bg-[var(--accent-wash)] border border-[var(--accent)] rounded-[10px]">{t:auth.failed}</p>
+        @endif
+
+        <!-- Server-rendered and plain: the form works before any script has
+            loaded, which on a field connection is the difference between
+            signing in and not. -->
+        <form method="post" action="/api/auth/sign-in">
+          <div class="grid gap-5">
+            <div class="grid gap-2">
+              <label for="email" class="font-semibold text-[0.88rem]">{t:auth.email}</label>
+              <input id="email" name="email" type="email" required autocomplete="email" autofocus
+                class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px]">
+            </div>
+
+            <div class="grid gap-2">
+              <label for="password" class="font-semibold text-[0.88rem]">{t:auth.password}</label>
+              <input id="password" name="password" type="password" required autocomplete="current-password"
+                class="px-3.5 py-2.5 w-full text-[0.95rem] text-[var(--text)] bg-[var(--bg)] border border-[var(--line)] rounded-[10px]">
+            </div>
+
+            <button type="submit" class="px-5 py-3 w-full font-semibold text-[0.95rem] text-white bg-[var(--accent)] border-0 rounded-[10px] cursor-pointer">{t:auth.signIn}</button>
+          </div>
+        </form>
+
+        <p class="mt-6 text-[0.88rem] text-[var(--text-2)]">
+          {t:auth.noAccount} <a href="/register" class="font-semibold text-[var(--accent)]">{t:auth.signUp}</a>
+        </p>
+      @endif
+    </div>
+  </div>
+</section>
+
+@endsection

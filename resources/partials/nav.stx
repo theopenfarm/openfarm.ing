@@ -6,6 +6,11 @@ const navCatalog = await import(navPath.join(process.cwd(), 'app/Support/catalog
 // operation puts it in the navigation without anyone editing this file.
 const navFeatures = await navCatalog.displayFeatureGroups()
 const navUseCases = await navCatalog.displayUseCaseGroups()
+
+// Who the bar greets. A signed-out visitor sees a way in; a signed-in one
+// sees where their flights live.
+const navSession = await import(navPath.join(process.cwd(), 'app/Support/session.ts'))
+const navFarmer = await navSession.currentUser()
 </script>
 
 <header class="site-nav">
@@ -112,6 +117,12 @@ const navUseCases = await navCatalog.displayUseCaseGroups()
         <button type="button" data-lang="de" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">DE</button>
         <button type="button" data-lang="nl" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">NL</button>
       </nav>
+
+      @if (navFarmer)
+        <a href="/account" class="hidden sm:inline-flex nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:nav.account}</a>
+      @else
+        <a href="/login" class="hidden sm:inline-flex nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:auth.signIn}</a>
+      @endif
 
       <a href="/contact" class="btn btn-primary">{t:cta.book}</a>
     </div>

@@ -196,6 +196,13 @@ async function collectCards(locale: string): Promise<Card[]> {
       photo: PHOTOS.arable!,
     },
     {
+      slug: 'account',
+      eyebrow: t.auth!.eyebrow,
+      title: t.auth!.signInTitle!,
+      subtitle: t.auth!.signInLede!.split('.')[0]!,
+      photo: PHOTOS.operator!,
+    },
+    {
       slug: 'field-report',
       eyebrow: t.nav!.fieldReport,
       title: t.fieldReport!.cardTitle!,

@@ -8,7 +8,8 @@
     "home": "Open Farming home",
     "switchTheme": "Switch theme",
     "language": "Language",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "account": "Account"
   },
   "cta": {
     "book": "Book a field visit",
@@ -283,5 +284,48 @@
   },
   "og": {
     "localePrefix": ""
+  },
+  "auth": {
+    "eyebrow": "Your account",
+    "signInTitle": "Sign in to your flights",
+    "signInLede": "Every scan, every detection and every treatment map we have flown for you, in one place.",
+    "point1": "The flights, in order",
+    "point1Body": "What was flown, when, and what the weather was doing.",
+    "point2": "The detections behind each map",
+    "point2Body": "Every marked square metre, with the image it came from.",
+    "point3": "What was actually treated",
+    "point3Body": "Hectares touched against hectares flown, per pass.",
+    "signUpTitle": "Create your account",
+    "signUpLede": "A place to keep your field visits, your flights and the reports that come out of them.",
+    "signUpNote": "An account is free and does not commit you to a flight. It exists so the work we do for you has somewhere to live.",
+    "bookInstead": "Would rather talk first?",
+    "email": "Email address",
+    "password": "Password",
+    "passwordHelp": "At least 8 characters.",
+    "name": "Your name",
+    "signIn": "Sign in",
+    "signUp": "Create an account",
+    "createAccount": "Create account",
+    "signOut": "Sign out",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "alreadyIn": "You are signed in",
+    "toAccount": "Go to your account",
+    "failed": "Those details did not match an account.",
+    "locked": "Too many attempts on this address. Try again in a few minutes.",
+    "exists": "That account could not be created. If the address is already registered, sign in instead.",
+    "weak": "Passwords need to be at least 8 characters.",
+    "invalid": "A name of at least two characters is required."
+  },
+  "account": {
+    "visitsTitle": "Your field visits",
+    "noVisits": "Nothing booked yet. A field visit is a walk of the block and a flight calendar built around your season, with the first report before you commit to anything.",
+    "reportTitle": "The demonstration flight",
+    "reportBody": "Until your own first flight lands, this is the worked example: one field, one scan, one treatment map.",
+    "hectares": "Hectares flown",
+    "treated": "Hectares treated",
+    "openReport": "Open the field report",
+    "signedOutTitle": "Sign in to see your account",
+    "signedOutBody": "Your flights, detections and treatment maps live behind a sign-in. Creating an account takes a moment and costs nothing."
   }
 }

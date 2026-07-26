@@ -96,7 +96,7 @@
   },
   "dependencies": {
     "bun-query-builder": "^0.1.59",
-    "stacks": "0.70.176",
+    "stacks": "^0.70.179",
     "ts-images": "^0.2.5"
   },
   "workspaces": [
@@ -111,8 +111,5 @@
       }
     },
     "commit-msg": "bun x gitlint --edit \"$1\""
-  },
-  "overrides": {
-    "bun-query-builder": "^0.1.59"
   }
 }

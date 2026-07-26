@@ -76,10 +76,10 @@ const alternates = [
   @endforeach
 
   <!-- Two mechanisms, because browsers split on which they honour. Chrome and
-       Firefox run the media query inside favicon.svg; Safari does not, and
-       takes the scheme from these `media` attributes instead. Either way the
-       plate follows the tab chrome and the accent marks stay put. The
-       unqualified link last is the fallback for anything that reads neither. -->
+      Firefox run the media query inside favicon.svg; Safari does not, and
+      takes the scheme from these `media` attributes instead. Either way the
+      plate follows the tab chrome and the accent marks stay put. The
+      unqualified link last is the fallback for anything that reads neither. -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">

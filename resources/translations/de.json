@@ -8,7 +8,8 @@
     "home": "Open Farming Startseite",
     "switchTheme": "Design wechseln",
     "language": "Sprache",
-    "skip": "Zum Inhalt springen"
+    "skip": "Zum Inhalt springen",
+    "account": "Konto"
   },
   "cta": {
     "book": "Feldtermin buchen",
@@ -283,5 +284,48 @@
   },
   "og": {
     "localePrefix": "de/"
+  },
+  "auth": {
+    "eyebrow": "Ihr Konto",
+    "signInTitle": "Anmelden zu Ihren Flügen",
+    "signInLede": "Jeder Scan, jede Erkennung und jede Behandlungskarte, die wir für Sie geflogen haben, an einem Ort.",
+    "point1": "Die Flüge der Reihe nach",
+    "point1Body": "Was wann geflogen wurde und wie das Wetter dabei war.",
+    "point2": "Die Erkennungen hinter jeder Karte",
+    "point2Body": "Jeder markierte Quadratmeter, mit dem Bild dazu.",
+    "point3": "Was tatsächlich behandelt wurde",
+    "point3Body": "Behandelte gegen beflogene Hektar, pro Überflug.",
+    "signUpTitle": "Konto anlegen",
+    "signUpLede": "Ein Ort für Ihre Feldtermine, Ihre Flüge und die Berichte, die daraus entstehen.",
+    "signUpNote": "Das Konto ist kostenlos und verpflichtet zu keinem Flug. Es gibt ihm nur einen Platz, wo unsere Arbeit für Sie liegt.",
+    "bookInstead": "Lieber erst sprechen?",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "passwordHelp": "Mindestens 8 Zeichen.",
+    "name": "Ihr Name",
+    "signIn": "Anmelden",
+    "signUp": "Konto anlegen",
+    "createAccount": "Konto anlegen",
+    "signOut": "Abmelden",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Sie haben bereits ein Konto?",
+    "alreadyIn": "Sie sind angemeldet",
+    "toAccount": "Zum Konto",
+    "failed": "Diese Angaben passen zu keinem Konto.",
+    "locked": "Zu viele Versuche für diese Adresse. Bitte in einigen Minuten erneut versuchen.",
+    "exists": "Dieses Konto konnte nicht angelegt werden. Falls die Adresse bereits registriert ist, melden Sie sich an.",
+    "weak": "Passwörter brauchen mindestens 8 Zeichen.",
+    "invalid": "Ein Name mit mindestens zwei Zeichen wird benötigt."
+  },
+  "account": {
+    "visitsTitle": "Ihre Feldtermine",
+    "noVisits": "Noch nichts gebucht. Ein Feldtermin ist ein Gang über den Schlag und ein Flugkalender rund um Ihre Saison, mit dem ersten Bericht, bevor Sie sich festlegen.",
+    "reportTitle": "Der Demonstrationsflug",
+    "reportBody": "Bis Ihr erster eigener Flug vorliegt, ist dies das durchgerechnete Beispiel: ein Schlag, ein Scan, eine Behandlungskarte.",
+    "hectares": "Beflogene Hektar",
+    "treated": "Behandelte Hektar",
+    "openReport": "Feldbericht öffnen",
+    "signedOutTitle": "Zum Konto bitte anmelden",
+    "signedOutBody": "Ihre Flüge, Erkennungen und Behandlungskarten liegen hinter der Anmeldung. Ein Konto anzulegen dauert einen Moment und kostet nichts."
   }
 }

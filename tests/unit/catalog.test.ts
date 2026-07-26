@@ -133,8 +133,9 @@ describe('translations', () => {
     for (const locale of locales.filter(l => l !== 'en')) {
       const translated = load(locale) as Record<string, Record<string, string>>
       // Words that are genuinely identical in the target language, not
-      // oversights: the brand name, and "Contact", which is the same in Dutch.
-      const allowed = new Set(['nav.home', 'footer.contact'])
+      // oversights: the brand name, and "Contact" and "Account", which are
+      // the same in Dutch.
+      const allowed = new Set(['nav.home', 'footer.contact', 'nav.account'])
       const untranslated = flatten(english)
         .filter(key => !allowed.has(key))
         .filter((key) => {
@@ -144,5 +145,15 @@ describe('translations', () => {
 
       expect({ locale, untranslated }).toEqual({ locale, untranslated: [] })
     }
+  })
+})
+
+describe('account', () => {
+  test('a farmer with no address has no visits', async () => {
+    const { visitsFor } = await import('../../app/Support/account')
+
+    // Guards the join: matching visits on an empty email would return every
+    // visit ever booked without one to whoever signed in first.
+    expect(await visitsFor('')).toEqual([])
   })
 })
