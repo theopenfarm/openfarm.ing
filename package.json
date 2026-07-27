@@ -120,6 +120,8 @@
     "pickier": "0.1.43"
   },
   "overrides": {
-    "@stacksjs/ts-cloud": "^0.7.63"
+    "@stacksjs/ts-cloud": "^0.7.63",
+    "@stacksjs/stx": "^0.2.110",
+    "bun-plugin-stx": "^0.2.110"
   }
 }

@@ -5,9 +5,9 @@
     "": {
       "name": "openfarming",
       "dependencies": {
-        "@stacksjs/stx": "^0.2.104",
+        "@stacksjs/stx": "^0.2.110",
         "@stacksjs/ts-cloud": "^0.7.63",
-        "bun-plugin-stx": "^0.2.104",
+        "bun-plugin-stx": "^0.2.110",
         "bun-query-builder": "^0.1.59",
         "stacks": "^0.70.190",
         "ts-images": "^0.2.5"
@@ -46,20 +46,20 @@
         "@iconify/types": "*"
       }
     },
-    "@stacksjs/stx@0.2.108": {
+    "@stacksjs/stx@0.2.110": {
       "name": "@stacksjs/stx",
-      "version": "0.2.108",
+      "version": "0.2.110",
       "source": "npm",
-      "resolved": "https://registry.npmjs.org/@stacksjs/stx/-/stx-0.2.108.tgz",
-      "integrity": "sha512-++GWGFTuD9Pz+A+WXISquj6nIiDe1YC9SDWb269NY3UDny23MK//6c6QN6S7Bv1tjCMx3X+v6VnPkSTYxqrzLA==",
+      "resolved": "https://registry.npmjs.org/@stacksjs/stx/-/stx-0.2.110.tgz",
+      "integrity": "sha512-xhCjWAUACQ5iosAyRBSje0w6uU66EgqumZPmUpLFbyNIoPYSjmUsB5NC6I1TvwYWg1ESXwVdgjXzIxA85CVcjg==",
       "dependencies": {
         "@cwcss/crosswind": "^0.2.6",
         "@stacksjs/clapp": "^0.2.0",
-        "@stacksjs/sanitizer": "0.2.108",
+        "@stacksjs/sanitizer": "0.2.110",
         "@stacksjs/ts-i18n": "^0.1.11",
-        "bun-plugin-stx": "0.2.108",
+        "bun-plugin-stx": "0.2.110",
         "bunfig": "^0.15.15",
-        "stx-router": "0.2.108",
+        "stx-router": "0.2.110",
         "ts-broadcasting": "^0.0.9",
         "ts-images": "^0.1.9",
         "ts-syntax-highlighter": "^0.2.1"
@@ -83,12 +83,12 @@
         "cloud": "./dist/bin/cli.js"
       }
     },
-    "bun-plugin-stx@0.2.108": {
+    "bun-plugin-stx@0.2.110": {
       "name": "bun-plugin-stx",
-      "version": "0.2.108",
+      "version": "0.2.110",
       "source": "npm",
-      "resolved": "https://registry.npmjs.org/bun-plugin-stx/-/bun-plugin-stx-0.2.108.tgz",
-      "integrity": "sha512-V2gC+8ppH+J6cq8KmUIkUM6sc+1YlMqud0tdV+bTndfnHp8cb9Cy4wmvvXJXBG0Cw5rLWekq/8mFeVd4mNScUg==",
+      "resolved": "https://registry.npmjs.org/bun-plugin-stx/-/bun-plugin-stx-0.2.110.tgz",
+      "integrity": "sha512-2Obx2imR71inxfgXLdrsimU//WpSt/1FdCNqCsuDa3TzL9K/gXdMZrhWQ6ViU7YDCgOC5LFoAe9aa8Y/MfEIwg==",
       "dependencies": {
         "@stacksjs/stx": "^0.2.72",
         "stx-router": "^0.2.72"
