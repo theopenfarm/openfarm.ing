@@ -1059,7 +1059,14 @@
     "found": "Gevonden",
     "noFields": "Nog geen percelen op dit bedrijf. Ze verschijnen hier na de eerste verkenningsvlucht, een regel per perceel.",
     "flightsTitle": "Recente vluchten",
-    "noFlights": "Nog geen vluchten. De eerste komt hier binnen met wat hij vond en wat hij voorschreef."
+    "noFlights": "Nog geen vluchten. De eerste komt hier binnen met wat hij vond en wat hij voorschreef.",
+    "sections": "Onderdelen",
+    "overview": "Overzicht",
+    "ofHectaresFlown": "% van de gevlogen hectares",
+    "fieldsNote": "Percelen op dit bedrijf",
+    "hectaresNote": "Over het seizoen gevlogen",
+    "detectionsNote": "Over alle vluchten gemarkeerd",
+    "mapTitle": "Nieuwste behandelkaart"
   },
   "detail": {
     "moreIn": "Meer in"

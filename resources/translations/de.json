@@ -1059,7 +1059,14 @@
     "found": "Gefunden",
     "noFields": "Noch keine Schläge auf diesem Betrieb. Sie erscheinen hier nach dem ersten Erkundungsflug, eine Zeile je Schlag.",
     "flightsTitle": "Letzte Flüge",
-    "noFlights": "Noch keine Flüge. Der erste landet hier mit dem, was er gefunden und was er vorgeschlagen hat."
+    "noFlights": "Noch keine Flüge. Der erste landet hier mit dem, was er gefunden und was er vorgeschlagen hat.",
+    "sections": "Bereiche",
+    "overview": "Übersicht",
+    "ofHectaresFlown": "% der beflogenen Hektar",
+    "fieldsNote": "Schläge auf diesem Betrieb",
+    "hectaresNote": "Über die Saison beflogen",
+    "detectionsNote": "Über alle Flüge markiert",
+    "mapTitle": "Neueste Behandlungskarte"
   },
   "detail": {
     "moreIn": "Mehr in"
