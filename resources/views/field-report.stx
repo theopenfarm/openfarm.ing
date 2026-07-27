@@ -69,7 +69,7 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
     <div>
       <p class="text-[0.78rem] text-[var(--text-3)]">Flown</p>
       <p class="mt-1 font-semibold text-[1.05rem] telemetry">{{ report.flownAt }}</p>
-      <p class="text-[0.85rem] text-[var(--text-2)]">{{ report.durationMinutes }} minutes airborne</p>
+      <p class="text-[0.85rem] text-[var(--text-2)]">{{ report.durationMinutes }} {t:fieldReport.minutesAirborne}</p>
     </div>
     <div>
       <p class="text-[0.78rem] text-[var(--text-3)]">{t:fieldReport.resolution}</p>

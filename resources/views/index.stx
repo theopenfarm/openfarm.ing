@@ -75,19 +75,19 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
   <div class="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4 mx-auto px-5 py-9 max-w-[1240px]">
     <div>
       <p class="font-bold leading-none text-[2rem] text-[var(--accent)] telemetry">{{ report.treatedPercent }}%</p>
-      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">of the field flagged for treatment. The other {{ untreatedPercent }}% was left alone.</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">{t:home.statTreatedBefore} {{ untreatedPercent }}{t:home.statTreatedAfter}</p>
     </div>
     <div>
       <p class="font-bold leading-none text-[2rem] telemetry">{{ report.detections.length }}</p>
-      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">weeds located to the square metre, each with a species and a confidence score.</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">{t:home.statDetections}</p>
     </div>
     <div>
       <p class="font-bold leading-none text-[2rem] telemetry">{{ report.durationMinutes }} min</p>
-      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">to fly {{ report.hectares }} hectares at {{ report.resolutionCm }} cm per pixel.</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">{t:home.statFlightBefore} {{ report.hectares }} {t:home.statFlightMiddle} {{ report.resolutionCm }} {t:home.statFlightAfter}</p>
     </div>
     <div>
       <p class="font-bold leading-none text-[2rem] telemetry">{{ report.zones.length }}</p>
-      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">treatment zones, exported in the format your terminal already reads.</p>
+      <p class="mt-1.5 max-w-[26ch] text-[0.85rem] text-[var(--text-2)]">{t:home.statZones}</p>
     </div>
   </div>
 </section>
@@ -252,7 +252,7 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
       <p class="mt-3 max-w-[44ch] leading-relaxed text-[1rem] text-[var(--text-2)]">
         {t:home.closeBody}
       </p>
-      <a href="/contact" class="self-start mt-6 btn btn-primary">Book a field visit</a>
+      <a href="/contact" class="self-start mt-6 btn btn-primary">{t:cta.book}</a>
     </div>
   </div>
 </section>

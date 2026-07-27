@@ -8,6 +8,7 @@ const activeNav = 'features'
 const pagePath = '/features'
 
 const groups = await catalog.displayFeatureGroups()
+
 const total = groups.reduce((n, g) => n + g.items.length, 0)
 </script>
 
@@ -17,12 +18,10 @@ const total = groups.reduce((n, g) => n + g.items.length, 0)
 
 <section class="mx-auto pb-12 pt-14 px-5 md:pt-20 max-w-[1240px]">
   <h1 class="max-w-[20ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
-    Every capability is the same loop, pointed at a different problem
+    {t:featuresPage.title}
   </h1>
   <p class="mt-5 max-w-[62ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
-    Fly a fixed route, find what is wrong, produce something a machine can act on. What changes
-    between the {{ total }} capabilities below is the sensor on the aircraft and what the model is
-    looking for.
+    {t:featuresPage.ledeBefore} {{ total }} {t:featuresPage.ledeAfter}
   </p>
 </section>
 
@@ -33,7 +32,7 @@ const total = groups.reduce((n, g) => n + g.items.length, 0)
         <div class="lg:sticky lg:top-24 lg:self-start">
           <h2 class="text-[1.6rem]">{{ group.label }}</h2>
           <p class="mt-2 leading-relaxed text-[0.95rem] text-[var(--text-2)]">{{ group.blurb }}</p>
-          <p class="mt-4 text-[0.78rem] text-[var(--text-3)] telemetry">{{ group.items.length }} capabilities</p>
+          <p class="mt-4 text-[0.78rem] text-[var(--text-3)] telemetry">{{ group.items.length }} {t:featuresPage.countUnit}</p>
         </div>
 
         <ul class="grid gap-4 sm:grid-cols-2 m-0 p-0 list-none">

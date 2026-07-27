@@ -90,7 +90,18 @@ export function localiseUseCases(useCases: UseCaseContent[], locale: string): Us
  * own title and text) per field, so a German page has no English left on it.
  */
 const PROSE_FIELDS = ['summary', 'problem', 'cadence', 'challenge', 'approach', 'scale'] as const
-const PROSE_LISTS = ['sensors', 'outputs', 'readings', 'season', 'outcomes'] as const
+const PROSE_LISTS = ['sensors', 'outputs', 'readings', 'outcomes'] as const
+
+/**
+ * Lists whose entries are objects rather than strings, and the fields on them
+ * that carry prose. Tokenising these as if they were strings replaced the
+ * object with a token and the template read `.window` off a string: the
+ * season timeline rendered as a row of empty bullets, in every language.
+ */
+const PROSE_OBJECT_LISTS: Record<string, string[]> = {
+  steps: ['title', 'text'],
+  season: ['window', 'focus'],
+}
 
 function tokenise<T extends { slug: string, name: string, tagline: string }>(
   items: T[],
@@ -117,13 +128,19 @@ function tokenise<T extends { slug: string, name: string, tagline: string }>(
         localised[field] = list.map((_value, index) => key(`${field}.${index}`))
     }
 
-    // `steps` carries a title and a body per entry rather than a bare string.
-    if (Array.isArray(entry.steps)) {
-      localised.steps = (entry.steps as Array<Record<string, unknown>>).map((step, index) => ({
-        ...step,
-        title: key(`steps.${index}.title`),
-        text: key(`steps.${index}.text`),
-      }))
+    for (const [field, subFields] of Object.entries(PROSE_OBJECT_LISTS)) {
+      const list = entry[field]
+      if (!Array.isArray(list))
+        continue
+
+      localised[field] = (list as Array<Record<string, unknown>>).map((item, index) => {
+        const copy = { ...item }
+        for (const subField of subFields) {
+          if (typeof item[subField] === 'string')
+            copy[subField] = key(`${field}.${index}.${subField}`)
+        }
+        return copy
+      })
     }
 
     return localised as unknown as T

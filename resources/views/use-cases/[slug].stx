@@ -49,7 +49,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
           <p class="mt-3 font-semibold text-[1.1rem] text-[var(--accent)]">{{ useCase.tagline }}</p>
           <p class="mt-4 max-w-[50ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">{{ useCase.summary }}</p>
           <p class="mt-5 text-[0.82rem] text-[var(--text-3)] telemetry">{{ useCase.scale }}</p>
-          <a href="/contact" class="mt-7 btn btn-primary">Book a field visit</a>
+          <a href="/contact" class="mt-7 btn btn-primary">{t:cta.book}</a>
         </div>
         <img src="{{ photo.src }}" alt="{{ photo.alt }}" width="1200" height="800" class="object-cover h-[17rem] w-full border border-[var(--line)] rounded-[10px]">
       </div>
@@ -59,7 +59,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
     <section class="py-14 md:py-18 bg-[var(--panel)] border-[var(--line)] border-y">
       <div class="grid gap-10 md:gap-14 md:grid-cols-2 mx-auto px-5 max-w-[1240px]">
         <div>
-          <h2 class="text-[1.5rem]">What actually goes wrong</h2>
+          <h2 class="text-[1.5rem]">{t:useCaseDetail.wrong}</h2>
           <div class="mt-4 prose"><p>{{ useCase.challenge }}</p></div>
         </div>
         <div>
@@ -71,7 +71,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
 
     <!-- The season, as a vertical timeline rather than a row of cards. -->
     <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
-      <h2 class="max-w-[22ch] text-[1.7rem] md:text-[2.1rem]">The flight calendar across a season</h2>
+      <h2 class="max-w-[22ch] text-[1.7rem] md:text-[2.1rem]">{t:useCaseDetail.calendar}</h2>
       <ol class="mt-8 p-0 list-none border-[var(--line)] border-l-2">
         @foreach (useCase.season as stage)
           <li class="relative pb-8 pl-7 last:pb-0">
@@ -86,7 +86,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
     <!-- Capabilities in play, ordered by how much work they do here. -->
     <section class="py-16 md:py-20 bg-[var(--bg-2)] border-[var(--line)] border-y">
       <div class="mx-auto px-5 max-w-[1240px]">
-        <h2 class="max-w-[24ch] text-[1.7rem] md:text-[2.1rem]">Capabilities in play, in order of how much they carry</h2>
+        <h2 class="max-w-[24ch] text-[1.7rem] md:text-[2.1rem]">{t:useCaseDetail.inPlay}</h2>
         <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-8 p-0 list-none">
           @foreach (usedFeatures as f)
             <li>
@@ -105,7 +105,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
     <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
       <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1fr_1.3fr]">
         <div>
-          <h2 class="text-[1.7rem] md:text-[2.1rem]">What you end up with</h2>
+          <h2 class="text-[1.7rem] md:text-[2.1rem]">{t:useCaseDetail.endWith}</h2>
           <p class="mt-3 max-w-[40ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
             Recorded on your fields, flight by flight. Not a projection.
           </p>
@@ -131,11 +131,11 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
   </article>
 @else
   <section class="mx-auto px-5 py-24 max-w-[1240px]">
-    <h1 class="text-[2rem]">That use case does not exist</h1>
+    <h1 class="text-[2rem]">{t:useCaseDetail.notFound}</h1>
     <p class="mt-3 max-w-[52ch] leading-relaxed text-[1.05rem] text-[var(--text-2)]">
       The link may be out of date. All sixteen operations are listed on one page.
     </p>
-    <a href="/use-cases" class="mt-6 btn btn-primary">See all use cases</a>
+    <a href="/use-cases" class="mt-6 btn btn-primary">{t:useCaseDetail.seeAll}</a>
   </section>
 @endif
 

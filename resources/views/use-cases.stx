@@ -8,6 +8,7 @@ const activeNav = 'use-cases'
 const pagePath = '/use-cases'
 
 const groups = await catalog.displayUseCaseGroups()
+
 const total = groups.reduce((n, g) => n + g.items.length, 0)
 
 // One photograph per segment, chosen because it shows the ground being
@@ -28,12 +29,10 @@ const groupsWithPhoto = groups.map(g => ({ ...g, photo: segmentPhotos[g.key] }))
 
 <section class="mx-auto pb-12 pt-14 px-5 md:pt-20 max-w-[1240px]">
   <h1 class="max-w-[20ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
-    The same platform, set up {{ total }} different ways
+    {t:useCasesPage.titleBefore} {{ total }} {t:useCasesPage.titleAfter}
   </h1>
   <p class="mt-5 max-w-[62ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
-    A wheat field and a hop yard have almost nothing in common except that both are flown. Each
-    operation below has its own flight calendar, its own instruments and its own set of things
-    worth looking for.
+    {t:useCasesPage.lede}
   </p>
 </section>
 

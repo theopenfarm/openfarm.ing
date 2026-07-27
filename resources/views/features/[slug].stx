@@ -49,12 +49,12 @@ const siblings = feature
           <p class="mt-3 font-semibold text-[1.1rem] text-[var(--accent)]">{{ feature.tagline }}</p>
           <p class="mt-4 max-w-[52ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">{{ feature.summary }}</p>
           <div class="flex flex-wrap gap-3 mt-7">
-            <a href="/contact" class="btn btn-primary">Book a field visit</a>
+            <a href="/contact" class="btn btn-primary">{t:cta.book}</a>
           </div>
         </div>
 
         <div class="p-6 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
-          <h2 class="text-[1.05rem]">What this costs today</h2>
+          <h2 class="text-[1.05rem]">{t:featureDetail.cost}</h2>
           <p class="mt-3 leading-relaxed text-[0.95rem] text-[var(--text-2)]">{{ feature.problem }}</p>
         </div>
       </div>
@@ -64,7 +64,7 @@ const siblings = feature
       <section class="py-14 bg-[var(--bg-2)] border-[var(--line)] border-y reveal">
         <div class="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center mx-auto px-5 max-w-[1240px]">
           <div>
-            <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2rem]">One flight, {{ report.detections.length }} weeds, {{ report.zones.length }} zones</h2>
+            <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2rem]">{t:featureDetail.oneFlight} {{ report.detections.length }} {t:featureDetail.weeds} {{ report.zones.length }} {t:featureDetail.zones}</h2>
             <p class="mt-4 max-w-[48ch] leading-relaxed text-[1rem] text-[var(--text-2)]">
               This is the prescription from the demonstration field, drawn from the flight record
               rather than an illustration. Orange is ground the boom opens over. Everything else
@@ -84,11 +84,11 @@ const siblings = feature
                 <dd class="m-0 font-bold text-[1.5rem] telemetry">{{ report.resolutionCm }} cm/px</dd>
               </div>
               <div>
-                <dt class="text-[0.8rem] text-[var(--text-3)]">Flight time</dt>
+                <dt class="text-[0.8rem] text-[var(--text-3)]">{t:featureDetail.flightTime}</dt>
                 <dd class="m-0 font-bold text-[1.5rem] telemetry">{{ report.durationMinutes }} min</dd>
               </div>
             </dl>
-            <a href="/field-report" class="mt-7 btn btn-ghost">Read the full flight record</a>
+            <a href="/field-report" class="mt-7 btn btn-ghost">{t:featureDetail.readRecord}</a>
           </div>
           <figure class="m-0 p-5 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
             {!! detailMap !!}
@@ -102,7 +102,7 @@ const siblings = feature
 
     <!-- How it runs: the steps, then the instruments and outputs side by side. -->
     <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
-      <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2.1rem]">How the flight runs</h2>
+      <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2.1rem]">{t:featureDetail.howRuns}</h2>
       <ol class="grid overflow-hidden gap-px md:grid-cols-2 lg:grid-cols-4 mt-8 p-0 list-none bg-[var(--line)] rounded-[10px]">
         @foreach (feature.steps as step)
           <li class="p-6 bg-[var(--panel)]">
@@ -116,7 +116,7 @@ const siblings = feature
     <section class="py-14 md:py-16 bg-[var(--panel)] border-[var(--line)] border-y">
       <div class="grid gap-10 md:grid-cols-3 mx-auto px-5 max-w-[1240px]">
         <div>
-          <h2 class="text-[1.15rem]">What the aircraft carries</h2>
+          <h2 class="text-[1.15rem]">{t:featureDetail.carries}</h2>
           <ul class="mt-4 p-0 space-y-2.5 list-none">
             @foreach (feature.sensors as sensor)
               <li class="pl-4 leading-relaxed text-[0.92rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{{ sensor }}</li>
@@ -126,7 +126,7 @@ const siblings = feature
         </div>
 
         <div>
-          <h2 class="text-[1.15rem]">What you receive</h2>
+          <h2 class="text-[1.15rem]">{t:featureDetail.receive}</h2>
           <ul class="mt-4 p-0 space-y-2.5 list-none">
             @foreach (feature.outputs as output)
               <li class="pl-4 leading-relaxed text-[0.92rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">{{ output }}</li>
@@ -135,7 +135,7 @@ const siblings = feature
         </div>
 
         <div>
-          <h2 class="text-[1.15rem]">What it measures</h2>
+          <h2 class="text-[1.15rem]">{t:featureDetail.measures}</h2>
           <p class="mt-1.5 leading-relaxed text-[0.85rem] text-[var(--text-3)]">
             Readings this capability produces on your fields. Measurements, not promises.
           </p>
@@ -151,8 +151,8 @@ const siblings = feature
     <!-- Where it does the most work. -->
     <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
       <div class="flex flex-wrap gap-4 items-end justify-between">
-        <h2 class="max-w-[22ch] text-[1.7rem] md:text-[2.1rem]">Where this carries the most weight</h2>
-        <a href="/use-cases" class="btn btn-ghost">All use cases</a>
+        <h2 class="max-w-[22ch] text-[1.7rem] md:text-[2.1rem]">{t:featureDetail.weight}</h2>
+        <a href="/use-cases" class="btn btn-ghost">{t:featureDetail.allUseCases}</a>
       </div>
       <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-8 p-0 list-none">
         @foreach (related as u)
@@ -180,11 +180,11 @@ const siblings = feature
   </article>
 @else
   <section class="mx-auto px-5 py-24 max-w-[1240px]">
-    <h1 class="text-[2rem]">That capability does not exist</h1>
+    <h1 class="text-[2rem]">{t:featureDetail.notFound}</h1>
     <p class="mt-3 max-w-[52ch] leading-relaxed text-[1.05rem] text-[var(--text-2)]">
       The link may be out of date. All eighteen capabilities are listed on one page.
     </p>
-    <a href="/features" class="mt-6 btn btn-primary">See all capabilities</a>
+    <a href="/features" class="mt-6 btn btn-primary">{t:featureDetail.seeAll}</a>
   </section>
 @endif
 

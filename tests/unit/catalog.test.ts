@@ -167,8 +167,11 @@ describe('translations', () => {
         // spells hectares exactly as English does.
         'dashboard.ha',
         'dashboard.hectares',
-        // "Endpoints" is the word Dutch uses for these too.
+        // "Endpoints" is the word Dutch uses for these too, and "cm per
+        // pixel" is written the same way in all three.
         'fieldReport.endpoints',
+        'home.statFlightAfter',
+        'featureDetail.zones',
       ])
       const untranslated = flatten(english)
         .filter(key => !allowed.has(key))
