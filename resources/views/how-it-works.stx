@@ -148,7 +148,7 @@ const stageTreat = report ? fieldmap.renderFieldMap(report, { title: 'The finish
         you did not know, there is nothing to sign.
       </p>
     </div>
-    <a href="/contact" class="btn btn-primary">Book a field visit</a>
+    <a href="/contact" class="btn btn-primary">{t:cta.book}</a>
   </div>
 </section>
 

@@ -1124,6 +1124,7 @@
     "inPlay": "Capabilities in play, in order of how much they carry",
     "endWith": "What you end up with",
     "notFound": "That use case does not exist",
-    "seeAll": "See all use cases"
+    "seeAll": "See all use cases",
+    "setup": "How we set it up"
   }
 }

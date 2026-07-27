@@ -63,7 +63,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
           <div class="mt-4 prose"><p>{{ useCase.challenge }}</p></div>
         </div>
         <div>
-          <h2 class="text-[1.5rem]">How we set it up</h2>
+          <h2 class="text-[1.5rem]">{t:useCaseDetail.setup}</h2>
           <div class="mt-4 prose"><p>{{ useCase.approach }}</p></div>
         </div>
       </div>

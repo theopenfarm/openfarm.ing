@@ -142,7 +142,7 @@ const drivers = [
         capabilities we would not bother with on your rotation.
       </p>
     </div>
-    <a href="/contact" class="btn btn-primary">Book a field visit</a>
+    <a href="/contact" class="btn btn-primary">{t:cta.book}</a>
   </div>
 </section>
 

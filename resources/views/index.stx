@@ -137,7 +137,7 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
       <article class="flex overflow-hidden flex-col md:col-span-2 md:row-span-2 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
         <div class="p-6 pb-0">
           <span class="chip">Act</span>
-          <h3 class="mt-3 text-[1.35rem]">Targeted weed control</h3>
+          <h3 class="mt-3 text-[1.35rem]">{t:features.targeted-weed-control.name}</h3>
           <p class="mt-2 max-w-[52ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">
             Cameras find weeds plant by plant. The prescription switches the boom on over
             {{ report.treatedHectares }} hectares instead of all {{ report.hectares }}.
@@ -154,7 +154,7 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
       <img src="/images/photos/drone-over-wheat.jpg" alt="A drone flying low over a wheat crop" width="800" height="533" loading="lazy" class="object-cover h-40 w-full">
       <div class="p-6">
         <span class="chip">Detect</span>
-        <h3 class="mt-3 text-[1.1rem]">Early disease detection</h3>
+        <h3 class="mt-3 text-[1.1rem]">{t:features.plant-disease-detection.name}</h3>
         <p class="mt-2 leading-relaxed text-[0.9rem] text-[var(--text-2)]">
           Multispectral imaging reads chlorophyll loss days before a symptom is visible from the cab.
         </p>
@@ -164,7 +164,7 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
 
     <article class="p-6 bg-[var(--accent-wash)] border border-[var(--line)] rounded-[10px]">
       <span class="chip">Detect</span>
-      <h3 class="mt-3 text-[1.1rem]">Wildlife detection before mowing</h3>
+      <h3 class="mt-3 text-[1.1rem]">{t:features.wildlife-rescue.name}</h3>
       <p class="mt-2 leading-relaxed text-[0.9rem] text-[var(--text-2)]">
         A thermal search at dawn finds fawns pressed flat in the sward, and marks them live on the
         phone of whoever is walking the field.
