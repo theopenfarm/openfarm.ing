@@ -103,7 +103,7 @@ const navFarmer = await navSession.currentUser()
           audience is half German and Dutch. In the row they ride along with
           the same horizontal scroll the links use, and `ml-auto` keeps them
           against the right edge on a desktop, where there is room to spare. -->
-      <button type="button" data-theme-toggle onclick="window.ofToggleTheme()" aria-label="{t:nav.switchTheme}"
+      <button type="button" id="theme-toggle" aria-label="{t:nav.switchTheme}"
         class="inline-flex items-center justify-center shrink-0 ml-auto h-9 w-9 text-[var(--text-2)] hover:text-[var(--text)] border border-[var(--line)] rounded-[10px]">
         <i class="text-[1rem] i-hugeicons-sun-03" aria-hidden="true"></i>
       </button>

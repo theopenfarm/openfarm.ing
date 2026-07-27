@@ -14,6 +14,24 @@ export const site = defineSiteConfig({
   description: 'Autonomous drone scouting for farms. Scan the field, find the problem, treat only the square metres that need it.',
   pagesDir: 'resources/views',
 
+  /*
+   * The theme, declared once so the framework and this app agree.
+   *
+   * stx injects its own pre-paint guard and, left unconfigured, defaults to
+   * `dark` under the storage key `theme`. This site stores the visitor's
+   * choice under `of-theme`, so the two disagreed: the guard read a key
+   * nobody wrote, fell back to dark, and re-asserted it on every load and
+   * every SPA navigation — which is why picking light did not survive a
+   * refresh. `auto` follows the operating system until the visitor decides;
+   * the colours are the page background in each mode, so the browser chrome
+   * matches instead of flashing black or white.
+   */
+  theme: {
+    default: 'auto',
+    storageKey: 'of-theme',
+    colors: { light: '#f3f5ef', dark: '#0c0f0b' },
+  },
+
   i18n: {
     // English is the source language: the copy is written in it and the other
     // two are translations of it, not parallel originals.

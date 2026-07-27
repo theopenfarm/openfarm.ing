@@ -58,7 +58,7 @@ export default function (cli: CLI) {
       // and so --detach is just this step on its own.
       const held = await Farm.where('user_id', userId).get() as any[]
       for (const farm of held)
-        await Farm.where('id', Number(farm.id)).update({ user_id: null })
+        await Farm.where('id', Number(farm.id)).update({ user_id: null } as any)
 
       if (options?.detach) {
         log.success(`${address} now holds nothing (${held.length} released)`)
@@ -94,7 +94,7 @@ export default function (cli: CLI) {
       const chosen = options?.all ? ranked : ranked.slice(0, 1)
 
       for (const farm of chosen)
-        await Farm.where('id', Number((farm as any).id)).update({ user_id: userId })
+        await Farm.where('id', Number((farm as any).id)).update({ user_id: userId } as any)
 
       for (const farm of chosen)
         log.success(`${address} now holds ${(farm as any).name} (${flightsByFarm.get(Number((farm as any).id)) ?? 0} flights)`)

@@ -101,17 +101,15 @@ const alternates = [
   <link rel="stylesheet" href="/site.css">
   <script>
     /*
-     * Theme, resolved before first paint so the page never flashes the wrong
-     * one. A saved choice wins; otherwise the operating system decides, which
-     * is what prefers-color-scheme is for. Everything downstream reads CSS
-     * custom properties, so this one class is the entire switch.
+     * The theme is NOT set here.
+     *
+     * stx injects its own pre-paint guard (configured in `site.config.ts`:
+     * `auto` by default, stored under `of-theme`) and re-asserts it on every
+     * SPA navigation. A second guard here read the same key a moment later and
+     * the two fought — which is how a chosen light theme survived a click and
+     * then lost on the next refresh. One owner only.
      */
     ;(function () {
-      var saved = ''
-      try { saved = localStorage.getItem('of-theme') || '' } catch (e) {}
-      var dark = saved === 'dark' || (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      document.documentElement.classList.toggle('dark', dark)
-
       /*
        * Close a mega menu once one of its links is followed.
        *
@@ -157,13 +155,27 @@ const alternates = [
       document.addEventListener('stx:load', bindMegaMenus)
       window.addEventListener('stx:navigate', bindMegaMenus)
 
-      window.ofToggleTheme = function () {
-        var next = document.documentElement.classList.contains('dark') ? 'light' : 'dark'
-        try { localStorage.setItem('of-theme', next) } catch (e) {}
-        document.documentElement.classList.toggle('dark', next === 'dark')
-        var b = document.querySelector('[data-theme-toggle]')
-        if (b) b.setAttribute('aria-label', next === 'dark' ? 'Switch to light theme' : 'Switch to dark theme')
+      /*
+       * The button itself is stx's: it binds to `#theme-toggle` and owns the
+       * class, the stored choice, the browser-chrome colour and the tab icon.
+       * All that is left here is the label, which has to describe where the
+       * next click goes rather than where the theme is now.
+       */
+      function labelThemeToggle() {
+        var button = document.getElementById('theme-toggle')
+        if (!button) return
+        var dark = document.documentElement.classList.contains('dark')
+        button.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme')
       }
+
+      document.addEventListener('click', function (event) {
+        if (event.target && event.target.closest && event.target.closest('#theme-toggle'))
+          setTimeout(labelThemeToggle, 0)
+      })
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', labelThemeToggle)
+      else labelThemeToggle()
+      window.addEventListener('stx:navigate', labelThemeToggle)
     })()
   </script>
   @stack('head')
