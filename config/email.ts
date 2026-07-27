@@ -51,6 +51,12 @@ export default {
    * two addresses to hand out.
    */
   forwards: {
+    // Both keys on purpose. The mail server looks a forward up by the
+    // mailbox it delivered to: the full address when that address is a
+    // registered mailbox, and the bare local part when it is not — which is
+    // the case for an alias like this one. The full-address key is the one
+    // that starts working if akki@ ever becomes a real mailbox.
+    'akki': ['akshit@openfarm.ing'],
     'akki@openfarm.ing': ['akshit@openfarm.ing'],
   },
 
