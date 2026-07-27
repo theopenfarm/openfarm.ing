@@ -68,7 +68,10 @@ const report = farmer && !data?.farm ? await catalog.fieldReport() : null
 
           @if (data.fields.length)
             <div class="overflow-x-auto mt-5">
-              <table class="w-full text-[0.9rem] border-collapse">
+              <!-- A minimum width so the columns keep their shape on a phone: without
+                  it every cell wrapped and a date broke across two lines. The
+                  wrapper scrolls, which is the honest trade for five columns. -->
+              <table class="min-w-[34rem] w-full text-[0.9rem] border-collapse">
                 <thead>
                   <tr class="text-left">
                     <th class="pb-2 pr-4 font-semibold text-[0.74rem] text-[var(--text-3)] tracking-[0.1em] uppercase border-[var(--line)] border-b">{t:dashboard.field}</th>

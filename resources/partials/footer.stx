@@ -7,6 +7,9 @@ const footCatalog = await import(footPath.join(process.cwd(), 'app/Support/catal
 // those at /features.
 const footFeatures = (await footCatalog.displayFeatures()).slice(0, 6)
 const footUseCases = (await footCatalog.displayUseCases()).slice(0, 6)
+
+const footSession = await import(footPath.join(process.cwd(), 'app/Support/session.ts'))
+const footFarmer = await footSession.currentUser()
 const footYear = 2026
 // Which form a signup came from, recorded on the subscriber row.
 const subscribeSource = 'footer'
@@ -67,6 +70,14 @@ const subscribeSource = 'footer'
           <li><a href="/pricing" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:nav.pricing}</a></li>
           <li><a href="/contact" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:footer.contact}</a></li>
           <li><a href="/api/features" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:footer.publicApi}</a></li>
+          <!-- Also in the footer, because on a phone the navigation row
+              scrolls and this sits at the far right of it. The footer is
+              where people look for an account link on a small screen. -->
+          @if (footFarmer)
+            <li><a href="/dashboard" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:nav.dashboard}</a></li>
+          @else
+            <li><a href="/login" class="no-underline text-[0.875rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:auth.signIn}</a></li>
+          @endif
         </ul>
       </div>
     </div>

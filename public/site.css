@@ -349,9 +349,13 @@ a { color: inherit; }
 
   .nav-inner > a:first-child { margin-right: auto; }
 
-  .nav-scroll {
+  /* Two classes deep on purpose: the markup carries Crosswind's `flex-1`,
+    whose `flex: 1 1 0%` shorthand overrode a bare `flex-basis` here, so the
+    links never wrapped to their own row - they were squeezed to a sliver
+    beside the CTA and clipped at the viewport edge. */
+  .site-nav .nav-scroll {
     order: 3;
-    flex-basis: 100%;
+    flex: 0 0 100%;
     overflow-x: auto;
     scrollbar-width: none;
     gap: 1.25rem;
@@ -364,6 +368,47 @@ a { color: inherit; }
   }
 
   .nav-scroll::-webkit-scrollbar { display: none; }
+
+  /* Below 360px the wordmark, the locale picker and the CTA cannot share a
+    row, and the bar grew to three. The mark alone still reads as the brand
+    at that width, and the link keeps its aria-label. */
+  @media (max-width: 359px) {
+    .brand-word { display: none; }
+  }
+
+  /* Thumb-sized targets. The locale buttons were 28x26, which is a miss as
+    often as a hit on a phone held in one hand, and this is the control a
+    German or Dutch visitor reaches for first.
+    
+    The hit area is grown with an overlay rather than padding: padding made
+    the picker wide enough to push the CTA onto a row of its own, so the bar
+    went back to three rows to fix a problem nobody could see. This way the
+    control looks the same and answers to a thumb. */
+  #lang-picker button {
+    position: relative;
+  }
+
+  #lang-picker button::after {
+    content: '';
+    position: absolute;
+    inset: -0.55rem -0.35rem;
+  }
+
+  /* Footer link lists: stacked 18px rows a few pixels apart are easy to
+    mistap. Same type, more room around it. */
+  footer li > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+  }
+
+  /* The row holds more than fits, and with the scrollbar hidden there is
+    nothing to say so. Fading the last few millimetres reads as "there is
+    more this way" without adding a control to tap. */
+  .site-nav .nav-scroll {
+    mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+  }
   .nav-scroll .nav-link { white-space: nowrap; }
   /* The chevrons point at panels that cannot open at this width. */
   .nav-scroll .nav-link svg { display: none; }

@@ -22,7 +22,7 @@ const navFarmer = await navSession.currentUser()
         <circle cx="15.5" cy="15" r="1.5" fill="var(--accent)"/>
         <path d="M4.5 19.5 L19.5 4.5" stroke="var(--text)" stroke-width="1.1" stroke-opacity="0.35"/>
       </svg>
-      <span class="font-bold text-[1.02rem] tracking-[-0.02em]">Open Farming</span>
+      <span class="font-bold text-[1.02rem] tracking-[-0.02em] brand-word">Open Farming</span>
     </a>
 
     <nav class="flex flex-1 gap-6 items-center min-w-0 nav-scroll" aria-label="Main">
@@ -95,16 +95,30 @@ const navFarmer = await navSession.currentUser()
       <a href="/field-report" class="nav-link" @if (activeNav === 'field-report') aria-current="page" @endif>{t:nav.fieldReport}</a>
       <a href="/how-it-works" class="nav-link" @if (activeNav === 'how-it-works') aria-current="page" @endif>{t:nav.howItWorks}</a>
       <a href="/pricing" class="nav-link" @if (activeNav === 'pricing') aria-current="page" @endif>{t:nav.pricing}</a>
-    </nav>
 
-    <div class="flex gap-2 items-center shrink-0">
+      <!-- The theme switch, the locale picker and the account link live inside
+          the links row rather than beside the CTA. Beside the CTA they had to
+          be `hidden sm:*` to fit, which left a phone with no way to change
+          language, no theme switch and no way to sign in - on a site whose
+          audience is half German and Dutch. In the row they ride along with
+          the same horizontal scroll the links use, and `ml-auto` keeps them
+          against the right edge on a desktop, where there is room to spare. -->
       <button type="button" data-theme-toggle onclick="window.ofToggleTheme()" aria-label="{t:nav.switchTheme}"
-        class="hidden sm:inline-flex items-center justify-center h-9 w-9 text-[var(--text-2)] hover:text-[var(--text)] border border-[var(--line)] rounded-[10px]">
+        class="inline-flex items-center justify-center shrink-0 ml-auto h-9 w-9 text-[var(--text-2)] hover:text-[var(--text)] border border-[var(--line)] rounded-[10px]">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/>
           <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
         </svg>
       </button>
+
+      @if (navFarmer)
+        <a href="/dashboard" class="inline-flex shrink-0 nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:nav.dashboard}</a>
+      @else
+        <a href="/login" class="inline-flex shrink-0 nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:auth.signIn}</a>
+      @endif
+    </nav>
+
+    <div class="flex gap-2 items-center shrink-0">
       <!-- The locale picker stx looks for (`pickerSelector` in site.config.ts).
           Buttons, not links: stx rewrites every internal href through its own
           locale-aware resolver, so an <a href="/nl/"> sitting on a /de/ page
@@ -112,19 +126,17 @@ const navFarmer = await navSession.currentUser()
           /de/ instead of /nl/<same page>. A button carries no href to rewrite,
           and the injected picker script computes the destination itself from
           `data-lang` plus the current path. -->
-      <nav id="lang-picker" class="hidden sm:flex gap-0.5 items-center p-0.5 border border-[var(--line)] rounded-[10px]" aria-label="{t:nav.language}">
+      <nav id="lang-picker" class="flex gap-0.5 items-center shrink-0 p-0.5 border border-[var(--line)] rounded-[10px]" aria-label="{t:nav.language}">
         <button type="button" data-lang="en" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">EN</button>
         <button type="button" data-lang="de" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">DE</button>
         <button type="button" data-lang="nl" class="px-1.5 py-1 aria-[current]:text-[var(--accent)] font-bold text-[0.72rem] text-[var(--text-3)] tracking-[0.04em] hover:text-[var(--text)] aria-[current]:bg-[var(--accent-wash)] bg-transparent border-0 rounded-[6px] cursor-pointer">NL</button>
       </nav>
-
-      @if (navFarmer)
-        <a href="/dashboard" class="hidden sm:inline-flex nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:nav.dashboard}</a>
-      @else
-        <a href="/login" class="hidden sm:inline-flex nav-link" @if (activeNav === 'account') aria-current="page" @endif>{t:auth.signIn}</a>
-      @endif
-
-      <a href="/contact" class="btn btn-primary">{t:cta.book}</a>
+      <!-- The label is the same promise either way; at 375px the long form
+          pushed the locale picker off the row. -->
+      <a href="/contact" class="btn btn-primary" aria-label="{t:cta.book}">
+        <span class="sm:hidden">{t:cta.bookShort}</span>
+        <span class="hidden sm:inline">{t:cta.book}</span>
+      </a>
     </div>
   </div>
 </header>

@@ -18,7 +18,8 @@
     "allCapabilities": "All capabilities",
     "allUseCases": "All use cases",
     "howItWorks": "See how it works",
-    "browseByOperation": "Browse by operation"
+    "browseByOperation": "Browse by operation",
+    "bookShort": "Book"
   },
   "megaMenu": {
     "flightTitle": "The flight that ties it together",
