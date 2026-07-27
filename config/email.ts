@@ -10,11 +10,11 @@ import { env } from '@stacksjs/env'
  */
 export default {
   from: {
-    name: env.MAIL_FROM_NAME || 'Stacks',
-    address: env.MAIL_FROM_ADDRESS || `hello@${env.MAIL_DOMAIN || 'stacksjs.com'}`,
+    name: env.MAIL_FROM_NAME || 'Open Farming',
+    address: env.MAIL_FROM_ADDRESS || `hello@${env.MAIL_DOMAIN || 'openfarm.ing'}`,
   },
 
-  domain: env.MAIL_DOMAIN || 'stacksjs.com',
+  domain: env.MAIL_DOMAIN || 'openfarm.ing',
 
   /**
    * Mailbox users for IMAP/SMTP access.
@@ -26,19 +26,28 @@ export default {
    * - Full emails: ['chris@stacksjs.com']
    * - Objects: [{ email: 'chris', password: '...' }]
    */
+  /**
+   * The mailboxes on the shared mail server, reconciled by `buddy
+   * mail:provision` (which `buddy deploy` also runs).
+   *
+   * `hello@` is the address the site prints on the contact page, so it has to
+   * receive; the two personal boxes are for the people who answer it.
+   * Passwords come from MAIL_PASSWORD_<LOCALPART> when set, and are generated
+   * and stored on the server when not.
+   */
   mailboxes: [
+    'hello',
     'chris',
-    'blake',
-    'glenn',
+    'aron',
   ],
 
-  url: env.APP_URL || 'https://stacksjs.com',
+  url: env.APP_URL || 'https://openfarm.ing',
   charset: 'UTF-8',
 
   server: {
     enabled: true,
     scan: true, // scans for spam and viruses
-    subdomain: 'mail', // mail.stacksjs.com
+    subdomain: 'mail', // mail.openfarm.ing
 
     /**
      * Server mode:
