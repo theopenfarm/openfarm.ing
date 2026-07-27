@@ -32,5 +32,8 @@ export default {
   'catalog:sync': 'CatalogSync',
   // Builds the social share cards from the site's photography.
   'og:generate': 'OgImages',
+  // Hands the seeded holdings to the demo login, by name rather than by
+  // whichever account the seeder happened to pick.
+  'demo:account': 'DemoAccount',
   'inspire': 'Inspire',
 } satisfies CommandRegistry

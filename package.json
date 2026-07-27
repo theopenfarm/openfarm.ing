@@ -98,7 +98,7 @@
     "@stacksjs/stx": "^0.2.104",
     "bun-plugin-stx": "^0.2.104",
     "bun-query-builder": "^0.1.59",
-    "stacks": "^0.70.182",
+    "stacks": "^0.70.189",
     "ts-images": "^0.2.5"
   },
   "workspaces": [
