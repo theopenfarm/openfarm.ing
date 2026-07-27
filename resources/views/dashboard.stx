@@ -43,19 +43,19 @@ const treatedShare = data?.totals?.hectares
     <div class="console-shell">
       <nav class="console-rail" aria-label="{t:dashboard.sections}">
         <a href="/dashboard" class="is-active rail-item" aria-current="page" aria-label="{t:dashboard.overview}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <i class="text-[1.15rem] i-hugeicons-dashboard-square-01" aria-hidden="true"></i>
         </a>
         <a href="/field-report" class="rail-item" aria-label="{t:nav.fieldReport}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3.5" width="14" height="17" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 8.5h7M8.5 12h7M8.5 15.5h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <i class="text-[1.15rem] i-hugeicons-document-validation" aria-hidden="true"></i>
         </a>
         <a href="/features" class="rail-item" aria-label="{t:nav.capabilities}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="7.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <i class="text-[1.15rem] i-hugeicons-drone" aria-hidden="true"></i>
         </a>
         <a href="/use-cases" class="rail-item" aria-label="{t:nav.useCases}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.5 9.5 5l5 2.5L20 5v11.5L14.5 19l-5-2.5L4 19z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 5v11.5M14.5 7.5V19" stroke="currentColor" stroke-width="1.7"/></svg>
+          <i class="text-[1.15rem] i-hugeicons-maps" aria-hidden="true"></i>
         </a>
         <a href="/account" class="rail-item rail-item-last" aria-label="{t:dashboard.settings}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="9" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 19.5c1.1-3 3.6-4.5 6.5-4.5s5.4 1.5 6.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <i class="text-[1.15rem] i-hugeicons-user" aria-hidden="true"></i>
         </a>
       </nav>
 
@@ -82,25 +82,25 @@ const treatedShare = data?.totals?.hectares
             <!-- The accent card: the one number that says whether any of this
                 paid for itself. -->
             <article class="console-card console-card-accent">
-              <p class="console-card-label">{t:dashboard.treated}</p>
+              <p class="console-card-label"><i class="console-card-icon i-hugeicons-plant-01" aria-hidden="true"></i>{t:dashboard.treated}</p>
               <p class="console-metric">{{ data.totals.treatedHectares }}<span class="console-unit">ha</span></p>
               <p class="console-note">{{ treatedShare }}{t:dashboard.ofHectaresFlown}</p>
             </article>
 
             <article class="console-card">
-              <p class="console-card-label">{t:dashboard.fields}</p>
+              <p class="console-card-label"><i class="console-card-icon i-hugeicons-maps-square-01" aria-hidden="true"></i>{t:dashboard.fields}</p>
               <p class="console-metric">{{ data.totals.fields }}</p>
               <p class="console-note">{t:dashboard.fieldsNote}</p>
             </article>
 
             <article class="console-card">
-              <p class="console-card-label">{t:dashboard.hectares}</p>
+              <p class="console-card-label"><i class="console-card-icon i-hugeicons-drone" aria-hidden="true"></i>{t:dashboard.hectares}</p>
               <p class="console-metric">{{ data.totals.hectares }}<span class="console-unit">ha</span></p>
               <p class="console-note">{t:dashboard.hectaresNote}</p>
             </article>
 
             <article class="console-card">
-              <p class="console-card-label">{t:dashboard.detections}</p>
+              <p class="console-card-label"><i class="console-card-icon i-hugeicons-search-area" aria-hidden="true"></i>{t:dashboard.detections}</p>
               <p class="console-metric">{{ data.totals.detections }}</p>
               <p class="console-note">{t:dashboard.detectionsNote}</p>
             </article>
@@ -113,7 +113,7 @@ const treatedShare = data?.totals?.hectares
               <div class="console-panel-head">
                 <h2 class="console-panel-title">{t:dashboard.mapTitle}</h2>
                 <a href="/field-report" class="console-panel-link" aria-label="{t:account.openReport}">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <i class="text-[0.95rem] i-hugeicons-arrow-up-right-01" aria-hidden="true"></i>
                 </a>
               </div>
               <div class="console-map">{!! mapSvg !!}</div>
@@ -201,7 +201,7 @@ const treatedShare = data?.totals?.hectares
               <div class="console-panel-head">
                 <h2 class="console-panel-title">{t:account.reportTitle}</h2>
                 <a href="/field-report" class="console-panel-link" aria-label="{t:account.openReport}">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <i class="text-[0.95rem] i-hugeicons-arrow-up-right-01" aria-hidden="true"></i>
                 </a>
               </div>
               <div class="console-map">{!! mapSvg !!}</div>

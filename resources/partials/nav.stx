@@ -29,7 +29,7 @@ const navFarmer = await navSession.currentUser()
       <div class="has-mega">
         <a href="/features" class="nav-link" @if (activeNav === 'features') aria-current="page" @endif>
           {t:nav.capabilities}
-          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+          <i class="text-[0.7rem] i-hugeicons-arrow-down-01" aria-hidden="true"></i>
         </a>
 
         <div class="mega mega-features">
@@ -61,7 +61,7 @@ const navFarmer = await navSession.currentUser()
       <div class="has-mega">
         <a href="/use-cases" class="nav-link" @if (activeNav === 'use-cases') aria-current="page" @endif>
           {t:nav.useCases}
-          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3.5 L5 7 L9 3.5" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+          <i class="text-[0.7rem] i-hugeicons-arrow-down-01" aria-hidden="true"></i>
         </a>
 
         <div class="mega mega-usecases">
@@ -105,10 +105,7 @@ const navFarmer = await navSession.currentUser()
           against the right edge on a desktop, where there is room to spare. -->
       <button type="button" data-theme-toggle onclick="window.ofToggleTheme()" aria-label="{t:nav.switchTheme}"
         class="inline-flex items-center justify-center shrink-0 ml-auto h-9 w-9 text-[var(--text-2)] hover:text-[var(--text)] border border-[var(--line)] rounded-[10px]">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/>
-          <path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-        </svg>
+        <i class="text-[1rem] i-hugeicons-sun-03" aria-hidden="true"></i>
       </button>
 
       @if (navFarmer)

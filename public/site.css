@@ -336,7 +336,11 @@ a { color: inherit; }
  * the wordmark and the CTA stay on the first, the links move to a
  * horizontally scrollable second row. The panels simply never open; the link
  * still goes to the index page that lists everything in them. */
-@media (max-width: 1023px) {
+/* 1119px, not 1023: a 1024-wide tablet in landscape had just too little room
+  for the links, the locale picker and the CTA on one line, and the bar wrapped
+  into a ragged two lines with words broken mid-phrase. Below this width the
+  bar uses its deliberate two-row form instead. */
+@media (max-width: 1119px) {
   .mega { display: none; }
 
   .nav-inner {
@@ -707,8 +711,35 @@ a { color: inherit; }
 
 .console-empty { margin-top: 0.8rem; max-width: 42ch; font-size: 0.9rem; line-height: 1.5; color: var(--text-2); }
 
-/* A phone gets the same cards in one column, and the rail becomes a row of
-  shortcuts along the top rather than a column that would eat the width. */
+.console-card-icon {
+  display: inline-block;
+  margin-right: 0.45rem;
+  font-size: 1rem;
+  vertical-align: -0.18em;
+  opacity: 0.75;
+}
+
+/*
+ * A tablet in landscape is the main way this gets used: in a cab, on a
+ * bonnet, held at arm's length. Between 1024 and 1279 the three panels of the
+ * desktop row are too narrow to read, so the map takes the full width and the
+ * two lists sit under it. The cards stay four across, which is what a
+ * landscape tablet has the width for, and the numbers grow, because that
+ * screen is held further away than a laptop ever is.
+ */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  /* Two columns, not three: at this width a third column starves all of
+    them. The map takes the left and runs the height of both lists, which
+    fills the row instead of leaving the field floating in white space. */
+  .console-panels { grid-template-columns: 1.3fr 1fr; }
+  .console-panel-map { grid-row: span 2; }
+  .console-map .fieldmap { height: 21rem; }
+  .console-metric { font-size: 2.3rem; }
+}
+
+/* Portrait tablet and below: two cards per row, panels in one column. The
+  rail becomes a row of shortcuts along the top rather than a column that
+  would eat the width. */
 @media (max-width: 1023px) {
   .console-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .console-panels, .console-panels-empty { grid-template-columns: 1fr; }

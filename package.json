@@ -115,6 +115,7 @@
     "commit-msg": "bun x gitlint --edit \"$1\""
   },
   "devDependencies": {
+    "@iconify-json/hugeicons": "^1.2.31",
     "pickier": "0.1.43"
   }
 }
