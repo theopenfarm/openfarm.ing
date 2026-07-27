@@ -31,15 +31,28 @@ export default {
    * mail:provision` (which `buddy deploy` also runs).
    *
    * `hello@` is the address the site prints on the contact page, so it has to
-   * receive; the two personal boxes are for the people who answer it.
-   * Passwords come from MAIL_PASSWORD_<LOCALPART> when set, and are generated
-   * and stored on the server when not.
+   * receive; the personal boxes are for the people who answer it. Passwords
+   * come from MAIL_PASSWORD_<LOCALPART> when set, and are generated and
+   * stored on the server when not.
    */
   mailboxes: [
     'hello',
     'chris',
     'aron',
+    'akshit',
   ],
+
+  /**
+   * Aliases: mail delivered to the key is written to the addresses in the
+   * value. Re-read on every message, so a change here takes effect on the
+   * next provision without a restart.
+   *
+   * `akki@` is a nickname rather than a second mailbox: one place to read,
+   * two addresses to hand out.
+   */
+  forwards: {
+    'akki@openfarm.ing': ['akshit@openfarm.ing'],
+  },
 
   url: env.APP_URL || 'https://openfarm.ing',
   charset: 'UTF-8',
