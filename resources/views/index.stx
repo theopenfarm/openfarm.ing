@@ -145,7 +145,7 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
         </div>
         <div class="mt-auto p-6 pt-5">
           {!! zonesOnlyMap !!}
-          <a href="/features/targeted-weed-control" class="mt-5 btn btn-ghost">How the map is built</a>
+          <a href="/features/targeted-weed-control" class="mt-5 btn btn-ghost">{t:home.mapTitle}</a>
         </div>
       </article>
     @endif
@@ -158,7 +158,7 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
         <p class="mt-2 leading-relaxed text-[0.9rem] text-[var(--text-2)]">
           Multispectral imaging reads chlorophyll loss days before a symptom is visible from the cab.
         </p>
-        <a href="/features/plant-disease-detection" class="inline-block mt-3 font-semibold no-underline text-[0.875rem] text-[var(--accent)]">See the flight cadence</a>
+        <a href="/features/plant-disease-detection" class="inline-block mt-3 font-semibold no-underline text-[0.875rem] text-[var(--accent)]">{t:home.flightCadence}</a>
       </div>
     </article>
 
@@ -169,7 +169,7 @@ const untreatedPercent = report ? Number((100 - report.treatedPercent).toFixed(1
         A thermal search at dawn finds fawns pressed flat in the sward, and marks them live on the
         phone of whoever is walking the field.
       </p>
-      <a href="/features/wildlife-rescue" class="inline-block mt-3 font-semibold no-underline text-[0.875rem] text-[var(--accent)]">Read the search procedure</a>
+      <a href="/features/wildlife-rescue" class="inline-block mt-3 font-semibold no-underline text-[0.875rem] text-[var(--accent)]">{t:home.searchProc}</a>
     </article>
 
     @foreach (groups as group)

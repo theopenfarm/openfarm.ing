@@ -42,7 +42,7 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
 
 @if (report)
 <section class="mx-auto pb-10 pt-14 px-5 md:pt-20 max-w-[1240px]">
-  <span class="chip">Demonstration field, modelled data</span>
+  <span class="chip">{t:fieldReport.sample}</span>
   <h1 class="mt-4 max-w-[22ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
     One weed map, every number behind it
   </h1>
@@ -57,7 +57,7 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
 <section class="bg-[var(--panel)] border-[var(--line)] border-y">
   <div class="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4 mx-auto px-5 py-8 max-w-[1240px]">
     <div>
-      <p class="text-[0.78rem] text-[var(--text-3)]">Holding</p>
+      <p class="text-[0.78rem] text-[var(--text-3)]">{t:fieldReport.holding}</p>
       <p class="mt-1 font-semibold text-[1.05rem]">{{ report.farm }}</p>
       <p class="text-[0.85rem] text-[var(--text-2)]">{{ report.region }}</p>
     </div>
@@ -72,9 +72,9 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
       <p class="text-[0.85rem] text-[var(--text-2)]">{{ report.durationMinutes }} minutes airborne</p>
     </div>
     <div>
-      <p class="text-[0.78rem] text-[var(--text-3)]">Resolution</p>
+      <p class="text-[0.78rem] text-[var(--text-3)]">{t:fieldReport.resolution}</p>
       <p class="mt-1 font-semibold text-[1.05rem] telemetry">{{ report.resolutionCm }} cm/px</p>
-      <p class="text-[0.85rem] text-[var(--text-2)]">Targeted weed control</p>
+      <p class="text-[0.85rem] text-[var(--text-2)]">{t:fieldReport.purpose}</p>
     </div>
   </div>
 </section>
@@ -85,14 +85,14 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
     <figure class="m-0 p-5 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
       {!! fullMap !!}
       <figcaption class="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-[0.8rem] text-[var(--text-2)]">
-        <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--accent)"></span>Treatment zone</span>
-        <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--accent);border-radius:50%"></span>Weed detection, sized by area</span>
-        <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--crop-soft);border:1px solid var(--crop)"></span>Untreated crop</span>
+        <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--accent)"></span>{t:fieldReport.legendZone}</span>
+        <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--accent);border-radius:50%"></span>{t:fieldReport.legendDetection}</span>
+        <span class="flex gap-1.5 items-center"><span class="legend-swatch" style="background:var(--crop-soft);border:1px solid var(--crop)"></span>{t:fieldReport.legendCrop}</span>
       </figcaption>
     </figure>
 
     <div>
-      <h2 class="text-[1.6rem]">What the prescription asks for</h2>
+      <h2 class="text-[1.6rem]">{t:fieldReport.prescription}</h2>
       <div class="mt-5">
         {!! treatedBar !!}
         <div class="flex justify-between mt-2 text-[0.82rem]">
@@ -103,19 +103,19 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
 
       <dl class="grid gap-x-8 gap-y-6 grid-cols-2 m-0 mt-8">
         <div>
-          <dt class="text-[0.8rem] text-[var(--text-3)]">Treated share</dt>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">{t:fieldReport.treatedShare}</dt>
           <dd class="m-0 font-bold text-[1.7rem] text-[var(--accent)] telemetry">{{ report.treatedPercent }}%</dd>
         </div>
         <div>
-          <dt class="text-[0.8rem] text-[var(--text-3)]">Treatment zones</dt>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">{t:fieldReport.zones}</dt>
           <dd class="m-0 font-bold text-[1.7rem] telemetry">{{ report.zones.length }}</dd>
         </div>
         <div>
-          <dt class="text-[0.8rem] text-[var(--text-3)]">Detections</dt>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">{t:fieldReport.detections}</dt>
           <dd class="m-0 font-bold text-[1.7rem] telemetry">{{ report.detections.length }}</dd>
         </div>
         <div>
-          <dt class="text-[0.8rem] text-[var(--text-3)]">Mean confidence</dt>
+          <dt class="text-[0.8rem] text-[var(--text-3)]">{t:fieldReport.confidence}</dt>
           <dd class="m-0 font-bold text-[1.7rem] telemetry">{{ meanConfidence }}%</dd>
         </div>
       </dl>
@@ -133,7 +133,7 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
 <section class="py-14 md:py-18 bg-[var(--bg-2)] border-[var(--line)] border-y">
   <div class="grid gap-12 md:gap-16 md:grid-cols-2 mx-auto px-5 max-w-[1240px]">
     <div>
-      <h2 class="text-[1.4rem]">What was found</h2>
+      <h2 class="text-[1.4rem]">{t:fieldReport.found}</h2>
       <ul class="mt-5 p-0 space-y-4 list-none">
         @foreach (speciesRows as s)
           <li>
@@ -148,7 +148,7 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
     </div>
 
     <div>
-      <h2 class="text-[1.4rem]">How bad</h2>
+      <h2 class="text-[1.4rem]">{t:fieldReport.severity}</h2>
       <p class="mt-1.5 max-w-[44ch] leading-relaxed text-[0.88rem] text-[var(--text-3)]">
         Severity follows mapped area: over 900 m² is high, over 260 m² is medium.
       </p>
@@ -167,7 +167,7 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
 <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
   <div class="grid gap-10 lg:gap-14 lg:grid-cols-2">
     <div class="prose">
-      <h2 class="mb-4 text-[1.6rem]">Read it yourself</h2>
+      <h2 class="mb-4 text-[1.6rem]">{t:fieldReport.readYourself}</h2>
       <p>
         Every record on this page is served by the public API: the flight, all
         {{ report.detections.length }} detections with their coordinates and confidence scores, and
@@ -179,30 +179,30 @@ const speciesRows = topSpecies.map(s => ({ ...s, width: Math.round((s.count / ma
       </p>
     </div>
     <div class="p-6 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
-      <p class="font-bold text-[1.05rem]">Get the next one</p>
+      <p class="font-bold text-[1.05rem]">{t:fieldReport.getNext}</p>
       <p class="mt-1.5 leading-relaxed text-[0.9rem] text-[var(--text-2)]">
         We publish what the flights are finding as each window opens. A few times a season.
       </p>
       @include('subscribe.stx')
 
-      <p class="mt-8 mega-col-title">Endpoints</p>
+      <p class="mt-8 mega-col-title">{t:fieldReport.endpoints}</p>
       <ul class="mt-3 p-0 space-y-2.5 list-none">
         <li><a href="/api/field-report" class="no-underline text-[0.88rem] text-[var(--accent)] telemetry">/api/field-report</a></li>
         <li><a href="/api/features" class="no-underline text-[0.88rem] text-[var(--accent)] telemetry">/api/features</a></li>
         <li><a href="/api/use-cases" class="no-underline text-[0.88rem] text-[var(--accent)] telemetry">/api/use-cases</a></li>
       </ul>
-      <a href="/contact" class="mt-6 w-full btn btn-primary">Book a flight on your field</a>
+      <a href="/contact" class="mt-6 w-full btn btn-primary">{t:fieldReport.bookFlight}</a>
     </div>
   </div>
 </section>
 @else
 <section class="mx-auto px-5 py-24 max-w-[1240px]">
-  <h1 class="text-[2rem]">No flight record yet</h1>
+  <h1 class="text-[2rem]">{t:fieldReport.noRecord}</h1>
   <p class="mt-3 max-w-[52ch] leading-relaxed text-[1.05rem] text-[var(--text-2)]">
     The demonstration dataset has not been seeded on this instance. Run
-    <span class="telemetry">buddy seed --class=CatalogSeeder</span> to load it.
+    <span class="telemetry">buddy catalog:sync</span> {t:fieldReport.loadIt}
   </p>
-  <a href="/" class="mt-6 btn btn-primary">Back to the start</a>
+  <a href="/" class="mt-6 btn btn-primary">{t:fieldReport.backToStart}</a>
 </section>
 @endif
 

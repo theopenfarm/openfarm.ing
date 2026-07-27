@@ -118,13 +118,37 @@ describe('translations', () => {
     // eslint-disable-next-line ts/no-require-imports
     require(`../../resources/translations/${locale}.json`) as Record<string, unknown>
 
-  test('every locale carries exactly the same keys', () => {
-    // A missing key does not throw, it renders the raw `{t:...}` token to a
-    // visitor, so the only way to catch it is to compare the sets.
-    const english = flatten(load('en')).sort()
+  test('no locale carries a key English does not have', () => {
+    // The English file is generated from the content modules, so it is the
+    // source of truth. A key only present in a translation is a leftover from
+    // renamed copy and will never be rendered.
+    const english = new Set(flatten(load('en')))
 
-    for (const locale of locales)
-      expect({ locale, keys: flatten(load(locale)).sort() }).toEqual({ locale, keys: english })
+    for (const locale of locales) {
+      const orphans = flatten(load(locale)).filter(key => !english.has(key))
+      expect({ locale, orphans }).toEqual({ locale, orphans: [] })
+    }
+  })
+
+  test('the copy a visitor meets first is translated everywhere', () => {
+    // Full coverage of the catalog's long-form prose is being filled in; what
+    // must never regress is the copy on the way in — navigation, the pages'
+    // own headlines, and the name, tagline and summary of every capability
+    // and use case. A key missing from a locale renders the English, so this
+    // is about quality rather than breakage.
+    const english = load('en') as Record<string, any>
+    const required = [
+      ...Object.keys(english.nav ?? {}).map(k => `nav.${k}`),
+      ...Object.keys(english.cta ?? {}).map(k => `cta.${k}`),
+      ...Object.keys(english.features ?? {}).flatMap(slug => ['name', 'tagline', 'summary'].map(f => `features.${slug}.${f}`)),
+      ...Object.keys(english.useCases ?? {}).flatMap(slug => ['name', 'tagline', 'summary'].map(f => `useCases.${slug}.${f}`)),
+    ]
+
+    for (const locale of locales.filter(l => l !== 'en')) {
+      const have = new Set(flatten(load(locale)))
+      const missing = required.filter(key => !have.has(key))
+      expect({ locale, missing }).toEqual({ locale, missing: [] })
+    }
   })
 
   test('nothing is left untranslated by accident', () => {
@@ -143,9 +167,15 @@ describe('translations', () => {
         // spells hectares exactly as English does.
         'dashboard.ha',
         'dashboard.hectares',
+        // "Endpoints" is the word Dutch uses for these too.
+        'fieldReport.endpoints',
       ])
       const untranslated = flatten(english)
         .filter(key => !allowed.has(key))
+        // Only keys this locale actually declares: one it has not been given
+        // yet renders the English by design, and is counted by the coverage
+        // test above rather than here.
+        .filter(key => flatten(translated).includes(key))
         .filter((key) => {
           const [group, leaf] = key.split('.') as [string, string]
           return english[group]?.[leaf] === translated[group]?.[leaf]

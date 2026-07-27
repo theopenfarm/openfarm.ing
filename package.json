@@ -113,5 +113,8 @@
       }
     },
     "commit-msg": "bun x gitlint --edit \"$1\""
+  },
+  "devDependencies": {
+    "pickier": "0.1.43"
   }
 }

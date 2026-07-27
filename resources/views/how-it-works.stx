@@ -87,22 +87,22 @@ const stageTreat = report ? fieldmap.renderFieldMap(report, { title: 'The finish
 <section class="mt-10 py-16 md:py-20 bg-[var(--panel)] border-[var(--line)] border-y">
   <div class="grid gap-10 md:gap-14 md:grid-cols-2 mx-auto px-5 max-w-[1240px]">
     <div>
-      <h2 class="text-[1.6rem]">What we bring</h2>
+      <h2 class="text-[1.6rem]">{t:howItWorks.weBring}</h2>
       <ul class="mt-5 p-0 space-y-3 list-none">
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">The aircraft, the payloads and the spares.</li>
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">Licensed pilots, operator registration and insurance.</li>
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">Airspace clearance and the flight log that proves it.</li>
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">Processing, the models, and a human reviewing anything they are unsure about.</li>
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">Prescriptions in the format your terminal reads.</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">{t:howItWorks.bring1}</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">{t:howItWorks.bring2}</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">{t:howItWorks.bring3}</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">{t:howItWorks.bring4}</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--accent)] border-l-2">{t:howItWorks.bring5}</li>
       </ul>
     </div>
     <div>
-      <h2 class="text-[1.6rem]">What stays yours</h2>
+      <h2 class="text-[1.6rem]">{t:howItWorks.yoursTitle}</h2>
       <ul class="mt-5 p-0 space-y-3 list-none">
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">The machines that do the treating. We do not spray your arable fields.</li>
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">The agronomy. A recommendation is a recommendation, not an instruction.</li>
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">The data. Your imagery and your records are yours, exportable at any point.</li>
-        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">The calendar. Move a flight, skip a window, add a field.</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{t:howItWorks.yours1}</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{t:howItWorks.yours2}</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{t:howItWorks.yours3}</li>
+        <li class="pl-4 leading-relaxed text-[0.97rem] text-[var(--text-2)] border-[var(--line)] border-l-2">{t:howItWorks.yours4}</li>
       </ul>
     </div>
   </div>
@@ -110,7 +110,7 @@ const stageTreat = report ? fieldmap.renderFieldMap(report, { title: 'The finish
 
 <!-- What we cannot do. -->
 <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
-  <h2 class="max-w-[24ch] text-[1.7rem] md:text-[2.1rem]">The limits, stated up front</h2>
+  <h2 class="max-w-[24ch] text-[1.7rem] md:text-[2.1rem]">{t:howItWorks.limits}</h2>
   <div class="grid gap-6 md:gap-12 md:grid-cols-2 mt-6 prose">
     <div>
       <p>
@@ -142,7 +142,7 @@ const stageTreat = report ? fieldmap.renderFieldMap(report, { title: 'The finish
 <section class="mx-auto pb-24 px-5 max-w-[1240px] reveal">
   <div class="flex flex-wrap gap-6 items-center justify-between p-8 md:p-11 bg-[var(--accent-wash)] border border-[var(--line)] rounded-[10px]">
     <div>
-      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">Start with one field and one flight</h2>
+      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">{t:howItWorks.startOne}</h2>
       <p class="mt-2 max-w-[50ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         You get the report before you commit to a calendar. If the map does not tell you something
         you did not know, there is nothing to sign.

@@ -102,7 +102,7 @@ const drivers = [
 <section class="py-16 md:py-20 bg-[var(--bg-2)] border-[var(--line)] border-y">
   <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1fr_1.4fr] mx-auto px-5 max-w-[1240px]">
     <div>
-      <h2 class="max-w-[16ch] text-[1.7rem] md:text-[2.1rem]">What moves the number</h2>
+      <h2 class="max-w-[16ch] text-[1.7rem] md:text-[2.1rem]">{t:pricing.movesNumber}</h2>
       <p class="mt-3 max-w-[40ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         All four of these are visible from your field register, so a quote takes a conversation
         rather than a survey.
@@ -120,15 +120,15 @@ const drivers = [
 </section>
 
 <section class="mx-auto px-5 py-16 md:py-20 max-w-[1240px] reveal">
-  <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2.1rem]">Questions we get asked first</h2>
+  <h2 class="max-w-[20ch] text-[1.7rem] md:text-[2.1rem]">{t:pricing.faqTitle}</h2>
   <div class="grid gap-8 md:gap-12 md:grid-cols-2 mt-7 prose">
     <div>
-      <p><strong class="text-[var(--text)]">Do we have to buy a drone?</strong> No. That is the point of the service model. The aircraft, the pilots, the registration and the insurance are ours, and they earn their keep across every farm we fly rather than sitting in one shed for forty-six weeks a year.</p>
-      <p><strong class="text-[var(--text)]">What if the season is a washout?</strong> Cancelled flights are not billed and are rescheduled where the window allows. If a window closes entirely, the calendar and the invoice both shrink.</p>
+      <p><strong class="text-[var(--text)]">{t:pricing.faq1}</strong> No. That is the point of the service model. The aircraft, the pilots, the registration and the insurance are ours, and they earn their keep across every farm we fly rather than sitting in one shed for forty-six weeks a year.</p>
+      <p><strong class="text-[var(--text)]">{t:pricing.faq2}</strong> Cancelled flights are not billed and are rescheduled where the window allows. If a window closes entirely, the calendar and the invoice both shrink.</p>
     </div>
     <div>
-      <p><strong class="text-[var(--text)]">Who owns the imagery?</strong> You do. It is exportable at any point, in full resolution, along with every derived layer and every record.</p>
-      <p><strong class="text-[var(--text)]">Can our contractor use the maps?</strong> Yes. Prescriptions export in the formats terminals actually read, and contractors can be given access to the fields they work.</p>
+      <p><strong class="text-[var(--text)]">{t:pricing.faq3}</strong> You do. It is exportable at any point, in full resolution, along with every derived layer and every record.</p>
+      <p><strong class="text-[var(--text)]">{t:pricing.faq4}</strong> Yes. Prescriptions export in the formats terminals actually read, and contractors can be given access to the fields they work.</p>
     </div>
   </div>
 </section>
@@ -136,7 +136,7 @@ const drivers = [
 <section class="mx-auto pb-24 px-5 max-w-[1240px] reveal">
   <div class="flex flex-wrap gap-6 items-center justify-between p-8 md:p-11 bg-[var(--accent-wash)] border border-[var(--line)] rounded-[10px]">
     <div>
-      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">Send us your field register</h2>
+      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">{t:pricing.sendRegister}</h2>
       <p class="mt-2 max-w-[50ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         Block sizes and crops are enough for a real number. We will also tell you which
         capabilities we would not bother with on your rotation.

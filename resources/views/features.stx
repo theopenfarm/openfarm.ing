@@ -56,13 +56,13 @@ const total = groups.reduce((n, g) => n + g.items.length, 0)
 <section class="mx-auto px-5 py-16 max-w-[1240px] reveal">
   <div class="flex flex-wrap gap-6 items-center justify-between p-8 md:p-11 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
     <div>
-      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">Not sure which of these your season needs</h2>
+      <h2 class="max-w-[22ch] text-[1.6rem] md:text-[1.9rem]">{t:featuresPage.unsure}</h2>
       <p class="mt-2 max-w-[52ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         The flight calendar is built around your crop, not around a package. Start from your
         operation instead.
       </p>
     </div>
-    <a href="/use-cases" class="btn btn-primary">Browse by operation</a>
+    <a href="/use-cases" class="btn btn-primary">{t:featuresPage.browseByOp}</a>
   </div>
 </section>
 

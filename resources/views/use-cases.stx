@@ -67,7 +67,7 @@ const groupsWithPhoto = groups.map(g => ({ ...g, photo: segmentPhotos[g.key] }))
 <section class="mx-auto px-5 py-16 max-w-[1240px] reveal">
   <div class="flex flex-wrap gap-6 items-center justify-between p-8 md:p-11 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
     <div>
-      <h2 class="max-w-[24ch] text-[1.6rem] md:text-[1.9rem]">Your rotation is not on this list</h2>
+      <h2 class="max-w-[24ch] text-[1.6rem] md:text-[1.9rem]">{t:useCasesPage.notListed}</h2>
       <p class="mt-2 max-w-[52ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
         Most of it still applies. Tell us the crop and the hectares and we will say plainly which
         capabilities earn their keep and which do not.

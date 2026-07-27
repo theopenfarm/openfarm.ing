@@ -85,9 +85,7 @@ const subscribeSource = 'footer'
     <div class="flex flex-wrap gap-x-6 gap-y-2 items-baseline justify-between mt-12 pt-6 border-[var(--line)] border-t">
       <p class="text-[0.8rem] text-[var(--text-3)]">Open Farming, {{ footYear }}. openfarm.ing</p>
       <p class="max-w-[62ch] text-[0.8rem] text-[var(--text-3)]">
-        Figures shown on this site come from a modelled demonstration field, labelled as such
-        wherever they appear. Aerial application of plant protection products is restricted under
-        EU and German law; our maps are built for the machines already permitted to apply them.
+        {t:footer.disclaimer}
       </p>
     </div>
   </div>

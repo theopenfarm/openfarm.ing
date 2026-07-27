@@ -54,7 +54,10 @@
     "railTitle": "Ingericht op uw gewas, niet op een doorsneebedrijf",
     "limitsTitle": "Wat wij niet beweren",
     "closeTitle": "Geef ons één perceel en wij vliegen het",
-    "closeBody": "Noem het gewas en de hectares. Wij lopen het perceel met u door, spreken een vluchtkalender af rond uw seizoen, en u krijgt het eerste rapport voordat u zich ergens aan vastlegt."
+    "closeBody": "Noem het gewas en de hectares. Wij lopen het perceel met u door, spreken een vluchtkalender af rond uw seizoen, en u krijgt het eerste rapport voordat u zich ergens aan vastlegt.",
+    "mapTitle": "Hoe de kaart ontstaat",
+    "flightCadence": "Bekijk het vluchtritme",
+    "searchProc": "Lees de zoekprocedure"
   },
   "subscribe": {
     "title": "Veldnotities",
@@ -70,7 +73,7 @@
     "company": "Bedrijf",
     "contact": "Contact",
     "publicApi": "Publieke API",
-    "disclaimer": "De cijfers op deze site komen van een gemodelleerd demonstratieperceel en zijn overal als zodanig aangeduid. Toediening van gewasbeschermingsmiddelen vanuit de lucht is onder EU- en Duits recht beperkt; onze kaarten zijn gemaakt voor de machines die toch al mogen toedienen."
+    "disclaimer": "De cijfers op deze site komen van een gemodelleerd demonstratieperceel en zijn overal als zodanig aangeduid. Toediening van gewasbeschermingsmiddelen vanuit de lucht is onder EU- en Duits recht beperkt; onze kaarten zijn gemaakt voor de machines die het al mogen toepassen."
   },
   "contact": {
     "title": "Geef ons één perceel en wij vliegen het",
@@ -105,146 +108,219 @@
   "features": {
     "targeted-weed-control": {
       "name": "Gerichte onkruidbestrijding",
-      "tagline": "Spuit het onkruid, niet het perceel"
+      "tagline": "Spuit het onkruid, niet het perceel",
+      "summary": "Camera's en modellen aan boord herkennen onkruid plant voor plant, waarna alleen de aangetaste vierkante meters worden behandeld.",
+      "problem": "Volveldsbespuiting behandelt het hele perceel, omdat niemand weet welke delen werkelijk onkruid dragen. Op een gewoon akkerbouwperceel is de onkruiddruk ongelijk: dicht langs kopakkers en spuitsporen, dun in het midden. Elke liter op schone grond is uitgegeven geld, extra residu en resistentiedruk zonder teeltkundig rendement."
     },
     "plant-disease-detection": {
       "name": "Vroege ziekteherkenning",
-      "tagline": "De aantasting zien voordat het oog het kan"
+      "tagline": "De aantasting zien voordat het oog het kan",
+      "summary": "Multispectrale opnamen tonen stress, schimmelaantasting en gebrek aan voeding dagen voordat de symptomen vanuit de cabine zichtbaar zijn.",
+      "problem": "Tegen de tijd dat een teler een ziekte vanaf de trekker ziet, zit de aantasting er meestal al een week of langer in en is het venster van beschermend naar curatief verschoven. Een ronde over het perceel vindt het eerder, maar niemand heeft de uren om elke week elke hectare te lopen."
     },
     "pest-monitoring": {
       "name": "Automatische plaagmonitoring",
-      "tagline": "Doorlopende controle over elke hectare"
+      "tagline": "Doorlopende controle over elke hectare",
+      "summary": "Regelmatige vluchten controleren percelen op plaagschade en markeren de aangetaste plekken op een kaart waarmee u aan de slag kunt.",
+      "problem": "Plaagcontrole is steekproef: een handvol plekken per perceel, een paar keer per seizoen, en de rest is aanname. Een haard die in een hoek begint wordt gevonden als hij zich al verspreid heeft, en het antwoord is een volveldsbehandeling omdat de werkelijke omvang nooit is gekarteerd."
     },
     "precision-fertilisation": {
       "name": "Precisiebemesting",
-      "tagline": "Voed de rijen die tekortkomen"
+      "tagline": "Voed de rijen die tekortkomen",
+      "summary": "Het systeem bepaalt welke delen van het gewas te weinig krijgen en bouwt een taakkaart voor de strooier.",
+      "problem": "Een vlakke gift veronderstelt een uniform perceel. Dat is het niet. Kopakkers, oude perceelsgrenzen, zandkoppen en natte laagtes nemen stikstof verschillend op, zodat één gift de sterke delen overvoedt en de zwakke uithongert. De overvoede delen legeren en spoelen uit, de ondervoede kosten opbrengst."
     },
     "irrigation-analysis": {
       "name": "Beregeningsanalyse",
-      "tagline": "Vind de droge hoek en het verborgen lek"
+      "tagline": "Vind de droge hoek en het verborgen lek",
+      "summary": "Thermische opnamen laten droge plekken, lekken en ongelijke beregening zien, zodat het water gaat waar het echt nodig is.",
+      "problem": "Beregeningsproblemen zijn onzichtbaar tot het gewas ze laat zien, en dan is het water al verspild. Een half verstopte dop, een langzaam lek in een ondergrondse leiding of een spil die op één boog te weinig geeft, kan weken doorlopen terwijl de meter doortelt."
     },
     "yield-forecasting": {
       "name": "Oogstprognoses",
-      "tagline": "Tel wat er werkelijk staat"
+      "tagline": "Tel wat er werkelijk staat",
+      "summary": "Drones tellen planten, vruchten of aren en rekenen die tellingen om naar een opbrengstraming per perceelsdeel.",
+      "problem": "Oogstplanning, opslagboeking en voorverkoop draaien allemaal op een raming, en die raming komt meestal van een handtelling op een paar vierkante meter, doorgerekend naar honderd hectare. Een verkeerde raming boekt het verkeerde aantal wagens en verkoopt graan dat er niet is."
     },
     "field-mapping": {
       "name": "Automatische perceelkartering",
-      "tagline": "De basislaag waar al het andere op rust"
+      "tagline": "De basislaag waar al het andere op rust",
+      "summary": "Eén vlucht levert een hoge-resolutie 3D-model van het perceel: hoogte, afwateringslijnen, kopakkers en probleemgrond.",
+      "problem": "De meeste bedrijven werken nog met een ooit getekende perceelsgrens en de herinnering waar de natte plek zit. Zonder hoogtemodel is niet te zien waarom één hoek onderloopt, waar het water werkelijk heen loopt, of welk deel van een perceel het telen niet waard is."
     },
     "wildlife-rescue": {
       "name": "Wilddetectie voor het maaien",
-      "tagline": "Vind het reekalf voordat de maaier dat doet"
+      "tagline": "Vind het reekalf voordat de maaier dat doet",
+      "summary": "Thermische drones zoeken het grasland af voor de maaier op reekalveren, hazen en grondbroeders en markeren elke vondst.",
+      "problem": "Reeën leggen hun kalveren in hoog gras, en het instinct van een kalf is zich plat te drukken in plaats van te vluchten. De eerste snede kuilgras doodt er elk voorjaar veel. De plicht om redelijke voorzorg te nemen ligt bij degene die maait, en een zoekketen krijgt een perceel in de beschikbare tijd zelden rond."
     },
     "drone-seeding": {
       "name": "Zaaien met drones",
-      "tagline": "Zaai waar de zaaimachine niet komt"
+      "tagline": "Zaai waar de zaaimachine niet komt",
+      "summary": "Drones zaaien zaad en zaadbollen uit op grond die te steil, te nat of te lastig is voor een machine.",
+      "problem": "Groenbemesters gaan te laat de grond in omdat de zaaimachine niet op natte stoppel komt. Steile taluds, natte laagtes en lastige hoeken worden overgeslagen of beschadigd door een machine die er niet had moeten rijden. Een uitgespoelde plek doorzaaien betekent de zaaimachine terughalen voor een halve hectare."
     },
     "frost-protection": {
       "name": "Vorstbescherming",
-      "tagline": "Weet welke laagte vannacht bevriest"
+      "tagline": "Weet welke laagte vannacht bevriest",
+      "summary": "Drones meten de temperatuur over het hele perceel en vinden de kommen die als eerste onder de schadedrempel zakken.",
+      "problem": "Stralingsvorst is niet gelijkmatig. Koude lucht zakt en verzamelt zich, waardoor een hoek van een boomgaard twee tot drie graden onder het weerstation op het schuurdak kan liggen. Bescherming gaat aan op de meting van het station, dus wordt óf het hele blok duur beschermd óf het verkeerde deel."
     },
     "pollination-support": {
       "name": "Bestuivingsondersteuning",
-      "tagline": "Vang op wat de bijen niet kunnen"
+      "tagline": "Vang op wat de bijen niet kunnen",
+      "summary": "Kleine drones ondersteunen de bestuiving binnen en in percelen waar natuurlijke bestuivers maar kort actief zijn.",
+      "problem": "Kasgewassen en vroeg bloeiende boomgaarden hebben bestuiving nodig op een moment dat niet altijd samenvalt met de activiteit van bestuivers. Koud, nat of winderig bloeiweer houdt bijen binnen, gehuurde volken zijn duur en niet precies te timen, en een gemist venster is direct zichtbaar in de vruchtzetting."
     },
     "livestock-and-fences": {
       "name": "Vee- en afrasteringscontrole",
-      "tagline": "De dagelijkse ronde zonder de rit"
+      "tagline": "De dagelijkse ronde zonder de rit",
+      "summary": "Drones vliegen de afrastering af, tellen de kudde en melden dieren die gewond zijn, ontbreken of opvallend stil liggen.",
+      "problem": "Afgelegen weides controleren betekent rijden, een hek, een ronde en een uur, elke dag, in elk weer. De meeste dagen is er niets. Op de dagen dat er wel iets is, is juist de tijd tussen de omgevallen afrastering en het opmerken het hele probleem."
     },
     "bird-deterrence": {
       "name": "Autonome vogelverjaging",
-      "tagline": "Verjaag de zwerm zonder knalapparaat"
+      "tagline": "Verjaag de zwerm zonder knalapparaat",
+      "summary": "Drones verjagen vogels uit rijpende gewassen op afroep, in plaats van een vast geluid waaraan vogels wennen.",
+      "problem": "Vaste verjaging werkt ongeveer twee weken. Vogels wennen aan knalapparaten, vliegers en linten en eten eronder door terwijl de buren de knallen nog horen. Schade in kersen, bessen en rijpende mais concentreert zich in een paar weken en een paar percelen."
     },
     "soil-compaction": {
       "name": "Detectie van bodemverdichting",
-      "tagline": "Lees de sporen die het gewas tekent"
+      "tagline": "Lees de sporen die het gewas tekent",
+      "summary": "Groeipatronen, beelden en machinedata laten samen zien waar zwaar verkeer de grond heeft dichtgereden.",
+      "problem": "Verdichting is van bovenaf onzichtbaar en met een penetrometer duur te vinden, dus wordt ze meestal jaren te laat vastgesteld door een gewas dat in dezelfde stroken blijft achterblijven. Kopakkers, dammen en de sporen van een volle wagen in een natte oogst zijn de gebruikelijke verdachten, maar een vermoeden is geen kaart."
     },
     "sustainability-dashboard": {
       "name": "Duurzaamheidsrapportage",
-      "tagline": "Het papierwerk schrijft zichzelf uit de vluchten"
+      "tagline": "Het papierwerk schrijft zichzelf uit de vluchten",
+      "summary": "Vluchtdata, weer, bodem en machineregistraties leveren samen de middelen- en watercijfers die afnemers en regelingen vragen.",
+      "problem": "De rapportageplichten groeien terwijl de onderliggende cijfers nog in een spuitlogboek, een tankbon en iemands geheugen zitten. Een verdedigbaar getal voor middelengebruik of water per hectare samenstellen kost dagen, en het resultaat is lastig te controleren omdat het bewijs verspreid ligt."
     },
     "drone-service": {
       "name": "Vluchten als dienst",
-      "tagline": "Boek de vluchten, niet het toestel"
+      "tagline": "Boek de vluchten, niet het toestel",
+      "summary": "U boekt een verkenningsschema en krijgt analyse en advies. Wij bezitten de drones, de piloten en de papieren.",
+      "problem": "Een drone kopen betekent een cursus, een exploitantregistratie, een verzekering, een onderhoudsschema en het risico kopen dat het model over drie seizoenen verouderd is. De meeste bedrijven willen de kaart, niet het toestel, en het toestel staat tussen de zes weken per jaar dat het iets verdient in de schuur."
     },
     "autonomous-network": {
       "name": "Autonoom dronenetwerk",
-      "tagline": "Gedockt, geladen, bij het eerste licht weer op"
+      "tagline": "Gedockt, geladen, bij het eerste licht weer op",
+      "summary": "Drones starten op eigen schema vanaf laadstations, vliegen de percelen af en dokken weer aan, zonder chauffeur.",
+      "problem": "Een piloot in een bus is het knelpunt. De reistijd tussen percelen bepaalt hoeveel er op een dag gevlogen worden, dus de afgelegen percelen worden het minst gevlogen en het schema klapt in zodra het weer een venster sluit."
     },
     "field-assistant": {
       "name": "Beslisassistent voor het perceel",
-      "tagline": "Een advies, niet nog een map met beelden"
+      "tagline": "Een advies, niet nog een map met beelden",
+      "summary": "De assistent leest elke laag van een perceel en antwoordt in gewone taal: wat er mis is, waar, en voor wanneer.",
+      "problem": "Meer sensoren leveren meer beelden, en beelden zijn geen besluit. Een map met indexkaarten en een verschillaag laat nog steeds aan iemand over om uit te zoeken of die gele plek in het noordwesten deze week telt, en wat er voor donderdag moet gebeuren."
     }
   },
   "useCases": {
     "winter-wheat": {
       "name": "Wintertarwe en gerst",
-      "tagline": "Het lange seizoen, in etappes gevlogen"
+      "tagline": "Het lange seizoen, in etappes gevlogen",
+      "summary": "Gaten in de opkomst, ongelijke onkruiddruk, septoria-risico en een stikstofplan dat het perceel moet volgen in plaats van een vlakke gift."
     },
     "maize": {
       "name": "Mais",
-      "tagline": "De eerste weken beslissen, vogels maken het af"
+      "tagline": "De eerste weken beslissen, vogels maken het af",
+      "summary": "Plantentellingen, vroege onkruidconcurrentie, druk van de maisboorder en vogels die bij het rijpen aan de kolven werken."
     },
     "oilseed-rape": {
       "name": "Koolzaad",
-      "tagline": "Ongelijk vanaf de dag van zaaien"
+      "tagline": "Ongelijk vanaf de dag van zaaien",
+      "summary": "Ongelijke opkomst, schade door aardvlooien en een gewas dat gemeten moet worden voordat het stikstofbesluit iets waard is."
     },
     "sugar-beet": {
       "name": "Suikerbieten",
-      "tagline": "Waar plaatsspecifiek spuiten het eerst loont"
+      "tagline": "Waar plaatsspecifiek spuiten het eerst loont",
+      "summary": "Brede rijen en trage begingroei maken biet het gewas waar onkruidkartering en pleksgewijze behandeling het meest besparen."
     },
     "potatoes": {
       "name": "Aardappelen",
-      "tagline": "Phytophthora, beregening, een gewas dat je niet ziet"
+      "tagline": "Phytophthora, beregening, een gewas dat je niet ziet",
+      "summary": "Phytophthorabewaking in een strak ritme, beregeningsgelijkmatigheid uit thermische beelden en een opbrengstraming voor het rooien."
     },
     "vineyards": {
       "name": "Wijngaarden",
-      "tagline": "Steile grond, nauwe rijen, hoge waarde"
+      "tagline": "Steile grond, nauwe rijen, hoge waarde",
+      "summary": "Groeikracht per rij, bewaking van valse en echte meeldauw, vorstkommen en het terrein waar drone-toepassing werkelijk is toegestaan."
     },
     "orchards": {
       "name": "Boomgaarden",
-      "tagline": "Tel de vruchten, bescherm de bloei"
+      "tagline": "Tel de vruchten, bescherm de bloei",
+      "summary": "Vruchttelling voor de boeking bij de pakstation, bloesemvorstbescherming, boom voor boom gezondheid en vogels bij het rijpen."
     },
     "berries": {
       "name": "Klein fruit en bessen",
-      "tagline": "Hoge waarde per vierkante meter, korte vensters"
+      "tagline": "Hoge waarde per vierkante meter, korte vensters",
+      "summary": "Plukprognoses voor de arbeidsplanning, beregeningsgelijkmatigheid onder tunnels, vogeldruk en vorst bij vroege rassen."
     },
     "hops": {
       "name": "Hop",
-      "tagline": "Een muur van gewas waar niemand in kijkt"
+      "tagline": "Een muur van gewas waar niemand in kijkt",
+      "summary": "Bewaking van valse meeldauw en spint van bovenaf, plus groeikartering over een gestel dat op de grond alles verbergt."
     },
     "grassland-and-hay": {
       "name": "Grasland en kuilvoer",
-      "tagline": "Zoeken voordat de maaier rijdt"
+      "tagline": "Zoeken voordat de maaier rijdt",
+      "summary": "Thermisch zoeken naar reekalveren voor de eerste snede, kartering van zodekwaliteit en doorzaai waar de zode is teruggelopen."
     },
     "dairy-pasture": {
       "name": "Melkvee en weidegang",
-      "tagline": "Het verre perceel, elke ochtend gecontroleerd"
+      "tagline": "Het verre perceel, elke ochtend gecontroleerd",
+      "summary": "Dagelijkse tellingen, controle van de afrastering en gemelde dieren, zonder de rit naar elk afgelegen perceel."
     },
     "organic-farms": {
       "name": "Biologische bedrijven",
-      "tagline": "Mechanisch wieden heeft de kaart het hardst nodig"
+      "tagline": "Mechanisch wieden heeft de kaart het hardst nodig",
+      "summary": "Zonder herbiciden bepaalt de plek van het onkruid waar de schoffel heen gaat, wanneer, en hoeveel bewerkingen het perceel echt nodig heeft."
     },
     "greenhouses": {
       "name": "Kassen en bedekte teelt",
-      "tagline": "Binnen, waar het weer nooit meehelpt"
+      "tagline": "Binnen, waar het weer nooit meehelpt",
+      "summary": "Bestuivingshulp tijdens de bloei, gewasgezondheid per rij en beregeningsgelijkmatigheid in een kas waar geen regen iets maskeert."
     },
     "contractors": {
       "name": "Loonwerkers",
-      "tagline": "Een dienst die u per hectare doorberekent"
+      "tagline": "Een dienst die u per hectare doorberekent",
+      "summary": "Voeg verkenning, wildzoektochten en taakkaarten toe aan het werk dat u al doet, zonder een vloot te kopen."
     },
     "cooperatives": {
       "name": "Coöperaties en grote bedrijven",
-      "tagline": "Eén beeld over alle aangesloten percelen"
+      "tagline": "Eén beeld over alle aangesloten percelen",
+      "summary": "Vlootdekking over verspreide percelen, vergelijkbare cijfers tussen bedrijven en rapportage die netjes optelt."
     },
     "reforestation": {
       "name": "Herbebossing en natuurherstel",
-      "tagline": "Beplant de helling waar niemand kan lopen"
+      "tagline": "Beplant de helling waar niemand kan lopen",
+      "summary": "Terreinkartering, zaadbollen op grond die machines niet bereiken, en opkomsttellingen die aantonen dat het werkte."
     }
   },
   "fieldReport": {
     "cardTitle": "Eén onkruidkaart, met elk getal erachter",
-    "cardSubtitle": "{treated} van {total} hectare gemarkeerd voor behandeling"
+    "cardSubtitle": "{treated} van {total} hectare gemarkeerd voor behandeling",
+    "sample": "Demonstratieperceel, gemodelleerde data",
+    "holding": "Bedrijf",
+    "resolution": "Resolutie",
+    "purpose": "Gerichte onkruidbestrijding",
+    "legendZone": "Behandelzone",
+    "legendDetection": "Onkruiddetectie, grootte naar oppervlak",
+    "legendCrop": "Onbehandeld gewas",
+    "prescription": "Wat de toepassingskaart vraagt",
+    "treatedShare": "Behandeld aandeel",
+    "zones": "Behandelzones",
+    "detections": "Detecties",
+    "confidence": "Gemiddelde zekerheid",
+    "found": "Wat er gevonden is",
+    "severity": "Hoe erg",
+    "readYourself": "Lees het zelf na",
+    "endpoints": "Endpoints",
+    "bookFlight": "Boek een vlucht op uw perceel",
+    "noRecord": "Nog geen vluchtrapport",
+    "loadIt": "om het te laden.",
+    "backToStart": "Terug naar het begin",
+    "getNext": "Ontvang de volgende"
   },
   "groups": {
     "features": {
@@ -355,5 +431,36 @@
   },
   "detail": {
     "moreIn": "Meer in"
+  },
+  "howItWorks": {
+    "weBring": "Wat wij meebrengen",
+    "bring1": "De vliegtuigen, de payloads en de reserveonderdelen.",
+    "bring2": "Gediplomeerde piloten, exploitantregistratie en verzekering.",
+    "bring3": "Luchtruimtoestemming en het vluchtlogboek dat het aantoont.",
+    "bring4": "Verwerking, de modellen en een mens die alles controleert waar ze onzeker over zijn.",
+    "bring5": "Toepassingskaarten in het formaat dat uw terminal leest.",
+    "yoursTitle": "Wat van u blijft",
+    "yours1": "De machines die behandelen. Wij spuiten uw akkers niet.",
+    "yours2": "De teeltkennis. Een advies is een advies, geen opdracht.",
+    "yours3": "De data. Uw beelden en registraties zijn van u, altijd exporteerbaar.",
+    "yours4": "De kalender. Verzet een vlucht, sla een venster over, voeg een perceel toe.",
+    "limits": "De grenzen, vooraf benoemd",
+    "startOne": "Begin met één perceel en één vlucht"
+  },
+  "pricing": {
+    "movesNumber": "Wat de prijs bepaalt",
+    "faqTitle": "Vragen die we het eerst krijgen",
+    "faq1": "Moeten we een drone kopen?",
+    "faq2": "En als het seizoen in het water valt?",
+    "faq3": "Van wie zijn de beelden?",
+    "faq4": "Kan onze loonwerker de kaarten gebruiken?",
+    "sendRegister": "Stuur ons uw perceelsregister"
+  },
+  "featuresPage": {
+    "unsure": "Niet zeker wat uw seizoen hiervan nodig heeft",
+    "browseByOp": "Blader op werkgang"
+  },
+  "useCasesPage": {
+    "notListed": "Uw bouwplan staat niet in deze lijst"
   }
 }

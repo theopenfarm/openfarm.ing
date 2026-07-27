@@ -81,15 +81,53 @@ export function localiseUseCases(useCases: UseCaseContent[], locale: string): Us
  * `buddy og:generate`, which knows the locale it is drawing and takes the
  * translation directly.
  */
+/**
+ * Which fields are prose a visitor reads, and therefore have to travel
+ * through the translation pass. Everything else on an entry - the slug, the
+ * ordering, the category - is machinery.
+ *
+ * Arrays are tokenised per element, and an object element (a step, with its
+ * own title and text) per field, so a German page has no English left on it.
+ */
+const PROSE_FIELDS = ['summary', 'problem', 'cadence', 'challenge', 'approach', 'scale'] as const
+const PROSE_LISTS = ['sensors', 'outputs', 'readings', 'season', 'outcomes'] as const
+
 function tokenise<T extends { slug: string, name: string, tagline: string }>(
   items: T[],
   kind: 'features' | 'useCases',
 ): T[] {
-  return items.map(item => ({
-    ...item,
-    name: `{t:${kind}.${item.slug}.name}`,
-    tagline: `{t:${kind}.${item.slug}.tagline}`,
-  }))
+  return items.map((item) => {
+    const entry = item as unknown as Record<string, unknown>
+    const key = (field: string): string => `{t:${kind}.${item.slug}.${field}}`
+
+    const localised: Record<string, unknown> = {
+      ...entry,
+      name: key('name'),
+      tagline: key('tagline'),
+    }
+
+    for (const field of PROSE_FIELDS) {
+      if (typeof entry[field] === 'string')
+        localised[field] = key(field)
+    }
+
+    for (const field of PROSE_LISTS) {
+      const list = entry[field]
+      if (Array.isArray(list))
+        localised[field] = list.map((_value, index) => key(`${field}.${index}`))
+    }
+
+    // `steps` carries a title and a body per entry rather than a bare string.
+    if (Array.isArray(entry.steps)) {
+      localised.steps = (entry.steps as Array<Record<string, unknown>>).map((step, index) => ({
+        ...step,
+        title: key(`steps.${index}.title`),
+        text: key(`steps.${index}.text`),
+      }))
+    }
+
+    return localised as unknown as T
+  })
 }
 
 /** A group's own label and blurb, as tokens keyed by the group. */

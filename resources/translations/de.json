@@ -54,7 +54,10 @@
     "railTitle": "Eingerichtet für Ihre Kultur, nicht für einen Musterbetrieb",
     "limitsTitle": "Was wir nicht behaupten",
     "closeTitle": "Geben Sie uns ein Feld, und wir fliegen es",
-    "closeBody": "Nennen Sie uns Kultur und Hektar. Wir gehen die Fläche mit Ihnen ab, stimmen einen Flugkalender auf Ihre Saison ab, und Sie erhalten den ersten Bericht, bevor Sie sich zu irgendetwas verpflichten."
+    "closeBody": "Nennen Sie uns Kultur und Hektar. Wir gehen die Fläche mit Ihnen ab, stimmen einen Flugkalender auf Ihre Saison ab, und Sie erhalten den ersten Bericht, bevor Sie sich zu irgendetwas verpflichten.",
+    "mapTitle": "Wie die Karte entsteht",
+    "flightCadence": "Flugrhythmus ansehen",
+    "searchProc": "Suchablauf lesen"
   },
   "subscribe": {
     "title": "Feldnotizen",
@@ -70,7 +73,7 @@
     "company": "Unternehmen",
     "contact": "Kontakt",
     "publicApi": "Öffentliche API",
-    "disclaimer": "Die auf dieser Seite gezeigten Zahlen stammen von einem modellierten Demonstrationsfeld und sind überall als solche gekennzeichnet. Die Ausbringung von Pflanzenschutzmitteln aus der Luft ist nach EU- und deutschem Recht eingeschränkt; unsere Karten sind für die Maschinen gemacht, die ohnehin ausbringen dürfen."
+    "disclaimer": "Die auf dieser Seite gezeigten Zahlen stammen von einem modellierten Demonstrationsschlag und sind überall entsprechend gekennzeichnet. Die Ausbringung von Pflanzenschutzmitteln aus der Luft ist nach EU- und deutschem Recht eingeschränkt; unsere Karten sind für die Maschinen gemacht, die bereits ausbringen dürfen."
   },
   "contact": {
     "title": "Geben Sie uns ein Feld, und wir fliegen es",
@@ -105,146 +108,219 @@
   "features": {
     "targeted-weed-control": {
       "name": "Gezielte Unkrautbekämpfung",
-      "tagline": "Das Unkraut spritzen, nicht das Feld"
+      "tagline": "Das Unkraut spritzen, nicht das Feld",
+      "summary": "Kameras und Modelle an Bord erkennen Unkraut Pflanze für Pflanze, danach werden nur die betroffenen Quadratmeter behandelt.",
+      "problem": "Flächenbehandlung behandelt den ganzen Schlag, weil niemand weiß, welche Teile tatsächlich Unkraut tragen. Auf einem typischen Acker ist der Unkrautdruck ungleich verteilt: dicht an Vorgewenden und Fahrgassen, dünn in der Mitte. Jeder Liter auf sauberem Boden ist ausgegebenes Geld, zusätzlicher Rückstand und Resistenzdruck ohne pflanzenbaulichen Gegenwert."
     },
     "plant-disease-detection": {
       "name": "Früherkennung von Krankheiten",
-      "tagline": "Den Befall sehen, bevor das Auge es kann"
+      "tagline": "Den Befall sehen, bevor das Auge es kann",
+      "summary": "Multispektrale Aufnahmen zeigen Stress, Pilzbefall und Nährstoffmangel Tage bevor die Symptome von der Kabine aus sichtbar sind.",
+      "problem": "Wenn ein Landwirt eine Krankheit vom Schleppersitz aus sieht, besteht der Befall meist schon eine Woche oder länger, und aus einer vorbeugenden Behandlung ist eine kurative geworden. Ein Gang über den Schlag findet es früher, aber niemand hat die Stunden, jede Woche jeden Hektar abzulaufen."
     },
     "pest-monitoring": {
       "name": "Automatische Schädlingsüberwachung",
-      "tagline": "Ständige Kontrolle über jedem Hektar"
+      "tagline": "Ständige Kontrolle über jedem Hektar",
+      "summary": "Regelmäßige Flüge prüfen die Schläge auf Schädlingsschäden und markieren die betroffenen Stellen auf einer Karte, mit der Sie arbeiten können.",
+      "problem": "Schädlingsmonitoring ist Stichprobe: eine Handvoll Stellen je Schlag, ein paar Mal in der Saison, der Rest ist Vermutung. Befall, der in einer Ecke beginnt, wird gefunden, wenn er sich längst ausgebreitet hat, und die Antwort ist eine Ganzflächenbehandlung, weil das tatsächliche Ausmaß nie kartiert wurde."
     },
     "precision-fertilisation": {
       "name": "Präzisionsdüngung",
-      "tagline": "Die Reihen versorgen, denen etwas fehlt"
+      "tagline": "Die Reihen versorgen, denen etwas fehlt",
+      "summary": "Das System ermittelt, welche Teile des Bestandes unterversorgt sind, und erstellt eine Applikationskarte für den Streuer.",
+      "problem": "Eine einheitliche Aufwandmenge unterstellt einen einheitlichen Schlag. Den gibt es nicht. Vorgewende, alte Schlaggrenzen, sandige Stellen und nasse Senken nehmen Stickstoff unterschiedlich auf, sodass eine einzige Menge starke Bereiche überversorgt und schwache aushungert. Die überversorgten Teile lagern und verlieren Nährstoffe, die unterversorgten kosten Ertrag."
     },
     "irrigation-analysis": {
       "name": "Bewässerungsanalyse",
-      "tagline": "Die trockene Ecke und das vergrabene Leck finden"
+      "tagline": "Die trockene Ecke und das vergrabene Leck finden",
+      "summary": "Thermalaufnahmen zeigen trockene Stellen, Lecks und ungleichmäßige Beregnung, damit das Wasser dorthin geht, wo es wirklich gebraucht wird.",
+      "problem": "Beregnungsprobleme sind unsichtbar, bis der Bestand sie zeigt, und dann ist das Wasser längst vergeudet. Eine teilweise verstopfte Düse, ein langsames Leck in einer verlegten Leitung oder ein Kreisberegner, der auf einem Bogen zu wenig abgibt, können wochenlang laufen, während der Zähler weiterzählt."
     },
     "yield-forecasting": {
       "name": "Ernteprognosen",
-      "tagline": "Zählen, was tatsächlich auf dem Feld steht"
+      "tagline": "Zählen, was tatsächlich auf dem Feld steht",
+      "summary": "Drohnen zählen Pflanzen, Früchte oder Ähren und rechnen die Zählung in eine Ertragsschätzung für jeden Teilschlag um.",
+      "problem": "Ernteplanung, Lagerbuchung und Vorverkauf laufen alle über eine Schätzung, und die Schätzung stammt meist aus einer Handzählung auf wenigen Quadratmetern, hochgerechnet auf hundert Hektar. Eine schlechte Schätzung bucht die falsche Zahl Anhänger und verkauft Getreide, das nicht da ist."
     },
     "field-mapping": {
       "name": "Automatische Feldkartierung",
-      "tagline": "Die Grundlage, auf der alles andere aufbaut"
+      "tagline": "Die Grundlage, auf der alles andere aufbaut",
+      "summary": "Ein Flug erzeugt ein hochaufgelöstes 3D-Modell des Schlages: Höhen, Abflusslinien, Vorgewende und Problemstellen.",
+      "problem": "Die meisten Betriebe arbeiten noch mit einer einmal gezogenen Schlaggrenze und der Erinnerung, wo die nasse Stelle liegt. Ohne Höhenmodell lässt sich nicht sehen, warum eine Ecke überschwemmt, wohin das Wasser wirklich läuft oder welcher Teil eines Schlages den Anbau gar nicht lohnt."
     },
     "wildlife-rescue": {
       "name": "Wildtiererkennung vor der Mahd",
-      "tagline": "Das Kitz finden, bevor der Mäher es tut"
+      "tagline": "Das Kitz finden, bevor der Mäher es tut",
+      "summary": "Thermaldrohnen suchen das Grünland vor dem Mähwerk nach Kitzen, Hasen und Bodenbrütern ab und markieren jeden Fund.",
+      "problem": "Rehe legen ihre Kitze ins hohe Gras, und der Instinkt eines Kitzes ist, sich zu drücken statt zu fliehen. Der erste Silageschnitt tötet jedes Frühjahr viele von ihnen. In Deutschland liegt die Pflicht zu zumutbaren Vorkehrungen bei dem, der mäht, und eine Suchkette schafft den Schlag in der verfügbaren Zeit selten."
     },
     "drone-seeding": {
       "name": "Aussaat mit Drohnen",
-      "tagline": "Säen, wo die Drillmaschine nicht hinkommt"
+      "tagline": "Säen, wo die Drillmaschine nicht hinkommt",
+      "summary": "Drohnen bringen Saatgut und Saatkugeln auf Flächen aus, die zu steil, zu nass oder zu unwegsam für Maschinen sind.",
+      "problem": "Zwischenfrüchte kommen zu spät in den Boden, weil die Drillmaschine auf nasse Stoppel nicht kommt. Steile Hänge, nasse Senken und unwegsame Ecken werden entweder ausgelassen oder von einer Maschine beschädigt, die dort nichts zu suchen hatte. Eine ausgewaschene Stelle nachzusäen heißt, für einen halben Hektar die Drille zurückzuholen."
     },
     "frost-protection": {
       "name": "Frostschutz",
-      "tagline": "Wissen, welche Senke heute Nacht gefriert"
+      "tagline": "Wissen, welche Senke heute Nacht gefriert",
+      "summary": "Drohnen messen die Temperatur über den ganzen Schlag und finden die Senken, die zuerst unter die Schadschwelle fallen.",
+      "problem": "Ein Strahlungsfrost ist nicht gleichmäßig. Kalte Luft fließt hangabwärts und sammelt sich, sodass eine Ecke der Anlage zwei bis drei Grad unter der Wetterstation auf dem Hallendach liegen kann. Der Schutz läuft nach dem Wert der Station, also wird entweder die ganze Anlage teuer geschützt oder der falsche Teil davon."
     },
     "pollination-support": {
       "name": "Bestäubungsunterstützung",
-      "tagline": "Einspringen, wo die Bienen es nicht können"
+      "tagline": "Einspringen, wo die Bienen es nicht können",
+      "summary": "Kleine Drohnen unterstützen die Bestäubung im Gewächshaus und in Anlagen, in denen natürliche Bestäuber nur kurz aktiv sind.",
+      "problem": "Gewächshauskulturen und früh blühende Anlagen brauchen Bestäubung in einem Moment, der nicht immer zur Aktivität der Bestäuber passt. Kaltes, nasses oder windiges Blühwetter hält Bienen drinnen, gemietete Völker sind teuer und nicht genau planbar, und ein verpasstes Fenster zeigt sich direkt im Fruchtansatz."
     },
     "livestock-and-fences": {
       "name": "Zaun- und Viehkontrolle",
-      "tagline": "Der tägliche Rundgang ohne die Fahrt"
+      "tagline": "Der tägliche Rundgang ohne die Fahrt",
+      "summary": "Drohnen fliegen den Zaunverlauf ab, zählen die Herde und melden Tiere, die verletzt sind, fehlen oder auffällig ruhig liegen.",
+      "problem": "Abgelegene Weiden zu kontrollieren heißt Fahrt, Tor, Gang und eine Stunde, jeden Tag, bei jedem Wetter. An den meisten Tagen ist nichts. An den Tagen, an denen etwas ist, ist genau die Zeit zwischen umgefallenem Zaun und dem Bemerken das ganze Problem."
     },
     "bird-deterrence": {
       "name": "Autonome Vogelabwehr",
-      "tagline": "Den Schwarm vertreiben, ohne Knallschreck"
+      "tagline": "Den Schwarm vertreiben, ohne Knallschreck",
+      "summary": "Drohnen vertreiben Vögel aus reifenden Beständen bei Bedarf, statt einer Dauerbeschallung, an die sich Vögel gewöhnen.",
+      "problem": "Feste Abwehr wirkt etwa zwei Wochen. Vögel gewöhnen sich an Knallgeräte, Drachen und Flatterband und fressen darunter, während die Nachbarn noch die Schüsse hören. Schäden in Kirschen, Beeren und reifendem Mais konzentrieren sich auf wenige Wochen und wenige Schläge."
     },
     "soil-compaction": {
       "name": "Erkennung von Bodenverdichtung",
-      "tagline": "Die Fahrspuren lesen, die der Bestand zeichnet"
+      "tagline": "Die Fahrspuren lesen, die der Bestand zeichnet",
+      "summary": "Wuchsmuster, Aufnahmen und Maschinendaten zeigen zusammen, wo schwerer Verkehr den Boden verdichtet hat.",
+      "problem": "Verdichtung ist von oben unsichtbar und mit dem Penetrometer teuer zu finden, also wird sie meist Jahre zu spät von einem Bestand diagnostiziert, der in denselben Streifen immer schwächer bleibt. Vorgewende, Toreinfahrten und die Spuren eines vollen Anhängers in nasser Ernte sind die üblichen Verdächtigen, aber Verdacht ist keine Karte."
     },
     "sustainability-dashboard": {
       "name": "Nachhaltigkeitsberichte",
-      "tagline": "Der Papierkram schreibt sich aus den Flügen"
+      "tagline": "Der Papierkram schreibt sich aus den Flügen",
+      "summary": "Flugdaten, Wetter, Boden und Maschinenaufzeichnungen ergeben die Betriebsmittel- und Wasserkennzahlen, die Abnehmer und Programme verlangen.",
+      "problem": "Die Berichtspflichten wachsen, während die zugrunde liegenden Zahlen weiter im Spritztagebuch, auf einem Tankbeleg und in jemandes Kopf liegen. Eine belastbare Zahl für Mitteleinsatz oder Wasser je Hektar zusammenzustellen dauert Tage, und das Ergebnis ist schwer prüfbar, weil die Belege verstreut sind."
     },
     "drone-service": {
       "name": "Flüge als Dienstleistung",
-      "tagline": "Die Flüge buchen, nicht die Drohne"
+      "tagline": "Die Flüge buchen, nicht die Drohne",
+      "summary": "Sie buchen einen Erkundungsplan und bekommen Auswertung und Empfehlungen. Uns gehören die Drohnen, die Piloten und der Papierkram.",
+      "problem": "Eine Drohne zu kaufen heißt, einen Lehrgang, eine Betreiberregistrierung, eine Versicherung, einen Wartungsplan und das Risiko zu kaufen, dass das Modell in drei Saisons veraltet ist. Die meisten Betriebe wollen die Karte, nicht das Fluggerät, und das Fluggerät steht zwischen den sechs Wochen im Jahr, in denen es etwas verdient, in der Halle."
     },
     "autonomous-network": {
       "name": "Autonomes Drohnennetzwerk",
-      "tagline": "Angedockt, geladen, im Morgengrauen wieder los"
+      "tagline": "Angedockt, geladen, im Morgengrauen wieder los",
+      "summary": "Drohnen starten nach eigenem Plan von Ladestationen, fliegen die Schläge ab und docken wieder an, ohne Fahrer.",
+      "problem": "Ein Pilot im Transporter ist der Engpass. Die Fahrzeit zwischen den Schlägen entscheidet, wie viele an einem Tag beflogen werden, also werden die abgelegenen am seltensten geflogen, und der Plan bricht zusammen, sobald das Wetter ein Fenster schließt."
     },
     "field-assistant": {
       "name": "KI-Assistent für Feldentscheidungen",
-      "tagline": "Eine Empfehlung, kein weiterer Bilderordner"
+      "tagline": "Eine Empfehlung, kein weiterer Bilderordner",
+      "summary": "Der Assistent liest jede Ebene eines Schlages und antwortet in klarer Sprache: was nicht stimmt, wo, und bis wann.",
+      "problem": "Mehr Sensorik erzeugt mehr Bilder, und Bilder sind keine Entscheidung. Ein Ordner voller Indexkarten und eine Veränderungsebene lassen weiter jemanden herausfinden, ob der gelbe Fleck im Nordwesten diese Woche zählt und was bis Donnerstag zu tun ist."
     }
   },
   "useCases": {
     "winter-wheat": {
       "name": "Winterweizen und Gerste",
-      "tagline": "Die lange Saison, in Etappen geflogen"
+      "tagline": "Die lange Saison, in Etappen geflogen",
+      "summary": "Auflauflücken, ungleicher Unkrautdruck, Septoria-Risiko und ein Stickstoffplan, der dem Schlag folgen muss statt einer Pauschalgabe."
     },
     "maize": {
       "name": "Mais",
-      "tagline": "Die ersten Wochen entscheiden, Vögel beenden es"
+      "tagline": "Die ersten Wochen entscheiden, Vögel beenden es",
+      "summary": "Bestandeszählung, frühe Verunkrautung, Maiszünslerdruck und Vogelschwärme, die zur Reife an den Kolben arbeiten."
     },
     "oilseed-rape": {
       "name": "Raps",
-      "tagline": "Ungleich vom ersten Tag an"
+      "tagline": "Ungleich vom ersten Tag an",
+      "summary": "Lückiger Aufgang, Erdflohschäden und ein Bestand, der gemessen werden muss, bevor die Stickstoffentscheidung etwas taugt."
     },
     "sugar-beet": {
       "name": "Zuckerrüben",
-      "tagline": "Wo sich die Punktbehandlung zuerst rechnet"
+      "tagline": "Wo sich die Punktbehandlung zuerst rechnet",
+      "summary": "Weite Reihen und langsame Jugendentwicklung machen Rüben zur Kultur, bei der Unkrautkartierung und Einzelpflanzenbehandlung am meisten sparen."
     },
     "potatoes": {
       "name": "Kartoffeln",
-      "tagline": "Kraut- und Knollenfäule, Beregnung, ein unsichtbarer Bestand"
+      "tagline": "Kraut- und Knollenfäule, Beregnung, ein unsichtbarer Bestand",
+      "summary": "Krautfäuleüberwachung in engem Takt, Beregnungsgleichmäßigkeit aus Thermalbildern und eine Ertragsschätzung vor der Rodung."
     },
     "vineyards": {
       "name": "Weinbau",
-      "tagline": "Steile Lagen, enge Gassen, hoher Wert"
+      "tagline": "Steile Lagen, enge Gassen, hoher Wert",
+      "summary": "Wuchskartierung je Zeile, Überwachung von Falschem und Echtem Mehltau, Frostsenken und das Gelände, in dem Drohnenapplikation überhaupt zulässig ist."
     },
     "orchards": {
       "name": "Obstanlagen",
-      "tagline": "Die Früchte zählen, die Blüte schützen"
+      "tagline": "Die Früchte zählen, die Blüte schützen",
+      "summary": "Fruchtzählung für die Buchung im Packhaus, Blütenfrostschutz, Baum für Baum Gesundheit und Vögel zur Reife."
     },
     "berries": {
       "name": "Beeren und Weichobst",
-      "tagline": "Hoher Wert je Quadratmeter, kurze Fenster"
+      "tagline": "Hoher Wert je Quadratmeter, kurze Fenster",
+      "summary": "Pflückprognosen für die Arbeitsplanung, Beregnungsgleichmäßigkeit unter Tunneln, Vogeldruck und Frost bei frühen Sorten."
     },
     "hops": {
       "name": "Hopfen",
-      "tagline": "Eine Wand aus Laub, in die niemand hineinsieht"
+      "tagline": "Eine Wand aus Laub, in die niemand hineinsieht",
+      "summary": "Überwachung von Falschem Mehltau und Spinnmilben von oben, dazu Wuchskartierung über ein Gerüst, das am Boden alles verdeckt."
     },
     "grassland-and-hay": {
       "name": "Grünland und Silage",
-      "tagline": "Suchen, bevor der Mäher losfährt"
+      "tagline": "Suchen, bevor der Mäher losfährt",
+      "summary": "Thermale Kitzsuche vor dem ersten Schnitt, Kartierung der Narbenqualität und Nachsaat, wo der Bestand zurückgegangen ist."
     },
     "dairy-pasture": {
       "name": "Milchvieh und Weidehaltung",
-      "tagline": "Die abgelegene Koppel, jeden Morgen kontrolliert"
+      "tagline": "Die abgelegene Koppel, jeden Morgen kontrolliert",
+      "summary": "Tägliche Tierzählung, Kontrolle des Zaunverlaufs und gemeldete Tiere, ohne die Fahrt zu jeder abgelegenen Koppel."
     },
     "organic-farms": {
       "name": "Biobetriebe",
-      "tagline": "Mechanisches Hacken braucht die Karte am dringendsten"
+      "tagline": "Mechanisches Hacken braucht die Karte am dringendsten",
+      "summary": "Ohne Herbizide entscheidet die Lage des Unkrauts, wo die Hacke hinfährt, wann, und wie viele Überfahrten der Schlag wirklich braucht."
     },
     "greenhouses": {
       "name": "Gewächshäuser und Unterglasanbau",
-      "tagline": "Drinnen, wo das Wetter nie hilft"
+      "tagline": "Drinnen, wo das Wetter nie hilft",
+      "summary": "Bestäubungshilfe während der Blüte, Bestandesgesundheit je Reihe und Beregnungsgleichmäßigkeit in einem Haus, in dem kein Regen etwas verdeckt."
     },
     "contractors": {
       "name": "Lohnunternehmen",
-      "tagline": "Eine Leistung, die Sie je Hektar weitergeben"
+      "tagline": "Eine Leistung, die Sie je Hektar weitergeben",
+      "summary": "Erkundung, Wildtiersuche und Applikationskarten zusätzlich zu Ihrer bisherigen Arbeit, ohne eine Flotte zu kaufen."
     },
     "cooperatives": {
       "name": "Genossenschaften und Großbetriebe",
-      "tagline": "Ein Bild über alle Mitgliedsflächen"
+      "tagline": "Ein Bild über alle Mitgliedsflächen",
+      "summary": "Flottenabdeckung über verstreute Schläge, vergleichbare Zahlen zwischen Betrieben und Berichte, die sauber zusammenlaufen."
     },
     "reforestation": {
       "name": "Aufforstung und Renaturierung",
-      "tagline": "Den Hang bepflanzen, den niemand begehen kann"
+      "tagline": "Den Hang bepflanzen, den niemand begehen kann",
+      "summary": "Geländekartierung, Saatkugeln auf Flächen, die Maschinen nicht erreichen, und Auflaufzählungen als Nachweis."
     }
   },
   "fieldReport": {
     "cardTitle": "Eine Unkrautkarte, mit jeder Zahl dahinter",
-    "cardSubtitle": "{treated} von {total} Hektar zur Behandlung markiert"
+    "cardSubtitle": "{treated} von {total} Hektar zur Behandlung markiert",
+    "sample": "Demonstrationsschlag, modellierte Daten",
+    "holding": "Betrieb",
+    "resolution": "Auflösung",
+    "purpose": "Gezielte Unkrautbekämpfung",
+    "legendZone": "Behandlungszone",
+    "legendDetection": "Unkrauterkennung, Größe nach Fläche",
+    "legendCrop": "Unbehandelter Bestand",
+    "prescription": "Was die Applikationskarte verlangt",
+    "treatedShare": "Behandelter Anteil",
+    "zones": "Behandlungszonen",
+    "detections": "Erkennungen",
+    "confidence": "Mittlere Sicherheit",
+    "found": "Was gefunden wurde",
+    "severity": "Wie stark",
+    "readYourself": "Selbst nachlesen",
+    "endpoints": "Endpunkte",
+    "bookFlight": "Flug für Ihren Schlag buchen",
+    "noRecord": "Noch kein Flugprotokoll",
+    "loadIt": "um ihn zu laden.",
+    "backToStart": "Zurück zum Anfang",
+    "getNext": "Den nächsten bekommen"
   },
   "groups": {
     "features": {
@@ -355,5 +431,36 @@
   },
   "detail": {
     "moreIn": "Mehr in"
+  },
+  "howItWorks": {
+    "weBring": "Was wir mitbringen",
+    "bring1": "Die Fluggeräte, die Nutzlasten und die Ersatzteile.",
+    "bring2": "Lizenzierte Piloten, Betreiberregistrierung und Versicherung.",
+    "bring3": "Luftraumfreigabe und das Flugbuch, das sie belegt.",
+    "bring4": "Auswertung, die Modelle und ein Mensch, der alles Unsichere nachprüft.",
+    "bring5": "Applikationskarten im Format, das Ihr Terminal liest.",
+    "yoursTitle": "Was Ihres bleibt",
+    "yours1": "Die Maschinen, die behandeln. Wir spritzen Ihre Ackerflächen nicht.",
+    "yours2": "Die Pflanzenbaufachlichkeit. Eine Empfehlung ist eine Empfehlung, keine Anweisung.",
+    "yours3": "Die Daten. Ihre Aufnahmen und Aufzeichnungen gehören Ihnen, jederzeit exportierbar.",
+    "yours4": "Der Kalender. Einen Flug verschieben, ein Fenster auslassen, einen Schlag ergänzen.",
+    "limits": "Die Grenzen, vorab genannt",
+    "startOne": "Mit einem Schlag und einem Flug beginnen"
+  },
+  "pricing": {
+    "movesNumber": "Was den Preis bewegt",
+    "faqTitle": "Fragen, die zuerst kommen",
+    "faq1": "Müssen wir eine Drohne kaufen?",
+    "faq2": "Und wenn die Saison ins Wasser fällt?",
+    "faq3": "Wem gehören die Aufnahmen?",
+    "faq4": "Kann unser Lohnunternehmer die Karten nutzen?",
+    "sendRegister": "Schicken Sie uns Ihr Schlagverzeichnis"
+  },
+  "featuresPage": {
+    "unsure": "Unsicher, was Ihre Saison davon braucht",
+    "browseByOp": "Nach Arbeitsgang blättern"
+  },
+  "useCasesPage": {
+    "notListed": "Ihre Fruchtfolge steht nicht auf der Liste"
   }
 }
