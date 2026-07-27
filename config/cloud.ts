@@ -735,8 +735,9 @@ export const tsCloud: TsCloudConfig = {
       // Runs after the repo and the resolved production env are in place and
       // before the systemd service starts. Migrate runs ONLY here: the API
       // site shares the same SQLite file, so migrating from both would put two
-      // writers on one file. `catalog:sync` is idempotent (it truncates first)
-      // and is what publishes catalog edits with the deploy — deliberately
+      // writers on one file. `catalog:sync` replaces the catalog and the
+      // demonstration field and leaves every other row alone, so it is safe to
+      // run against a database farmers have accounts in. It is deliberately
       // NOT `|| true`, because a deploy that silently ships an empty catalog
       // is worse than one that fails loudly.
       preStart: [

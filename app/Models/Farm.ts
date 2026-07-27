@@ -29,6 +29,24 @@ export default defineModel({
   hasMany: ['Field', 'Drone', 'Mission'],
 
   attributes: {
+    /**
+     * The owner, declared so the seeder does not invent one.
+     *
+     * `belongsTo: ['User']` alone would have the seeder point every seeded
+     * holding at a random existing account — which on a real database means
+     * handing a farmer somebody else's invented fields. Declaring the column
+     * with a null factory keeps seeded farms unowned; `buddy demo:seed`
+     * assigns them deliberately, and the demonstration farm stays unowned so
+     * it shows up on no dashboard.
+     */
+    user_id: {
+      required: false,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
     name: {
       required: true,
       order: 1,
