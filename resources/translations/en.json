@@ -1077,7 +1077,8 @@
     "yours3": "The data. Your imagery and your records are yours, exportable at any point.",
     "yours4": "The calendar. Move a flight, skip a window, add a field.",
     "limits": "The limits, stated up front",
-    "startOne": "Start with one field and one flight"
+    "startOne": "Start with one field and one flight",
+    "title": "Four steps, and a map at the end of them"
   },
   "pricing": {
     "movesNumber": "What moves the number",
@@ -1086,7 +1087,22 @@
     "faq2": "What if the season is a washout?",
     "faq3": "Who owns the imagery?",
     "faq4": "Can our contractor use the maps?",
-    "sendRegister": "Send us your field register"
+    "sendRegister": "Send us your field register",
+    "title": "Priced by the hectare, not by the aircraft",
+    "tier1": {
+      "name": "Single field",
+      "line": "One block, one flight, one report",
+      "who": "Seeing whether the map tells you anything you did not already know.",
+      "note": "Quoted per block. No calendar, no commitment.",
+      "cta": "Book a single flight"
+    },
+    "tier2": {
+      "name": "Season calendar",
+      "line": "A flight schedule built around your crop",
+      "who": "A working holding that wants scouting to happen without anyone remembering to arrange it.",
+      "note": "Quoted per hectare per season. Block size and travel distance move it most.",
+      "cta": "Get a season quote"
+    }
   },
   "featuresPage": {
     "unsure": "Not sure which of these your season needs",

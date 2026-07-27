@@ -10,23 +10,23 @@ const pagePath = '/pricing'
 // stated instead is exactly what each tier includes and what drives the price.
 const tiers = [
   {
-    name: 'Single field',
-    line: 'One block, one flight, one report',
-    who: 'Seeing whether the map tells you anything you did not already know.',
+    name: '{t:pricing.tier1.name}',
+    line: '{t:pricing.tier1.line}',
+    who: '{t:pricing.tier1.who}',
     includes: [
       'One scouting flight on one block',
       'A report with problem areas and recommendations',
       'A machine ready prescription where the capability produces one',
       'A walkthrough of the findings with an agronomist',
     ],
-    note: 'Quoted per block. No calendar, no commitment.',
-    cta: 'Book a single flight',
+    note: '{t:pricing.tier1.note}',
+    cta: '{t:pricing.tier1.cta}',
     featured: false,
   },
   {
-    name: 'Season calendar',
-    line: 'A flight schedule built around your crop',
-    who: 'A working holding that wants scouting to happen without anyone remembering to arrange it.',
+    name: '{t:pricing.tier2.name}',
+    line: '{t:pricing.tier2.line}',
+    who: '{t:pricing.tier2.who}',
     includes: [
       'A calendar per field, set from the crop and adjusted as the season moves',
       'Every capability your rotation needs, not a fixed bundle',
@@ -34,8 +34,8 @@ const tiers = [
       'Weather cancellations rescheduled and reported with the reason',
       'End of season review with the year\'s records',
     ],
-    note: 'Quoted per hectare per season. Block size and travel distance move it most.',
-    cta: 'Get a season quote',
+    note: '{t:pricing.tier2.note}',
+    cta: '{t:pricing.tier2.cta}',
     featured: true,
   },
   {
@@ -69,7 +69,7 @@ const drivers = [
 
 <section class="mx-auto pb-10 pt-14 px-5 md:pt-20 max-w-[1240px]">
   <h1 class="max-w-[20ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
-    Priced by the hectare, not by the aircraft
+    {t:pricing.title}
   </h1>
   <p class="mt-5 max-w-[60ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
     We do not print a rate here, because the honest one depends on your block sizes, your travel

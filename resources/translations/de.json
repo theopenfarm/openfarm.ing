@@ -1077,7 +1077,8 @@
     "yours3": "Die Daten. Ihre Aufnahmen und Aufzeichnungen gehören Ihnen, jederzeit exportierbar.",
     "yours4": "Der Kalender. Einen Flug verschieben, ein Fenster auslassen, einen Schlag ergänzen.",
     "limits": "Die Grenzen, vorab genannt",
-    "startOne": "Mit einem Schlag und einem Flug beginnen"
+    "startOne": "Mit einem Schlag und einem Flug beginnen",
+    "title": "Vier Schritte, und am Ende eine Karte"
   },
   "pricing": {
     "movesNumber": "Was den Preis bewegt",
@@ -1086,7 +1087,22 @@
     "faq2": "Und wenn die Saison ins Wasser fällt?",
     "faq3": "Wem gehören die Aufnahmen?",
     "faq4": "Kann unser Lohnunternehmer die Karten nutzen?",
-    "sendRegister": "Schicken Sie uns Ihr Schlagverzeichnis"
+    "sendRegister": "Schicken Sie uns Ihr Schlagverzeichnis",
+    "title": "Nach Hektar bepreist, nicht nach Fluggerät",
+    "tier1": {
+      "name": "Einzelner Schlag",
+      "line": "Ein Schlag, ein Flug, ein Bericht",
+      "who": "Um zu sehen, ob die Karte Ihnen etwas sagt, das Sie nicht schon wussten.",
+      "note": "Angebot je Schlag. Kein Kalender, keine Bindung.",
+      "cta": "Einzelflug buchen"
+    },
+    "tier2": {
+      "name": "Saisonkalender",
+      "line": "Ein Flugplan rund um Ihre Kultur",
+      "who": "Ein laufender Betrieb, der will, dass die Erkundung passiert, ohne dass jemand daran denken muss.",
+      "note": "Angebot je Hektar und Saison. Schlaggröße und Anfahrt bewegen es am stärksten.",
+      "cta": "Saisonangebot anfordern"
+    }
   },
   "featuresPage": {
     "unsure": "Unsicher, was Ihre Saison davon braucht",

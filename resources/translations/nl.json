@@ -1077,7 +1077,8 @@
     "yours3": "De data. Uw beelden en registraties zijn van u, altijd exporteerbaar.",
     "yours4": "De kalender. Verzet een vlucht, sla een venster over, voeg een perceel toe.",
     "limits": "De grenzen, vooraf benoemd",
-    "startOne": "Begin met één perceel en één vlucht"
+    "startOne": "Begin met één perceel en één vlucht",
+    "title": "Vier stappen, en aan het eind een kaart"
   },
   "pricing": {
     "movesNumber": "Wat de prijs bepaalt",
@@ -1086,7 +1087,22 @@
     "faq2": "En als het seizoen in het water valt?",
     "faq3": "Van wie zijn de beelden?",
     "faq4": "Kan onze loonwerker de kaarten gebruiken?",
-    "sendRegister": "Stuur ons uw perceelsregister"
+    "sendRegister": "Stuur ons uw perceelsregister",
+    "title": "Geprijsd per hectare, niet per toestel",
+    "tier1": {
+      "name": "Eén perceel",
+      "line": "Eén perceel, één vlucht, één rapport",
+      "who": "Om te zien of de kaart u iets vertelt wat u nog niet wist.",
+      "note": "Offerte per perceel. Geen kalender, geen verplichting.",
+      "cta": "Losse vlucht boeken"
+    },
+    "tier2": {
+      "name": "Seizoenskalender",
+      "line": "Een vluchtschema rond uw gewas",
+      "who": "Een draaiend bedrijf dat wil dat de verkenning gebeurt zonder dat iemand eraan moet denken.",
+      "note": "Offerte per hectare per seizoen. Perceelsgrootte en reisafstand wegen het zwaarst.",
+      "cta": "Seizoensofferte aanvragen"
+    }
   },
   "featuresPage": {
     "unsure": "Niet zeker wat uw seizoen hiervan nodig heeft",

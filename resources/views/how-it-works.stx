@@ -25,7 +25,7 @@ const stageTreat = report ? fieldmap.renderFieldMap(report, { title: 'The finish
 
 <section class="mx-auto pb-12 pt-14 px-5 md:pt-20 max-w-[1240px]">
   <h1 class="max-w-[19ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
-    Four steps, and a map at the end of them
+    {t:howItWorks.title}
   </h1>
   <p class="mt-5 max-w-[60ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
     Below is the demonstration field with one more layer switched on at each step. Same flight,
