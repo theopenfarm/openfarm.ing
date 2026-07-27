@@ -17,7 +17,8 @@ const pagePath = `/features/${slug}`
 // their own summary rather than a bare slug.
 const allUseCases = feature ? await catalog.displayUseCases() : []
 const related = feature ? allUseCases.filter(u => feature.useCases.includes(u.slug)) : []
-const categoryLabel = feature ? catalog.featureCategories[feature.category].label : ''
+// See the use-case page: the token, so the badge follows the locale.
+const categoryLabel = feature ? `{t:groups.features.${feature.category}.label}` : ''
 
 // Weed control is the capability the demonstration flight actually flew, so
 // its page shows the real map. Every other capability gets its own visual
@@ -40,7 +41,7 @@ const siblings = feature
   <article>
     <!-- Header: category, name, the line, and the problem it addresses. -->
     <section class="mx-auto pb-10 pt-12 px-5 md:pt-16 max-w-[1240px]">
-      <a href="/features" class="no-underline text-[0.85rem] text-[var(--text-2)] hover:text-[var(--text)]">Capabilities</a>
+      <a href="/features" class="no-underline text-[0.85rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:nav.capabilities}</a>
       <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-start mt-4">
         <div>
           <span class="chip">{{ categoryLabel }}</span>
@@ -168,7 +169,7 @@ const siblings = feature
 
     <section class="mx-auto pb-20 px-5 max-w-[1240px]">
       <div class="pt-8 border-[var(--line)] border-t">
-        <p class="mega-col-title">More in {{ categoryLabel }}</p>
+        <p class="mega-col-title">{t:detail.moreIn} {{ categoryLabel }}</p>
         <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-3 p-0 list-none">
           @foreach (siblings as s)
             <li><a href="/features/{{ s.slug }}" class="no-underline text-[0.95rem] text-[var(--text-2)] hover:text-[var(--accent)]">{{ s.name }}</a></li>

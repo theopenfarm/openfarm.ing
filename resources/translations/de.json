@@ -352,5 +352,8 @@
     "noFields": "Noch keine Schläge auf diesem Betrieb. Sie erscheinen hier nach dem ersten Erkundungsflug, eine Zeile je Schlag.",
     "flightsTitle": "Letzte Flüge",
     "noFlights": "Noch keine Flüge. Der erste landet hier mit dem, was er gefunden und was er vorgeschlagen hat."
+  },
+  "detail": {
+    "moreIn": "Mehr in"
   }
 }

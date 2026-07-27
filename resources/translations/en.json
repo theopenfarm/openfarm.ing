@@ -352,5 +352,8 @@
     "noFields": "No fields on this holding yet. They appear here after the first survey flight, one row per block.",
     "flightsTitle": "Recent flights",
     "noFlights": "No flights yet. The first one lands here with what it found and what it prescribed."
+  },
+  "detail": {
+    "moreIn": "More in"
   }
 }

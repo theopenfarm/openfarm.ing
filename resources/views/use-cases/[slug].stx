@@ -16,7 +16,9 @@ const allFeatures = useCase ? await catalog.displayFeatures() : []
 const usedFeatures = useCase
   ? useCase.features.map(s => allFeatures.find(f => f.slug === s)).filter(Boolean)
   : []
-const segmentLabel = useCase ? catalog.useCaseSegments[useCase.segment].label : ''
+// The token the translation pass resolves, not the English label: a
+// German page was showing an English badge over a German headline.
+const segmentLabel = useCase ? `{t:groups.useCases.${useCase.segment}.label}` : ''
 
 const siblings = useCase
   ? (await catalog.displayUseCases()).filter(u => u.segment === useCase.segment && u.slug !== useCase.slug)
@@ -39,7 +41,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
 @if (useCase)
   <article>
     <section class="mx-auto pb-10 pt-12 px-5 md:pt-16 max-w-[1240px]">
-      <a href="/use-cases" class="no-underline text-[0.85rem] text-[var(--text-2)] hover:text-[var(--text)]">Use cases</a>
+      <a href="/use-cases" class="no-underline text-[0.85rem] text-[var(--text-2)] hover:text-[var(--text)]">{t:nav.useCases}</a>
       <div class="grid gap-10 lg:gap-14 lg:grid-cols-[1.05fr_1fr] lg:items-center mt-4">
         <div>
           <span class="chip">{{ segmentLabel }}</span>
@@ -118,7 +120,7 @@ const photo = useCase ? segmentPhotos[useCase.segment] : null
 
     <section class="mx-auto pb-20 px-5 max-w-[1240px]">
       <div class="pt-8 border-[var(--line)] border-t">
-        <p class="mega-col-title">More in {{ segmentLabel }}</p>
+        <p class="mega-col-title">{t:detail.moreIn} {{ segmentLabel }}</p>
         <ul class="flex flex-wrap gap-x-6 gap-y-2 mt-3 p-0 list-none">
           @foreach (siblings as s)
             <li><a href="/use-cases/{{ s.slug }}" class="no-underline text-[0.95rem] text-[var(--text-2)] hover:text-[var(--accent)]">{{ s.name }}</a></li>
