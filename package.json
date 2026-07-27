@@ -118,5 +118,8 @@
   "devDependencies": {
     "@iconify-json/hugeicons": "^1.2.31",
     "pickier": "0.1.43"
+  },
+  "overrides": {
+    "@stacksjs/ts-cloud": "^0.7.63"
   }
 }
