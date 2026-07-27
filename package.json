@@ -96,6 +96,7 @@
   },
   "dependencies": {
     "@stacksjs/stx": "^0.2.104",
+    "@stacksjs/ts-cloud": "^0.7.63",
     "bun-plugin-stx": "^0.2.104",
     "bun-query-builder": "^0.1.59",
     "stacks": "^0.70.190",
