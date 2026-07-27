@@ -9,6 +9,7 @@ export default defineModel({
   autoIncrement: true,
 
   traits: {
+    useSeeder: { count: 5 },
     useUuid: true,
     useTimestamps: true,
     useApi: {

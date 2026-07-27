@@ -50,10 +50,14 @@ export default function (cli: CLI) {
         log.success(`Catalog synced: ${features.length} capabilities, ${useCases.length} use cases, and the demonstration field.`)
       }
       catch (error) {
+        // `log` writes asynchronously; exiting without flushing loses the very
+        // line that says what went wrong, which is how this failed silently.
         log.error(`Catalog sync failed: ${error instanceof Error ? error.message : String(error)}`)
+        await log.flush()
         process.exit(ExitCode.FatalError)
       }
 
+      await log.flush()
       process.exit(ExitCode.Success)
     })
 }
@@ -80,15 +84,36 @@ async function syncCatalog(): Promise<void> {
     }
   }
 
-  // Children first: a truncate that ran the other way would orphan rows.
-  await TreatmentMap.truncate()
-  await Detection.truncate()
-  await Mission.truncate()
-  await Field.truncate()
-  await Drone.truncate()
-  await Farm.truncate()
+  /*
+   * Only what this command owns is cleared.
+   *
+   * It used to truncate every table, which was fine when the database held
+   * nothing but the catalog and the demonstration flight. It is not fine now
+   * that farmers have accounts: the deploy runs this on every release, and a
+   * truncate would take a customer's fields and flights with it. The catalog
+   * tables are wholly derived from the content modules and can be replaced;
+   * the demonstration records are found by their own slug and removed
+   * individually, children first so nothing is orphaned.
+   */
   await UseCase.truncate()
   await Feature.truncate()
+
+  const demoFarm = await Farm.where('slug', DEMO_FARM.slug).first()
+  if (demoFarm?.id) {
+    const farmId = Number(demoFarm.id)
+    const missions = await Mission.where('farm_id', farmId).get()
+    const missionIds = missions.map(row => Number(row.id))
+
+    for (const missionId of missionIds) {
+      await TreatmentMap.where('mission_id', missionId).delete()
+      await Detection.where('mission_id', missionId).delete()
+    }
+
+    await Mission.where('farm_id', farmId).delete()
+    await Field.where('farm_id', farmId).delete()
+    await Drone.where('farm_id', farmId).delete()
+    await Farm.where('id', farmId).delete()
+  }
 
   await Feature.createMany(features.map(f => ({
     slug: f.slug,

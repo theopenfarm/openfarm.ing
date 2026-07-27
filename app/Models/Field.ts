@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
 /**
@@ -12,6 +13,7 @@ export default defineModel({
   autoIncrement: true,
 
   traits: {
+    useSeeder: { count: 12 },
     useUuid: true,
     useTimestamps: true,
     useSoftDeletes: true,
@@ -30,7 +32,7 @@ export default defineModel({
       order: 1,
       fillable: true,
       validation: { rule: schema.string().min(1).max(160) },
-      factory: faker => `${faker.location.street()} Field`,
+      factory: faker => seed.fieldName(faker),
     },
 
     slug: {
@@ -39,7 +41,7 @@ export default defineModel({
       order: 2,
       fillable: true,
       validation: { rule: schema.string().min(2).max(80) },
-      factory: faker => faker.lorem.slug(),
+      factory: faker => seed.fieldSlug(faker),
     },
 
     crop: {
@@ -47,7 +49,7 @@ export default defineModel({
       order: 3,
       fillable: true,
       validation: { rule: schema.string().max(80) },
-      factory: () => 'winter wheat',
+      factory: faker => seed.crop(faker),
     },
 
     hectares: {
@@ -73,7 +75,7 @@ export default defineModel({
       order: 6,
       fillable: true,
       validation: { rule: schema.number() },
-      factory: faker => faker.location.latitude(),
+      factory: faker => seed.latitude(faker),
     },
 
     longitude: {
@@ -81,7 +83,7 @@ export default defineModel({
       order: 7,
       fillable: true,
       validation: { rule: schema.number() },
-      factory: faker => faker.location.longitude(),
+      factory: faker => seed.longitude(faker),
     },
 
     /** Boundary as a normalised ring, [[x, y], ...] in 0..1 field space. */
@@ -90,7 +92,7 @@ export default defineModel({
       order: 8,
       fillable: true,
       validation: { rule: schema.string().max(8000) },
-      factory: () => '[]',
+      factory: faker => seed.boundary(faker),
     },
   },
 })

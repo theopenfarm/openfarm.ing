@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
 /** A customer holding. Fields, drones and missions all hang off it. */
@@ -9,6 +10,7 @@ export default defineModel({
   autoIncrement: true,
 
   traits: {
+    useSeeder: { count: 3 },
     useUuid: true,
     useTimestamps: true,
     useSoftDeletes: true,
@@ -32,7 +34,7 @@ export default defineModel({
       order: 1,
       fillable: true,
       validation: { rule: schema.string().min(2).max(160) },
-      factory: faker => `${faker.person.lastName()} Farm`,
+      factory: faker => seed.farmName(faker),
     },
 
     slug: {
@@ -41,7 +43,7 @@ export default defineModel({
       order: 2,
       fillable: true,
       validation: { rule: schema.string().min(2).max(80) },
-      factory: faker => faker.lorem.slug(),
+      factory: faker => seed.farmSlug(faker),
     },
 
     region: {
@@ -49,7 +51,7 @@ export default defineModel({
       order: 3,
       fillable: true,
       validation: { rule: schema.string().max(120) },
-      factory: faker => faker.location.state(),
+      factory: faker => seed.region(faker),
     },
 
     /** Which use case this holding is set up as. */
@@ -58,7 +60,7 @@ export default defineModel({
       order: 4,
       fillable: true,
       validation: { rule: schema.string().max(80) },
-      factory: () => 'arable',
+      factory: faker => seed.segment(faker),
     },
 
     hectares: {

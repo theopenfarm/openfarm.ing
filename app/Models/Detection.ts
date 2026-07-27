@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
 /**
@@ -15,6 +16,7 @@ export default defineModel({
   autoIncrement: true,
 
   traits: {
+    useSeeder: { count: 180 },
     useUuid: true,
     useTimestamps: true,
     useApi: {
@@ -33,7 +35,7 @@ export default defineModel({
       validation: {
         rule: schema.enum(['weed', 'disease', 'pest', 'nutrient', 'moisture', 'compaction', 'wildlife', 'gap', 'livestock']),
       },
-      factory: () => 'weed',
+      factory: faker => seed.findingKind(faker),
     },
 
     /** What it is, in the grower's language. */
@@ -42,7 +44,7 @@ export default defineModel({
       order: 2,
       fillable: true,
       validation: { rule: schema.string().max(160) },
-      factory: faker => faker.lorem.words(2),
+      factory: () => seed.findingLabel(),
     },
 
     /** Model confidence, 0..1. Anything low is queued for human review. */
@@ -61,7 +63,7 @@ export default defineModel({
       fillable: true,
       default: 'low',
       validation: { rule: schema.enum(['low', 'medium', 'high']) },
-      factory: () => 'medium',
+      factory: () => seed.findingSeverity(),
     },
 
     area_m2: {
@@ -95,7 +97,7 @@ export default defineModel({
       order: 8,
       fillable: true,
       validation: { rule: schema.number() },
-      factory: faker => faker.location.latitude(),
+      factory: faker => seed.latitude(faker),
     },
 
     longitude: {
@@ -103,7 +105,7 @@ export default defineModel({
       order: 9,
       fillable: true,
       validation: { rule: schema.number() },
-      factory: faker => faker.location.longitude(),
+      factory: faker => seed.longitude(faker),
     },
 
     status: {

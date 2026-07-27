@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
 /**
@@ -15,6 +16,7 @@ export default defineModel({
   autoIncrement: true,
 
   traits: {
+    useSeeder: { count: 18 },
     useUuid: true,
     useTimestamps: true,
     useApi: {
@@ -96,7 +98,7 @@ export default defineModel({
       order: 8,
       fillable: true,
       validation: { rule: schema.string().max(600) },
-      factory: faker => faker.lorem.sentence(),
+      factory: faker => seed.missionNote(faker),
     },
   },
 })

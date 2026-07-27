@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
 /**
@@ -14,6 +15,7 @@ export default defineModel({
   autoIncrement: true,
 
   traits: {
+    useSeeder: { count: 24 },
     useUuid: true,
     useTimestamps: true,
     observe: true,
@@ -33,7 +35,7 @@ export default defineModel({
       order: 1,
       fillable: true,
       validation: { rule: schema.string().max(80) },
-      factory: () => 'plant-disease-detection',
+      factory: faker => seed.capability(faker),
     },
 
     status: {
@@ -52,7 +54,7 @@ export default defineModel({
       order: 3,
       fillable: true,
       validation: { rule: schema.date() },
-      factory: faker => faker.date.recent().toISOString(),
+      factory: faker => seed.flownOn(faker),
     },
 
     /** Ground covered on this flight. */
@@ -89,7 +91,7 @@ export default defineModel({
       order: 7,
       fillable: true,
       validation: { rule: schema.string().max(600) },
-      factory: faker => faker.lorem.sentence(),
+      factory: faker => seed.missionNote(faker),
     },
 
     /** Why a flight did not happen, when status says it did not. */

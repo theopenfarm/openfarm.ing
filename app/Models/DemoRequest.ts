@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
 /**
@@ -13,6 +14,7 @@ export default defineModel({
   autoIncrement: true,
 
   traits: {
+    useSeeder: { count: 6 },
     useUuid: true,
     useTimestamps: true,
     observe: true,
@@ -46,7 +48,7 @@ export default defineModel({
       order: 3,
       fillable: true,
       validation: { rule: schema.string().max(200) },
-      factory: faker => `${faker.person.lastName()} Farm`,
+      factory: faker => seed.farmName(faker),
     },
 
     /** Which use case they identify with, so the reply is not generic. */
