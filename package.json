@@ -95,6 +95,7 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
+    "@stacksjs/buddy": "^0.70.196",
     "@stacksjs/stx": "^0.2.110",
     "@stacksjs/ts-cloud": "^0.7.78",
     "bun-plugin-stx": "^0.2.110",
