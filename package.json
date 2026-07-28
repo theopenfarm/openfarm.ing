@@ -99,7 +99,7 @@
     "@stacksjs/ts-cloud": "^0.7.78",
     "bun-plugin-stx": "^0.2.110",
     "bun-query-builder": "^0.1.59",
-    "stacks": "^0.70.190",
+    "stacks": "^0.70.194",
     "ts-images": "^0.2.5"
   },
   "workspaces": [
