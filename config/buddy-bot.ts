@@ -2,8 +2,8 @@ import type { BuddyBotConfig } from 'buddy-bot'
 
 export default {
   repository: {
-    owner: 'stacksjs',
-    name: 'stacks',
+    owner: 'theopenfarm',
+    name: 'openfarm.ing',
     provider: 'github',
     // token: process.env.BUDDY_BOT_TOKEN,
   },
