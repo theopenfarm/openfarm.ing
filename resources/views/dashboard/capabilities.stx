@@ -1,0 +1,120 @@
+<script server>
+const nodePath = require('node:path')
+const session = await import(nodePath.join(process.cwd(), 'app/Support/session.ts'))
+const board = await import(nodePath.join(process.cwd(), 'app/Support/dashboard.ts'))
+const caps = await import(nodePath.join(process.cwd(), 'app/Support/capabilities.ts'))
+
+const title = 'Capabilities - Open Farming'
+const description = 'Every capability we fly, and which of them are running over your fields.'
+const activeNav = 'account'
+const pagePath = '/dashboard/capabilities'
+const ogCard = 'account'
+
+const farmer = await session.currentUser()
+const farm = farmer ? await board.farmFor(Number(farmer.id)) : null
+
+// The catalog leads: every capability the site sells appears here, whether or
+// not this holding has taken it. A dashboard that listed only what was already
+// switched on would quietly offer less than the marketing pages promise.
+const groups = farm ? await caps.managedCapabilities(farm.id) : []
+const running = caps.activeCount(groups)
+const offered = caps.offeredCount(groups)
+
+const fields = farm ? await board.fieldsFor(farm.id) : []
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+@if (farmer && farm)
+  <section class="mx-auto px-3 py-6 sm:px-5 max-w-[1500px] console">
+    <div class="console-shell">
+      @include('dashboard-rail.stx')
+
+      <div class="console-body">
+        <header class="console-head">
+          <div>
+            <h1 class="text-[1.5rem] sm:text-[1.75rem]">{t:capabilities.title}</h1>
+            <p class="mt-1 text-[0.85rem] text-[var(--text-3)]">{{ farm.name }} · {{ running }}{t:capabilities.ofOffered}{{ offered }}</p>
+          </div>
+
+          <div class="flex flex-wrap gap-2 items-center">
+            <a href="/features" class="console-chip console-chip-link">{t:capabilities.readMore}</a>
+          </div>
+        </header>
+
+        @foreach (groups as group)
+          <section class="mt-4 console-panel">
+            <div class="console-panel-head">
+              <h2 class="console-panel-title">@if (group.key === 'detect'){t:groups.features.detect.label}@elseif (group.key === 'act'){t:groups.features.act.label}@else{t:groups.features.operate.label}@endif</h2>
+              <span class="console-panel-meta">{{ group.capabilities.length }}</span>
+            </div>
+
+            <ul class="capability-list">
+              @foreach (group.capabilities as capability)
+                <li class="capability-row">
+                  <div class="min-w-0">
+                    <p class="console-row-title">{{ capability.name }}</p>
+                    <p class="console-row-meta">{{ capability.tagline }}</p>
+
+                    @if (capability.status === 'active')
+                      <p class="mt-1 console-row-meta">{t:capabilities.every} {{ capability.cadenceDays }} {t:capabilities.days}@if (capability.lastFlown) · {t:capabilities.lastFlown} {{ capability.lastFlown }}@endif@if (capability.flights) · {{ capability.flights }} {t:capabilities.flights}@endif</p>
+                    @endif
+
+                    @if (capability.status === 'requested')
+                      <p class="mt-1 capability-note console-row-meta">{t:capabilities.needsVisit}</p>
+                    @endif
+                  </div>
+
+                  <form method="POST" action="/api/dashboard/capability" class="capability-controls">
+                    <input type="hidden" name="slug" value="{{ capability.slug }}">
+
+                    @if (capability.status === 'off')
+                      <label class="capability-cadence">
+                        <span class="sr-only">{t:capabilities.cadence}</span>
+                        <input type="number" name="cadence_days" value="{{ capability.cadenceDays }}" min="3" max="180" class="capability-input">
+                      </label>
+                      <button type="submit" name="intent" value="enable" class="capability-button capability-button-on">{t:capabilities.enable}</button>
+                    @else
+                      <label class="capability-cadence">
+                        <span class="sr-only">{t:capabilities.cadence}</span>
+                        <input type="number" name="cadence_days" value="{{ capability.cadenceDays }}" min="3" max="180" class="capability-input">
+                      </label>
+
+                      @if (capability.status === 'paused')
+                        <button type="submit" name="intent" value="enable" class="capability-button capability-button-on">{t:capabilities.resume}</button>
+                      @else
+                        <button type="submit" name="intent" value="pause" class="capability-button">{t:capabilities.pause}</button>
+                      @endif
+
+                      <button type="submit" name="intent" value="disable" class="capability-button capability-button-off">{t:capabilities.turnOff}</button>
+                    @endif
+                  </form>
+                </li>
+              @endforeach
+            </ul>
+          </section>
+        @endforeach
+
+        @if (fields.length === 0)
+          <p class="mt-4 console-empty">{t:capabilities.noFields}</p>
+        @endif
+      </div>
+    </div>
+  </section>
+@else
+  <section class="mx-auto pb-24 pt-14 px-5 md:pt-20 max-w-[1240px]">
+    <div class="max-w-[46ch]">
+      <p class="font-semibold text-[0.78rem] text-[var(--accent)] tracking-[0.14em] uppercase">{t:dashboard.eyebrow}</p>
+      <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem]">{t:account.signedOutTitle}</h1>
+      <p class="mt-5 leading-relaxed text-[1.05rem] text-[var(--text-2)]">{t:account.signedOutBody}</p>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href="/login" class="inline-flex items-center px-5 py-3 font-semibold no-underline text-[0.95rem] text-white bg-[var(--accent)] rounded-[10px]">{t:auth.signIn}</a>
+      </div>
+    </div>
+  </section>
+@endif
+
+@endsection

@@ -1149,5 +1149,42 @@
     "notFound": "Die toepassing bestaat niet",
     "seeAll": "Bekijk alle toepassingen",
     "setup": "Hoe wij het inrichten"
+  },
+  "capabilities": {
+    "title": "Mogelijkheden",
+    "ofOffered": " van ",
+    "readMore": "Wat elke dienst doet",
+    "every": "Elke",
+    "days": "dagen",
+    "lastFlown": "laatst gevlogen",
+    "flights": "vluchten",
+    "cadence": "Dagen tussen vluchten",
+    "enable": "Inschakelen",
+    "pause": "Pauzeren",
+    "resume": "Hervatten",
+    "turnOff": "Verwijderen",
+    "needsVisit": "Aangevraagd. Hiervoor is apparatuur ter plaatse of een vergunning nodig, dus plannen we het bij uw volgende bezoek.",
+    "noFields": "Nog geen percelen op dit bedrijf, dus er kan niets gevlogen worden. Ze verschijnen na de eerste vlucht."
+  },
+  "flights": {
+    "scheduled": "gepland",
+    "flown": "gevlogen",
+    "bookOne": "Eén vlucht boeken",
+    "purpose": "Waarop gelet wordt",
+    "schedule": "Inplannen",
+    "upcoming": "Binnenkort",
+    "history": "Al gevlogen",
+    "cancel": "Afzeggen",
+    "noneScheduled": "Niets gepland. Uw actieve mogelijkheden zetten hier vluchten klaar zodra ze aan de beurt zijn."
+  },
+  "detections": {
+    "open": "open",
+    "resolved": "Afgehandeld",
+    "needsAction": "Vraagt een besluit",
+    "reopen": "Heropenen",
+    "noneOpen": "Niets open. Elke bevinding uit uw vluchten is afgehandeld.",
+    "noneResolved": "Nog niets afgesloten.",
+    "markTreated": "Behandeld",
+    "dismiss": "Geen probleem"
   }
 }

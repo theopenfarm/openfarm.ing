@@ -21,13 +21,42 @@ export default defineModel({
     useTimestamps: true,
     useApi: {
       uri: 'detections',
-      routes: ['index', 'show'],
+      routes: ['index', 'show', 'update'],
+      // A holding's operating data, never public.
+      middleware: ['auth', 'farm-scope'],
     },
   },
 
   belongsTo: ['Mission', 'Field'],
 
   attributes: {
+    /*
+     * The relation keys are declared so the API can see them.
+     *
+     * Writable and filterable columns are built from a model's attributes, so
+     * an undeclared key cannot be set by a POST or narrowed with `?key=` -
+     * which is what every tenant-scoped read needs. The seeder still wires
+     * them: a declared key that comes out empty is filled from the parent it
+     * points at.
+     */
+    /** The flight that found it. */
+    mission_id: {
+      required: true,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
+    /** Denormalised from the flight, for per-field counts. */
+    field_id: {
+      required: false,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
     kind: {
       required: true,
       order: 1,

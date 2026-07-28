@@ -62,6 +62,100 @@ async function safely<T>(run: () => Promise<T>, fallback: T): Promise<T> {
   }
 }
 
+/**
+ * The holding a farmer manages.
+ *
+ * Every scoped read and every write goes through this: a farmer's identity is
+ * the only input, so no request can name a farm and therefore none can name
+ * somebody else's. The demonstration farm has no owner and is returned to
+ * nobody.
+ */
+export async function farmFor(userId: number): Promise<{ id: number, name: string } | null> {
+  if (!userId)
+    return null
+
+  const farm = await safely(() => Farm.where('user_id', userId).first(), null) as any
+  if (!farm?.id)
+    return null
+
+  return { id: Number(farm.id), name: String(farm.name ?? '') }
+}
+
+/** The holding's parcels, for the pages that let a farmer scope work to one. */
+export async function fieldsFor(farmId: number): Promise<{ id: number, name: string, crop: string, hectares: number }[]> {
+  const rows = await safely(() => Field.where('farm_id', farmId).orderBy('name').get() as Promise<any[]>, [])
+
+  return rows.map(row => ({
+    id: Number(row.id),
+    name: String(row.name ?? ''),
+    crop: String(row.crop ?? ''),
+    hectares: Number(row.hectares ?? 0),
+  }))
+}
+
+/**
+ * Flights, newest first, with the field they cover.
+ *
+ * Scheduled ones come back too: a farmer needs to see what is coming as much
+ * as what has been flown, and the capability schedule is what puts them there.
+ */
+export async function flightsFor(farmId: number): Promise<{ id: number, field: string, purpose: string, status: string, flownOn: string, hectares: number, detections: number }[]> {
+  const rows = await safely(() => Mission.where('farm_id', farmId).orderByDesc('id').get() as Promise<any[]>, [])
+  const fields = await safely(() => Field.where('farm_id', farmId).get() as Promise<any[]>, [])
+  const names = new Map(fields.map(field => [Number(field.id), String(field.name ?? '')]))
+
+  const missionIds = rows.map(row => Number(row.id))
+  const detections = missionIds.length > 0
+    ? await safely(() => Detection.whereIn('mission_id', missionIds).get() as Promise<any[]>, [])
+    : []
+
+  const found = new Map<number, number>()
+  for (const detection of detections) {
+    const id = Number(detection.mission_id)
+    found.set(id, (found.get(id) ?? 0) + 1)
+  }
+
+  return rows.map(row => ({
+    id: Number(row.id),
+    field: names.get(Number(row.field_id)) ?? '',
+    purpose: String(row.purpose ?? ''),
+    status: String(row.status ?? ''),
+    flownOn: day(row.flown_at),
+    hectares: Number(row.hectares_covered ?? 0),
+    detections: found.get(Number(row.id)) ?? 0,
+  }))
+}
+
+/**
+ * Everything the flights found, for triage.
+ *
+ * `open` and `review` still want a decision; `treated` and `dismissed` are
+ * closed, and which of the two it was is kept because it tells the next flight
+ * whether to look at that patch again.
+ */
+export async function detectionsFor(farmId: number): Promise<{ id: number, kind: string, label: string, severity: string, status: string, field: string, foundOn: string }[]> {
+  const flights = await safely(() => Mission.where('farm_id', farmId).get() as Promise<any[]>, [])
+  const ids = flights.map(flight => Number(flight.id))
+  if (ids.length === 0)
+    return []
+
+  const flownAt = new Map(flights.map(flight => [Number(flight.id), day(flight.flown_at)]))
+  const fields = await safely(() => Field.where('farm_id', farmId).get() as Promise<any[]>, [])
+  const names = new Map(fields.map(field => [Number(field.id), String(field.name ?? '')]))
+
+  const rows = await safely(() => Detection.whereIn('mission_id', ids).get() as Promise<any[]>, [])
+
+  return rows.map(row => ({
+    id: Number(row.id),
+    kind: String(row.kind ?? ''),
+    label: String(row.label ?? ''),
+    severity: String(row.severity ?? ''),
+    status: String(row.status ?? ''),
+    field: names.get(Number(row.field_id)) ?? '',
+    foundOn: flownAt.get(Number(row.mission_id)) ?? '',
+  }))
+}
+
 export async function dashboardFor(userId: number): Promise<Dashboard> {
   const empty: Dashboard = {
     farm: null,

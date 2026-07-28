@@ -1149,5 +1149,42 @@
     "notFound": "Diese Anwendung gibt es nicht",
     "seeAll": "Alle Anwendungen ansehen",
     "setup": "Wie wir es aufsetzen"
+  },
+  "capabilities": {
+    "title": "Leistungen",
+    "ofOffered": " von ",
+    "readMore": "Was jede Leistung tut",
+    "every": "Alle",
+    "days": "Tage",
+    "lastFlown": "zuletzt geflogen",
+    "flights": "Flüge",
+    "cadence": "Tage zwischen den Flügen",
+    "enable": "Aktivieren",
+    "pause": "Pausieren",
+    "resume": "Fortsetzen",
+    "turnOff": "Entfernen",
+    "needsVisit": "Angefragt. Dafür braucht es Ausrüstung vor Ort oder eine Genehmigung, deshalb planen wir es mit Ihrem nächsten Besuch.",
+    "noFields": "Noch keine Schläge auf diesem Betrieb, also kann nichts geflogen werden. Sie erscheinen nach der ersten Befliegung."
+  },
+  "flights": {
+    "scheduled": "geplant",
+    "flown": "geflogen",
+    "bookOne": "Einzelnen Flug buchen",
+    "purpose": "Worauf geachtet wird",
+    "schedule": "Einplanen",
+    "upcoming": "Demnächst",
+    "history": "Bereits geflogen",
+    "cancel": "Absagen",
+    "noneScheduled": "Nichts geplant. Ihre aktiven Leistungen setzen hier Flüge an, sobald sie fällig sind."
+  },
+  "detections": {
+    "open": "offen",
+    "resolved": "Erledigt",
+    "needsAction": "Braucht eine Entscheidung",
+    "reopen": "Wieder öffnen",
+    "noneOpen": "Nichts offen. Jeder Fund aus Ihren Flügen ist bearbeitet.",
+    "noneResolved": "Noch nichts abgeschlossen.",
+    "markTreated": "Behandelt",
+    "dismiss": "Kein Problem"
   }
 }

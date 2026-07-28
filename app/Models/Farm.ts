@@ -16,7 +16,9 @@ export default defineModel({
     useSoftDeletes: true,
     useApi: {
       uri: 'farms',
-      routes: ['index', 'show'],
+      routes: ['index', 'show', 'update'],
+      // A holding's operating data, never public.
+      middleware: ['auth', 'farm-scope'],
     },
   },
 

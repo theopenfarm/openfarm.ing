@@ -19,7 +19,9 @@ export default defineModel({
     useSoftDeletes: true,
     useApi: {
       uri: 'fields',
-      routes: ['index', 'show'],
+      routes: ['index', 'show', 'store', 'update', 'destroy'],
+      // A holding's operating data, never public.
+      middleware: ['auth', 'farm-scope'],
     },
   },
 
@@ -27,6 +29,24 @@ export default defineModel({
   hasMany: ['Mission', 'Detection'],
 
   attributes: {
+    /*
+     * The relation keys are declared so the API can see them.
+     *
+     * Writable and filterable columns are built from a model's attributes, so
+     * an undeclared key cannot be set by a POST or narrowed with `?key=` -
+     * which is what every tenant-scoped read needs. The seeder still wires
+     * them: a declared key that comes out empty is filled from the parent it
+     * points at.
+     */
+    /** The holding this parcel belongs to. */
+    farm_id: {
+      required: true,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
     name: {
       required: true,
       order: 1,

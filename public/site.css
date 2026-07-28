@@ -752,3 +752,94 @@ a { color: inherit; }
   .rail-item-last { margin-top: 0; margin-left: auto; }
   .console-metric { font-size: 1.75rem; }
 }
+
+/* ---------------------------------------------------------------------------
+  Dashboard management controls.
+
+  The console lists were read-only until the capability work: rows that showed
+  what happened. These are the rows a farmer acts on, so each one carries its
+  controls on the right and stays a single line on a tablet in landscape,
+  which is where this gets used.
+  --------------------------------------------------------------------------- */
+
+.capability-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+
+.capability-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.capability-row:first-child { border-top: 0; }
+
+.capability-controls { display: flex; gap: 0.4rem; align-items: center; flex-shrink: 0; }
+
+.capability-input {
+  width: 3.6rem;
+  padding: 0.35rem 0.4rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--text);
+  text-align: center;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+
+.capability-button {
+  padding: 0.4rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-2);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+
+.capability-button:hover { color: var(--text); border-color: var(--text-3); }
+.capability-button-on { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); }
+.capability-button-on:hover { color: var(--accent-ink); background: var(--accent-2); }
+.capability-button-off:hover { color: var(--accent); border-color: var(--accent); }
+.capability-note { color: var(--accent); }
+
+/* The one-off booking form: three controls on a row, stacked on a phone. */
+.flight-form { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: end; padding-top: 0.25rem; }
+.flight-field { display: grid; gap: 0.3rem; min-width: 12rem; flex: 1 1 12rem; }
+.flight-label { font-size: 0.78rem; color: var(--text-3); }
+
+.flight-input {
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+
+.flight-submit {
+  padding: 0.55rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: 0;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+
+.flight-submit:hover { background: var(--accent-2); }
+
+/* Severity, so the eye finds the high ones before reading a word. */
+.severity-high { background: var(--accent); }
+.severity-medium { background: var(--crop); }
+.severity-low { background: var(--line); }
+
+@media (max-width: 640px) {
+  .capability-row { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .capability-controls { justify-content: flex-start; }
+}

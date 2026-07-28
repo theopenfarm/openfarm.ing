@@ -396,3 +396,14 @@ export async function fieldReport(): Promise<FieldReport | null> {
     } satisfies FieldReport
   }, null)
 }
+
+/**
+ * The capabilities a flight can be booked for, for the dashboard's picker.
+ *
+ * Straight from the content module rather than the database: the catalog is
+ * the same on every deployment, and a form that offers only what has been
+ * synced would silently shrink if a sync had not run.
+ */
+export function capabilityOptions(): { slug: string, name: string }[] {
+  return authoredFeatures.map(feature => ({ slug: feature.slug, name: feature.name }))
+}

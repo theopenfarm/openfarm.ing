@@ -1,0 +1,112 @@
+<script server>
+const nodePath = require('node:path')
+const session = await import(nodePath.join(process.cwd(), 'app/Support/session.ts'))
+const board = await import(nodePath.join(process.cwd(), 'app/Support/dashboard.ts'))
+
+const title = 'Detections - Open Farming'
+const description = 'Everything the flights marked, and what you did about it.'
+const activeNav = 'account'
+const pagePath = '/dashboard/detections'
+const ogCard = 'account'
+const railActive = 'detections'
+
+const farmer = await session.currentUser()
+const farm = farmer ? await board.farmFor(Number(farmer.id)) : null
+
+const all = farm ? await board.detectionsFor(farm.id) : []
+
+// Open work first, and the worst of it at the top: a dashboard that sorts by
+// date buries the one patch that needed spraying yesterday.
+const rank = { high: 0, medium: 1, low: 2 }
+const closedStates = new Set(['treated', 'dismissed'])
+const open = all
+  .filter(detection => !closedStates.has(detection.status))
+  .sort((a, b) => (rank[a.severity] ?? 3) - (rank[b.severity] ?? 3))
+const resolved = all.filter(detection => closedStates.has(detection.status))
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+@if (farmer && farm)
+  <section class="mx-auto px-3 py-6 sm:px-5 max-w-[1500px] console">
+    <div class="console-shell">
+      @include('dashboard-rail.stx')
+
+      <div class="console-body">
+        <header class="console-head">
+          <div>
+            <h1 class="text-[1.5rem] sm:text-[1.75rem]">{t:dashboard.detections}</h1>
+            <p class="mt-1 text-[0.85rem] text-[var(--text-3)]">{{ farm.name }} · {{ open.length }} {t:detections.open} · {{ resolved.length }} {t:detections.resolved}</p>
+          </div>
+        </header>
+
+        <div class="mt-4 console-panels">
+          <section class="console-panel">
+            <div class="console-panel-head">
+              <h2 class="console-panel-title">{t:detections.needsAction}</h2>
+              <span class="console-panel-meta">{{ open.length }}</span>
+            </div>
+
+            @if (open.length)
+              <ul class="console-list">
+                @foreach (open as detection)
+                  <li class="console-row">
+                    <span class="console-status severity-{{ detection.severity }}"></span>
+                    <div class="min-w-0">
+                      <p class="console-row-title">{{ detection.label }}</p>
+                      <p class="console-row-meta">{{ detection.field }} · {{ detection.kind }} · {{ detection.severity }}@if (detection.foundOn) · {{ detection.foundOn }}@endif</p>
+                    </div>
+                    <form method="POST" action="/api/dashboard/detection">
+                      <input type="hidden" name="detection_id" value="{{ detection.id }}">
+                      <button type="submit" name="intent" value="treated" class="capability-button">{t:detections.markTreated}</button>
+                      <button type="submit" name="intent" value="dismiss" class="capability-button">{t:detections.dismiss}</button>
+                    </form>
+                  </li>
+                @endforeach
+              </ul>
+            @else
+              <p class="console-empty">{t:detections.noneOpen}</p>
+            @endif
+          </section>
+
+          <section class="console-panel">
+            <div class="console-panel-head">
+              <h2 class="console-panel-title">{t:detections.resolved}</h2>
+              <span class="console-panel-meta">{{ resolved.length }}</span>
+            </div>
+
+            @if (resolved.length)
+              <ul class="console-list">
+                @foreach (resolved as detection)
+                  <li class="console-row">
+                    <div class="min-w-0">
+                      <p class="console-row-title">{{ detection.label }}</p>
+                      <p class="console-row-meta">{{ detection.field }} · {{ detection.kind }}@if (detection.foundOn) · {{ detection.foundOn }}@endif</p>
+                    </div>
+                    <form method="POST" action="/api/dashboard/detection">
+                      <input type="hidden" name="detection_id" value="{{ detection.id }}">
+                      <button type="submit" name="intent" value="reopen" class="capability-button">{t:detections.reopen}</button>
+                    </form>
+                  </li>
+                @endforeach
+              </ul>
+            @else
+              <p class="console-empty">{t:detections.noneResolved}</p>
+            @endif
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+@else
+  <section class="mx-auto pb-24 pt-14 px-5 md:pt-20 max-w-[1240px]">
+    <div class="max-w-[46ch]">
+      <h1 class="mt-4 leading-[1.07] text-[2.1rem] sm:text-[2.5rem]">{t:account.signedOutTitle}</h1>
+      <a href="/login" class="inline-flex items-center mt-8 px-5 py-3 font-semibold no-underline text-[0.95rem] text-white bg-[var(--accent)] rounded-[10px]">{t:auth.signIn}</a>
+    </div>
+  </section>
+@endif
+
+@endsection

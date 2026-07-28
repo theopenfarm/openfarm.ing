@@ -11,6 +11,8 @@ export default {
   'maintenance': 'Maintenance',
   'cors': 'Cors',
   'auth': 'Auth',
+  // Narrows the ORM-generated endpoints to the caller's own holdings.
+  'farm-scope': 'FarmScope',
   'guest': 'Guest',
   'api': 'Api',
   'team': 'Team',

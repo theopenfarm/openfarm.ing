@@ -1149,5 +1149,42 @@
     "notFound": "That use case does not exist",
     "seeAll": "See all use cases",
     "setup": "How we set it up"
+  },
+  "capabilities": {
+    "title": "Capabilities",
+    "ofOffered": " of ",
+    "readMore": "What each one does",
+    "every": "Every",
+    "days": "days",
+    "lastFlown": "last flown",
+    "flights": "flights",
+    "cadence": "Days between flights",
+    "enable": "Turn on",
+    "pause": "Pause",
+    "resume": "Resume",
+    "turnOff": "Remove",
+    "needsVisit": "Requested. This one needs equipment on site or a licence check, so we book it with your next visit.",
+    "noFields": "No fields on this holding yet, so nothing can be flown. They appear after the first survey."
+  },
+  "flights": {
+    "scheduled": "scheduled",
+    "flown": "flown",
+    "bookOne": "Book one flight",
+    "purpose": "What to look for",
+    "schedule": "Schedule it",
+    "upcoming": "Coming up",
+    "history": "Already flown",
+    "cancel": "Call off",
+    "noneScheduled": "Nothing scheduled. Your active capabilities put flights here as each one comes due."
+  },
+  "detections": {
+    "open": "open",
+    "resolved": "Resolved",
+    "needsAction": "Needs a decision",
+    "reopen": "Reopen",
+    "noneOpen": "Nothing open. Every finding from your flights has been dealt with.",
+    "noneResolved": "Nothing closed yet.",
+    "markTreated": "Treated",
+    "dismiss": "Not a problem"
   }
 }

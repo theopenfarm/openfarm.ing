@@ -21,7 +21,9 @@ export default defineModel({
     observe: true,
     useApi: {
       uri: 'missions',
-      routes: ['index', 'show'],
+      routes: ['index', 'show', 'store', 'update', 'destroy'],
+      // A holding's operating data, never public.
+      middleware: ['auth', 'farm-scope'],
     },
   },
 
@@ -29,6 +31,42 @@ export default defineModel({
   hasMany: ['Detection', 'TreatmentMap'],
 
   attributes: {
+    /*
+     * The relation keys are declared so the API can see them.
+     *
+     * Writable and filterable columns are built from a model's attributes, so
+     * an undeclared key cannot be set by a POST or narrowed with `?key=` -
+     * which is what every tenant-scoped read needs. The seeder still wires
+     * them: a declared key that comes out empty is filled from the parent it
+     * points at.
+     */
+    /** Denormalised from the field, so a holding’s flights are one query. */
+    farm_id: {
+      required: true,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
+    /** The parcel flown. */
+    field_id: {
+      required: true,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
+    /** The aircraft that flew it. */
+    drone_id: {
+      required: false,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
     /** Feature slug this flight was tasked with. */
     purpose: {
       required: true,

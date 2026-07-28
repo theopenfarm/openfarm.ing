@@ -43,6 +43,21 @@ route.get('/field-report', 'Actions/Catalog/FieldReportAction')
  */
 route.post('/demo-requests', 'Actions/Leads/DemoRequestAction').skipCsrf()
 
+/*
+ * Dashboard mutations.
+ *
+ * Server-rendered forms, so they answer with a 303 back to the page rather
+ * than JSON. Each one re-derives the holding from the signed-in farmer and
+ * ignores any farm the request names, which is what keeps one customer's
+ * console off another's data. `skipCsrf` matches the other form posts on this
+ * site: the session cookie is SameSite=Lax, so a cross-site form post carries
+ * no session at all.
+ */
+route.post('/dashboard/capability', 'Actions/Dashboard/CapabilityUpdateAction').skipCsrf()
+route.post('/dashboard/flight', 'Actions/Dashboard/FlightScheduleAction').skipCsrf()
+route.post('/dashboard/flight-cancel', 'Actions/Dashboard/FlightCancelAction').skipCsrf()
+route.post('/dashboard/detection', 'Actions/Dashboard/DetectionResolveAction').skipCsrf()
+
 // `/coming-soon` is served as an STX view from
 // `storage/framework/defaults/resources/views/coming-soon.stx`. The
 // view auto-resolves through stx-serve, so no route registration is

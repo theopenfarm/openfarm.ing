@@ -1,0 +1,31 @@
+<script server>
+/*
+ * The console rail, shared by every dashboard page.
+ *
+ * `railActive` is set by the including page; a partial gets its own server
+ * scope in stx, so the value is read from the request path instead when the
+ * page has not set one. That keeps the rail honest on a page that forgets.
+ */
+const railPath = typeof railActive === 'string' ? railActive : ''
+</script>
+
+<nav class="console-rail" aria-label="{t:dashboard.sections}">
+  <a href="/dashboard" class="rail-item @if (railPath === 'overview') is-active @endif" @if (railPath === 'overview') aria-current="page" @endif aria-label="{t:dashboard.overview}">
+    <i class="text-[1.15rem] i-hugeicons-dashboard-square-01" aria-hidden="true"></i>
+  </a>
+  <a href="/dashboard/capabilities" class="rail-item @if (railPath === 'capabilities') is-active @endif" @if (railPath === 'capabilities') aria-current="page" @endif aria-label="{t:capabilities.title}">
+    <i class="text-[1.15rem] i-hugeicons-drone" aria-hidden="true"></i>
+  </a>
+  <a href="/dashboard/flights" class="rail-item @if (railPath === 'flights') is-active @endif" @if (railPath === 'flights') aria-current="page" @endif aria-label="{t:dashboard.flightsTitle}">
+    <i class="text-[1.15rem] i-hugeicons-calendar-03" aria-hidden="true"></i>
+  </a>
+  <a href="/dashboard/detections" class="rail-item @if (railPath === 'detections') is-active @endif" @if (railPath === 'detections') aria-current="page" @endif aria-label="{t:dashboard.detections}">
+    <i class="text-[1.15rem] i-hugeicons-search-area" aria-hidden="true"></i>
+  </a>
+  <a href="/field-report" class="rail-item" aria-label="{t:nav.fieldReport}">
+    <i class="text-[1.15rem] i-hugeicons-document-validation" aria-hidden="true"></i>
+  </a>
+  <a href="/account" class="rail-item rail-item-last" aria-label="{t:dashboard.settings}">
+    <i class="text-[1.15rem] i-hugeicons-user" aria-hidden="true"></i>
+  </a>
+</nav>

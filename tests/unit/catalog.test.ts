@@ -172,6 +172,9 @@ describe('translations', () => {
         'fieldReport.endpoints',
         'home.statFlightAfter',
         'featureDetail.zones',
+        // Dutch spells "open" exactly as English does; German has "offen" and
+        // is translated.
+        'detections.open',
       ])
       const untranslated = flatten(english)
         .filter(key => !allowed.has(key))

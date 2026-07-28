@@ -22,12 +22,41 @@ export default defineModel({
     useApi: {
       uri: 'treatment-maps',
       routes: ['index', 'show'],
+      // A holding's operating data, never public.
+      middleware: ['auth', 'farm-scope'],
     },
   },
 
   belongsTo: ['Mission', 'Field'],
 
   attributes: {
+    /*
+     * The relation keys are declared so the API can see them.
+     *
+     * Writable and filterable columns are built from a model's attributes, so
+     * an undeclared key cannot be set by a POST or narrowed with `?key=` -
+     * which is what every tenant-scoped read needs. The seeder still wires
+     * them: a declared key that comes out empty is filled from the parent it
+     * points at.
+     */
+    /** The flight this prescription came out of. */
+    mission_id: {
+      required: true,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
+    /** The parcel it applies to. */
+    field_id: {
+      required: false,
+      order: 0,
+      fillable: true,
+      validation: { rule: schema.number() },
+      factory: () => null,
+    },
+
     /** What the machine applies, or the mechanical operation performed. */
     product: {
       required: true,
