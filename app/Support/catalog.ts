@@ -322,6 +322,22 @@ export async function useCaseGroups(): Promise<Group<UseCaseContent>[]> {
  * travels with it so a caller cannot render these numbers without knowing
  * they are modelled rather than a customer's.
  */
+/**
+ * The stitched picture of the field, when a flight has one attached.
+ *
+ * `bounds` is the image's footprint in the same normalised 0..1 field space
+ * the boundary and the detections use, so a renderer can place it under them
+ * without a projection. Absent rather than empty when no stitch exists: the
+ * map has to be able to tell "no imagery" from "imagery covering nothing".
+ */
+export interface FieldImagery {
+  url: string
+  /** [minX, minY, maxX, maxY] in normalised field space. */
+  bounds: [number, number, number, number]
+  /** Ground sample distance of the stitched output, cm per pixel. */
+  resolutionCm: number
+}
+
 export interface FieldReport {
   sample: true
   farm: string
@@ -335,10 +351,39 @@ export interface FieldReport {
   detections: { kind: string, label: string, x: number, y: number, area_m2: number, severity: string, confidence: number }[]
   zones: { x: number, y: number, w: number, h: number, rate: number }[]
   boundary: [number, number][]
+  /** The stitched image of this field, or null when the flight has none. */
+  imagery: FieldImagery | null
   treatedHectares: number
   /** Share of the field the prescription switches the boom on for, 0..100. */
   treatedPercent: number
   speciesBreakdown: { label: string, count: number }[]
+}
+
+/**
+ * The imagery half of a flight record, or null when there is no stitch.
+ *
+ * Bounds default to the unit square: a flight that has an image but no
+ * recorded footprint is still worth showing, and covering the field exactly
+ * is the only assumption available. A stored footprint that is not four
+ * numbers is discarded rather than half-applied, because a partially read
+ * footprint puts the picture out of register with the markers on top of it -
+ * which looks like bad detection data rather than bad metadata.
+ */
+function toImagery(mission: { orthomosaic_url?: unknown, orthomosaic_bounds?: unknown, orthomosaic_resolution_cm?: unknown }): FieldImagery | null {
+  const url = String(mission.orthomosaic_url ?? '')
+  if (url.length === 0)
+    return null
+
+  const stored = parseJson<number[]>(mission.orthomosaic_bounds, [])
+  const bounds: FieldImagery['bounds'] = stored.length === 4 && stored.every(n => typeof n === 'number' && Number.isFinite(n))
+    ? [stored[0], stored[1], stored[2], stored[3]]
+    : [0, 0, 1, 1]
+
+  return {
+    url,
+    bounds,
+    resolutionCm: Number(mission.orthomosaic_resolution_cm ?? 0),
+  }
 }
 
 export async function fieldReport(): Promise<FieldReport | null> {
@@ -388,6 +433,7 @@ export async function fieldReport(): Promise<FieldReport | null> {
       })),
       zones: parseJson<FieldReport['zones']>(map?.zones, []),
       boundary: parseJson<[number, number][]>(field.boundary, []),
+      imagery: toImagery(mission),
       treatedHectares: treated,
       treatedPercent: hectares > 0 ? Number(((treated / hectares) * 100).toFixed(1)) : 0,
       speciesBreakdown: [...counts.entries()]
