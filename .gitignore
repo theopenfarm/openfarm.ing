@@ -58,9 +58,11 @@ discovered-packages.json
 # Runtime state. It all lives under storage/ now:
 #   storage/framework/stx      stx build cache + generated route manifest
 #   storage/framework/runtime  migration lock, temp bundles, CLI scratch
+#   storage/framework/database the migrator's model snapshot, per machine
 #   storage/cloud              cloud driver state + dashboard credentials
 storage/framework/stx/
 storage/framework/runtime/
+storage/framework/database/
 storage/cloud/
 
 # Pre-relocation names of the three directories above. stx and ts-cloud each
