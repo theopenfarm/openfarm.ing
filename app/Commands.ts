@@ -35,5 +35,8 @@ export default {
   // Hands the seeded holdings to the demo login, by name rather than by
   // whichever account the seeder happened to pick.
   'demo:account': 'DemoAccount',
+  // Attaches a flight's stitched orthomosaic, which is what lets the field
+  // map show the ground rather than a plan of it.
+  'imagery:attach': 'FieldImagery',
   'inspire': 'Inspire',
 } satisfies CommandRegistry
