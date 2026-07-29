@@ -21,8 +21,8 @@ import Mission from '../Models/Mission'
  * the sort of thing anyone wants to push through a browser.
  *
  *   buddy imagery:attach ./lindenbach-2026-04-18.webp
- *   buddy imagery:attach https://cdn.example/ortho.webp --field oberer-acker
- *   buddy imagery:attach ./ortho.webp --bounds " -0.04,-0.03,1.05,1.02" --resolution 4
+ *   buddy imagery:attach https://cdn.example/ortho.webp --field lindenbach-nord
+ *   buddy imagery:attach ./ortho.webp --bounds="-0.04,-0.03,1.05,1.02" --resolution 4
  *
  * `--bounds` is the image's footprint in the field's own normalised 0..1
  * space, as `minX,minY,maxX,maxY`. A stitch always covers more ground than
@@ -30,6 +30,10 @@ import Mission from '../Models/Mission'
  * normally slightly outside 0..1 — and without them the picture sits out of
  * register with every marker drawn on top of it. Omitted, it is assumed to
  * cover the field exactly.
+ *
+ * Note the `=`. A leading minus is the ordinary case for a footprint, and
+ * `--bounds -0.04,…` would be read as a flag by any argument parser, this one
+ * included, so the value has to be attached to the option.
  *
  * Serve a web-sized derivative, not the master. The map ships the image
  * inside the page, so a 400 MB GeoTIFF would be 400 MB on the wire; a few
@@ -52,10 +56,10 @@ export default function (cli: CLI) {
   cli
     .command('imagery:attach [source]', "Attach a stitched orthomosaic to a field's latest flight")
     .option('--field <slug>', 'Which field, by slug', { default: DEFAULT_FIELD_SLUG })
-    .option('--bounds <box>', 'Image footprint in normalised field space: minX,minY,maxX,maxY')
+    .option('--bounds <box>', 'Image footprint in normalised field space, as --bounds="minX,minY,maxX,maxY"')
     .option('--resolution <cm>', 'Ground sample distance of the stitch, cm per pixel')
     .example('buddy imagery:attach ./lindenbach-2026-04-18.webp')
-    .example('buddy imagery:attach ./ortho.webp --bounds "-0.04,-0.03,1.05,1.02" --resolution 4')
+    .example('buddy imagery:attach ./ortho.webp --bounds="-0.04,-0.03,1.05,1.02" --resolution 4')
     .action(async (source?: string, options?: Options) => {
       try {
         const result = await attach(source, options ?? {})
