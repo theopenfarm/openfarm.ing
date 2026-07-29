@@ -730,7 +730,7 @@ export const tsCloud: TsCloudConfig = {
       domain: 'openfarm.ing',
       // ts-cloud prepends the runtime, so this has to be a file bun can
       // execute — not the ./buddy shell wrapper.
-      start: 'bun node_modules/@stacksjs/buddy/dist/cli.js serve',
+      start: 'bun storage/framework/runtime/production/serve.js',
       port: 3060,
       // Runs after the repo and the resolved production env are in place and
       // before the systemd service starts. Migrate runs ONLY here: the API
@@ -743,6 +743,8 @@ export const tsCloud: TsCloudConfig = {
       preStart: [
         'bun install',
         'mkdir -p /var/lib/openfarming',
+        'mkdir -p storage/framework/runtime/production',
+        'bun build --production --target=bun --packages=external app/ProductionServer.ts --outdir storage/framework/runtime/production --entry-naming serve.js',
         'bun node_modules/@stacksjs/buddy/dist/cli.js migrate || true',
         'bun node_modules/@stacksjs/buddy/dist/cli.js catalog:sync',
       ],
