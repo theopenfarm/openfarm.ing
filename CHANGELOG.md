@@ -1,5 +1,15 @@
 # Stacks Changelog
 
+[Compare changes](https://github.com/theopenfarm/openfarm.ing/compare/v0.70.54...v0.70.55)
+
+## ⚡ Performance Improvements
+
+- import the production server directly ([d8bad96](https://github.com/theopenfarm/openfarm.ing/commit/d8bad96)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/theopenfarm/openfarm.ing/compare/v0.70.53...v0.70.54)
 
 ## ⚡ Performance Improvements
