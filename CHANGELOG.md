@@ -1,5 +1,97 @@
 # Stacks Changelog
 
+## v0.70.53
+
+## ✨ Features
+
+- **dashboard**: manage every marketed capability from the console ([4e1df0d](https://github.com/theopenfarm/openfarm.ing/commit/4e1df0d)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **auth**: Sign in with Apple credentials ([0f20941](https://github.com/theopenfarm/openfarm.ing/commit/0f20941)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **demo**: buddy demo:account, and stacks 0.70.189 ([13354b8](https://github.com/theopenfarm/openfarm.ing/commit/13354b8)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **seed**: seed every model with domain-plausible data ([7d93bd9](https://github.com/theopenfarm/openfarm.ing/commit/7d93bd9)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **console**: real icons, and a layout built for a tablet in landscape ([4165c0a](https://github.com/theopenfarm/openfarm.ing/commit/4165c0a)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **dashboard**: a console, and always-visible provider buttons ([f4101b5](https://github.com/theopenfarm/openfarm.ing/commit/f4101b5)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **i18n**: complete German and Dutch across every page ([5d05dc0](https://github.com/theopenfarm/openfarm.ing/commit/5d05dc0)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **i18n**: put every page's copy through the translation pass ([a1ef9a3](https://github.com/theopenfarm/openfarm.ing/commit/a1ef9a3)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **mail**: akshit@ mailbox and the akki@ alias ([f13f8b1](https://github.com/theopenfarm/openfarm.ing/commit/f13f8b1)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **mail**: openfarm.ing mailboxes on the shared mail server ([d33b694](https://github.com/theopenfarm/openfarm.ing/commit/d33b694)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **dashboard**: the farmer's own fields and flights ([caaeabf](https://github.com/theopenfarm/openfarm.ing/commit/caaeabf)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **auth**: sign in with Google or Apple ([cc03d3c](https://github.com/theopenfarm/openfarm.ing/commit/cc03d3c)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **auth**: login, register and account pages ([2303edc](https://github.com/theopenfarm/openfarm.ing/commit/2303edc)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **auth**: sign in and sign up from the site's own forms ([df2196f](https://github.com/theopenfarm/openfarm.ing/commit/df2196f)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **og**: draw the real mark on the share cards ([df3683c](https://github.com/theopenfarm/openfarm.ing/commit/df3683c)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **i18n**: translate the catalog copy and the share card URL ([2077efe](https://github.com/theopenfarm/openfarm.ing/commit/2077efe)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **favicon**: follow the tab's colour scheme ([af083c7](https://github.com/theopenfarm/openfarm.ing/commit/af083c7)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **og**: a branded share card for every page ([14ea09d](https://github.com/theopenfarm/openfarm.ing/commit/14ea09d)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **i18n**: serve the site in English, German and Dutch ([eb48565](https://github.com/theopenfarm/openfarm.ing/commit/eb48565)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **email**: capture subscribers with the framework's own pipeline ([18fe092](https://github.com/theopenfarm/openfarm.ing/commit/18fe092)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **cloud**: deploy as a tenant on the shared stacks box ([417aca4](https://github.com/theopenfarm/openfarm.ing/commit/417aca4)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **site**: capability pages, use-case pages and the public API ([1a5843d](https://github.com/theopenfarm/openfarm.ing/commit/1a5843d)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **ui**: design system, site chrome and the home page ([4e53993](https://github.com/theopenfarm/openfarm.ing/commit/4e53993)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **catalog**: author the capability catalog and the demonstration field ([0ecf7c1](https://github.com/theopenfarm/openfarm.ing/commit/0ecf7c1)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **models**: define the Open Farming domain ([cbbc430](https://github.com/theopenfarm/openfarm.ing/commit/cbbc430)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **framework**: sync `buddy unpublish:core` from stacksjs/stacks ([f903049](https://github.com/theopenfarm/openfarm.ing/commit/f903049)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **framework**: sync `buddy unpublish:core` from stacksjs/stacks ([9a56b09](https://github.com/theopenfarm/openfarm.ing/commit/9a56b09)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🐛 Bug Fixes
+
+- pin production runtime environment ([9943cec](https://github.com/theopenfarm/openfarm.ing/commit/9943cec)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **buddy-bot**: point dependency config at this repository ([d523363](https://github.com/theopenfarm/openfarm.ing/commit/d523363)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **buddy**: preserve healthy Bun fallback ([561a349](https://github.com/theopenfarm/openfarm.ing/commit/561a349)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **theme**: one owner for light/dark, and a favicon that follows it ([9cef6d6](https://github.com/theopenfarm/openfarm.ing/commit/9cef6d6)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: pin one @stacksjs/ts-cloud across the tree ([ee8c056](https://github.com/theopenfarm/openfarm.ing/commit/ee8c056)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **models**: keep seeded farms unowned ([ca40e2b](https://github.com/theopenfarm/openfarm.ing/commit/ca40e2b)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **i18n**: translate the pricing tiers and the last two headlines ([406aa89](https://github.com/theopenfarm/openfarm.ing/commit/406aa89)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **i18n**: the last hardcoded headings ([8d0bcc0](https://github.com/theopenfarm/openfarm.ing/commit/8d0bcc0)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **mail**: key the akki alias so it actually forwards ([e4f6d19](https://github.com/theopenfarm/openfarm.ing/commit/e4f6d19)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **i18n**: translate the detail pages' badges and breadcrumbs ([db75ee4](https://github.com/theopenfarm/openfarm.ing/commit/db75ee4)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **mobile**: a navigation bar a phone can actually use ([e7cbce9](https://github.com/theopenfarm/openfarm.ing/commit/e7cbce9)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **meta**: one clean head per page, and a real home-screen icon ([b6c9f45](https://github.com/theopenfarm/openfarm.ing/commit/b6c9f45)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **scripts**: run the installed CLI, not the vendored source ([ca3da77](https://github.com/theopenfarm/openfarm.ing/commit/ca3da77)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **nav**: stop the mega menu flickering, widen the use-case panel ([9d82770](https://github.com/theopenfarm/openfarm.ing/commit/9d82770)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **nav**: restore the mega menu layout, keep the page and theme on a locale switch ([8037dbd](https://github.com/theopenfarm/openfarm.ing/commit/8037dbd)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **site**: resolve includes, close the mega menu, and set the share metadata ([734acfb](https://github.com/theopenfarm/openfarm.ing/commit/734acfb)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **catalog**: publish content with a buddy command, not a seeder class ([0a9ae9d](https://github.com/theopenfarm/openfarm.ing/commit/0a9ae9d)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **framework**: repair `buddy new` and dev-server port claiming ([58453a8](https://github.com/theopenfarm/openfarm.ing/commit/58453a8)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## ⚡ Performance Improvements
+
+- use a dedicated production server ([7abe76b](https://github.com/theopenfarm/openfarm.ing/commit/7abe76b)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **cloud**: use bodyless monitoring probes ([39a589e](https://github.com/theopenfarm/openfarm.ing/commit/39a589e)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **cloud**: adopt event-driven dashboard workers ([409e5de](https://github.com/theopenfarm/openfarm.ing/commit/409e5de)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## ✅ Tests
+
+- **og**: keep every page's share card honest ([5214399](https://github.com/theopenfarm/openfarm.ing/commit/5214399)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 💚 Continuous Integration
+
+- make the pipeline test this application, not the framework ([d57109f](https://github.com/theopenfarm/openfarm.ing/commit/d57109f)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deploy**: give the push-to-deploy job the credentials it needs ([f58eeea](https://github.com/theopenfarm/openfarm.ing/commit/f58eeea)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🔧 Chores
+
+- **deps**: update buddy dashboard integration ([05fa56a](https://github.com/theopenfarm/openfarm.ing/commit/05fa56a)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: stacks 0.70.194 ([c915573](https://github.com/theopenfarm/openfarm.ing/commit/c915573)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: update ts-cloud to 0.7.78 ([3841c97](https://github.com/theopenfarm/openfarm.ing/commit/3841c97)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: stx 0.2.110 in both lockfiles ([e1ea964](https://github.com/theopenfarm/openfarm.ing/commit/e1ea964)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: pantry ts-cloud 0.7.63 ([5e3c86f](https://github.com/theopenfarm/openfarm.ing/commit/5e3c86f)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: ts-cloud 0.7.63 (deploy lock + live-release staging) ([a67c4c0](https://github.com/theopenfarm/openfarm.ing/commit/a67c4c0)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: stacks 0.70.190 ([5826b0c](https://github.com/theopenfarm/openfarm.ing/commit/5826b0c)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **apple**: document where the domain-association file goes ([a42f514](https://github.com/theopenfarm/openfarm.ing/commit/a42f514)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: stx 0.2.104 ([3b738c0](https://github.com/theopenfarm/openfarm.ing/commit/3b738c0)) _(by Chris <chrisbreuer93@gmail.com>)_
+- wip ([449125b](https://github.com/theopenfarm/openfarm.ing/commit/449125b)) _(by Chris <chrisbreuer93@gmail.com>)_
+- wip ([d79c60a](https://github.com/theopenfarm/openfarm.ing/commit/d79c60a)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **env**: encrypt .env.production ([a6a8c8c](https://github.com/theopenfarm/openfarm.ing/commit/a6a8c8c)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **cloud**: use the plain site keys ts-cloud slug-prefixes on a shared box ([8292bd6](https://github.com/theopenfarm/openfarm.ing/commit/8292bd6)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: stacks 0.70.165 ([d24f0be](https://github.com/theopenfarm/openfarm.ing/commit/d24f0be)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **framework**: move to the published @stacksjs packages ([9e79865](https://github.com/theopenfarm/openfarm.ing/commit/9e79865)) _(by Chris <chrisbreuer93@gmail.com>)_
+- rebrand the project as Open Farming ([e3827b3](https://github.com/theopenfarm/openfarm.ing/commit/e3827b3)) _(by Chris <chrisbreuer93@gmail.com>)_
+- bootstrap Stacks application ([6f058d8](https://github.com/theopenfarm/openfarm.ing/commit/6f058d8)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/stacks/compare/v0.70.162...v0.70.163)
 
 ## ✨ Features

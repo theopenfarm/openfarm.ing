@@ -1,7 +1,7 @@
 {
   "name": "openfarming",
   "type": "module",
-  "version": "0.70.52",
+  "version": "0.70.53",
   "private": true,
   "description": "Open Farming - autonomous drone scouting and targeted treatment for farms.",
   "author": "Chris Breuer <chrisbreuer93@gmail.com>",
