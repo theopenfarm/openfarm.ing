@@ -1,5 +1,15 @@
 # Stacks Changelog
 
+[Compare changes](https://github.com/theopenfarm/openfarm.ing/compare/v0.70.53...v0.70.54)
+
+## ⚡ Performance Improvements
+
+- bypass the CLI in production ([a81cf8a](https://github.com/theopenfarm/openfarm.ing/commit/a81cf8a)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 ## v0.70.53
 
 ## ✨ Features
