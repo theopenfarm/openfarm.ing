@@ -1,5 +1,15 @@
 # Stacks Changelog
 
+[Compare changes](https://github.com/theopenfarm/openfarm.ing/compare/v0.70.55...v0.70.56)
+
+## 🐛 Bug Fixes
+
+- preserve dashboards during partial deploys ([354b682](https://github.com/theopenfarm/openfarm.ing/commit/354b682)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/theopenfarm/openfarm.ing/compare/v0.70.54...v0.70.55)
 
 ## ⚡ Performance Improvements
