@@ -132,6 +132,47 @@ export default defineModel({
       factory: faker => seed.missionNote(faker),
     },
 
+    /**
+     * The stitched image of the field this flight produced.
+     *
+     * Only the address: the file is served from `public/` or a bucket, and an
+     * orthomosaic is far too large to sit in a row. Empty until the stitch
+     * has been attached, which is why every reader treats it as optional.
+     */
+    orthomosaic_url: {
+      required: false,
+      order: 9,
+      fillable: true,
+      validation: { rule: schema.string().max(600) },
+      factory: () => '',
+    },
+
+    /**
+     * Where the image sits in the field's own normalised space.
+     *
+     * `[minX, minY, maxX, maxY]`, 0..1 on each axis, matching the coordinates
+     * the boundary and the detections already use. A stitch overflies the
+     * boundary, so this is normally a little outside 0..1 on every side, and
+     * without it the picture would be out of register with the markers drawn
+     * over it.
+     */
+    orthomosaic_bounds: {
+      required: false,
+      order: 10,
+      fillable: true,
+      validation: { rule: schema.string().max(200) },
+      factory: () => '',
+    },
+
+    /** Ground sample distance of the stitched output, usually coarser than the capture. */
+    orthomosaic_resolution_cm: {
+      required: false,
+      order: 11,
+      fillable: true,
+      validation: { rule: schema.number().min(0) },
+      factory: () => null,
+    },
+
     /** Why a flight did not happen, when status says it did not. */
     cancellation_reason: {
       required: false,
