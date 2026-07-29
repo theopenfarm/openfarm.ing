@@ -1,4 +1,4 @@
-import type { FieldReport } from './catalog'
+import type { FieldImagery, FieldReport } from './catalog'
 
 /**
  * Renders the demonstration field as SVG, server side, from the flight record.
@@ -18,6 +18,16 @@ export interface FieldMapOptions {
   showDetections?: boolean
   showZones?: boolean
   showTramlines?: boolean
+  /**
+   * Draw the flight's stitched image under the vectors, when it has one.
+   *
+   * On by default, because a map that has the ground available and shows a
+   * flat green rectangle instead is hiding the most useful layer it owns.
+   * Whether the viewer actually SEES it is a separate question: the switcher
+   * ships both states in one SVG and lets CSS choose, so this only controls
+   * whether the layer exists at all.
+   */
+  showImagery?: boolean
   /** Marker radius in field-space units. */
   markerScale?: number
   /** Accessible description. Required: the map carries real information. */
@@ -40,20 +50,59 @@ function esc(value: string): string {
     .replace(/"/g, '&quot;')
 }
 
+/**
+ * The stitched image, registered to the field and clipped to its boundary.
+ *
+ * `preserveAspectRatio="none"` is correct rather than lazy: an orthomosaic is
+ * already rectified to a rectangle of ground, and `bounds` says which
+ * rectangle, so stretching it to exactly that footprint is what puts a pixel
+ * over the square metre it was taken of. Letting it letterbox instead would
+ * shift every pixel away from the detection drawn on top of it.
+ *
+ * Clipped to the boundary because a stitch always overflies the field, and
+ * the neighbour's ground is not ours to publish.
+ */
+function imageryLayer(imagery: FieldImagery, clipId: string): string {
+  const [minX, minY, maxX, maxY] = imagery.bounds
+  const width = maxX - minX
+  const height = maxY - minY
+
+  // A footprint with no area cannot be drawn, and an inverted one would draw
+  // the field mirrored, which is worse than showing no imagery at all.
+  if (!(width > 0) || !(height > 0))
+    return ''
+
+  return [
+    `<g clip-path="url(#${clipId})">`,
+    `<image class="orthomosaic" href="${esc(imagery.url)}"`,
+    ` x="${minX}" y="${minY}" width="${width}" height="${height}"`,
+    ' preserveAspectRatio="none"/>',
+    '</g>',
+  ].join('')
+}
+
 export function renderFieldMap(report: FieldReport, options: FieldMapOptions): string {
   const {
     showDetections = true,
     showZones = true,
     showTramlines = true,
+    showImagery = true,
     markerScale = 1,
     title,
   } = options
 
   const clipId = `field-clip-${Math.abs(hash(title))}`
   const parts: string[] = []
+  const imagery = showImagery && report.imagery ? imageryLayer(report.imagery, clipId) : ''
 
   parts.push(`<clipPath id="${clipId}"><path d="${boundaryPath(report.boundary)}"/></clipPath>`)
   parts.push(`<path class="boundary" d="${boundaryPath(report.boundary)}"/>`)
+
+  // Under everything else: the picture is the ground, the vectors are what we
+  // found on it. It sits after the boundary path so the boundary's own fill
+  // stays available as the backdrop when the imagery is switched off.
+  if (imagery)
+    parts.push(imagery)
 
   if (showTramlines) {
     // The four corridors the sprayer runs on. They are where a good share of
@@ -86,8 +135,10 @@ export function renderFieldMap(report: FieldReport, options: FieldMapOptions): s
     parts.push(`<g clip-path="url(#${clipId})">${dots}</g>`)
   }
 
+  const classes = imagery ? 'fieldmap fieldmap-imagery' : 'fieldmap'
+
   return [
-    `<svg class="fieldmap" viewBox="0 0 1 1" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(title)}" xmlns="http://www.w3.org/2000/svg">`,
+    `<svg class="${classes}" viewBox="0 0 1 1" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(title)}" xmlns="http://www.w3.org/2000/svg">`,
     `<title>${esc(title)}</title>`,
     ...parts,
     '</svg>',

@@ -461,6 +461,23 @@ a { color: inherit; }
 .fieldmap .detection { fill: var(--accent); }
 .fieldmap .tramline { stroke: var(--crop); stroke-opacity: 0.28; stroke-width: 0.0025; }
 
+/* The stitched image, when a flight has one attached.
+
+  Hidden by default and revealed by the switcher: both states ship in the same
+  SVG, so the layer is present in the markup whether or not it is on screen.
+  `visibility` rather than `display`, because a hidden `display:none` image is
+  not fetched by every engine and the first switch would then land on an empty
+  frame. */
+.fieldmap .orthomosaic { visibility: hidden; }
+
+/* Over the photo the flat crop fill would bury the ground it is meant to
+  show, so the boundary keeps its stroke and loses its fill, and the tramlines
+  step back: on imagery they are visible in the picture itself. */
+.mapswitch-input-imagery:checked ~ .fieldmap .orthomosaic { visibility: visible; }
+.mapswitch-input-imagery:checked ~ .fieldmap .boundary { fill: none; stroke: #fff; stroke-opacity: 0.85; }
+.mapswitch-input-imagery:checked ~ .fieldmap .tramline { stroke: #fff; stroke-opacity: 0.22; }
+.mapswitch-input-imagery:checked ~ .fieldmap .zone { fill-opacity: 0.42; }
+
 .legend-swatch {
   width: 0.85rem;
   height: 0.85rem;
