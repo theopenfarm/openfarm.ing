@@ -17,6 +17,7 @@ const databaseConfig = dialect === 'sqlite'
 export default {
   verbose: true,
   dialect,
+  snapshotDir: '.qb',
   database: databaseConfig,
   timestamps: {
     createdAt: 'created_at',

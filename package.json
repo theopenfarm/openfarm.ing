@@ -95,9 +95,9 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "@stacksjs/buddy": "^0.70.196",
+    "@stacksjs/buddy": "^0.70.224",
     "@stacksjs/stx": "^0.2.110",
-    "@stacksjs/ts-cloud": "^0.7.78",
+    "@stacksjs/ts-cloud": "^0.7.91",
     "bun-plugin-stx": "^0.2.110",
     "bun-query-builder": "^0.1.59",
     "stacks": "^0.70.194",
@@ -121,7 +121,7 @@
     "pickier": "0.1.43"
   },
   "overrides": {
-    "@stacksjs/ts-cloud": "^0.7.78",
+    "@stacksjs/ts-cloud": "^0.7.91",
     "@stacksjs/stx": "^0.2.110",
     "bun-plugin-stx": "^0.2.110"
   }
