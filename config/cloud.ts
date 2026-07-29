@@ -749,6 +749,7 @@ export const tsCloud: TsCloudConfig = {
       env: {
         HOST: '127.0.0.1',
         APP_ENV: 'production',
+        NODE_ENV: 'production',
         APP_NAME: 'Open Farming',
         APP_URL: 'openfarm.ing',
         APP_KEY: env.APP_KEY || '',
@@ -769,6 +770,7 @@ export const tsCloud: TsCloudConfig = {
       env: {
         HOST: '127.0.0.1',
         APP_ENV: 'production',
+        NODE_ENV: 'production',
         APP_NAME: 'Open Farming',
         APP_URL: 'openfarm.ing',
         APP_KEY: env.APP_KEY || '',
