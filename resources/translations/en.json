@@ -952,7 +952,10 @@
     "loadIt": "to load it.",
     "backToStart": "Back to the start",
     "getNext": "Get the next one",
-    "minutesAirborne": "minutes airborne"
+    "minutesAirborne": "minutes airborne",
+    "viewPlan": "Plan",
+    "viewImagery": "Imagery",
+    "imageryCaption": "Stitched from the flight at {resolution} cm/px"
   },
   "groups": {
     "features": {

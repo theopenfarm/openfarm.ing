@@ -952,7 +952,10 @@
     "loadIt": "om het te laden.",
     "backToStart": "Terug naar het begin",
     "getNext": "Ontvang de volgende",
-    "minutesAirborne": "minuten in de lucht"
+    "minutesAirborne": "minuten in de lucht",
+    "viewPlan": "Kaart",
+    "viewImagery": "Luchtbeeld",
+    "imageryCaption": "Samengesteld uit de vlucht, {resolution} cm/px"
   },
   "groups": {
     "features": {

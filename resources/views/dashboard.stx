@@ -24,7 +24,7 @@ const report = farmer ? await catalog.fieldReport() : null
 // The imagery panel. The same renderer the field report uses, so the picture
 // on the dashboard is the picture behind the numbers rather than a stock
 // photograph of somebody else's field.
-const mapSvg = report ? fieldmap.renderFieldMap(report, { title: report.field, markerScale: 0.8 }) : ''
+const mapSvg = report ? fieldmap.renderFieldMapSwitch(report, { title: report.field, markerScale: 0.8 }) : ''
 
 const treatedShare = data?.totals?.hectares
   ? Math.round((data.totals.treatedHectares / data.totals.hectares) * 100)

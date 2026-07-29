@@ -21,11 +21,10 @@ export interface FieldMapOptions {
   /**
    * Draw the flight's stitched image under the vectors, when it has one.
    *
-   * On by default, because a map that has the ground available and shows a
-   * flat green rectangle instead is hiding the most useful layer it owns.
-   * Whether the viewer actually SEES it is a separate question: the switcher
-   * ships both states in one SVG and lets CSS choose, so this only controls
-   * whether the layer exists at all.
+   * Off by default, and switched on by `renderFieldMapSwitch`. The layer
+   * starts hidden and is revealed by CSS, so a map that emits it without a
+   * switch over it downloads an orthomosaic nobody can ever see - which is
+   * the whole page weight of the feature for none of its value.
    */
   showImagery?: boolean
   /** Marker radius in field-space units. */
@@ -86,7 +85,7 @@ export function renderFieldMap(report: FieldReport, options: FieldMapOptions): s
     showDetections = true,
     showZones = true,
     showTramlines = true,
-    showImagery = true,
+    showImagery = false,
     markerScale = 1,
     title,
   } = options
@@ -142,6 +141,57 @@ export function renderFieldMap(report: FieldReport, options: FieldMapOptions): s
     `<title>${esc(title)}</title>`,
     ...parts,
     '</svg>',
+  ].join('')
+}
+
+export interface MapSwitchOptions extends FieldMapOptions {
+  /**
+   * Tab copy. Defaults to translation tokens rather than English, because the
+   * translation pass runs over the finished HTML and a view has no locale to
+   * hand at render time - the same trick the catalog's tokenised copy uses.
+   */
+  planLabel?: string
+  imageryLabel?: string
+}
+
+/**
+ * The map with a plan/imagery switch over it, when the flight has a stitch.
+ *
+ * Two radios and CSS rather than a script: the map is server rendered from
+ * the flight record, and making the one control on it depend on JavaScript
+ * would be the only part of this page that does. Both states live in one SVG,
+ * so switching is a repaint with nothing to fetch and nothing to re-render.
+ *
+ * With no imagery attached this is exactly `renderFieldMap` - no tabs, no
+ * empty state, no control that switches to a blank frame.
+ */
+export function renderFieldMapSwitch(report: FieldReport, options: MapSwitchOptions): string {
+  const {
+    planLabel = '{t:fieldReport.viewPlan}',
+    imageryLabel = '{t:fieldReport.viewImagery}',
+    ...mapOptions
+  } = options
+
+  const wanted = mapOptions.showImagery !== false
+  const map = renderFieldMap(report, { ...mapOptions, showImagery: wanted })
+
+  if (!report.imagery || !wanted)
+    return map
+
+  // Derived from the title, which is already unique per map on a page: two
+  // switchers sharing a radio group would steer each other's map.
+  const id = `mapview-${Math.abs(hash(options.title))}`
+
+  return [
+    '<div class="mapswitch">',
+    `<input type="radio" class="mapswitch-input mapswitch-input-plan" name="${id}" id="${id}-plan" checked>`,
+    `<input type="radio" class="mapswitch-input mapswitch-input-imagery" name="${id}" id="${id}-imagery">`,
+    '<div class="mapswitch-tabs">',
+    `<label class="mapswitch-tab mapswitch-tab-plan" for="${id}-plan">${esc(planLabel)}</label>`,
+    `<label class="mapswitch-tab mapswitch-tab-imagery" for="${id}-imagery">${esc(imageryLabel)}</label>`,
+    '</div>',
+    map,
+    '</div>',
   ].join('')
 }
 

@@ -478,6 +478,54 @@ a { color: inherit; }
 .mapswitch-input-imagery:checked ~ .fieldmap .tramline { stroke: #fff; stroke-opacity: 0.22; }
 .mapswitch-input-imagery:checked ~ .fieldmap .zone { fill-opacity: 0.42; }
 
+/* The plan/imagery switch.
+
+  Radios rather than buttons: the choice is one-of-two, the browser already
+  knows how to make that keyboard operable, and the whole control then works
+  with no script on a page that is otherwise entirely server rendered. The
+  inputs are moved out of sight rather than hidden, because `display: none`
+  would take them out of the focus order with them. */
+.mapswitch { position: relative; }
+
+.mapswitch-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mapswitch-tabs {
+  display: inline-flex;
+  gap: 0.15rem;
+  margin-bottom: 0.7rem;
+  padding: 0.15rem;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.mapswitch-tab {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-2);
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mapswitch-tab:hover { color: var(--text); }
+
+.mapswitch-input-plan:checked ~ .mapswitch-tabs .mapswitch-tab-plan,
+.mapswitch-input-imagery:checked ~ .mapswitch-tabs .mapswitch-tab-imagery {
+  color: var(--text);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.mapswitch-input:focus-visible ~ .mapswitch-tabs { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .legend-swatch {
   width: 0.85rem;
   height: 0.85rem;

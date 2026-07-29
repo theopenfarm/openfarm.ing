@@ -952,7 +952,10 @@
     "loadIt": "um ihn zu laden.",
     "backToStart": "Zurück zum Anfang",
     "getNext": "Den nächsten bekommen",
-    "minutesAirborne": "Minuten in der Luft"
+    "minutesAirborne": "Minuten in der Luft",
+    "viewPlan": "Karte",
+    "viewImagery": "Luftbild",
+    "imageryCaption": "Aus dem Flug zusammengesetzt, {resolution} cm/px"
   },
   "groups": {
     "features": {

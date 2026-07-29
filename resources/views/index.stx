@@ -15,7 +15,7 @@ const report = await catalog.fieldReport()
 // The hero map is the real prescription: boundary, tramlines, every detection
 // and every treatment zone from the seeded flight.
 const heroMap = report
-  ? fieldmap.renderFieldMap(report, { title: `Weed map of ${report.field}: ${report.detections.length} detections and ${report.zones.length} treatment zones` })
+  ? fieldmap.renderFieldMapSwitch(report, { title: `Weed map of ${report.field}: ${report.detections.length} detections and ${report.zones.length} treatment zones` })
   : ''
 const zonesOnlyMap = report
   ? fieldmap.renderFieldMap(report, { title: 'Treatment zones only, without the individual detections', showDetections: false })

@@ -11,7 +11,10 @@ const pagePath = '/field-report'
 const report = await catalog.fieldReport()
 const subscribeSource = 'field-report'
 
-const fullMap = report ? fieldmap.renderFieldMap(report, { title: `Weed map of ${report.field} with detections and treatment zones` }) : ''
+// The switcher rather than the bare map: this page is the full record, so if
+// the flight brought back a stitched image of the ground it belongs here,
+// under the same detections. Falls back to the plain map when there is none.
+const fullMap = report ? fieldmap.renderFieldMapSwitch(report, { title: `Weed map of ${report.field} with detections and treatment zones` }) : ''
 const treatedBar = report ? fieldmap.renderTreatedBar(report) : ''
 
 // The detection table would be 98 rows, which is a data dump rather than a
