@@ -95,13 +95,13 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "@stacksjs/buddy": "^0.70.226",
-    "@stacksjs/stx": "^0.2.110",
-    "@stacksjs/ts-cloud": "^0.7.92",
-    "bun-plugin-stx": "^0.2.110",
-    "bun-query-builder": "^0.1.59",
+    "@stacksjs/buddy": "^0.70.324",
+    "@stacksjs/stx": "^0.2.166",
+    "@stacksjs/ts-cloud": "^0.7.108",
+    "bun-plugin-stx": "^0.2.166",
+    "bun-query-builder": "^0.2.25",
     "stacks": "^0.70.194",
-    "ts-images": "^0.2.5"
+    "ts-images": "^0.2.8"
   },
   "workspaces": [
     "storage/framework",
@@ -117,8 +117,8 @@
     "commit-msg": "bun x gitlint --edit \"$1\""
   },
   "devDependencies": {
-    "@iconify-json/hugeicons": "^1.2.31",
-    "pickier": "0.1.43"
+    "@iconify-json/hugeicons": "^1.2.32",
+    "pickier": "0.1.49"
   },
   "overrides": {
     "@stacksjs/ts-cloud": "^0.7.92",
