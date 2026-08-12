@@ -122,7 +122,10 @@ export default defineModel({
       required: false,
       order: 5,
       fillable: true,
-      validation: { rule: schema.date() },
+      // A string for the same reason as `missions.flown_at`: the scheduler
+      // writes `new Date().toISOString()` here, and `schema.date()` rejects
+      // every datetime string, so this job failed on each nightly run.
+      validation: { rule: schema.string().max(40) },
       factory: () => null,
     },
   },

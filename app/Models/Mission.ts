@@ -91,7 +91,16 @@ export default defineModel({
       required: false,
       order: 3,
       fillable: true,
-      validation: { rule: schema.date() },
+      /*
+       * A string, not `schema.date()`.
+       *
+       * This column holds a moment, not a day: the factory writes an ISO
+       * timestamp and the demonstration flight is a dawn one. `schema.date()`
+       * takes a `Date` or a date-only `YYYY-MM-DD` string and rejects every
+       * datetime string, and a `Date` cannot be bound to SQLite, so there is
+       * no value that satisfies both it and the driver.
+       */
+      validation: { rule: schema.string().max(40) },
       factory: faker => seed.flownOn(faker),
     },
 
