@@ -98,11 +98,34 @@ async function syncCatalog(): Promise<void> {
   await UseCase.truncate()
   await Feature.truncate()
 
+  /*
+   * What `buddy imagery:attach` published outlives the rewrite.
+   *
+   * The demonstration flight is deleted and recreated below, so a stitch
+   * attached to it would be dropped by the next deploy - and attaching one is
+   * a publishing step somebody ran by hand against a file the deploy has
+   * never seen, so nothing would put it back. The three orthomosaic columns
+   * are therefore read off the outgoing flight and written onto the new one.
+   *
+   * Only the columns, not the file: the image itself lives under `public/`
+   * or at a URL, and neither is this command's to manage.
+   */
+  let publishedImagery: Record<string, unknown> | null = null
+
   const demoFarm = await Farm.where('slug', DEMO_FARM.slug).first()
   if (demoFarm?.id) {
     const farmId = Number(demoFarm.id)
     const missions = await Mission.where('farm_id', farmId).get()
     const missionIds = missions.map(row => Number(row.id))
+
+    const stitched = missions.find(row => String(row.orthomosaic_url ?? '').length > 0)
+    if (stitched) {
+      publishedImagery = {
+        orthomosaic_url: String(stitched.orthomosaic_url),
+        orthomosaic_bounds: String(stitched.orthomosaic_bounds ?? ''),
+        orthomosaic_resolution_cm: Number(stitched.orthomosaic_resolution_cm ?? 0),
+      }
+    }
 
     for (const missionId of missionIds) {
       await TreatmentMap.where('mission_id', missionId).delete()
@@ -193,6 +216,7 @@ async function syncCatalog(): Promise<void> {
     farm_id: farm.id,
     field_id: field.id,
     drone_id: drone.id,
+    ...publishedImagery,
   }) as Record<string, any>
 
   await Detection.createMany(detections.map(d => ({

@@ -1,11 +1,13 @@
 import type { FeatureCategory, FeatureContent, FeatureStep } from './content/features'
 import type { SeasonStage, UseCaseContent, UseCaseSegment } from './content/use-cases'
 import Detection from '../Models/Detection'
+import Farm from '../Models/Farm'
 import Feature from '../Models/Feature'
 import Field from '../Models/Field'
 import Mission from '../Models/Mission'
 import TreatmentMap from '../Models/TreatmentMap'
 import UseCase from '../Models/UseCase'
+import { DEMO_FIELD } from './content/demo-field'
 import { featureCategories, features as authoredFeatures } from './content/features'
 import { useCaseSegments, useCases as authoredUseCases } from './content/use-cases'
 
@@ -315,14 +317,6 @@ export async function useCaseGroups(): Promise<Group<UseCaseContent>[]> {
 }
 
 /**
- * The demonstration field, as the site shows it.
- *
- * Assembled from the flight record: the field, the mission that flew it, every
- * detection it produced and the prescription that came out. `sample: true`
- * travels with it so a caller cannot render these numbers without knowing
- * they are modelled rather than a customer's.
- */
-/**
  * The stitched picture of the field, when a flight has one attached.
  *
  * `bounds` is the image's footprint in the same normalised 0..1 field space
@@ -386,20 +380,37 @@ function toImagery(mission: { orthomosaic_url?: unknown, orthomosaic_bounds?: un
   }
 }
 
+/**
+ * The demonstration field, as the site shows it.
+ *
+ * Assembled from the flight record: the field, the mission that flew it, every
+ * detection it produced and the prescription that came out. `sample: true`
+ * travels with it so a caller cannot render these numbers without knowing
+ * they are modelled rather than a customer's.
+ */
 export async function fieldReport(): Promise<FieldReport | null> {
   return query(async () => {
-    const field = await Field.with('farm').first()
+    // Pinned to the published demonstration field by slug, not to whichever
+    // row comes back first. On a fresh instance those are the same field. On
+    // production, where farmers' own holdings sit in the same table, `first()`
+    // returned somebody else's parcel and the public report served a real
+    // holding's numbers under `sample: true`.
+    //
+    // Null rather than a substitute when it has not been published: an
+    // instance that has never run `catalog:sync` should say so, not answer
+    // with a field none of the copy describes.
+    const field = await Field.where('slug', DEMO_FIELD.slug).first()
     if (!field)
       return null
 
-    // `with()` narrows the relation NAME but not the loaded record's shape:
-    // resolving 'farm' to the Farm model's attributes would need a type-level
-    // registry mapping relation names to definitions, which the ORM does not
-    // have. Everything else on this path is fully inferred, so the cast is
-    // confined to the one property that genuinely is not.
-    const farm = field.farm as { name?: string, region?: string } | undefined
+    // Fetched by id rather than through `with('farm')`, which narrows the
+    // relation NAME but not the loaded record's shape and so needed a cast.
+    const farm = await Farm.where('id', Number(field.farm_id)).first()
 
-    const mission = await Mission.where('field_id', field.id).first()
+    // The latest flight, which is the one `buddy imagery:attach` attaches a
+    // stitch to. Taking `first()` here could put the report on one flight and
+    // the picture on another.
+    const mission = await Mission.where('field_id', field.id).orderBy('flown_at', 'desc').first()
     if (!mission)
       return null
 

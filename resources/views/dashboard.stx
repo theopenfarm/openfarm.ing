@@ -120,6 +120,12 @@ const treatedShare = data?.totals?.hectares
               <div class="console-legend">
                 <span><span class="legend-swatch" style="background:var(--accent)"></span>{t:fieldReport.legendZone}</span>
                 <span><span class="legend-swatch" style="background:var(--crop-soft);border:1px solid var(--crop)"></span>{t:fieldReport.legendCrop}</span>
+                <!-- This map is the demonstration field, not the farmer's own,
+                     and it sits beside their real totals. The panel below says
+                     so in its title; this one's title does not, so it says it
+                     here. Every other surface that shows these figures marks
+                     them as modelled, and this was the one that did not. -->
+                <span>{t:fieldReport.sample}</span>
               </div>
             </section>
 
