@@ -1,73 +1,55 @@
 ---
 layout: home
-title: Stacks Framework
-description: Build full-stack TypeScript applications, APIs, libraries, and cloud infrastructure with Stacks.
-titleTemplate: Modern TypeScript Fullstack Development.
+title: Open Farming
+description: Autonomous drone scouting and targeted treatment for farms. How the platform works, how each capability is built, and what the hardware costs.
+titleTemplate: Autonomous drone scouting for farms
 hero:
-  name: Stacks.js
-  text: Build. Ship. Faster.
-  tagline: "Rapid application, cloud & library development framework. For the best full-stack teams."
-  image: /images/logos/logo-white.png
+  name: Open Farming
+  text: Find it, map it, treat only that.
+  tagline: "A drone flies a fixed route, models locate what is actually wrong, and the findings become a prescription the machine you already own can load. On the demonstration field the boom opens over 4.34 of 24.6 hectares instead of all of it."
   actions:
     - theme: brand
-      text: Coming Soon
-      link: /docs/guide/get-started
+      text: Read the introduction
+      link: /guide/introduction
+    - theme: alt
+      text: Build guide
+      link: /build/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/stacksjs/stacks
+      link: https://github.com/theopenfarm/openfarm.ing
 features:
-  - title: Best-in-Class DX
-    icon: 🦋
-    details: One framework that does it all. Building TypeScript apps & libraries has never been simpler.
-  - title: App Development
-    icon: 🖥️
-    details: Performant web and Craft desktop applications with one TypeScript codebase.
-  - title: Library Development
-    icon: 📚
-    details: "Automagically builds & distributes your component & function libraries, via npm."
-  - title: Cloud Development
-    icon: ☁️
-    details: Automatic zero-downtime deployments of production-ready serverless clouds. Self-hosted.
-  - title: Modern Administration
-    icon: 📊
-    details: "A sleek admin dashboard, out-of-the-box. For devs & your clients. Our product is your product."
-  - title: Scalable APIs
+  - title: 18 capabilities
+    icon: 🛰️
+    details: "Detect, act and operate. Every one documented with its sensors, its cadence, the readings it produces and the parts list behind it."
+  - title: 16 use cases
+    icon: 🌾
+    details: "Arable, permanent crops, protected crops, grassland and livestock, and the operators running many holdings at once."
+  - title: Built, not bought
+    icon: 🔧
+    details: "Every build page gives an open-source-first parts list with EU and US suppliers, and the in-house software that replaces the per-hectare licence."
+  - title: A public API
     icon: 📡
-    details: "Building serverless APIs has never been simpler. Focus on your business logic, not your infrastructure."
-  - title: Secure Authentication
-    icon: 🔐
-    details: "Robust API & web authentication, ensuring the security of your user data. User-friendly, zero-config & ready-to-go."
-  - title: Built-in CI / CD
-    icon: 🤖
-    details: "Focus on coding, not publishing. Automates linting, version tagging, changelog generation, test execution, and more."
-  - title: Global CDN
-    icon: 🌐
-    details: "\"Securely deliver content with low latency and high transfer speeds,\" AWS. Your assets, zero-config."
-  - title: Queues & Jobs
-    icon: 📦
-    details: Leverage the power of queues. Defer time-consuming tasks using managed serverless queues.
-  - title: Notifications
-    icon: 📨
-    details: "Send notifications to your users via email, SMS, Slack, Discord, Push and more."
-  - title: Billing & Payments
-    icon: 💳
-    details: "Accept payments from your users using Stripe. One-off payments, subscriptions, and more."
-  - title: Search Engine
-    icon: 🔍
-    details: "Powerful & fast. \"Build an intuitive search experience in a snap,\" Meilisearch."
-  - title: Progressive UI Engine
-    icon: ⚙️
-    details: "An approachable, performant and versatile framework for building web UIs."
-  - title: Atomic CSS Engine
-    icon: 🎨
-    details: "\"Blazingly fast utility-first CSS framework,\" Headwind. Easily create & manage your styles."
-  - title: Streamlined Testing
-    icon: 🧪
-    details: A fast built-in testing framework. Enjoyable support for both unit & feature tests.
-  - title: Commerce
-    icon: 💴
-    details: A fast built-in testing framework. Enjoyable support for both unit & feature tests.
-  - title: Realtime
-    icon: 🏃🏻
-    details: "Build real-time features with WebSockets. Add live updates, chat, notifications & collaborative features with ease."
+    details: "The site and the API read one source, so the pages and the payloads cannot drift apart. Unauthenticated, documented, and marked as sample data."
+  - title: Honest about the law
+    icon: ⚖️
+    details: "Aerial application of plant protection products is prohibited by default in the EU. The product shape follows the rules rather than the pitch."
+  - title: Deterministic demo data
+    icon: 🧭
+    details: "The demonstration field is generated from a fixed seed, so the database, the API and the rendered map always agree and no quoted figure can drift."
 ---
+
+## Where to start
+
+| If you want to | Read |
+|---|---|
+| Understand what the product is | [Introduction](/guide/introduction) |
+| Run this repository locally | [Quickstart](/guide/quickstart) |
+| Know how a capability works | [Capabilities](/features/) |
+| Know what it costs to build | [Build guide](/build/) and [Costs](/build/costs) |
+| Buy the parts | [Suppliers](/build/suppliers) |
+| Fly legally in the EU | [Regulation](/build/regulation) |
+| Integrate with the API | [HTTP API](/guide/api) |
+
+Prices in the build pages are indicative for 2026 and carry both an EU and a US
+source per line. Check the current figure before you order: sensor and airframe
+pricing moves faster than documentation does.

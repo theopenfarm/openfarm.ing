@@ -1,35 +1,48 @@
 import type { BunPressOptions } from '@stacksjs/bunpress'
 
+/**
+ * Documentation, served at openfarm.ing/docs.
+ *
+ * bunpress renders `docsDir` into `<outDir>/.bunpress` and prefixes every
+ * internal link and asset with the deploy path, so the pages are written for
+ * `/docs` rather than for the site root. `config/cloud.ts` ships that rendered
+ * directory as the `docs` static site; see the note there for why `root`
+ * points inside `dist/docs`.
+ *
+ * The sidebar is the table of contents for the whole product: 18 capabilities,
+ * 16 use cases across 5 segments, and the build guide. A capability added to
+ * `app/Support/content/features.ts` needs a page here too - the dashboard
+ * lists every marketed capability whether or not a farm has switched it on, so
+ * an undocumented one becomes visible immediately.
+ */
 const config: BunPressOptions = {
   verbose: false,
   docsDir: './docs',
   outDir: './dist/docs',
 
-  // Navigation
   nav: [
+    { text: 'Guide', link: '/guide/introduction' },
+    { text: 'Capabilities', link: '/features/' },
+    { text: 'Use cases', link: '/use-cases/' },
+    { text: 'Build', link: '/build/' },
     {
-      text: 'Changelog',
-      link: 'https://github.com/stacksjs/stacks/blob/main/CHANGELOG.md',
-    },
-    {
-      text: 'Resources',
+      text: 'More',
       items: [
-        { text: 'Team', link: '/team' },
-        { text: 'Sponsors', link: '/sponsors' },
-        { text: 'Partners', link: '/partners' },
-        { text: 'Postcardware', link: '/postcardware' },
-        { text: 'Awesome Stacks', link: 'https://github.com/stacksjs/awesome-stacks' },
-        { text: 'Contributing', link: 'https://github.com/stacksjs/stacks/blob/main/.github/CONTRIBUTING.md' },
+        { text: 'Costs', link: '/build/costs' },
+        { text: 'Suppliers', link: '/build/suppliers' },
+        { text: 'Regulation', link: '/build/regulation' },
+        { text: 'HTTP API', link: '/guide/api' },
+        { text: 'openfarm.ing', link: 'https://openfarm.ing' },
+        { text: 'GitHub', link: 'https://github.com/theopenfarm/openfarm.ing' },
       ],
     },
   ],
 
-  // Markdown configuration
   markdown: {
-    title: 'Stacks Documentation',
+    title: 'Open Farming Documentation',
     meta: {
-      description: 'Rapid application, cloud & library development framework.',
-      author: 'Stacks.js',
+      description: 'Autonomous drone scouting and targeted treatment for farms. How the platform works, how each capability is built, and what the hardware costs.',
+      author: 'Open Farming',
     },
     syntaxHighlightTheme: 'github-dark',
     toc: {
@@ -40,118 +53,84 @@ const config: BunPressOptions = {
     sidebar: {
       '/': [
         {
-          text: 'Prologue',
-          collapsed: true,
+          text: 'Guide',
+          collapsed: false,
           items: [
-            { text: 'Release Notes', link: '/release-notes' },
-            { text: 'Upgrade Guide', link: '/upgrade-guide' },
-            { text: 'Contribution Guide', link: '/contribution-guide' },
-            { text: 'Sponsors', link: '/sponsors' },
+            { text: 'Introduction', link: '/guide/introduction' },
+            { text: 'Quickstart', link: '/guide/quickstart' },
+            { text: 'Architecture', link: '/guide/architecture' },
+            { text: 'Content model', link: '/guide/content' },
+            { text: 'HTTP API', link: '/guide/api' },
+            { text: 'The farmer console', link: '/guide/dashboard' },
+            { text: 'The field map', link: '/guide/field-map' },
+            { text: 'Commands', link: '/guide/commands' },
+            { text: 'Deployment', link: '/guide/deployment' },
+            { text: 'Testing', link: '/guide/testing' },
           ],
         },
         {
-          text: 'Getting Started',
-          collapsed: true,
+          text: 'Capabilities',
+          collapsed: false,
           items: [
-            { text: 'Introduction', link: '/guide/intro' },
-            { text: 'Quick Start', link: '/guide/get-started' },
-            { text: 'StackBlitz', link: '/guide/stackblitz' },
+            { text: 'Overview', link: '/features/' },
+            { text: 'Targeted weed control', link: '/features/targeted-weed-control' },
+            { text: 'Early disease detection', link: '/features/plant-disease-detection' },
+            { text: 'Automated pest monitoring', link: '/features/pest-monitoring' },
+            { text: 'Precision fertilisation', link: '/features/precision-fertilisation' },
+            { text: 'Irrigation analysis', link: '/features/irrigation-analysis' },
+            { text: 'Yield forecasting', link: '/features/yield-forecasting' },
+            { text: 'Automated field mapping', link: '/features/field-mapping' },
+            { text: 'Wildlife detection', link: '/features/wildlife-rescue' },
+            { text: 'Drone seeding', link: '/features/drone-seeding' },
+            { text: 'Frost protection', link: '/features/frost-protection' },
+            { text: 'Pollination support', link: '/features/pollination-support' },
+            { text: 'Livestock and fences', link: '/features/livestock-and-fences' },
+            { text: 'Bird deterrence', link: '/features/bird-deterrence' },
+            { text: 'Soil compaction', link: '/features/soil-compaction' },
+            { text: 'Sustainability reporting', link: '/features/sustainability-dashboard' },
+            { text: 'Flights as a service', link: '/features/drone-service' },
+            { text: 'Autonomous drone network', link: '/features/autonomous-network' },
+            { text: 'Field decision assistant', link: '/features/field-assistant' },
           ],
         },
         {
-          text: 'Basics',
-          collapsed: true,
+          text: 'Use cases',
+          collapsed: false,
           items: [
-            { text: 'Routing', link: '/basics/routing' },
-            { text: 'Middleware', link: '/basics/middleware' },
-            { text: 'Models', link: '/basics/models' },
-            { text: 'Views', link: '/basics/views' },
-            { text: 'Actions', link: '/basics/actions' },
-            { text: 'Commands', link: '/basics/commands' },
-            { text: 'Jobs', link: '/basics/jobs' },
-            { text: 'Components', link: '/basics/components' },
-            { text: 'Functions', link: '/basics/functions' },
-            { text: 'Validation', link: '/packages/validation' },
-            { text: 'Error Handling', link: '/basics/error-handling' },
-            { text: 'Logging', link: '/basics/logging' },
+            { text: 'Overview', link: '/use-cases/' },
+            { text: 'Arable', link: '/use-cases/arable' },
+            { text: 'Permanent crops', link: '/use-cases/permanent' },
+            { text: 'Protected crops', link: '/use-cases/protected' },
+            { text: 'Grassland and livestock', link: '/use-cases/livestock' },
+            { text: 'Operators', link: '/use-cases/operators' },
           ],
         },
         {
-          text: 'Digging Deeper',
-          collapsed: true,
+          text: 'Build',
+          collapsed: false,
           items: [
-            { text: 'Authentication', link: '/guide/auth' },
-            { text: 'Database', link: '/packages/database' },
-            { text: 'Cache', link: '/packages/cache' },
-            { text: 'Events', link: '/packages/events' },
-            { text: 'Queue', link: '/packages/queue' },
-            { text: 'Notifications', link: '/packages/notifications' },
-            { text: 'Payments', link: '/packages/payments' },
-            { text: 'Realtime', link: '/packages/realtime' },
-            { text: 'Search Engine', link: '/packages/search-engine' },
-            { text: 'Storage', link: '/packages/storage' },
+            { text: 'Overview', link: '/build/' },
+            { text: 'Airframes', link: '/build/airframes' },
+            { text: 'Sensors', link: '/build/sensors' },
+            { text: 'Positioning', link: '/build/positioning' },
+            { text: 'Compute', link: '/build/compute' },
+            { text: 'Docks', link: '/build/docks' },
+            { text: 'Payloads', link: '/build/payloads' },
+            { text: 'Costs', link: '/build/costs' },
+            { text: 'Suppliers', link: '/build/suppliers' },
+            { text: 'Regulation', link: '/build/regulation' },
           ],
         },
         {
-          text: 'Cloud',
-          collapsed: true,
+          text: 'Software stack',
+          collapsed: false,
           items: [
-            { text: 'Deploy', link: '/guide/cloud/deployment' },
-            { text: 'Extend Cloud', link: '/guide/cloud/extend' },
-          ],
-        },
-        {
-          text: 'CLI (Buddy)',
-          collapsed: true,
-          items: [
-            { text: 'Introduction', link: '/guide/buddy/intro' },
-            { text: 'Command Reference', link: '/guide/buddy/commands' },
-            { text: 'Add Stacks', link: '/guide/buddy/add' },
-            { text: 'Dev', link: '/guide/buddy/dev' },
-            { text: 'Build', link: '/guide/buddy/build' },
-            { text: 'Deploy', link: '/guide/buddy/deploy' },
-            { text: 'Make', link: '/guide/buddy/make' },
-            { text: 'Migrate', link: '/guide/buddy/migrate' },
-            { text: 'Test', link: '/guide/buddy/test' },
-          ],
-        },
-        {
-          text: 'Packages',
-          collapsed: true,
-          items: [
-            { text: 'STX', link: '/packages/stx' },
-            { text: 'Actions', link: '/packages/actions' },
-            { text: 'AI', link: '/packages/ai' },
-            { text: 'Auth', link: '/packages/auth' },
-            { text: 'Cache', link: '/packages/cache' },
-            { text: 'CLI', link: '/packages/cli' },
-            { text: 'Cloud', link: '/packages/cloud' },
-            { text: 'Database', link: '/packages/database' },
-            { text: 'ORM', link: '/packages/orm' },
-            { text: 'Query Builder', link: '/packages/query-builder' },
-            { text: 'Router', link: '/packages/router' },
-            { text: 'Testing', link: '/packages/testing' },
-            { text: 'Validation', link: '/packages/validation' },
-          ],
-        },
-        {
-          text: 'Testing',
-          collapsed: true,
-          items: [
-            { text: 'Getting Started', link: '/testing/getting-started' },
-            { text: 'Unit Tests', link: '/testing/unit-tests' },
-            { text: 'Feature Tests', link: '/testing/feature-tests' },
-            { text: 'Http Tests', link: '/testing/http-tests' },
-            { text: 'Browser Tests', link: '/testing/browser-tests' },
-          ],
-        },
-        {
-          text: 'Project',
-          collapsed: true,
-          items: [
-            { text: 'Roadmap', link: '/project/roadmap' },
-            { text: 'Contributing', link: '/contribution-guide' },
-            { text: 'License', link: '/project/license' },
+            { text: 'Overview', link: '/build/software/' },
+            { text: 'Flight stack', link: '/build/software/flight-stack' },
+            { text: 'Ingest and photogrammetry', link: '/build/software/ingest' },
+            { text: 'Perception models', link: '/build/software/perception' },
+            { text: 'Prescriptions', link: '/build/software/prescriptions' },
+            { text: 'Platform', link: '/build/software/platform' },
           ],
         },
       ],
@@ -160,20 +139,17 @@ const config: BunPressOptions = {
       logo: '/images/logos/logo-transparent.svg',
       footer: {
         message: 'Released under the MIT License.',
-        copyright: 'Copyright 2024-present Stacks.js, Inc.',
+        copyright: 'Copyright 2026-present Open Farming',
       },
       socialLinks: [
-        { icon: 'twitter', link: 'https://twitter.com/stacksjs' },
-        { icon: 'github', link: 'https://github.com/stacksjs/stacks' },
-        { icon: 'discord', link: 'https://stacksjs.com/discord' },
+        { icon: 'github', link: 'https://github.com/theopenfarm/openfarm.ing' },
       ],
     },
   },
 
-  // SEO Configuration
   sitemap: {
     enabled: true,
-    baseUrl: 'https://stacksjs.com/docs',
+    baseUrl: 'https://openfarm.ing/docs',
   },
 
   robots: {
