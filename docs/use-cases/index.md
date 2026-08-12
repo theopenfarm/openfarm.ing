@@ -6,6 +6,8 @@ calendar looks like across a season, and which capabilities carry the weight.
 
 Sixteen operations in five segments.
 
+![The use case index on openfarm.ing: "The same platform, set up 16 different ways", with the arable segment and its crops](/screenshots/use-cases.webp)
+
 | Segment | Covers | Operations |
 |---|---|---|
 | [Arable](/use-cases/arable) | Combinable crops and root crops, flown in stages across a long season | Winter wheat and barley, maize, oilseed rape, sugar beet, potatoes, organic farms |

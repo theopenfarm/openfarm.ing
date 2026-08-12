@@ -3,6 +3,13 @@
 Public and unauthenticated. It serves exactly what the pages render, so the two
 cannot drift apart.
 
+![The "Read it yourself" panel on the field report page, listing /api/field-report, /api/features and /api/use-cases](/screenshots/field-report-findings.webp)
+
+The site advertises this itself, at the foot of `/field-report`: every record
+on that page is served by these endpoints, no key required, and because the
+dataset is generated deterministically the page, the database and the API are
+always the same numbers.
+
 Base URL: `https://openfarm.ing/api` in production, `http://localhost:3100/api`
 in development.
 
@@ -156,6 +163,11 @@ An instance with no seeded flight record answers
 
 The only write this application accepts from the public internet, so everything
 about it is deliberately narrow.
+
+![The contact page's booking form: name, email, holding, a segment picker, hectares and a message field](/screenshots/contact.webp)
+
+The form on `/contact` posts to this endpoint. Its fields are the table below,
+one for one.
 
 | Field | Required | Limit |
 |---|---|---|

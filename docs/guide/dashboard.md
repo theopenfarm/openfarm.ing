@@ -4,6 +4,12 @@ Signed-in farmers get `/dashboard`, plus three sub-pages. Everything is
 server-rendered stx with plain HTML forms, and every write answers with a `303`
 back to the page it came from.
 
+![The dashboard: hectares treated, fields, hectares and detections across the top, with the latest treatment map, the field list and recent flights below](/screenshots/dashboard.webp)
+
+The four figures are derived from the holding's own records. The map beside
+them is the demonstration field rather than theirs, which is why it carries
+"Demonstration field, modelled data" under the legend.
+
 | Page | Shows |
 |---|---|
 | `/dashboard` | The holding: fields, hectares, detections, treated hectares, recent and upcoming flights |
@@ -21,7 +27,13 @@ not yet taken.
 That ordering matters. Every capability on the marketing pages appears in the
 console whether or not the farm has turned it on, so the dashboard can never
 quietly offer less than the site advertises. That is also why the header can
-say "6 of 18" without a second source of truth.
+say "4 of 18" without a second source of truth.
+
+![The capabilities page showing 4 of 18 active: an active capability with its cadence and last flight, an unused one with a Turn on button, a paused one with Resume, and a requested one explaining that it needs a visit](/screenshots/dashboard-capabilities.webp)
+
+All four states in one view. An active capability shows its cadence, its last
+flight and its flight count; an unused one shows a cadence box and Turn on; a
+paused one shows Resume; and a requested one explains itself.
 
 | Status | Meaning |
 |---|---|
@@ -62,6 +74,10 @@ data.
 | `POST /dashboard/flight` | Put one flight on the schedule outside the cadence | 30/min |
 | `POST /dashboard/flight-cancel` | Cancel a scheduled flight, which sets `weather_cancelled` | 30/min |
 | `POST /dashboard/detection` | Mark a detection treated, or reopen it | 120/min |
+
+![The flights page: a Book one flight form with a field and a capability picker, one flight coming up with a Call off button, and seven already flown](/screenshots/dashboard-flights.webp)
+
+![The detections page: 51 findings needing a decision, each with Treated and Not a problem, beside the resolved column](/screenshots/dashboard-detections.webp)
 
 Each one validates against the catalog rather than the database: a flight can
 only be booked for a `purpose` that exists in `features.ts`, and a capability

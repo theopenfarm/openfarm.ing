@@ -11,6 +11,12 @@ zones, and the prescription switches the boom on over 4.34 hectares. The other
 20.26 hectares are clean ground that would otherwise have been sprayed because
 nobody knew which parts carried weeds.
 
+![The Open Farming home page: the headline "Most of your field is fine. Stop treating it like it isn't." beside the demonstration field's treatment map showing 4.34 ha treated and 20.26 ha left alone](/screenshots/home.webp)
+
+The map on that page is the argument. It is drawn from the stored flight
+record rather than illustrated, so the orange is the prescription and the dots
+are the detections. [The interface](/guide/interface) shows every other page.
+
 ## The shape of the product
 
 Three things happen, in order, and the platform is organised around them.
@@ -26,6 +32,11 @@ platform seen from the seat of one kind of operation: a wheat grower, a
 vineyard, a dairy, a contractor. Use cases exist because the question a grower
 asks is never "which capabilities do you have", it is "what does a season on my
 crop look like".
+
+![Three cards headed Scan, Mark and Treat: the aircraft flies a fixed grid, models locate what is wrong, the machine follows the map](/screenshots/home-proof.webp)
+
+Every capability is that same loop. What changes between them is the sensor on
+the aircraft and what the model is looking for.
 
 ## What the drone does and does not do
 

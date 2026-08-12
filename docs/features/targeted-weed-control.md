@@ -13,6 +13,8 @@ square metres get treated.
 | Payload | RGB camera at 1 cm/px, downward LiDAR for canopy height, RTK |
 | Needs a visit first | No |
 
+![The targeted weed control page on openfarm.ing, with the Act badge and a panel headed "What this costs today"](/screenshots/feature-detail.webp)
+
 ## The problem
 
 Blanket spraying treats the whole field because nobody knows which parts
@@ -115,6 +117,11 @@ or start on an Apache-2.0 detector. See
 [Perception models](/build/software/perception).
 
 ### The clustering step, concretely
+
+![Four maps side by side labelled Fly, Find, Zone and Treat, showing the boundary, then 98 detections, then the grid clustering, then the finished prescription](/screenshots/how-it-works.webp)
+
+That is the clustering, drawn. Same flight record in all four frames, one more
+layer switched on each time.
 
 This is the part everyone underestimates, and the part `demo-field.ts`
 reproduces so the site's map is honest about it.

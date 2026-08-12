@@ -43,6 +43,7 @@ features:
 | If you want to | Read |
 |---|---|
 | Understand what the product is | [Introduction](/guide/introduction) |
+| See what it looks like | [The interface](/guide/interface) |
 | Run this repository locally | [Quickstart](/guide/quickstart) |
 | Know how a capability works | [Capabilities](/features/) |
 | Know what it costs to build | [Build guide](/build/) and [Costs](/build/costs) |

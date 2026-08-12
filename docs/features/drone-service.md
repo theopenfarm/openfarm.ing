@@ -86,6 +86,12 @@ neighbours together, and the day rate divides across all of them.
 
 ### Pricing shapes that work
 
+![The pricing page on openfarm.ing: three tiers, Single field, Season calendar and Fleet, with no rate printed](/screenshots/pricing.webp)
+
+The site's own position, for reference: no rate is printed, because the honest
+one depends on block sizes, travel distance and how many flights the season
+needs. What is printed is what each way of buying includes.
+
 | Shape | Fits |
 |---|---|
 | Per hectare per flight | Simple, easy to compare, punishes small awkward fields |

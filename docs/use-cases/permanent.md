@@ -2,6 +2,10 @@
 
 Vines, trees and canes, where the same plants carry every decision forward.
 
+![The vineyards page on openfarm.ing: "What actually goes wrong" beside "How we set it up"](/screenshots/use-case-detail.webp)
+
+![The flight calendar across a vineyard season, from bud break to post harvest](/screenshots/use-case-season.webp)
+
 ## Vineyards
 
 > Steep ground, tight rows, high value

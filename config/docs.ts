@@ -57,6 +57,7 @@ const config: BunPressOptions = {
           collapsed: false,
           items: [
             { text: 'Introduction', link: '/guide/introduction' },
+            { text: 'The interface', link: '/guide/interface' },
             { text: 'Quickstart', link: '/guide/quickstart' },
             { text: 'Architecture', link: '/guide/architecture' },
             { text: 'Content model', link: '/guide/content' },

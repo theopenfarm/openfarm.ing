@@ -9,6 +9,18 @@ Change the data and the picture changes.
 That is the whole argument the page is making, so drawing it any other way
 would undercut it.
 
+![The field report page: the demonstration field's map beside its figures, 17.6% treated share, 62 treatment zones, 98 detections, 80.4% mean confidence](/screenshots/field-report-map.webp)
+
+The map at full size on `/field-report`, with the figures beside it derived
+from the same records.
+
+![Four maps side by side labelled Fly, Find, Zone and Treat, each adding one layer to the same flight record](/screenshots/how-it-works.webp)
+
+The `/how-it-works` page draws the same record four times, switching on one
+layer each time: the boundary and tramlines, the detections sized by mapped
+area, the clustering onto a grid, and the finished prescription. It is the
+clearest demonstration of what the options below actually control.
+
 ## Why SVG, server side
 
 The record already carries normalised 0..1 coordinates, so the SVG needs no

@@ -4,6 +4,11 @@ Eighteen capabilities in three groups. A capability is a job the platform does:
 what it flies, how often, what it hands back, and what the dashboard can
 measure about it afterwards.
 
+![The capabilities index on openfarm.ing, grouped into Detect, Act and Operate with a card per capability](/screenshots/features.webp)
+
+The same catalog these pages document, as the site renders it at
+[openfarm.ing/features](https://openfarm.ing/features).
+
 Every page follows the same shape, ending with **Build it**: the parts list
 with EU and US sources, and the in-house software that replaces the per-hectare
 licence. The [build guide](/build/) covers the parts that are common to all of

@@ -38,5 +38,8 @@ export default {
   // Attaches a flight's stitched orthomosaic, which is what lets the field
   // map show the ground rather than a plan of it.
   'imagery:attach': 'FieldImagery',
+  // Photographs the running site for the documentation, so the pictures in it
+  // cannot drift from the interface they describe.
+  'docs:screenshots': 'DocsScreenshots',
   'inspire': 'Inspire',
 } satisfies CommandRegistry

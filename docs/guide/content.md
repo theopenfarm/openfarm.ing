@@ -37,6 +37,12 @@ export interface FeatureContent {
 
 Two fields deserve emphasis because they are what keeps the copy honest.
 
+![The "How the flight runs" section of a capability page: four cards headed Scan, Classify, Map and Treat](/screenshots/feature-detail-steps.webp)
+
+That section is `steps[]` rendered in order, and the flight statistics above it
+come from the `Mission` row rather than from the copy. Editing the array
+changes the page, the API and the share card together.
+
 `readings` are **measurements, not promises**. "Treated area as a share of
 field area" is a reading. "Save 70% on herbicide" is not, and does not belong
 in this file. Every reading here is something the dashboard can actually
