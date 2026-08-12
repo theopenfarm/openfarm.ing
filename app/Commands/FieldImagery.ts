@@ -92,7 +92,9 @@ function parseBounds(raw: string | undefined): [number, number, number, number] 
   if (parts.length !== 4 || parts.some(n => !Number.isFinite(n)))
     throw new Error(`--bounds needs four numbers, "minX,minY,maxX,maxY", not "${raw}"`)
 
-  const [minX, minY, maxX, maxY] = parts
+  // The guard above is what proves the shape. TypeScript cannot carry a
+  // length check into an index, so the tuple is named once, here.
+  const [minX, minY, maxX, maxY] = parts as [number, number, number, number]
 
   if (maxX <= minX || maxY <= minY)
     throw new Error('--bounds must run from the top-left corner to the bottom-right one')

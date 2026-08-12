@@ -376,7 +376,7 @@ function toImagery(mission: { orthomosaic_url?: unknown, orthomosaic_bounds?: un
 
   const stored = parseJson<number[]>(mission.orthomosaic_bounds, [])
   const bounds: FieldImagery['bounds'] = stored.length === 4 && stored.every(n => typeof n === 'number' && Number.isFinite(n))
-    ? [stored[0], stored[1], stored[2], stored[3]]
+    ? (stored.slice(0, 4) as FieldImagery['bounds'])
     : [0, 0, 1, 1]
 
   return {
