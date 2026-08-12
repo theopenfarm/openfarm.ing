@@ -801,12 +801,21 @@ export const tsCloud: TsCloudConfig = {
     // `deploy: 'server'` is load bearing. A site with no `start` and no
     // explicit target resolves to `bucket`, and the Hetzner deploy path skips
     // bucket sites entirely: the docs would build locally and never ship.
+    //
+    // `bun run buddy`, not `./buddy`. The build action shells out to
+    // `bunpress build`, and the only thing that puts that binary on PATH is
+    // `bun run`, which prepends node_modules/.bin. Invoking ./buddy directly
+    // gives the CI runner a PATH without it, and the failure is silent:
+    // "Executable not found" is logged and the process still exits 0, so the
+    // deploy walks on to tar a directory that was never written. The `test -d`
+    // is the guard against exactly that, so a build that quietly produces
+    // nothing fails here rather than three steps later.
     docs: {
       root: './dist/docs/.bunpress',
       path: '/docs',
       domain: 'openfarm.ing',
       deploy: 'server',
-      build: './buddy build:docs',
+      build: 'bun run buddy build:docs && test -d dist/docs/.bunpress',
     },
 
     // www → apex redirect (the gateway answers with a 301; nothing is shipped).
