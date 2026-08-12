@@ -1,6 +1,108 @@
 import type { BunPressOptions } from '@stacksjs/bunpress'
 
 /**
+ * Open Farming's palette, over the theme's.
+ *
+ * The theme is a VitePress port and ships indigo, which sat badly beside a
+ * page of screenshots of an orange product. Every value below is a token from
+ * `public/site.css`, so the documentation and the thing it documents are the
+ * same colour.
+ *
+ * It goes through `markdown.css` rather than `themeConfig.colors`. The theme
+ * config's `colors`, `fonts`, `cssVars` and `css` keys are typed and
+ * documented, and bunpress's dev server does honour them, but the code path
+ * that renders the STATIC build does not - so setting them themes the site you
+ * develop and not the one you ship. `markdown.css` reaches both. See the
+ * upstream note in `docs/guide/deployment.md`.
+ *
+ * The theme keys off `--bp-*` variables and scopes dark mode to a `.dark`
+ * class, so both blocks are written out here in full.
+ */
+const theme = `
+:root {
+  --bp-c-brand-1: #c7511b;
+  --bp-c-brand-2: #a8420f;
+  --bp-c-brand-3: #a8420f;
+  --bp-c-brand-soft: rgb(199 81 27 / 0.09);
+  --bp-c-brand: #c7511b;
+
+  --bp-c-bg: #f3f5ef;
+  --bp-c-bg-alt: #e8ede0;
+  --bp-c-bg-soft: #e8ede0;
+  --bp-c-bg-elv: #ffffff;
+
+  --bp-c-border: #d5ddc9;
+  --bp-c-divider: #e4e9db;
+  --bp-c-gutter: #e4e9db;
+
+  --bp-c-text-1: #10160d;
+  --bp-c-text-2: #4c5745;
+  --bp-c-text-3: #77836d;
+
+  --bp-c-tip-1: var(--bp-c-brand-1);
+  --bp-c-tip-2: var(--bp-c-brand-2);
+  --bp-c-tip-3: var(--bp-c-brand-3);
+  --bp-c-tip-soft: var(--bp-c-brand-soft);
+  --bp-c-note-1: var(--bp-c-brand-1);
+  --bp-c-note-2: var(--bp-c-brand-2);
+  --bp-c-note-3: var(--bp-c-brand-3);
+  --bp-c-note-soft: var(--bp-c-brand-soft);
+
+  --bp-font-family-base: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --bp-font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+.dark {
+  --bp-c-brand-1: #f0762f;
+  --bp-c-brand-2: #ff8b48;
+  --bp-c-brand-3: #ff8b48;
+  --bp-c-brand-soft: rgb(240 118 47 / 0.14);
+  --bp-c-brand: #f0762f;
+
+  --bp-c-bg: #0c0f0b;
+  --bp-c-bg-alt: #11150f;
+  --bp-c-bg-soft: #11150f;
+  --bp-c-bg-elv: #151a13;
+
+  --bp-c-border: #29321f;
+  --bp-c-divider: #1f2619;
+  --bp-c-gutter: #1f2619;
+
+  --bp-c-text-1: #e9eee4;
+  --bp-c-text-2: #a3b09a;
+  --bp-c-text-3: #76826d;
+}
+
+/*
+ * Satoshi is the site's typeface, served from this project's own public/fonts.
+ * The documentation build does not copy that directory, but the docs are on
+ * the same origin as the site, so an absolute path reaches it.
+ */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi/Satoshi-Variable.woff2') format('woff2-variations');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+body,
+.bp-doc {
+  font-family: var(--bp-font-family-base);
+}
+
+/*
+ * The screenshots are of a light interface on a light page. A border and a
+ * radius stop them dissolving into it, and matter more in dark mode, where an
+ * unbounded white rectangle is a flashbang.
+ */
+.bp-doc img {
+  border: 1px solid var(--bp-c-divider);
+  border-radius: 10px;
+}
+`
+
+/**
  * Documentation, served at openfarm.ing/docs.
  *
  * bunpress renders `docsDir` into `<outDir>/.bunpress` and prefixes every
@@ -45,6 +147,7 @@ const config: BunPressOptions = {
       author: 'Open Farming',
     },
     syntaxHighlightTheme: 'github-dark',
+    css: theme,
     toc: {
       enabled: true,
       minDepth: 2,
@@ -136,6 +239,14 @@ const config: BunPressOptions = {
         },
       ],
     },
+
+    /*
+     * `themeConfig` lives under `markdown`, not at the top level. bunpress
+     * accepts both, and the top-level one is the documented home, but the
+     * build path this project uses only reads the nested one - the footer and
+     * the social links silently disappear from the built site when it is moved
+     * up a level.
+     */
     themeConfig: {
       logo: '/images/logos/logo-transparent.svg',
       footer: {

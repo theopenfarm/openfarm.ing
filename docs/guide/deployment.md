@@ -54,6 +54,47 @@ tenant's certificate:
 ssh root@178.105.248.188 'sh /etc/rpx/renew-certs-openfarming.sh'
 ```
 
+## The documentation site
+
+`openfarm.ing/docs` is a separate static site in the same deploy. `buddy
+deploy` runs its build locally, ships the rendered directory to
+`/var/www/openfarming-docs`, and the rpx gateway answers `/docs` from it. The
+`main` app keeps `/`, and the longer route matches first.
+
+Two details in `config/cloud.ts` are load bearing:
+
+- **`deploy: 'server'`.** A site with no `start` and no explicit target
+  resolves to `bucket`, and the Hetzner deploy path skips bucket sites, so the
+  docs would build locally and silently never ship.
+- **`root` points inside `dist/docs`,** because bunpress writes its rendered
+  output to `<outDir>/.bunpress`.
+
+The build command is `bun run buddy build:docs`, not `./buddy build:docs`. The
+build action shells out to `bunpress build`, and the only thing that puts that
+binary on PATH is `bun run`, which prepends `node_modules/.bin`. Worse, the
+failure is silent: the action logs "Executable not found" and still exits 0.
+The `&& test -d dist/docs/.bunpress` after it is the guard, so a build that
+quietly produces nothing fails at the build rather than at the packaging.
+
+### Theming
+
+The docs carry Open Farming's palette rather than the theme's default indigo,
+which mattered once the pages filled up with
+[screenshots](/guide/interface) of an orange product. The values in
+`config/docs.ts` are the tokens from `public/site.css`, so the documentation
+and the thing it documents are the same colour.
+
+It goes through `markdown.css` rather than `themeConfig.colors`. The theme
+config's `colors`, `fonts`, `cssVars` and `css` keys are typed and documented,
+and bunpress's dev server honours them, but the code path that renders the
+static build in the version pinned here does not, so setting them themes the
+site you develop and not the one you ship. `markdown.css` reaches both.
+
+There is a related upstream fix: `generateThemeOverrideCss` read only the
+top-level `themeConfig`, while the Stacks config nests it under `markdown`, so
+a nested palette was a silent no-op. Once a bunpress release carries both that
+and the build-path fix, this block can move to `themeConfig` and shrink.
+
 ## preStart
 
 `catalog:sync` runs on every deploy through `preStart`, so a content edit in
