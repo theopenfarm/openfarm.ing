@@ -781,6 +781,34 @@ export const tsCloud: TsCloudConfig = {
       },
     },
 
+    // The documentation, served at openfarm.ing/docs.
+    //
+    // A `server-static` site: no `start`, so `buddy deploy` runs `build`
+    // locally, tars `root`, and ships it to /var/www/openfarming-docs on the
+    // box, where the rpx gateway's file_server answers /docs from it. The
+    // `main` app keeps `/`; rpx matches the longer route first, which is the
+    // same arrangement stacksjs.com uses for its own /docs.
+    //
+    // `root` points INSIDE dist/docs because bunpress writes its rendered
+    // output to `<outDir>/.bunpress` (outDir is ./dist/docs in config/docs.ts).
+    // Shipping ./dist/docs would put the whole site one directory deeper than
+    // the gateway looks. Every page is self-contained HTML with its CSS
+    // inlined, so there is no asset directory to ship alongside it.
+    //
+    // The build runs on the CI runner, which already has node_modules and the
+    // same Bun the tests ran on, so a docs build that fails fails the deploy
+    // rather than shipping a stale site.
+    // `deploy: 'server'` is load bearing. A site with no `start` and no
+    // explicit target resolves to `bucket`, and the Hetzner deploy path skips
+    // bucket sites entirely: the docs would build locally and never ship.
+    docs: {
+      root: './dist/docs/.bunpress',
+      path: '/docs',
+      domain: 'openfarm.ing',
+      deploy: 'server',
+      build: './buddy build:docs',
+    },
+
     // www → apex redirect (the gateway answers with a 301; nothing is shipped).
     www: { domain: 'www.openfarm.ing', redirect: 'https://openfarm.ing' },
   },

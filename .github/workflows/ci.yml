@@ -60,6 +60,12 @@ jobs:
       - name: Lint
         run: bun buddy lint
 
+      # The deploy builds the docs site as part of shipping openfarm.ing/docs
+      # (see the `docs` site in config/cloud.ts). Building it here too means a
+      # broken page fails the pull request rather than the deploy.
+      - name: Build docs
+        run: bun buddy build:docs
+
   typecheck:
     runs-on: ubuntu-latest
 
