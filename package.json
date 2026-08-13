@@ -97,7 +97,7 @@
   "dependencies": {
     "@stacksjs/buddy": "^0.70.368",
     "@stacksjs/stx": "^0.2.110",
-    "@stacksjs/ts-cloud": "^0.7.116",
+    "@stacksjs/ts-cloud": "^0.7.120",
     "bun-plugin-stx": "^0.2.110",
     "bun-query-builder": "^0.1.59",
     "stacks": "^0.70.368",
@@ -121,7 +121,7 @@
     "pickier": "0.1.43"
   },
   "overrides": {
-    "@stacksjs/ts-cloud": "^0.7.116",
+    "@stacksjs/ts-cloud": "^0.7.120",
     "@stacksjs/stx": "^0.2.110",
     "bun-plugin-stx": "^0.2.110"
   }

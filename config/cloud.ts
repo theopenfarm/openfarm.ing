@@ -732,6 +732,21 @@ export const tsCloud: TsCloudConfig = {
       // execute — not the ./buddy shell wrapper.
       start: 'bun storage/framework/runtime/production/serve.js',
       port: 3060,
+      /*
+       * This site's share of a shared box.
+       *
+       * It serves stx views out of SQLite and sits around 280 MB, so 512M is
+       * generous and 768M is a ceiling it should never approach. Both are
+       * soft-then-hard in the systemd sense: the kernel reclaims this cgroup
+       * at `memoryHigh` and only OOM-kills inside it at `memoryMax`, where
+       * `Restart=always` brings it straight back.
+       *
+       * Set explicitly rather than left to ts-cloud's 2G default because the
+       * default has to be safe for workloads nobody has measured, and this one
+       * has been. The box was lost once to a tenant with no ceiling at all.
+       */
+      memoryHigh: '512M',
+      memoryMax: '768M',
       // Runs after the repo and the resolved production env are in place and
       // before the systemd service starts. Migrate runs ONLY here: the API
       // site shares the same SQLite file, so migrating from both would put two
@@ -768,6 +783,10 @@ export const tsCloud: TsCloudConfig = {
       root: '.',
       start: 'bun node_modules/@stacksjs/actions/dist/serve/api.js',
       port: 3068,
+      // The API is the same runtime serving JSON, so it wants the same
+      // ceiling as `main` above.
+      memoryHigh: '512M',
+      memoryMax: '768M',
       preStart: ['bun install'],
       env: {
         HOST: '127.0.0.1',
