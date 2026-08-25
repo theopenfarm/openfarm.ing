@@ -1,5 +1,55 @@
 # Stacks Changelog
 
+[Compare changes](https://github.com/theopenfarm/openfarm.ing/compare/v0.70.56...v0.70.57)
+
+## ✨ Features
+
+- **herding**: automated livestock herding, and a playground for it ([d25731b](https://github.com/theopenfarm/openfarm.ing/commit/d25731b)) _(by Chris <chrisbreuer93@gmail.com>)_
+- publish the documentation at openfarm.ing/docs ([97009bf](https://github.com/theopenfarm/openfarm.ing/commit/97009bf)) _(by Chris <chrisbreuer93@gmail.com>)_
+- add buddy imagery:attach for stitched orthomosaics ([d7384fc](https://github.com/theopenfarm/openfarm.ing/commit/d7384fc)) _(by Chris <chrisbreuer93@gmail.com>)_
+- switch the field map between plan and imagery ([9ef70d0](https://github.com/theopenfarm/openfarm.ing/commit/9ef70d0)) _(by Chris <chrisbreuer93@gmail.com>)_
+- draw the stitched image under the field map ([a7b1736](https://github.com/theopenfarm/openfarm.ing/commit/a7b1736)) _(by Chris <chrisbreuer93@gmail.com>)_
+- carry the orthomosaic through the field report ([a9898ed](https://github.com/theopenfarm/openfarm.ing/commit/a9898ed)) _(by Chris <chrisbreuer93@gmail.com>)_
+- store the stitched orthomosaic on a mission ([c9cce1a](https://github.com/theopenfarm/openfarm.ing/commit/c9cce1a)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🐛 Bug Fixes
+
+- **release**: drop six framework-only docs scripts that blocked every release ([84f9ead](https://github.com/theopenfarm/openfarm.ing/commit/84f9ead)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: track buddy's ts-cloud requirement so the deploy can finish ([d30b33d](https://github.com/theopenfarm/openfarm.ing/commit/d30b33d)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **ci**: unblock the deploy, which typecheck has been failing since a49c285 ([cbc71b3](https://github.com/theopenfarm/openfarm.ing/commit/cbc71b3)) _(by Chris <chrisbreuer93@gmail.com>)_
+- validate the flight timestamps as the strings they are ([8324a96](https://github.com/theopenfarm/openfarm.ing/commit/8324a96)) _(by Chris <chrisbreuer93@gmail.com>)_
+- serve the demonstration field on the public field report ([7463ea0](https://github.com/theopenfarm/openfarm.ing/commit/7463ea0)) _(by Chris <chrisbreuer93@gmail.com>)_
+- build the docs site through bun run so the deploy finds bunpress ([d84a9df](https://github.com/theopenfarm/openfarm.ing/commit/d84a9df)) _(by Chris <chrisbreuer93@gmail.com>)_
+- type the imagery footprint tuples ([0f79492](https://github.com/theopenfarm/openfarm.ing/commit/0f79492)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 📝 Documentation
+
+- theme the documentation in Open Farming's colours ([4eac489](https://github.com/theopenfarm/openfarm.ing/commit/4eac489)) _(by Chris <chrisbreuer93@gmail.com>)_
+- photograph the interface and put the pictures in the documentation ([9d9eb87](https://github.com/theopenfarm/openfarm.ing/commit/9d9eb87)) _(by Chris <chrisbreuer93@gmail.com>)_
+- replace the framework boilerplate with Open Farming's own documentation ([f407d7a](https://github.com/theopenfarm/openfarm.ing/commit/f407d7a)) _(by Chris <chrisbreuer93@gmail.com>)_
+- note that imagery bounds need the equals form ([9b54478](https://github.com/theopenfarm/openfarm.ing/commit/9b54478)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## ✅ Tests
+
+- cover the field map imagery layer ([53f922c](https://github.com/theopenfarm/openfarm.ing/commit/53f922c)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 💚 Continuous Integration
+
+- drop the framework's own workflows from a userland app ([1dfa454](https://github.com/theopenfarm/openfarm.ing/commit/1dfa454)) _(by Chris <chrisbreuer93@gmail.com>)_
+- pin the pantry action to the build that retries a dropped socket ([f055ded](https://github.com/theopenfarm/openfarm.ing/commit/f055ded)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🔧 Chores
+
+- **deps**: raise stacks to 0.72.62 for the belongsTo foreign key fix ([8a33aa2](https://github.com/theopenfarm/openfarm.ing/commit/8a33aa2)) _(by Chris <chrisbreuer93@gmail.com>)_
+- update deps ([a49c285](https://github.com/theopenfarm/openfarm.ing/commit/a49c285)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: ts-cloud 0.7.120, and take an explicit memory ceiling ([3d3e0b3](https://github.com/theopenfarm/openfarm.ing/commit/3d3e0b3)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: move to stacks 0.70.368 ([34a8727](https://github.com/theopenfarm/openfarm.ing/commit/34a8727)) _(by Chris <chrisbreuer93@gmail.com>)_
+- ignore the migrator's per-machine model snapshot ([ea289da](https://github.com/theopenfarm/openfarm.ing/commit/ea289da)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/theopenfarm/openfarm.ing/compare/v0.70.55...v0.70.56)
 
 ## 🐛 Bug Fixes
