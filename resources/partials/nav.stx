@@ -93,6 +93,7 @@ const navFarmer = await navSession.currentUser()
       </div>
 
       <a href="/field-report" class="nav-link" @if (activeNav === 'field-report') aria-current="page" @endif>{t:nav.fieldReport}</a>
+      <a href="/playground/herding" class="nav-link" @if (activeNav === 'playground') aria-current="page" @endif>{t:nav.playground}</a>
       <a href="/how-it-works" class="nav-link" @if (activeNav === 'how-it-works') aria-current="page" @endif>{t:nav.howItWorks}</a>
       <a href="/pricing" class="nav-link" @if (activeNav === 'pricing') aria-current="page" @endif>{t:nav.pricing}</a>
 

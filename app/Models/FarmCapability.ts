@@ -6,7 +6,7 @@ import * as seed from '../Support/factories'
  * A capability, switched on for a holding.
  *
  * The catalog (`app/Support/content/features.ts`) is what the marketing pages
- * sell: eighteen capabilities, each a flight with a particular sensor and a
+ * sell: nineteen capabilities, each a flight with a particular sensor and a
  * particular thing the model is looking for. This is the other half of that —
  * the record of which of them a given farm has actually turned on, how often
  * it wants them flown, and over what.
@@ -18,7 +18,7 @@ import * as seed from '../Support/factories'
  * would only produce noise.
  *
  * A capability that is merely `requested` has been asked for and not yet
- * scheduled: several of the eighteen need equipment on site (seeding, frost
+ * scheduled: several of the nineteen need equipment on site (seeding, frost
  * protection) or a licence check before the first flight, and the dashboard
  * should say so rather than promise a flight that will not happen.
  */

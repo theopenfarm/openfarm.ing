@@ -30,6 +30,21 @@ export default function () {
     .at('05:30')
     .setTimeZone('Europe/Berlin')
 
+  /*
+   * Propose the herding moves each grazing holding's rotation is due.
+   *
+   * Half an hour after the flight schedule, so the two never contend for the
+   * same box, and early for the same reason: a farmer wants the morning's
+   * proposals waiting when they look, not arriving while they read them. It
+   * only ever writes proposals - nothing on this schedule can put an aircraft
+   * over livestock, which is why herding is safe to plan unattended at all.
+   */
+  schedule
+    .job('PlanHerdMoves')
+    .daily()
+    .at('06:00')
+    .setTimeZone('Europe/Berlin')
+
   // Run a custom action every five minutes
   // schedule.action('CleanupTempFiles').everyFiveMinutes()
 

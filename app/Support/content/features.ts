@@ -324,6 +324,27 @@ export const features: FeatureContent[] = [
     useCases: ['berries', 'orchards', 'maize', 'vineyards'],
   },
   {
+    slug: 'automated-herding',
+    name: 'Automated livestock herding',
+    category: 'act',
+    order: 7,
+    tagline: 'Move the mob without the quad and the gate',
+    summary: 'A drone walks a mob from one grazing block to another on a route you approved, inside limits you set, and stops if it cannot do it calmly.',
+    problem:
+      'Every rotational graziers day has a move in it: fresh cover, a gate, a mob that would rather stay. It is twenty minutes and two people on a good day, and on a bad one it is an animal on a road at six in the morning after a fence has gone down. The blocks furthest from the yard get moved late for the same reason they get checked least.',
+    steps: [
+      { title: 'Plan', text: 'A route is drawn from the block the mob is on, through the gate, onto the block it is going to, with the ground it must be kept off marked.' },
+      { title: 'Authorise', text: 'You look at the route and say yes. That freezes the limits the move is flown under and opens a window it has to happen in.' },
+      { title: 'Drive', text: 'The aircraft works behind the mob at a set distance, climbing to take pressure off rather than pressing harder when they quicken.' },
+      { title: 'Answer for it', text: 'The record says how close it came, how fast they moved, how high it had to work and who was left behind.' },
+    ],
+    sensors: ['Zoom RGB camera', 'Radiometric thermal camera', 'Directional speaker', 'RTK positioning'],
+    outputs: ['Approved route per move', 'Head count on arrival', 'Straggler list', 'Welfare record per move', 'Grazing rotation log'],
+    cadence: 'Whenever the rotation is due, proposed overnight and authorised in the morning.',
+    readings: ['Closest the aircraft came against its standoff', 'Fastest the mob moved against its limit', 'Minutes under pressure', 'Animals left behind per move', 'Moves stopped and why'],
+    useCases: ['dairy-pasture', 'grassland-and-hay', 'cooperatives'],
+  },
+  {
     slug: 'soil-compaction',
     name: 'Soil compaction detection',
     category: 'detect',

@@ -30,12 +30,12 @@ ever disagree, that is a bug rather than a stale copy.
 
 | Path | What lives there |
 |---|---|
-| `app/Support/content/` | Authored content: 18 capabilities, 16 use cases, and the demonstration field's generator |
+| `app/Support/content/` | Authored content: 19 capabilities, 16 use cases, and the demonstration field's generator |
 | `app/Support/catalog.ts` | The shared read layer. Every page and every endpoint goes through it |
 | `app/Support/capabilities.ts` | The bridge from the marketed catalog to what one holding has switched on |
 | `app/Support/dashboard.ts` | The farmer's own holdings, scoped by `farms.user_id` |
 | `app/Support/fieldmap.ts` | Renders a field to SVG, server side, from the flight record |
-| `app/Models/` | Nine models: `Feature`, `UseCase`, the operational domain (`Farm`, `Field`, `Drone`, `Mission`, `Detection`, `TreatmentMap`, `FarmCapability`) and `DemoRequest` |
+| `app/Models/` | Twelve models: `Feature`, `UseCase`, the operational domain (`Farm`, `Field`, `Drone`, `Mission`, `Detection`, `TreatmentMap`, `FarmCapability`, `Herd`, `HerdMove`) and `DemoRequest` |
 | `app/Actions/Catalog/` | The public read API |
 | `app/Actions/Dashboard/` | The console's four writes |
 | `app/Actions/Leads/` | The field-visit booking endpoint |
@@ -48,7 +48,7 @@ ever disagree, that is a bug rather than a stale copy.
 
 ## The domain model
 
-Nine models, of which seven describe the operation.
+Twelve models, of which ten describe the operation.
 
 ```
 Farm ──┬── Field ──┬── Mission ──┬── Detection

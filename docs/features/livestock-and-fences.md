@@ -98,6 +98,14 @@ change detector than as a classifier. A fixed route makes "this 8 m section
 looks different from Tuesday" cheap and reliable, which is what a farmer
 actually wants.
 
+### The move is the sequel
+
+Counting a mob and walking a fence line is the patrol. Actually moving stock
+between blocks is [automated herding](/features/automated-herding), which rides
+on this aircraft with one extra payload. Build the patrol first: it is the
+easier regulatory case, and it is what proves to a farmer that the counting is
+trustworthy before anything is asked to push their animals anywhere.
+
 ### Cost efficiency
 
 - **Visual line of sight first, dock second, BVLOS third.** Each step multiplies

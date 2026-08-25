@@ -1,0 +1,237 @@
+<script server>
+const nodePath = require('node:path')
+const session = await import(nodePath.join(process.cwd(), 'app/Support/session.ts'))
+const board = await import(nodePath.join(process.cwd(), 'app/Support/dashboard.ts'))
+const moves = await import(nodePath.join(process.cwd(), 'app/Support/herding/moves.ts'))
+const Herd = (await import(nodePath.join(process.cwd(), 'app/Models/Herd.ts'))).default
+
+const title = 'Herding - Open Farming'
+const description = 'Moves waiting on your say-so, and the record of every one that has been flown.'
+const activeNav = 'account'
+const pagePath = '/dashboard/herding'
+const ogCard = 'account'
+const railActive = 'herding'
+
+const farmer = await session.currentUser()
+const farm = farmer ? await board.farmFor(Number(farmer.id)) : null
+
+// `movesFor` lapses any authorisation whose window has closed before it reads,
+// so this page can never show a move as authorised hours after the fact.
+const all = farm ? await moves.movesFor(farm.id) : []
+const fields = farm ? await board.fieldsFor(farm.id) : []
+
+let mobs = []
+if (farm) {
+  try {
+    const rows = await Herd.where('farm_id', farm.id).orderBy('name').get()
+    mobs = rows.map(row => ({ id: Number(row.id), name: String(row.name ?? ''), head: Number(row.head_count ?? 0), profile: String(row.pressure_profile ?? 'standard') }))
+  }
+  catch {
+    // An unmigrated table must not take the whole console down, the same way
+    // every other panel on this dashboard guards its own query.
+    mobs = []
+  }
+}
+
+/*
+ * Waiting first, and proposals before authorisations.
+ *
+ * A planned move is the one asking a person for a decision, which is the whole
+ * point of the page. Everything already decided is history and sorts below it.
+ */
+const waiting = all.filter(move => move.status === 'planned' || move.status === 'authorised')
+const flying = all.filter(move => move.status === 'flying')
+const history = all.filter(move => !['planned', 'authorised', 'flying'].includes(move.status))
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+
+@if (farmer && farm)
+  <section class="mx-auto px-3 py-6 sm:px-5 max-w-[1500px] console">
+    <div class="console-shell">
+      @include('dashboard-rail.stx')
+
+      <div class="console-body">
+        <header class="console-head">
+          <div>
+            <h1 class="text-[1.5rem] sm:text-[1.75rem]">Herding</h1>
+            <p class="mt-1 text-[0.85rem] text-[var(--text-3)]">
+              {{ farm.name }} · {{ mobs.length }} mob(s) · {{ waiting.length }} waiting on you · {{ history.length }} flown
+            </p>
+          </div>
+        </header>
+
+        <!-- Nothing here can start an aircraft. A move only becomes flyable
+            when somebody authorises it, which is what the panel below is. -->
+        <section class="mt-4 console-panel">
+          <div class="console-panel-head">
+            <h2 class="console-panel-title">Plan a move</h2>
+          </div>
+
+          @if (mobs.length > 0 && fields.length > 1)
+            <form method="POST" action="/api/herding/plan" class="flight-form">
+              <label class="flight-field">
+                <span class="flight-label">Mob</span>
+                <select name="herd_id" class="flight-input" required>
+                  @foreach (mobs as mob)
+                    <option value="{{ mob.id }}">{{ mob.name }} · {{ mob.head }} head · {{ mob.profile }}</option>
+                  @endforeach
+                </select>
+              </label>
+
+              <label class="flight-field">
+                <span class="flight-label">Onto</span>
+                <select name="to_field_id" class="flight-input" required>
+                  @foreach (fields as field)
+                    <option value="{{ field.id }}">{{ field.name }} · {{ field.hectares }} ha</option>
+                  @endforeach
+                </select>
+              </label>
+
+              <label class="flight-field">
+                <span class="flight-label">Reason</span>
+                <select name="reason" class="flight-input">
+                  <option value="rotation">Rotation</option>
+                  <option value="gather">Gather</option>
+                  <option value="fence_breach">Fence down</option>
+                  <option value="weather">Weather</option>
+                  <option value="manual">Something else</option>
+                </select>
+              </label>
+
+              <button type="submit" class="flight-submit">Plan it</button>
+            </form>
+          @else
+            <p class="p-4 text-[0.9rem] text-[var(--text-2)]">
+              Herding needs at least one mob on record and two blocks to move between. Book a field
+              visit and the route survey sets both up.
+            </p>
+          @endif
+        </section>
+
+        @if (waiting.length > 0)
+          <section class="mt-4 console-panel">
+            <div class="console-panel-head">
+              <h2 class="console-panel-title">Waiting on you</h2>
+            </div>
+
+            @foreach (waiting as move)
+              <div class="herd-move">
+                <div class="herd-move-head">
+                  <div>
+                    <p class="m-0 font-semibold text-[0.95rem]">{{ move.herd }}: {{ move.from }} to {{ move.to }}</p>
+                    <p class="m-0 mt-1 text-[0.82rem] text-[var(--text-3)]">{{ move.reason }} · {{ move.status }}</p>
+                  </div>
+                  <div class="flex gap-2">
+                    @if (move.status === 'planned')
+                      <form method="POST" action="/api/herding/{{ move.id }}/authorise">
+                        <button type="submit" class="flight-submit">Authorise</button>
+                      </form>
+                    @else
+                      <form method="POST" action="/api/herding/{{ move.id }}/abort">
+                        <input type="hidden" name="reason" value="Stopped from the dashboard.">
+                        <button type="submit" class="flight-submit">Stop it</button>
+                      </form>
+                    @endif
+                  </div>
+                </div>
+
+                <p class="m-0 mt-2 text-[0.85rem] text-[var(--text-2)]">{{ move.summary }}</p>
+
+                <!-- The envelope is what authorising actually agrees to, so it
+                    is on the screen where the decision is made rather than
+                    somewhere a farmer has to go and look for it. -->
+                <dl class="herd-envelope">
+                  <div><dt>Standoff</dt><dd class="telemetry">{{ move.envelope.minStandoffM }} m</dd></div>
+                  <div><dt>Top speed</dt><dd class="telemetry">{{ move.envelope.maxMobSpeedMs }} m/s</dd></div>
+                  <div><dt>Longest drive</dt><dd class="telemetry">{{ move.envelope.maxDriveMinutes }} min</dd></div>
+                  <div><dt>Rest after</dt><dd class="telemetry">{{ move.envelope.restAfterMinutes }} min</dd></div>
+                </dl>
+
+                @if (move.expiresAt)
+                  <p class="m-0 mt-2 text-[0.78rem] text-[var(--text-3)]">
+                    Authorisation lapses at {{ move.expiresAt }} if nothing has flown by then.
+                  </p>
+                @endif
+              </div>
+            @endforeach
+          </section>
+        @endif
+
+        @if (flying.length > 0)
+          <section class="mt-4 console-panel">
+            <div class="console-panel-head">
+              <h2 class="console-panel-title">In the air</h2>
+            </div>
+            @foreach (flying as move)
+              <div class="herd-move">
+                <div class="herd-move-head">
+                  <div>
+                    <p class="m-0 font-semibold text-[0.95rem]">{{ move.herd }}: {{ move.from }} to {{ move.to }}</p>
+                    <p class="m-0 mt-1 text-[0.82rem] text-[var(--text-3)]">Started {{ move.startedAt }}</p>
+                  </div>
+                  <form method="POST" action="/api/herding/{{ move.id }}/abort">
+                    <input type="hidden" name="reason" value="Stopped from the dashboard.">
+                    <button type="submit" class="flight-submit">Stop it</button>
+                  </form>
+                </div>
+              </div>
+            @endforeach
+          </section>
+        @endif
+
+        <section class="mt-4 console-panel">
+          <div class="console-panel-head">
+            <h2 class="console-panel-title">The record</h2>
+          </div>
+
+          @if (history.length > 0)
+            <table class="console-table">
+              <thead>
+                <tr>
+                  <th>Mob</th><th>Move</th><th>Result</th><th>Closest</th><th>Fastest</th><th>Left behind</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach (history as move)
+                  <tr>
+                    <td>{{ move.herd }}</td>
+                    <td>{{ move.from }} to {{ move.to }}</td>
+                    <td>
+                      {{ move.status }}
+                      @if (move.abortReason)
+                        <span class="block text-[0.78rem] text-[var(--text-3)]">{{ move.abortReason }}</span>
+                      @endif
+                    </td>
+                    <td class="telemetry">{{ move.outcome.closestApproachM }} m</td>
+                    <td class="telemetry">{{ move.outcome.peakMobSpeedMs }} m/s</td>
+                    <td class="telemetry">{{ move.outcome.stragglers }}</td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          @else
+            <p class="p-4 text-[0.9rem] text-[var(--text-2)]">
+              Nothing has been flown yet. Every move that is will be listed here with the limits it
+              was authorised under and what it actually did against them.
+            </p>
+          @endif
+        </section>
+
+        <p class="mt-4 text-[0.82rem] text-[var(--text-3)]">
+          Curious how the aircraft decides where to sit? The controller runs in the open at
+          <a href="/playground/herding">the playground</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+@else
+  <section class="mx-auto px-5 py-20 max-w-[1240px]">
+    <h1 class="text-[2rem]">Sign in to see your herding</h1>
+    <p class="mt-4 text-[var(--text-2)]"><a href="/login">Sign in</a> to plan and authorise moves.</p>
+  </section>
+@endif
+
+@endsection

@@ -22,6 +22,9 @@ const railPath = typeof railActive === 'string' ? railActive : ''
   <a href="/dashboard/detections" class="rail-item @if (railPath === 'detections') is-active @endif" @if (railPath === 'detections') aria-current="page" @endif aria-label="{t:dashboard.detections}">
     <i class="text-[1.15rem] i-hugeicons-search-area" aria-hidden="true"></i>
   </a>
+  <a href="/dashboard/herding" class="rail-item @if (railPath === 'herding') is-active @endif" @if (railPath === 'herding') aria-current="page" @endif aria-label="{t:dashboard.herding}">
+    <i class="text-[1.15rem] i-hugeicons-route-01" aria-hidden="true"></i>
+  </a>
   <a href="/field-report" class="rail-item" aria-label="{t:nav.fieldReport}">
     <i class="text-[1.15rem] i-hugeicons-document-validation" aria-hidden="true"></i>
   </a>

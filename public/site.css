@@ -908,3 +908,243 @@ a { color: inherit; }
   .capability-row { flex-direction: column; align-items: stretch; gap: 0.6rem; }
   .capability-controls { justify-content: flex-start; }
 }
+
+/* -------------------------------------------------------------------------
+  The herding playground.
+
+  The map is server-rendered SVG whose movement is SMIL, so everything below
+  is styling a picture that is already animating. Nothing here starts, stops
+  or drives the animation; see `app/Support/herding/herdmap.ts` for why the
+  frames are markup rather than script.
+  ------------------------------------------------------------------------- */
+
+.herd-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--map-bg);
+  border-radius: var(--r-sm);
+}
+
+/* The block they are leaving, and the one they are going to. The move only
+  makes sense if you can see that one is grazed off and the other is not. */
+.herd-block { stroke: var(--line); stroke-width: 0.003; }
+.herd-block-from { fill: color-mix(in srgb, var(--crop) 12%, transparent); }
+.herd-block-to { fill: color-mix(in srgb, var(--crop) 30%, transparent); }
+
+.herd-fence {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 0.004;
+}
+
+/* Hatched rather than filled flat: a solid block reads as a feature of the
+  field, and this is ground the mob must not reach. */
+.herd-hazard { stroke: none; }
+.herd-hatch-line { stroke: var(--accent); stroke-width: 0.006; opacity: 0.55; }
+.herd-hazard-edge {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 0.004;
+  stroke-dasharray: 0.012 0.008;
+}
+
+/* The route a farmer looked at before they authorised it. */
+.herd-corridor-band {
+  fill: none;
+  stroke: color-mix(in srgb, var(--crop) 22%, transparent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.herd-corridor {
+  fill: none;
+  stroke: var(--crop);
+  stroke-width: 0.003;
+  stroke-dasharray: 0.02 0.014;
+  opacity: 0.75;
+}
+
+.herd-gate {
+  fill: var(--panel);
+  stroke: var(--crop);
+  stroke-width: 0.004;
+}
+
+.herd-animal {
+  fill: var(--text);
+  opacity: 0.82;
+}
+
+/* The flighty ones are marked because the whole argument of the distress
+  reading is that they are individuals the mob average cannot see. */
+.herd-animal-flighty {
+  fill: var(--accent);
+  opacity: 0.95;
+}
+
+.herd-drone {
+  fill: var(--accent);
+  stroke: var(--accent-ink);
+  stroke-width: 0.002;
+}
+
+/* The distance it is keeping, and how much of that distance is height. */
+.herd-standoff {
+  fill: color-mix(in srgb, var(--accent) 7%, transparent);
+  stroke: var(--accent);
+  stroke-width: 0.0025;
+  stroke-dasharray: 0.01 0.007;
+  opacity: 0.7;
+}
+
+.herd-altitude {
+  fill: none;
+  stroke: var(--accent-2);
+  stroke-width: 0.0035;
+  opacity: 0.85;
+}
+
+/*
+ * Motion and reduced motion.
+ *
+ * The movement here is the content, the way it is in a video: a still frame of
+ * a herding move says nothing at all, so this is one of the cases the reduced
+ * motion guidance leaves alone rather than one it asks you to remove.
+ *
+ * It is worth saying plainly that CSS cannot pause SMIL - `animation-play-state`
+ * has no effect on an `<animate>` element, and an earlier version of this block
+ * claimed otherwise. Rather than reach for script to fake it, the page carries
+ * the same argument twice: the strip chart and the readings beside the map are
+ * static, and a reader who does not want the movement can take everything from
+ * them.
+ */
+
+/* The scenario picker. */
+.herd-pick {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-2);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.herd-pick:hover { border-color: var(--crop); color: var(--text); }
+
+.herd-pick-on {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+/* The verdict. Arriving and stopping are both results, and the page says so,
+  so an abort is marked rather than coloured as a failure. */
+.herd-verdict { border: 1px solid var(--line); }
+.herd-verdict-arrived { background: color-mix(in srgb, var(--crop) 12%, transparent); border-color: var(--crop); }
+.herd-verdict-aborted { background: var(--accent-wash); border-color: var(--accent); }
+
+.herd-readings {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.herd-reading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.herd-reading dt { font-size: 0.88rem; }
+.herd-reading dd { margin: 0; font-size: 1.05rem; font-weight: 600; }
+
+.herd-limit {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--text-3);
+}
+
+.herd-breached { color: var(--accent); }
+
+.herd-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-3);
+}
+
+/* The strip chart: what it did against what it was allowed to do. */
+.herd-trace {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+
+.herd-trace-line { fill: none; stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+.herd-trace-limit { stroke-width: 0.5; stroke-dasharray: 2 2; vector-effect: non-scaling-stroke; opacity: 0.6; }
+.herd-trace-speed { stroke: var(--crop); }
+.herd-trace-altitude { stroke: var(--accent); }
+
+.herd-key-animal { background: var(--text); border-radius: 50%; }
+.herd-key-flighty { background: var(--accent); border-radius: 50%; }
+.herd-key-drone { background: var(--accent); border: 2px solid var(--accent-ink); border-radius: 50%; }
+.herd-key-standoff { background: transparent; border: 1px dashed var(--accent); border-radius: 50%; }
+.herd-key-altitude { background: transparent; border: 2px solid var(--accent-2); border-radius: 50%; }
+.herd-key-hazard { background: var(--accent-wash); border: 1px dashed var(--accent); }
+.herd-key-speed { background: var(--crop); }
+.herd-key-height { background: var(--accent); }
+
+@media (max-width: 640px) {
+  .herd-reading { grid-template-columns: 1fr; }
+}
+
+/* One herding move on the console: the decision, and what it commits to. */
+.herd-move {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.herd-move:last-child { border-bottom: 0; }
+
+.herd-move-head {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/*
+ * The envelope, shown where the decision is made.
+ *
+ * Authorising a move is agreeing to these four numbers, so they belong on the
+ * button's own screen rather than a page a farmer has to go and find. It is
+ * also what the record is checked against afterwards.
+ */
+.herd-envelope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin: 0.7rem 0 0;
+}
+
+.herd-envelope dt {
+  font-size: 0.72rem;
+  color: var(--text-3);
+}
+
+.herd-envelope dd {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}

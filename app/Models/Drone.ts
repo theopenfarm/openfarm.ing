@@ -59,14 +59,22 @@ export default defineModel({
       factory: () => 'Scout',
     },
 
-    /** The sensor payload fitted, which decides what it can be tasked with. */
+    /**
+     * The payload fitted, which decides what the aircraft can be tasked with.
+     *
+     * `speaker` is not a sensor, and that is the point: a herding aircraft
+     * carries a directional speaker, because a mob responds to sound at a
+     * distance where it would ignore an airframe. Keeping it in the same enum
+     * is what lets the scheduler answer "which aircraft can fly this
+     * capability" with one column.
+     */
     payload: {
       required: true,
       order: 3,
       fillable: true,
       validation: {
-        rule: schema.enum(['rgb', 'multispectral', 'thermal', 'lidar', 'hopper']),
-        message: { enum: 'Payload must be rgb, multispectral, thermal, lidar or hopper' },
+        rule: schema.enum(['rgb', 'multispectral', 'thermal', 'lidar', 'hopper', 'speaker']),
+        message: { enum: 'Payload must be rgb, multispectral, thermal, lidar, hopper or speaker' },
       },
       factory: () => 'multispectral',
     },

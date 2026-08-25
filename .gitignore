@@ -22,7 +22,11 @@ node_modules
 # QA
 test-results
 tests/unit/coverage
-dist*
+# Trailing slash so this matches build output DIRECTORIES only. Unanchored and
+# without it, `dist*` also swallows any file whose name starts with "dist" -
+# `app/Support/herding/distress.ts` was ignored, and a branch that imported it
+# would have failed CI with a module nobody could see in the diff.
+dist*/
 
 # IDE files
 .fleet

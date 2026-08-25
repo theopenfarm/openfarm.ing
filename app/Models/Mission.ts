@@ -28,7 +28,7 @@ export default defineModel({
   },
 
   belongsTo: ['Farm', 'Field', 'Drone'],
-  hasMany: ['Detection', 'TreatmentMap'],
+  hasMany: ['Detection', 'TreatmentMap', 'HerdMove'],
 
   attributes: {
     /*

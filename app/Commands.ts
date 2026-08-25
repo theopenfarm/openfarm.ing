@@ -41,5 +41,8 @@ export default {
   // Photographs the running site for the documentation, so the pictures in it
   // cannot drift from the interface they describe.
   'docs:screenshots': 'DocsScreenshots',
+  // Runs the herding controller against the modelled paddocks and prints what
+  // it did. The same worlds the playground draws and the tests assert on.
+  'herding:sim': 'HerdingSim',
   'inspire': 'Inspire',
 } satisfies CommandRegistry

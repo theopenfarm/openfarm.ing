@@ -6,7 +6,7 @@ import { nextDue, offeredCount, requiresVisit } from '../../app/Support/capabili
  * The promise this file exists to keep: everything the marketing pages sell is
  * something a farmer can manage from the dashboard.
  *
- * It is easy to add a nineteenth capability to the catalog and forget the
+ * It is easy to add a twentieth capability to the catalog and forget the
  * console, and the failure is silent — the site advertises work the customer
  * cannot switch on, and nobody notices until one of them asks where it is.
  */
@@ -21,7 +21,7 @@ describe('every marketed capability is manageable', () => {
     ] as any
 
     expect(offeredCount(groups)).toBe(features.length)
-    expect(features.length).toBeGreaterThanOrEqual(18)
+    expect(features.length).toBeGreaterThanOrEqual(19)
   })
 
   it('puts every capability in a category the dashboard renders', () => {

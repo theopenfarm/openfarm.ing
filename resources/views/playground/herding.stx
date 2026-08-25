@@ -1,0 +1,25 @@
+<script server>
+const nodePath = require('node:path')
+const playground = await import(nodePath.join(process.cwd(), 'app/Support/herding/playground.ts'))
+const scenarios = await import(nodePath.join(process.cwd(), 'app/Support/herding/scenarios.ts'))
+
+// The default scenario. Every other one is its own page under
+// /playground/herding/<slug>, which keeps the picker working with no script.
+const run = playground.playgroundRun(scenarios.DEFAULT_SCENARIO)
+
+const title = 'Herding playground - Open Farming'
+const description = 'Watch the drone herding controller move a modelled mob between grazing blocks, and watch it stop when it cannot do it safely.'
+const activeNav = 'playground'
+const pagePath = '/playground/herding'
+// The playground has no card of its own, so it borrows the capability's: same
+// subject, and `buddy og:generate` walks the catalog rather than every route,
+// so an invented slug here would unfurl as a broken image everywhere the link
+// is shared.
+const ogCard = 'features/automated-herding'
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+@include('herding-playground.stx')
+@endsection

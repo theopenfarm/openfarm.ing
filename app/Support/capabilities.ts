@@ -6,7 +6,7 @@ import { features } from './content/features'
 /**
  * The bridge between what the site sells and what a farmer can switch on.
  *
- * `app/Support/content/features.ts` is the catalog: eighteen capabilities, each
+ * `app/Support/content/features.ts` is the catalog: nineteen capabilities, each
  * described for someone deciding whether to buy. This module answers the other
  * question — for *this* holding, which of them are running, how often, over
  * which fields, and when they were last flown. Every capability on the
@@ -46,8 +46,9 @@ const GROUP_ORDER = ['detect', 'act', 'operate'] as const
  * Capabilities that cannot simply be switched on.
  *
  * Seeding and frost protection need equipment on site; the livestock and
- * wildlife work needs a licence check before a first flight. Turning these on
- * records a request rather than promising a flight the schedule cannot keep.
+ * wildlife work needs a licence check before a first flight, and herding needs
+ * the gates and the hazards walked as well. Turning one of these on records a
+ * request rather than promising a flight the schedule cannot keep.
  */
 const NEEDS_A_VISIT = new Set([
   'drone-seeding',
@@ -55,6 +56,11 @@ const NEEDS_A_VISIT = new Set([
   'pollination-support',
   'wildlife-rescue',
   'livestock-and-fences',
+  // Herding needs both halves of that sentence: a route survey, because the
+  // gates and the ground to keep stock off have to be walked before anything
+  // is drawn, and an authorisation, because a drive over grazing is beyond
+  // visual line of sight almost everywhere it is worth doing.
+  'automated-herding',
 ])
 
 export function requiresVisit(slug: string): boolean {
@@ -146,7 +152,7 @@ export function activeCount(groups: CapabilityGroup[]): number {
   return groups.flatMap(group => group.capabilities).filter(capability => capability.status === 'active').length
 }
 
-/** The whole catalog's size, so the dashboard can say "6 of 18". */
+/** The whole catalog's size, so the dashboard can say "6 of 19". */
 export function offeredCount(groups: CapabilityGroup[]): number {
   return groups.flatMap(group => group.capabilities).length
 }

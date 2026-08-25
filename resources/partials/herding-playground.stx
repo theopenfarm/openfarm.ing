@@ -1,0 +1,161 @@
+{{-- The playground body, shared by /playground/herding and its per-scenario
+    pages. Both set `run` in their own server script and include this, so the
+    two URLs cannot drift into showing different things. --}}
+
+@if (run)
+<section class="mx-auto pb-8 pt-14 px-5 md:pt-20 max-w-[1240px]">
+  <span class="chip">Modelled ground, modelled animals</span>
+  <h1 class="mt-4 max-w-[24ch] leading-[1.07] text-[2.1rem] sm:text-[2.6rem] lg:text-[3rem]">
+    Watch the herding controller work
+  </h1>
+  <p class="mt-5 max-w-[64ch] leading-relaxed text-[1.075rem] text-[var(--text-2)]">
+    This is not an animation of how drone herding might go. It is the same controller that would
+    fly the aircraft, run against a modelled paddock, and every position you see is a tick of it.
+    Change the scenario and the controller has to solve a different problem. One of them it cannot
+    solve, and it stops.
+  </p>
+</section>
+
+<!-- The scenario picker. Plain links: each one is a page, so it works with
+    JavaScript off like the rest of this site. -->
+<nav class="mx-auto px-5 max-w-[1240px]" aria-label="Scenario">
+  <ul class="flex flex-wrap gap-2 m-0 p-0 list-none">
+    @foreach (run.others as other)
+      <li>
+        @if (other.current)
+          <span class="herd-pick herd-pick-on" aria-current="page">{{ other.name }}</span>
+        @else
+          <a class="herd-pick" href="/playground/herding/{{ other.slug }}">{{ other.name }}</a>
+        @endif
+      </li>
+    @endforeach
+  </ul>
+</nav>
+
+<section class="mx-auto px-5 py-8 max-w-[1240px]">
+  <div class="grid gap-10 lg:gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+    <figure class="m-0 p-4 bg-[var(--panel)] border border-[var(--line)] rounded-[10px]">
+      {!! run.map !!}
+      <figcaption class="mt-4 text-[0.8rem] text-[var(--text-2)]">
+        <div class="flex flex-wrap gap-x-5 gap-y-2">
+          <span class="flex gap-1.5 items-center"><span class="herd-key-animal legend-swatch"></span>An animal</span>
+          <span class="flex gap-1.5 items-center"><span class="herd-key-flighty legend-swatch"></span>A flighty one</span>
+          <span class="flex gap-1.5 items-center"><span class="herd-key-drone legend-swatch"></span>The aircraft</span>
+          <span class="flex gap-1.5 items-center"><span class="herd-key-standoff legend-swatch"></span>Standoff it is holding</span>
+          <span class="flex gap-1.5 items-center"><span class="herd-key-altitude legend-swatch"></span>How much of that is height</span>
+          @if (run.world.hazards.length > 0)
+            <span class="flex gap-1.5 items-center"><span class="herd-key-hazard legend-swatch"></span>Ground to keep them off</span>
+          @endif
+        </div>
+        <p class="mt-3 max-w-[62ch]">
+          The two rings around the aircraft are the whole control story. The outer one is the
+          distance it is keeping from the nearest animal; the inner one is how much of that
+          distance is height rather than ground. When the mob unsettles, watch the inner ring grow
+          while the aircraft stays where it is.
+        </p>
+      </figcaption>
+    </figure>
+
+    <div>
+      <h2 class="text-[1.55rem]">{{ run.world.name }}</h2>
+      <p class="mt-3 max-w-[58ch] leading-relaxed text-[0.95rem] text-[var(--text-2)]">
+        {{ run.world.brief }}
+      </p>
+
+      <div class="mt-6 p-4 rounded-[8px] herd-verdict herd-verdict-{{ run.status }}">
+        <p class="m-0 font-semibold text-[0.95rem]">{{ run.verdict }}</p>
+        @if (run.abortReason)
+          <p class="m-0 mt-2 text-[0.88rem]">{{ run.abortReason }}</p>
+        @endif
+        @if (run.stragglers > 0)
+          <p class="m-0 mt-2 text-[0.88rem]">
+            {{ run.stragglers }} left on the old block, reported for somebody to walk out to.
+          </p>
+        @endif
+      </div>
+
+      <h3 class="mt-8 text-[1.05rem]">What it did, against what it was allowed to do</h3>
+      <dl class="m-0 mt-4 herd-readings">
+        @foreach (run.readings as reading)
+          <div class="herd-reading">
+            <dt>
+              {{ reading.label }}
+              @if (reading.limit)
+                <span class="herd-limit">limit {{ reading.limit }}</span>
+              @endif
+            </dt>
+            <dd class="telemetry @if (reading.breached) herd-breached @endif">{{ reading.value }}</dd>
+            @if (reading.note)
+              <p class="herd-note">{{ reading.note }}</p>
+            @endif
+          </div>
+        @endforeach
+      </dl>
+
+      <figure class="m-0 mt-8">
+        {!! run.trace !!}
+        <figcaption class="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-[0.78rem] text-[var(--text-2)]">
+          <span class="flex gap-1.5 items-center"><span class="herd-key-speed legend-swatch"></span>Mob speed</span>
+          <span class="flex gap-1.5 items-center"><span class="herd-key-height legend-swatch"></span>Aircraft height</span>
+          <span>Dotted lines are the limits.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="bg-[var(--panel)] border-[var(--line)] border-y">
+  <div class="grid gap-8 md:grid-cols-3 mx-auto px-5 py-12 max-w-[1240px]">
+    <div>
+      <h3 class="text-[1.05rem]">Height comes off first</h3>
+      <p class="mt-3 leading-relaxed text-[0.92rem] text-[var(--text-2)]">
+        A stockman under pressure can only step back, and a mob that is backed away from stops
+        walking. An aircraft can step up instead: it sheds the pressure, takes the rotor noise with
+        it, and keeps the position that is doing the driving. So the controller climbs before it
+        gives ground, and only gives ground when climbing has not been enough.
+      </p>
+    </div>
+    <div>
+      <h3 class="text-[1.05rem]">It watches animals, not averages</h3>
+      <p class="mt-3 leading-relaxed text-[0.92rem] text-[var(--text-2)]">
+        A hundred head walking at a legal pace with one animal bolting inside them averages out to
+        a perfectly compliant move, and the one animal is the one that goes through a fence. Every
+        animal is scored on how it is moving: fast relative to the mob, turning hard, or leaving.
+        That reading is what sends the aircraft up.
+      </p>
+    </div>
+    <div>
+      <h3 class="text-[1.05rem]">Stopping is a result</h3>
+      <p class="mt-3 leading-relaxed text-[0.92rem] text-[var(--text-2)]">
+        One of these scenarios cannot be solved inside the limits a mob may be driven under, and
+        the controller stops and asks for a person. That rung is on this page on purpose. A
+        demonstration that only shows the good case is an advertisement, and an advertisement is
+        not evidence.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto px-5 py-12 max-w-[1240px]">
+  <h2 class="text-[1.5rem]">Why you can check this</h2>
+  <p class="mt-4 max-w-[64ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
+    Every scenario is generated deterministically: a fixed seed, no clock, no random numbers. The
+    same run produces the same frames every time, which is what lets the figures above be asserted
+    in the test suite rather than quoted from a good day. Run it yourself with
+    <code class="telemetry">buddy herding:sim --scenario {{ run.world.slug }}</code>.
+  </p>
+  <p class="mt-4 max-w-[64ch] leading-relaxed text-[0.98rem] text-[var(--text-2)]">
+    The animals are a model, not a claim about livestock. What is real here is the controller: the
+    same module decides where the aircraft goes on this page, in the tests and on a flight. See
+    <a href="/features/automated-herding">the capability</a> for how a move is planned, authorised
+    and flown.
+  </p>
+</section>
+@else
+<section class="mx-auto px-5 py-20 max-w-[1240px]">
+  <h1 class="text-[2rem]">No such scenario</h1>
+  <p class="mt-4 text-[var(--text-2)]">
+    That playground does not exist. <a href="/playground/herding">Start from the rotation move</a>.
+  </p>
+</section>
+@endif

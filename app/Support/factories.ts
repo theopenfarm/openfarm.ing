@@ -257,3 +257,61 @@ export function flownOn(faker: Faker): string {
 
   return faker.date.between({ from, to }).toISOString()
 }
+
+/*
+ * Livestock.
+ *
+ * A mob is named for what it is and where it stands, the way it is said over
+ * the gate: "the Nordkoppel heifers", not "herd 4". The species and the class
+ * have to agree - a mob of "ewes with lambs" that seeds as cattle reads as
+ * nonsense to anybody who keeps stock - so they are drawn together from one
+ * table rather than independently.
+ */
+const MOBS: { species: string, mobClass: string, label: string }[] = [
+  { species: 'cattle', mobClass: 'dairy cows', label: 'milkers' },
+  { species: 'cattle', mobClass: 'in-calf heifers', label: 'heifers' },
+  { species: 'cattle', mobClass: 'weaned calves', label: 'weanlings' },
+  { species: 'cattle', mobClass: 'suckler cows with calves', label: 'sucklers' },
+  { species: 'cattle', mobClass: 'dry cows', label: 'dry cows' },
+  { species: 'sheep', mobClass: 'ewes with lambs', label: 'ewes' },
+  { species: 'sheep', mobClass: 'store lambs', label: 'store lambs' },
+  { species: 'sheep', mobClass: 'ewe hoggets', label: 'hoggets' },
+  { species: 'goats', mobClass: 'milking does', label: 'does' },
+]
+
+let currentMob = MOBS[0]!
+let lastHerdName = ''
+
+export function herdSpecies(faker: Faker): string {
+  currentMob = pick(faker, MOBS)
+  return currentMob.species
+}
+
+/** Reads back the draw `herdSpecies` made, the way `findingLabel` does. */
+export function mobClass(): string {
+  return currentMob.mobClass
+}
+
+export function herdName(faker: Faker): string {
+  lastHerdName = `${rotate(faker, PLACE_NAMES)} ${currentMob.label}`
+  return lastHerdName
+}
+
+export function herdSlug(faker: Faker): string {
+  return slugify(lastHerdName || herdName(faker), faker)
+}
+
+const HERD_MOVE_NOTES = [
+  'Routine rotation onto fresh cover, mob walked the whole way.',
+  'Moved off the wet corner before the forecast rain came in.',
+  'Gathered to the collecting yard ahead of morning milking.',
+  'Brought back through the gate after a section of fence went down overnight.',
+  'Held short of the road boundary; the mob settled and the move completed.',
+  'Backed off twice when the mob picked up pace, then finished at a walk.',
+  'Two stragglers stayed on the old block and were left for a person to check.',
+  'Aborted at the standoff limit; a person went out and moved them by hand.',
+]
+
+export function herdMoveNote(faker: Faker): string {
+  return pick(faker, HERD_MOVE_NOTES)
+}

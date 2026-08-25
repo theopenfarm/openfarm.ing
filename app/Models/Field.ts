@@ -26,7 +26,7 @@ export default defineModel({
   },
 
   belongsTo: ['Farm'],
-  hasMany: ['Mission', 'Detection'],
+  hasMany: ['Mission', 'Detection', 'Herd'],
 
   attributes: {
     /*

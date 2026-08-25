@@ -54,7 +54,7 @@ busiest one. `--detach` hands them back.
 
 | Command | Effect |
 |---|---|
-| `./buddy migrate` | Creates the schema for the nine models |
+| `./buddy migrate` | Creates the schema for the twelve models |
 | `./buddy catalog:sync` | Truncates and rewrites `features`, `use_cases`, and the demonstration farm, field, mission, detections and treatment map |
 | `./buddy seed` | Fills the operational models from the per-attribute factories with plausible random rows |
 | `./buddy demo:account` | Assigns ownership, which the seeder deliberately does not do |

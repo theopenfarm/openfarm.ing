@@ -1,0 +1,25 @@
+<script server>
+const nodePath = require('node:path')
+const playground = await import(nodePath.join(process.cwd(), 'app/Support/herding/playground.ts'))
+
+// /playground/herding/<scenario>. Anything outside [a-z0-9-] cannot be a slug
+// we issued, so it is stripped rather than passed to a lookup.
+const slug = String((typeof params === 'object' && params && params.scenario) || '').replace(/[^a-z0-9-]/gi, '')
+const run = playground.playgroundRun(slug)
+
+const title = run ? `${run.world.name} - Herding playground - Open Farming` : 'Scenario not found - Open Farming'
+const description = run ? run.world.brief : 'That herding scenario does not exist.'
+const activeNav = 'playground'
+const pagePath = `/playground/herding/${slug}`
+// The playground has no card of its own, so it borrows the capability's: same
+// subject, and `buddy og:generate` walks the catalog rather than every route,
+// so an invented slug here would unfurl as a broken image everywhere the link
+// is shared.
+const ogCard = 'features/automated-herding'
+</script>
+
+@layout('layouts/site')
+
+@section('content')
+@include('herding-playground.stx')
+@endsection

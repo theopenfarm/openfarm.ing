@@ -189,6 +189,7 @@ const config: BunPressOptions = {
             { text: 'Frost protection', link: '/features/frost-protection' },
             { text: 'Pollination support', link: '/features/pollination-support' },
             { text: 'Livestock and fences', link: '/features/livestock-and-fences' },
+            { text: 'Automated herding', link: '/features/automated-herding' },
             { text: 'Bird deterrence', link: '/features/bird-deterrence' },
             { text: 'Soil compaction', link: '/features/soil-compaction' },
             { text: 'Sustainability reporting', link: '/features/sustainability-dashboard' },

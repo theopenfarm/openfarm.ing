@@ -32,6 +32,27 @@ route.get('/use-cases/{slug}', 'Actions/Catalog/UseCaseShowAction')
 route.get('/field-report', 'Actions/Catalog/FieldReportAction')
 
 /**
+ * Herding.
+ *
+ * Authenticated and scoped to the caller's own holding, like everything else
+ * that touches a customer's operation. Three phases rather than one endpoint,
+ * because the thing being automated moves live animals: `plan` is free and
+ * reversible, `authorise` is the human act that freezes the welfare envelope
+ * and opens a window, and only an authorised move inside its window may fly.
+ *
+ * `abort` is deliberately the most generously rate limited endpoint on this
+ * site. A farmer pressing it repeatedly is a farmer watching something go
+ * wrong, and it is the one request that must never be refused.
+ *
+ * The generated REST for `herds` and `herd-moves` comes from the models'
+ * `useApi` traits and needs nothing here.
+ */
+route.get('/herding', 'Actions/Herding/IndexAction')
+route.post('/herding/plan', 'Actions/Herding/PlanAction').skipCsrf()
+route.post('/herding/{id}/authorise', 'Actions/Herding/AuthoriseAction').skipCsrf()
+route.post('/herding/{id}/abort', 'Actions/Herding/AbortAction').skipCsrf()
+
+/**
  * The only write accepted from the public internet. Rate limited per IP and
  * narrow about what it stores; see the action for the reasoning.
  *

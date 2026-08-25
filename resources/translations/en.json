@@ -3,6 +3,7 @@
     "capabilities": "Capabilities",
     "useCases": "Use cases",
     "fieldReport": "Field report",
+    "playground": "Playground",
     "howItWorks": "How it works",
     "pricing": "Pricing",
     "home": "Open Farming home",
@@ -1069,7 +1070,8 @@
     "fieldsNote": "Blocks on this holding",
     "hectaresNote": "Flown across the season",
     "detectionsNote": "Marked across every flight",
-    "mapTitle": "Latest treatment map"
+    "mapTitle": "Latest treatment map",
+    "herding": "Herding"
   },
   "detail": {
     "moreIn": "More in"

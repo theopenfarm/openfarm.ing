@@ -329,7 +329,7 @@ export const useCases: UseCaseContent[] = [
       { window: 'Autumn', focus: 'Poaching and damage mapping for the reseeding plan.' },
       { window: 'Housing', focus: 'Fence and water point condition survey for the winter works list.' },
     ],
-    features: ['livestock-and-fences', 'wildlife-rescue', 'field-mapping', 'autonomous-network', 'drone-seeding'],
+    features: ['livestock-and-fences', 'automated-herding', 'wildlife-rescue', 'field-mapping', 'autonomous-network', 'drone-seeding'],
     outcomes: [
       'Head count per block recorded daily against expected',
       'Fence faults reported the morning they appear',

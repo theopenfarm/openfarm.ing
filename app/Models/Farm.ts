@@ -28,7 +28,7 @@ export default defineModel({
   // shows up on no dashboard.
   belongsTo: ['User'],
 
-  hasMany: ['Field', 'Drone', 'Mission'],
+  hasMany: ['Field', 'Drone', 'Mission', 'Herd', 'HerdMove'],
 
   attributes: {
     name: {

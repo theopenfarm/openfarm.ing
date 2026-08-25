@@ -67,9 +67,10 @@ aircraft so a failure does not cancel a morning.
 | Registration, A2 certificate, insurance, first year | €1,500 |
 | **Total** | **€23,400 to €37,600** |
 
-This covers 15 of the 18 capabilities. The three it does not are
+This covers 15 of the 19 capabilities. The four it does not are
 [seeding](/features/drone-seeding),
-[pollination](/features/pollination-support) and unattended operation.
+[pollination](/features/pollination-support),
+[herding](/features/automated-herding) and unattended operation.
 
 ## Tier 3: one dock station
 

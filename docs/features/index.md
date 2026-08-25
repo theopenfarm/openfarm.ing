@@ -40,6 +40,7 @@ Treatment that follows the map, so only the affected ground is touched.
 | [Frost protection](/features/frost-protection) | Measures temperature across a block and names tonight's cold pockets | Every clear night in the risk window |
 | [Pollination support](/features/pollination-support) | Assists pollination indoors and where pollinator activity is short | Daily through flowering |
 | [Autonomous bird deterrence](/features/bird-deterrence) | Clears birds on demand instead of a permanent noise source | Triggered by detection, not a timer |
+| [Automated livestock herding](/features/automated-herding) | Walks a mob between grazing blocks on a route you approved | Whenever the rotation is due |
 
 ## Operate
 

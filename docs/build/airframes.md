@@ -1,6 +1,6 @@
 # Airframes
 
-Four aircraft classes cover all 18 capabilities. Most farms and most operators
+Four aircraft classes cover all 19 capabilities. Most farms and most operators
 need two of them.
 
 | Class | Mass | Payload | Covers |

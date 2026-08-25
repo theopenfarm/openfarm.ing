@@ -26,6 +26,31 @@ in development.
 | `POST /api/email/subscribe` | Records a subscriber. Rate limited, deduplicated |
 | `GET /api/v1/status` | Version and liveness |
 
+### Herding
+
+Authenticated and scoped to the caller's own holding, unlike everything above.
+
+| Endpoint | Returns |
+|---|---|
+| `GET /api/herding` | Every move on the holding, each with the welfare envelope it was authorised under and what happened against it |
+| `POST /api/herding/plan` | Proposes a move. Answers with the row in `planned` and the corridor it would take |
+| `POST /api/herding/{id}/authorise` | The human act. Freezes the envelope onto the row and opens a window |
+| `POST /api/herding/{id}/abort` | Stops a move, from either side of the launch |
+| `GET /api/herds` | The mobs on the holding |
+
+Three phases rather than one endpoint, because the thing being automated moves
+live animals. `plan` is free and reversible, which is what makes it safe for
+the nightly job to call unattended; `authorise` is the only way a move becomes
+flyable, and an authorisation that nothing acts on inside its window lapses to
+`expired` rather than flying late.
+
+`abort` is the most generously rate limited endpoint on this site, at 240 a
+minute. A farmer pressing it repeatedly is a farmer watching something go
+wrong, and it is the one request that must never be refused.
+
+See [automated herding](/features/automated-herding) for what the envelope
+means, and [the playground](https://openfarm.ing/playground/herding) for the controller running.
+
 ## GET /api/features
 
 ```bash
@@ -39,7 +64,7 @@ curl https://openfarm.ing/api/features
     { "key": "act", "label": "Act", "blurb": "Treatment that follows the map, so only the affected ground is touched." },
     { "key": "operate", "label": "Operate", "blurb": "The service, the fleet and the reporting that keep it running." }
   ],
-  "count": 18,
+  "count": 19,
   "data": [
     {
       "slug": "targeted-weed-control",

@@ -3,7 +3,7 @@ const footPath = require('node:path')
 const footCatalog = await import(footPath.join(process.cwd(), 'app/Support/catalog.ts'))
 
 // The footer lists the capabilities that answer the questions people arrive
-// with, not all eighteen: a full dump would be a sitemap, and there is one of
+// with, not all nineteen: a full dump would be a sitemap, and there is one of
 // those at /features.
 const footFeatures = (await footCatalog.displayFeatures()).slice(0, 6)
 const footUseCases = (await footCatalog.displayUseCases()).slice(0, 6)

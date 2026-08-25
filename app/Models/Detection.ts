@@ -57,12 +57,21 @@ export default defineModel({
       factory: () => null,
     },
 
+    /**
+     * `fence` is what a downed or damaged fence section is filed as.
+     *
+     * `livestock-and-fences` has promised a fence condition log since the
+     * catalog was written, and until this there was no kind that could hold
+     * one. It is also the finding that raises a `fence_breach` herding move,
+     * which is the difference between a drone that notices stock are out and
+     * one that puts them back.
+     */
     kind: {
       required: true,
       order: 1,
       fillable: true,
       validation: {
-        rule: schema.enum(['weed', 'disease', 'pest', 'nutrient', 'moisture', 'compaction', 'wildlife', 'gap', 'livestock']),
+        rule: schema.enum(['weed', 'disease', 'pest', 'nutrient', 'moisture', 'compaction', 'wildlife', 'gap', 'livestock', 'fence']),
       },
       factory: faker => seed.findingKind(faker),
     },

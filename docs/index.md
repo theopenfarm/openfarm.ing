@@ -18,7 +18,7 @@ hero:
       text: View on GitHub
       link: https://github.com/theopenfarm/openfarm.ing
 features:
-  - title: 18 capabilities
+  - title: 19 capabilities
     icon: 🛰️
     details: "Detect, act and operate. Every one documented with its sensors, its cadence, the readings it produces and the parts list behind it."
   - title: 16 use cases

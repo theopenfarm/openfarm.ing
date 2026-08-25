@@ -3,6 +3,7 @@
     "capabilities": "Toepassingen",
     "useCases": "Praktijk",
     "fieldReport": "Veldrapport",
+    "playground": "Simulatie",
     "howItWorks": "Hoe het werkt",
     "pricing": "Tarieven",
     "home": "Open Farming startpagina",
@@ -1069,7 +1070,8 @@
     "fieldsNote": "Percelen op dit bedrijf",
     "hectaresNote": "Over het seizoen gevlogen",
     "detectionsNote": "Over alle vluchten gemarkeerd",
-    "mapTitle": "Nieuwste behandelkaart"
+    "mapTitle": "Nieuwste behandelkaart",
+    "herding": "Kudde verplaatsen"
   },
   "detail": {
     "moreIn": "Meer in"

@@ -78,6 +78,7 @@ and not. Anything ambiguous goes to a person before it becomes an alert.
 | Housing | Fence and water point condition survey for the winter works list |
 
 **Capabilities:** [livestock](/features/livestock-and-fences),
+[herding](/features/automated-herding),
 [wildlife](/features/wildlife-rescue),
 [field mapping](/features/field-mapping),
 [network](/features/autonomous-network),

@@ -10,7 +10,7 @@ import { farmFor } from '../../Support/dashboard'
 /**
  * Switch a capability on, pause it, or change how often it is flown.
  *
- * One endpoint for all eighteen, because from the farm's side they are the
+ * One endpoint for all nineteen, because from the farm's side they are the
  * same decision: whether this work happens here, how often, and over what. The
  * differences between them (which sensor, what the model looks for) are the
  * flight's business, not the farmer's.

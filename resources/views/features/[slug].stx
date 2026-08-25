@@ -9,7 +9,11 @@ const slug = String((typeof params === 'object' && params && params.slug) || '')
 const feature = await catalog.displayFeature(slug)
 
 const title = feature ? `${feature.name} - Open Farming` : 'Capability not found - Open Farming'
-const description = feature ? feature.summary : 'That capability does not exist. Browse all eighteen instead.'
+// Counted rather than spelled out. This copy said "eighteen" until the
+// nineteenth capability shipped, which is the kind of drift nobody notices
+// because the page it is on only renders for a URL that does not exist.
+const catalogCount = (await catalog.displayFeatures()).length
+const description = feature ? feature.summary : `That capability does not exist. Browse all ${catalogCount} instead.`
 const activeNav = 'features'
 const pagePath = `/features/${slug}`
 
@@ -24,6 +28,11 @@ const categoryLabel = feature ? `{t:groups.features.${feature.category}.label}` 
 // its page shows the real map. Every other capability gets its own visual
 // vocabulary from the copy instead of a map that would not be its own.
 const report = feature && feature.slug === 'targeted-weed-control' ? await catalog.fieldReport() : null
+// Herding is the one capability whose controller can be watched working, so
+// its page says so. Same shape as the weed map above: a per-slug special case,
+// because the thing being shown is particular to that capability rather than
+// something every entry in the catalog has.
+const hasPlayground = feature && feature.slug === 'automated-herding'
 const detailMap = report
   ? fieldmap.renderFieldMap(report, { title: `Weed map of ${report.field}: ${report.detections.length} detections across ${report.zones.length} treatment zones` })
   : ''
@@ -96,6 +105,32 @@ const siblings = feature
               {{ report.field }}, {{ report.crop }}. Modelled demonstration field.
             </figcaption>
           </figure>
+        </div>
+      </section>
+    @endif
+
+    @if (hasPlayground)
+      <section class="bg-[var(--panel)] border-[var(--line)] border-y">
+        <div class="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center mx-auto px-5 py-14 max-w-[1240px]">
+          <div>
+            <span class="chip">Modelled ground, modelled animals</span>
+            <h2 class="mt-4 max-w-[22ch] text-[1.7rem] md:text-[2rem]">Watch the controller do it</h2>
+            <p class="mt-4 max-w-[58ch] leading-relaxed text-[1rem] text-[var(--text-2)]">
+              The module that decides where the aircraft sits runs in the open, against a modelled
+              paddock, on this site. Six scenarios: a rotation move, a narrow gate, a road on the
+              headland, ewes with lambs, a mob with flighty animals in it, and one the controller
+              stops rather than finish.
+            </p>
+            <a href="/playground/herding" class="mt-7 btn btn-primary">Open the playground</a>
+          </div>
+          <div>
+            <p class="leading-relaxed text-[0.92rem] text-[var(--text-2)]">
+              Every scenario is generated deterministically, so the figures on it are the same ones
+              asserted in the test suite rather than a good run somebody kept. That is the whole
+              reason it is published: a claim about how a drone behaves around livestock is worth
+              nothing if you cannot check it.
+            </p>
+          </div>
         </div>
       </section>
     @endif
@@ -182,7 +217,7 @@ const siblings = feature
   <section class="mx-auto px-5 py-24 max-w-[1240px]">
     <h1 class="text-[2rem]">{t:featureDetail.notFound}</h1>
     <p class="mt-3 max-w-[52ch] leading-relaxed text-[1.05rem] text-[var(--text-2)]">
-      The link may be out of date. All eighteen capabilities are listed on one page.
+      The link may be out of date. All {{ catalogCount }} capabilities are listed on one page.
     </p>
     <a href="/features" class="mt-6 btn btn-primary">{t:featureDetail.seeAll}</a>
   </section>

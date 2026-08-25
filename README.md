@@ -23,10 +23,10 @@ locally with `./buddy build:docs`.
 
 | Path | What lives there |
 |---|---|
-| `app/Support/content/` | The source of truth for all site content: 18 capabilities, 16 use cases, and the demonstration field's generator |
+| `app/Support/content/` | The source of truth for all site content: 19 capabilities, 16 use cases, and the demonstration field's generator |
 | `app/Support/catalog.ts` | The shared read layer. Every page and every endpoint goes through it |
 | `app/Support/fieldmap.ts` | Renders a field to SVG, server side, from the flight record |
-| `app/Models/` | Nine models: `Feature`, `UseCase`, the operational domain (`Farm`, `Field`, `Drone`, `Mission`, `Detection`, `TreatmentMap`) and `DemoRequest` |
+| `app/Models/` | Twelve models: `Feature`, `UseCase`, the operational domain (`Farm`, `Field`, `Drone`, `Mission`, `Detection`, `TreatmentMap`, `FarmCapability`, `Herd`, `HerdMove`) and `DemoRequest` |
 | `app/Actions/Catalog/` | The public read API |
 | `app/Actions/Leads/` | The field-visit booking endpoint, the only public write of its own |
 | `app/Actions/SubscriberEmailAction.ts` | The framework's subscribe handler, published into userland |

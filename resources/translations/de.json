@@ -3,6 +3,7 @@
     "capabilities": "Leistungen",
     "useCases": "Anwendungen",
     "fieldReport": "Feldbericht",
+    "playground": "Simulation",
     "howItWorks": "So funktioniert es",
     "pricing": "Preise",
     "home": "Open Farming Startseite",
@@ -1069,7 +1070,8 @@
     "fieldsNote": "Schläge auf diesem Betrieb",
     "hectaresNote": "Über die Saison beflogen",
     "detectionsNote": "Über alle Flüge markiert",
-    "mapTitle": "Neueste Behandlungskarte"
+    "mapTitle": "Neueste Behandlungskarte",
+    "herding": "Herdenführung"
   },
   "detail": {
     "moreIn": "Mehr in"
