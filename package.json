@@ -95,7 +95,7 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "stacks": "^0.72.60",
+    "stacks": "^0.72.62",
     "ts-images": "^0.2.12"
   },
   "workspaces": [
