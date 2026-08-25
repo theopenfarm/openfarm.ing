@@ -98,5 +98,5 @@ Generates the Open Graph share cards. Covered by
 | `./buddy publish:core <pkg>` | Bring one framework package back into the tree to edit it |
 | `./buddy unpublish:core --all` | Move back to the published packages |
 
-`bun run typecheck:app` typechecks the application. `docs:links:check` and
-`docs:artifacts:check` validate documentation links and artifacts in CI.
+`bun run typecheck:app` typechecks the application. CI runs that, `buddy lint`,
+`buddy build:docs` and `buddy test`, and deploys only if all four pass.
