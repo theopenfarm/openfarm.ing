@@ -72,4 +72,15 @@ export default {
     column: 'deleted_at',
     defaultFilter: true,
   },
-} satisfies QueryBuilderConfig
+  /*
+   * `Partial`, not the bare config type.
+   *
+   * `QueryBuilderConfig` is the RESOLVED shape the library reads after merging
+   * its own defaults, so every field on it is required. Annotating an app
+   * config with it means any field the library adds upstream becomes a compile
+   * error here until somebody restates a value the app has no opinion about -
+   * which is exactly what happened with `migrationDir`, and what
+   * bun-query-builder's own `defineConfig` docs warn against. `setConfig()`
+   * has always taken a partial, so this matches what the library accepts.
+   */
+} satisfies Partial<QueryBuilderConfig>
