@@ -735,18 +735,39 @@ export const tsCloud: TsCloudConfig = {
       /*
        * This site's share of a shared box.
        *
-       * It serves stx views out of SQLite and sits around 280 MB, so 512M is
-       * generous and 768M is a ceiling it should never approach. Both are
-       * soft-then-hard in the systemd sense: the kernel reclaims this cgroup
-       * at `memoryHigh` and only OOM-kills inside it at `memoryMax`, where
-       * `Restart=always` brings it straight back.
+       * 512M/768M was measured when this served stx views out of SQLite and
+       * sat around 280 MB. It no longer does: the herding playground computes
+       * and caches six simulations, and startup peaks well above 512M before
+       * settling near 200M. That is not a leak, it is what the app now is.
        *
-       * Set explicitly rather than left to ts-cloud's 2G default because the
-       * default has to be safe for workloads nobody has measured, and this one
-       * has been. The box was lost once to a tenant with no ceiling at all.
+       * Living at the soft limit is the dangerous part, and it is worth being
+       * precise about why. `memoryHigh` does not kill - it throttles, and a
+       * thread throttled in `mem_cgroup_handle_over_high` goes into
+       * uninterruptible sleep. It cannot then answer a request, and it cannot
+       * answer SIGTERM either, so systemd waits out `stopTimeout` before
+       * escalating while the replacement starts into a slice that is already
+       * over budget. The site was down twice this way.
+       *
+       * 1G/1.4G restores headroom for the startup peak while staying well
+       * under ts-cloud's own 2G default - and under the `MemoryHigh=2G`
+       * drop-in every other tenant on this box already carries. This site was
+       * the only one running on a self-imposed ceiling a quarter that size,
+       * which is why it was the only one that fell over when the box filled.
        */
-      memoryHigh: '512M',
-      memoryMax: '768M',
+      memoryHigh: '1G',
+      memoryMax: '1400M',
+      /*
+       * How long systemd waits for SIGTERM before SIGKILL.
+       *
+       * systemd's default is 90 seconds, written for a worker that drains.
+       * This is a stateless HTTP server with nothing to finish, so the only
+       * thing 90 seconds buys is a deploy that waits a minute and a half for a
+       * process that is never going to answer - and, worse, starts its
+       * replacement inside the same over-budget slice while it waits. Ten
+       * seconds is longer than a healthy stop needs and short enough that a
+       * wedged one is cleared before the next release lands on top of it.
+       */
+      stopTimeout: '10s',
       // Runs after the repo and the resolved production env are in place and
       // before the systemd service starts. Migrate runs ONLY here: the API
       // site shares the same SQLite file, so migrating from both would put two
