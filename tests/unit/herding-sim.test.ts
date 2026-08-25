@@ -300,3 +300,49 @@ describe('the run is kept small enough to serve', () => {
     }
   })
 })
+
+describe('the playground does no work it was not asked for', () => {
+  /*
+   * This is the regression test for an outage, so it runs in a fresh process
+   * rather than in-band: the cache is module-level, and by the time the suite
+   * above has run, every scenario is already in it.
+   *
+   * An earlier version scheduled the other five scenarios on a `setTimeout`
+   * after the first playground request. That is 1.6 s of synchronous work on
+   * the event loop and a hard allocation burst, and inside a cgroup with
+   * `memory.high` set it put the thread into uninterruptible sleep in
+   * `mem_cgroup_handle_over_high`. The liveness probe then restarted the
+   * service, which stalled again. The site served nothing for twenty minutes.
+   */
+  it('computes only the scenario that was asked for', async () => {
+    const probe = `
+      const { playgroundRun } = await import('${process.cwd()}/app/Support/herding/playground.ts')
+      const { scenarios } = await import('${process.cwd()}/app/Support/herding/scenarios.ts')
+      playgroundRun('rotation')
+      // Long enough that any setTimeout-scheduled warm would have run.
+      await new Promise(r => setTimeout(r, 1500))
+      const timings = {}
+      for (const w of scenarios) {
+        const t = performance.now()
+        playgroundRun(w.slug)
+        timings[w.slug] = performance.now() - t
+      }
+      console.log(JSON.stringify(timings))
+    `
+    const proc = Bun.spawn(['bun', '-e', probe], { stdout: 'pipe', stderr: 'pipe' })
+    const out = await new Response(proc.stdout).text()
+    await proc.exited
+
+    const timings = JSON.parse(out.trim().split('\n').at(-1)!)
+
+    // The one that was asked for is cached and free.
+    expect(timings.rotation).toBeLessThan(5)
+
+    /*
+     * The rest must still be uncomputed, which shows as them taking real time
+     * on first call. `must-abort` is the heaviest and the least ambiguous: if
+     * a warm had run behind our back it would come back instantly.
+     */
+    expect(timings['must-abort']).toBeGreaterThan(50)
+  })
+})

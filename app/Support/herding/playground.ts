@@ -182,41 +182,30 @@ export function runScenario(world: World, target = FRAME_TARGET): ScenarioRun {
  */
 const cache = new Map<string, PlaygroundRun>()
 
-/**
- * Compute every scenario. Synchronous, and used by the tests and the CLI.
- */
-export function warmPlayground(): void {
-  for (const world of scenarios)
-    playgroundRun(world.slug)
-}
-
-let warming = false
-
-/**
- * Fill the rest of the cache once somebody has asked for one scenario.
+/*
+ * There is deliberately no background warm here, and the reason is worth
+ * writing down because the idea is tempting and it took production down.
  *
- * The visitor who arrives first pays for the page they asked for and nothing
- * else; the other five are computed after the response has gone out, so the
- * scenario picker is instant from the second click onwards. Scheduled rather
- * than awaited for exactly that reason - doing it inline would make the first
- * page load nearly two seconds to save a later one being half of that.
+ * An earlier version scheduled all six remaining scenarios on a `setTimeout`
+ * after the first playground request, so the picker would be instant from the
+ * second click. Two things wrong with that, both invisible in development:
  *
- * There is no boot hook in the frontend process to hang this off, so first
- * request is the trigger. It runs once per process; a deploy starts it over,
- * which is when the answers could have changed anyway.
+ *  1. It is 1.6 s of SYNCHRONOUS work on the event loop. Nothing else is
+ *     served while it runs - not another page, not a health probe.
+ *  2. It allocates hard. Locally that showed as RSS growth the process
+ *     absorbed; inside a cgroup with `memory.high` set, crossing the line puts
+ *     the thread into `mem_cgroup_handle_over_high` in uninterruptible sleep,
+ *     and it does not come back on its own.
+ *
+ * Together with the liveness probe that ts-cloud restarts the service from,
+ * that is a death spiral rather than a slow page: stall, miss three probes,
+ * get restarted, stall again. The site served nothing for twenty minutes.
+ *
+ * Each scenario is still cached for the life of the process, so the cost is
+ * one visitor waiting once for the page they actually asked for - at most
+ * 740 ms on the heaviest, and nothing thereafter. That is the whole benefit
+ * the warm was buying, without a burst that can wedge the process.
  */
-function warmTheRestSoon(): void {
-  if (warming)
-    return
-
-  warming = true
-  setTimeout(() => {
-    for (const world of scenarios) {
-      if (!cache.has(world.slug))
-        playgroundRun(world.slug)
-    }
-  }, 0)
-}
 
 export function playgroundRun(slug: string): PlaygroundRun | null {
   const cached = cache.get(slug)
@@ -226,8 +215,6 @@ export function playgroundRun(slug: string): PlaygroundRun | null {
   const world = scenario(slug)
   if (!world)
     return null
-
-  warmTheRestSoon()
 
   const envelope = envelopeFor(world.profile)
   const { frames, last, aggregates } = runScenario(world)
