@@ -89,7 +89,7 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "stacks": "^0.72.70",
+    "stacks": "^0.74.64",
     "ts-images": "^0.2.12"
   },
   "workspaces": [
@@ -110,8 +110,8 @@
     "pickier": "0.1.43"
   },
   "overrides": {
-    "@stacksjs/ts-cloud": "^0.12.4",
-    "@stacksjs/stx": "^0.2.231",
-    "bun-plugin-stx": "^0.2.231"
+    "@stacksjs/ts-cloud": "^0.16.11",
+    "@stacksjs/stx": "^0.2.306",
+    "bun-plugin-stx": "^0.2.306"
   }
 }

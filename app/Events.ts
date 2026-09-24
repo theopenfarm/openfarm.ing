@@ -1,6 +1,19 @@
 import type { Events } from '@stacksjs/types'
 
 /**
+ * Model events this app listens for. Stacks 0.74 only accepts event names
+ * declared on `AppEvents` (or its built-in auth events), so the ones the map
+ * below uses are declared here. The payload is the model row the ORM emits.
+ */
+declare module '@stacksjs/events' {
+  interface AppEvents {
+    'user:created': Record<string, unknown>
+    'herdMove:created': Record<string, unknown>
+    'herdMove:updated': Record<string, unknown>
+  }
+}
+
+/**
  * **Events Configuration**
  *
  * This configuration defines all of your events. Because Stacks is fully-typed, you may
