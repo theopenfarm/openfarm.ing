@@ -26,5 +26,14 @@ export default {
 
   // Partials directory - for partial templates
   partialsDir: 'resources/partials',
+
+  // bun-plugin-stx 0.2.30x transcodes every raster in public/ to avif and webp
+  // at five widths before the production server starts listening. Its cache
+  // lives in stateDir, which is inside the release directory, so every deploy
+  // starts cold: about two minutes locally and longer on the shared box. That
+  // is past the deploy's health gate, so the release never takes over. The
+  // views do not use the responsive variants, so turn the warmup off.
+  imageWarmup: false,
 // `plugins` landed in stx after the pinned @stacksjs/stx types — widen until the dep updates.
-} satisfies UiOptions & { plugins?: string[] }
+// `imageWarmup` is read by bun-plugin-stx's serve() but not declared on StxOptions.
+} satisfies UiOptions & { plugins?: string[], imageWarmup?: boolean }
