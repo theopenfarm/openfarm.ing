@@ -244,5 +244,7 @@ jobs:
       - name: Build
         run: bun run build
 
+      # App checkouts do not vendor public framework core packages.
       - name: Publish Commit
-        run: ./storage/framework/scripts/publish-commit
+        if: ${{ hashFiles('storage/framework/core/*/package.json') != '' }}
+        run: bash ./storage/framework/scripts/publish-commit
