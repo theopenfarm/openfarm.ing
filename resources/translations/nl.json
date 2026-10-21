@@ -4,7 +4,7 @@
     "useCases": "Praktijk",
     "fieldReport": "Veldrapport",
     "playground": "Simulatie",
-    "howItWorks": "Hoe het werkt",
+    "howItWorks": "Werkwijze",
     "pricing": "Tarieven",
     "home": "Open Farming startpagina",
     "switchTheme": "Thema wisselen",
@@ -1224,5 +1224,12 @@
     "noneResolved": "Nog niets afgesloten.",
     "markTreated": "Behandeld",
     "dismiss": "Geen probleem"
+  },
+  "herdingDemo": {
+    "label": "Gemodelleerd terrein, gemodelleerde dieren",
+    "title": "Bekijk de regelaar in actie",
+    "body": "De module die bepaalt waar het toestel zich bevindt, draait hier openbaar met een gemodelleerd weiland. Zes scenario’s: een verplaatsing tussen weideblokken, een smalle doorgang, een weg langs de kopakker, ooien met lammeren, een kudde met schrikachtige dieren en een verplaatsing die de regelaar afbreekt in plaats van af te maken.",
+    "link": "Simulatie openen",
+    "evidence": "Elk scenario wordt deterministisch gegenereerd. De getoonde cijfers zijn dezelfde als die in de testsuite worden gecontroleerd, geen zorgvuldig gekozen geslaagde uitvoering. Daarom staat de simulatie openbaar: uitspraken over gemodelleerd dronegedrag rond vee moeten controleerbaar zijn."
   }
 }

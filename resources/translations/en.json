@@ -1224,5 +1224,12 @@
     "noneResolved": "Nothing closed yet.",
     "markTreated": "Treated",
     "dismiss": "Not a problem"
+  },
+  "herdingDemo": {
+    "label": "Modelled ground, modelled animals",
+    "title": "Watch the controller do it",
+    "body": "The module that decides where the aircraft sits runs in the open, against a modelled paddock, on this site. Six scenarios: a rotation move, a narrow gate, a road on the headland, ewes with lambs, a mob with flighty animals in it, and one the controller stops rather than finish.",
+    "link": "Open the playground",
+    "evidence": "Every scenario is generated deterministically, so the figures on it are the same ones asserted in the test suite rather than a good run somebody kept. That is the whole reason it is published: a claim about how a drone behaves around livestock is worth nothing if you cannot check it."
   }
 }

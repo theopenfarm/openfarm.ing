@@ -113,22 +113,16 @@ const siblings = feature
       <section class="bg-[var(--panel)] border-[var(--line)] border-y">
         <div class="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center mx-auto px-5 py-14 max-w-[1240px]">
           <div>
-            <span class="chip">Modelled ground, modelled animals</span>
-            <h2 class="mt-4 max-w-[22ch] text-[1.7rem] md:text-[2rem]">Watch the controller do it</h2>
+            <span class="chip">{t:herdingDemo.label}</span>
+            <h2 class="mt-4 max-w-[22ch] text-[1.7rem] md:text-[2rem]">{t:herdingDemo.title}</h2>
             <p class="mt-4 max-w-[58ch] leading-relaxed text-[1rem] text-[var(--text-2)]">
-              The module that decides where the aircraft sits runs in the open, against a modelled
-              paddock, on this site. Six scenarios: a rotation move, a narrow gate, a road on the
-              headland, ewes with lambs, a mob with flighty animals in it, and one the controller
-              stops rather than finish.
+              {t:herdingDemo.body}
             </p>
-            <a href="/playground/herding" class="mt-7 btn btn-primary">Open the playground</a>
+            <a href="/playground/herding" class="mt-7 btn btn-primary">{t:herdingDemo.link}</a>
           </div>
           <div>
             <p class="leading-relaxed text-[0.92rem] text-[var(--text-2)]">
-              Every scenario is generated deterministically, so the figures on it are the same ones
-              asserted in the test suite rather than a good run somebody kept. That is the whole
-              reason it is published: a claim about how a drone behaves around livestock is worth
-              nothing if you cannot check it.
+              {t:herdingDemo.evidence}
             </p>
           </div>
         </div>

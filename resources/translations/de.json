@@ -4,7 +4,7 @@
     "useCases": "Anwendungen",
     "fieldReport": "Feldbericht",
     "playground": "Simulation",
-    "howItWorks": "So funktioniert es",
+    "howItWorks": "Ablauf",
     "pricing": "Preise",
     "home": "Open Farming Startseite",
     "switchTheme": "Design wechseln",
@@ -1224,5 +1224,12 @@
     "noneResolved": "Noch nichts abgeschlossen.",
     "markTreated": "Behandelt",
     "dismiss": "Kein Problem"
+  },
+  "herdingDemo": {
+    "label": "Modelliertes Gelände, modellierte Tiere",
+    "title": "Den Regler in Aktion ansehen",
+    "body": "Das Modul, das die Position des Fluggeräts bestimmt, läuft hier offen zugänglich mit einer modellierten Weide. Sechs Szenarien: ein Weidewechsel, ein enges Tor, eine Straße am Vorgewende, Mutterschafe mit Lämmern, eine Herde mit schreckhaften Tieren und ein Ablauf, den der Regler abbricht, statt ihn zu Ende zu führen.",
+    "link": "Simulation öffnen",
+    "evidence": "Jedes Szenario wird deterministisch erzeugt. Die gezeigten Zahlen entsprechen den in der Testsuite geprüften Werten, statt einem ausgewählten guten Durchlauf. Deshalb ist die Simulation öffentlich: Aussagen über modelliertes Drohnenverhalten bei Nutztieren müssen überprüfbar sein."
   }
 }
