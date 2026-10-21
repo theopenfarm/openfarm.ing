@@ -1,5 +1,7 @@
 # Autonomous drone network
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/21) for normal operation, failure handling and required evidence.
+
 > Docked, charged, and out again at first light
 
 Drones launch from charging stations on their own schedule, cover the fields

@@ -51,7 +51,7 @@
     "treat": "Treat",
     "treatTitle": "The machine follows the map",
     "treatBody": "Findings become zones and zones become a prescription your sprayer, spreader or hoe loads directly. Nothing outside a zone is touched.",
-    "bentoTitle": "Eighteen jobs a drone does better than a walk",
+    "bentoTitle": "Nineteen jobs a drone does better than a walk",
     "railTitle": "Set up around your crop, not a generic farm",
     "limitsTitle": "What we do not claim",
     "closeTitle": "Bring us one field and we will fly it",
@@ -449,6 +449,35 @@
       "steps.2.text": "The flock is pushed off the block on a varied path, so the pattern never becomes predictable.",
       "steps.3.title": "Log",
       "steps.3.text": "Each response is recorded, so pressure by block and time of day becomes visible over the season."
+    },
+    "automated-herding": {
+      "name": "Automated livestock herding",
+      "tagline": "Move the mob without the quad and the gate",
+      "summary": "A drone walks a mob from one grazing block to another on a route you approved, inside limits you set, and stops if it cannot do it calmly.",
+      "problem": "Every rotational graziers day has a move in it: fresh cover, a gate, a mob that would rather stay. It is twenty minutes and two people on a good day, and on a bad one it is an animal on a road at six in the morning after a fence has gone down. The blocks furthest from the yard get moved late for the same reason they get checked least.",
+      "cadence": "Whenever the rotation is due, proposed overnight and authorised in the morning.",
+      "sensors.0": "Zoom RGB camera",
+      "sensors.1": "Radiometric thermal camera",
+      "sensors.2": "Directional speaker",
+      "sensors.3": "RTK positioning",
+      "outputs.0": "Approved route per move",
+      "outputs.1": "Head count on arrival",
+      "outputs.2": "Straggler list",
+      "outputs.3": "Welfare record per move",
+      "outputs.4": "Grazing rotation log",
+      "readings.0": "Closest the aircraft came against its standoff",
+      "readings.1": "Fastest the mob moved against its limit",
+      "readings.2": "Minutes under pressure",
+      "readings.3": "Animals left behind per move",
+      "readings.4": "Moves stopped and why",
+      "steps.0.title": "Plan",
+      "steps.0.text": "A route is drawn from the block the mob is on, through the gate, onto the block it is going to, with the ground it must be kept off marked.",
+      "steps.1.title": "Authorise",
+      "steps.1.text": "You look at the route and say yes. That freezes the limits the move is flown under and opens a window it has to happen in.",
+      "steps.2.title": "Drive",
+      "steps.2.text": "The aircraft works behind the mob at a set distance, climbing to take pressure off rather than pressing harder when they quicken.",
+      "steps.3.title": "Answer for it",
+      "steps.3.text": "The record says how close it came, how fast they moved, how high it had to work and who was left behind."
     },
     "soil-compaction": {
       "name": "Soil compaction detection",
@@ -1115,6 +1144,10 @@
       "note": "Quoted per hectare per season. Block size and travel distance move it most.",
       "cta": "Get a season quote"
     }
+  },
+  "implementationStatus": {
+    "body": "In development: these capabilities describe intended workflows. Current software includes records and modelled simulations; field-ready outputs remain subject to the roadmap.",
+    "link": "Implementation status and roadmap"
   },
   "featuresPage": {
     "unsure": "Not sure which of these your season needs",

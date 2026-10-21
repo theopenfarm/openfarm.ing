@@ -5,7 +5,7 @@ a documented shape, published into the database by `buddy catalog:sync`.
 
 ## features.ts
 
-The capability catalog. 18 entries, each one a `FeatureContent`.
+The capability catalog. 19 entries, each one a `FeatureContent`.
 
 ```ts
 export interface FeatureContent {
@@ -43,12 +43,12 @@ That section is `steps[]` rendered in order, and the flight statistics above it
 come from the `Mission` row rather than from the copy. Editing the array
 changes the page, the API and the share card together.
 
-`readings` are **measurements, not promises**. "Treated area as a share of
+`readings` name the **intended measurements**, not available observations. "Treated area as a share of
 field area" is a reading. "Save 70% on herbicide" is not, and does not belong
-in this file. Every reading here is something the dashboard can actually
-compute from a flight record.
+in this file. Each reading needs an implemented producer and evidence before it can appear
+as an actual measurement. See [implementation status](/features/#implementation-status).
 
-`sensors` are the instruments the flight **actually carries**. Two capabilities
+`sensors` describe the instruments the intended workflow requires. Two capabilities
 declare that they carry none:
 [Sustainability reporting](/features/sustainability-dashboard) and
 [Field decision assistant](/features/field-assistant) both say "no flight of

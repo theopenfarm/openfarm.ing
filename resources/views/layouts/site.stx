@@ -186,6 +186,10 @@ const alternates = [
   @include('nav.stx')
 
   <main id="main">
+    <p class="mx-auto px-5 pt-5 max-w-[1240px] leading-relaxed text-[0.85rem] text-[var(--text-2)]">
+      {t:implementationStatus.body}
+      <a href="/docs/features/#implementation-status" data-stx-no-router class="inline-block underline underline-offset-2">{t:implementationStatus.link}</a>
+    </p>
     @yield('content')
   </main>
 

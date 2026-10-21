@@ -1,5 +1,7 @@
 # Sustainability reporting
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/23) for normal operation, failure handling and required evidence.
+
 > The paperwork writes itself from the flights
 
 Flight data, weather, soil and machine records combine into the input and water

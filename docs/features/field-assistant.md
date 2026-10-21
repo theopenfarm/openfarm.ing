@@ -1,5 +1,7 @@
 # Field decision assistant
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/24) for normal operation, failure handling and required evidence.
+
 > A recommendation, not another image folder
 
 The assistant reads every layer for a field and answers in plain language: what

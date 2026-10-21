@@ -1,5 +1,7 @@
 # Flights as a service
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/7) for normal operation, failure handling and required evidence.
+
 > Book the flights, not the aircraft
 
 You book a scouting schedule and get analysis and recommendations. We own the
@@ -101,7 +103,7 @@ needs. What is printed is what each way of buying includes.
 | Per report | Reporting and the field assistant, where no flight happened |
 
 Publish which capabilities are included at each tier and keep the dashboard's
-capability list as the contract. The console already shows all 18 whether or
+capability list as the contract. The console lists all 19 whether or
 not the farm has switched them on, so the upgrade path is visible without a
 sales call.
 

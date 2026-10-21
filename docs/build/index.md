@@ -58,13 +58,19 @@ It means: no per-hectare software licence, no vendor cloud holding your
 customers' field records, no analytics tier you cannot audit, and no model you
 cannot retrain on your own fields.
 
-It does not mean: writing a flight controller, a photogrammetry engine or a
-deep learning framework. ArduPilot, PX4, OpenDroneMap, COLMAP, GDAL, PyTorch
-and ONNX Runtime are mature, free, and better than anything a small team will
-write. Using them is the in-house route. The custom work is the layer above:
-the calibration discipline, the models trained on your own fields, the
-clustering into a prescription your customers' machines can follow, and the
-record that ties every figure back to the flight that produced it.
+The project is developing an owned runtime, sensors, estimator, simulated
+controls, authority and mission engine in the shared drone library. ArduPilot
+and PX4 are optional driver paths. Current simulation and planning evidence
+does not qualify a physical controller; independent flight-controller and RC
+authority remain required at the physical boundary, which is receive-only.
+See the [flight stack](/build/software/flight-stack) and
+[implementation status](/features/#implementation-status).
+
+Other open-source processing, geometry and inference tools can be selected as
+building blocks where the roadmap calls for them. Their appearance in this
+guide does not mean they are integrated, or that a reconstruction, model or
+prescription has been validated on a farm. Calibration, source-linked records,
+domain logic and each output's completion evidence remain part of the work.
 
 ## Licences to decide before you write integration code
 

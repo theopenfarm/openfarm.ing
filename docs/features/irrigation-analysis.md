@@ -1,5 +1,7 @@
 # Irrigation analysis
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/18) for normal operation, failure handling and required evidence.
+
 > Find the dry corner and the buried leak
 
 Thermal imaging exposes dry patches, leaks and uneven coverage so water goes

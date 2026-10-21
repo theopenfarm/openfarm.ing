@@ -51,7 +51,7 @@
     "treat": "Behandeln",
     "treatTitle": "Die Maschine folgt der Karte",
     "treatBody": "Aus Funden werden Zonen und aus Zonen eine Applikationskarte, die Ihre Spritze, Ihr Streuer oder Ihre Hacke direkt lädt. Außerhalb einer Zone wird nichts angefasst.",
-    "bentoTitle": "Achtzehn Aufgaben, die eine Drohne besser erledigt als ein Feldgang",
+    "bentoTitle": "Neunzehn Aufgaben, die eine Drohne besser erledigt als ein Feldgang",
     "railTitle": "Eingerichtet für Ihre Kultur, nicht für einen Musterbetrieb",
     "limitsTitle": "Was wir nicht behaupten",
     "closeTitle": "Geben Sie uns ein Feld, und wir fliegen es",
@@ -449,6 +449,35 @@
       "steps.1.text": "Eine Drohne startet von der nächsten Station und fliegt die Anflugbahn, die der Schwarm tatsächlich nutzt.",
       "steps.2.text": "Der Schwarm wird auf wechselnder Bahn vom Schlag gedrängt, damit das Muster nie vorhersagbar wird.",
       "steps.3.text": "Jeder Einsatz wird erfasst, sodass Druck je Schlag und Tageszeit über die Saison sichtbar wird."
+    },
+    "automated-herding": {
+      "name": "Automatisierter Viehtrieb",
+      "tagline": "Die Herde umtreiben, ohne Quad und Torwache",
+      "summary": "Eine Drohne führt die Herde auf einer freigegebenen Route von einer Weide zur nächsten, hält Ihre Grenzen ein und bricht ab, wenn ein ruhiger Umtrieb nicht möglich ist.",
+      "problem": "Bei der Umtriebsweide steht jeden Tag ein Wechsel an: frisches Gras, ein Tor und eine Herde, die lieber bleiben würde. An einem guten Tag kostet das zwei Personen zwanzig Minuten. An einem schlechten steht morgens um sechs ein Tier auf der Straße, weil ein Zaun nachgegeben hat. Die weit entfernten Koppeln werden aus demselben Grund spät umgetrieben, aus dem sie seltener kontrolliert werden.",
+      "cadence": "Wenn der Weidewechsel ansteht, nachts vorgeschlagen und morgens freigegeben.",
+      "sensors.0": "RGB-Kamera mit Zoom",
+      "sensors.1": "Radiometrische Wärmebildkamera",
+      "sensors.2": "Richtlautsprecher",
+      "sensors.3": "RTK-Positionierung",
+      "outputs.0": "Freigegebene Route je Umtrieb",
+      "outputs.1": "Tierzahl bei Ankunft",
+      "outputs.2": "Liste zurückgebliebener Tiere",
+      "outputs.3": "Tierwohlprotokoll je Umtrieb",
+      "outputs.4": "Weidewechselprotokoll",
+      "readings.0": "Geringster Abstand der Drohne im Vergleich zum Mindestabstand",
+      "readings.1": "Höchste Geschwindigkeit der Herde im Vergleich zum Grenzwert",
+      "readings.2": "Minuten unter Treibdruck",
+      "readings.3": "Zurückgebliebene Tiere je Umtrieb",
+      "readings.4": "Abgebrochene Umtriebe und ihre Gründe",
+      "steps.0.title": "Planen",
+      "steps.0.text": "Die Route führt von der aktuellen Koppel durch das Tor zur nächsten. Flächen, die nicht betreten werden dürfen, werden markiert.",
+      "steps.1.title": "Freigeben",
+      "steps.1.text": "Sie prüfen die Route und geben sie frei. Damit werden die Grenzen für diesen Umtrieb festgeschrieben und ein Zeitfenster für die Durchführung geöffnet.",
+      "steps.2.title": "Treiben",
+      "steps.2.text": "Die Drohne arbeitet mit festgelegtem Abstand hinter der Herde. Werden die Tiere schneller, steigt sie, um Druck abzubauen, statt stärker zu treiben.",
+      "steps.3.title": "Rechenschaft ablegen",
+      "steps.3.text": "Das Protokoll zeigt den geringsten Abstand, die Geschwindigkeit der Tiere, die nötige Flughöhe und welche Tiere zurückblieben."
     },
     "soil-compaction": {
       "name": "Erkennung von Bodenverdichtung",
@@ -1115,6 +1144,10 @@
       "note": "Angebot je Hektar und Saison. Schlaggröße und Anfahrt bewegen es am stärksten.",
       "cta": "Saisonangebot anfordern"
     }
+  },
+  "implementationStatus": {
+    "body": "In Entwicklung: Diese Leistungen beschreiben geplante Abläufe. Die Software umfasst Datensätze und modellierte Simulationen; feldtaugliche Ergebnisse bleiben Teil des Entwicklungsplans.",
+    "link": "Umsetzungsstand und Entwicklungsplan"
   },
   "featuresPage": {
     "unsure": "Unsicher, was Ihre Saison davon braucht",

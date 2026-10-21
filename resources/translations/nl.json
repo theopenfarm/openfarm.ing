@@ -51,7 +51,7 @@
     "treat": "Behandelen",
     "treatTitle": "De machine volgt de kaart",
     "treatBody": "Vondsten worden zones en zones worden een taakkaart die uw spuit, strooier of schoffel direct inleest. Buiten een zone wordt niets aangeraakt.",
-    "bentoTitle": "Achttien taken die een drone beter doet dan een rondje lopen",
+    "bentoTitle": "Negentien taken die een drone beter doet dan een rondje lopen",
     "railTitle": "Ingericht op uw gewas, niet op een doorsneebedrijf",
     "limitsTitle": "Wat wij niet beweren",
     "closeTitle": "Geef ons één perceel en wij vliegen het",
@@ -449,6 +449,35 @@
       "steps.1.text": "Een drone stijgt op vanaf het dichtstbijzijnde station en vliegt de aanvliegroute die de zwerm werkelijk gebruikt.",
       "steps.2.text": "De zwerm wordt via een wisselende baan van het perceel geduwd, zodat het patroon nooit voorspelbaar wordt.",
       "steps.3.text": "Elke actie wordt vastgelegd, zodat druk per perceel en tijdstip over het seizoen zichtbaar wordt."
+    },
+    "automated-herding": {
+      "name": "Geautomatiseerd vee verplaatsen",
+      "tagline": "Verplaats de kudde zonder quad en poortwacht",
+      "summary": "Een drone begeleidt de kudde via een door u goedgekeurde route naar het volgende weideperceel, blijft binnen uw grenzen en stopt als het niet rustig kan.",
+      "problem": "Bij roterend beweiden hoort iedere dag een verplaatsing: vers gras, een hek en een kudde die liever blijft staan. Op een goede dag kost dat twee mensen twintig minuten. Op een slechte dag staat er om zes uur een dier op de weg doordat een afrastering het heeft begeven. De verste percelen komen om dezelfde reden laat aan de beurt als dat ze minder vaak worden gecontroleerd.",
+      "cadence": "Wanneer de beweiding wisselt, in de nacht voorgesteld en in de ochtend goedgekeurd.",
+      "sensors.0": "RGB-camera met zoom",
+      "sensors.1": "Radiometrische warmtebeeldcamera",
+      "sensors.2": "Richtingsgevoelige luidspreker",
+      "sensors.3": "RTK-positionering",
+      "outputs.0": "Goedgekeurde route per verplaatsing",
+      "outputs.1": "Aantal dieren bij aankomst",
+      "outputs.2": "Lijst achtergebleven dieren",
+      "outputs.3": "Welzijnsverslag per verplaatsing",
+      "outputs.4": "Logboek van weidewissels",
+      "readings.0": "Kleinste afstand van de drone tegenover de minimumafstand",
+      "readings.1": "Hoogste snelheid van de kudde tegenover de limiet",
+      "readings.2": "Minuten onder drijfdruk",
+      "readings.3": "Achtergebleven dieren per verplaatsing",
+      "readings.4": "Gestopte verplaatsingen en de reden",
+      "steps.0.title": "Plannen",
+      "steps.0.text": "De route loopt van het huidige perceel door het hek naar het volgende. Grond waar de dieren niet mogen komen wordt gemarkeerd.",
+      "steps.1.title": "Goedkeuren",
+      "steps.1.text": "U bekijkt de route en keurt die goed. Daarmee liggen de grenzen voor deze verplaatsing vast en begint het tijdvenster waarin zij moet plaatsvinden.",
+      "steps.2.title": "Drijven",
+      "steps.2.text": "De drone werkt op een vaste afstand achter de kudde. Als de dieren versnellen, stijgt hij om druk weg te nemen in plaats van harder te drijven.",
+      "steps.3.title": "Verantwoorden",
+      "steps.3.text": "Het verslag laat zien hoe dichtbij de drone kwam, hoe snel de dieren liepen, welke hoogte nodig was en welke dieren achterbleven."
     },
     "soil-compaction": {
       "name": "Detectie van bodemverdichting",
@@ -1115,6 +1144,10 @@
       "note": "Offerte per hectare per seizoen. Perceelsgrootte en reisafstand wegen het zwaarst.",
       "cta": "Seizoensofferte aanvragen"
     }
+  },
+  "implementationStatus": {
+    "body": "In ontwikkeling: deze mogelijkheden beschrijven beoogde werkwijzen. De software bevat registraties en modelsimulaties; veldklare resultaten blijven onderdeel van de ontwikkelplanning.",
+    "link": "Implementatiestatus en ontwikkelplanning"
   },
   "featuresPage": {
     "unsure": "Niet zeker wat uw seizoen hiervan nodig heeft",

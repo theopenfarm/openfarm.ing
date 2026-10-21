@@ -7,6 +7,12 @@ line, forever.
 
 None of it has to be rented.
 
+This page describes the intended pipeline and possible building blocks.
+Current planning, simulations and app records are distinguished from pending
+operational outputs in [implementation status](/features/#implementation-status).
+The owned runtime is under development; physical integrations remain
+receive-only with independent flight-controller and RC authority.
+
 ## The pipeline, end to end
 
 ```
@@ -42,7 +48,7 @@ flight plan ──▶ aircraft ──▶ raw frames + flight log
 
 | Page | Covers |
 |---|---|
-| [Flight stack](/build/software/flight-stack) | ArduPilot and PX4, mission planning, telemetry, the pilot app |
+| [Flight stack](/build/software/flight-stack) | Owned runtime and simulation, optional ArduPilot/PX4 drivers, planning and telemetry boundaries |
 | [Ingest and photogrammetry](/build/software/ingest) | Geotagging, calibration, stitching, raster derivatives |
 | [Perception models](/build/software/perception) | Labelling, training, deployment, and the licence trap |
 | [Prescriptions](/build/software/prescriptions) | Clustering, ISOXML, shapefiles, and reading as-applied logs back |
@@ -52,7 +58,7 @@ flight plan ──▶ aircraft ──▶ raw frames + flight log
 
 | Layer | Adopt | Build |
 |---|---|---|
-| Flight control | ArduPilot or PX4 | Mission templates per capability |
+| Flight control | Optional ArduPilot/PX4 driver backends | Owned runtime, sensors, estimator, simulated controls, authority and missions; physical qualification pending |
 | Ground control | QGroundControl at first | A pilot app, when the routes become capability-specific |
 | Geotagging | RTKLIB for PPK | Trigger matching, lever arm, interpolation |
 | Photogrammetry | ODM or COLMAP plus OpenMVS | Orchestration, quality gates, retries |
@@ -80,7 +86,7 @@ trail becomes decorative.
 
 **Every output carries its provenance.** A detection knows its flight. A
 prescription knows its detections. A report knows its prescriptions. The
-[field report](/guide/api#get-apifield-report) shape in this repository is the
+[field report](/guide/api#get-api-field-report) shape in this repository is the
 example: `treatedHectares` comes from a `TreatmentMap` row, not from copy.
 
 **Determinism where it is possible.** The demonstration field is generated from

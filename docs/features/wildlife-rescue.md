@@ -1,5 +1,7 @@
 # Wildlife detection before mowing
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/11) for normal operation, failure handling and required evidence.
+
 > Find the fawn before the mower does
 
 Thermal drones search grassland ahead of the mower for fawns, hares and ground

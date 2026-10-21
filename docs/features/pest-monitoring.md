@@ -1,5 +1,7 @@
 # Automated pest monitoring
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/9) for normal operation, failure handling and required evidence.
+
 > Standing patrol over every hectare
 
 Regular flights check fields for pest damage and mark the affected areas on a

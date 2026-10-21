@@ -1,5 +1,7 @@
 # Early disease detection
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/8) for normal operation, failure handling and required evidence.
+
 > See the infection before the eye can
 
 Multispectral imaging picks up stress, fungal infection and nutrient shortfall
@@ -57,7 +59,7 @@ same field's own previous flight produces a map of what changed.
 
 ## Build it
 
-### What "multispectral" has to mean
+### What multispectral has to mean
 
 Five bands, radiometrically calibrated, with a downwelling light sensor. Anything
 less does not survive contact with a season.

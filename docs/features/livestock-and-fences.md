@@ -1,5 +1,7 @@
 # Livestock and fence checks
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/12) for normal operation, failure handling and required evidence.
+
 > The daily round without the drive
 
 Drones walk the fence line, count the herd and flag animals that are injured,

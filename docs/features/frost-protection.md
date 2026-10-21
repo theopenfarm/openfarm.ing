@@ -1,5 +1,7 @@
 # Frost protection
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/19) for normal operation, failure handling and required evidence.
+
 > Know which hollow will freeze tonight
 
 Drones measure temperature across the block and identify the pockets that will

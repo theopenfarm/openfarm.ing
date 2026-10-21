@@ -1,5 +1,9 @@
 # Introduction
 
+The workflows below are the product direction. Current app records, modelled
+demonstrations and shared-library planning/simulation are distinguished from
+field-ready outputs in [implementation status](/features/#implementation-status).
+
 Open Farming is autonomous drone scouting and targeted treatment for farms. A
 drone flies a fixed route over a field, models locate what is actually wrong,
 and the findings become a prescription the machine you already own can load.
@@ -24,7 +28,7 @@ Three things happen, in order, and the platform is organised around them.
 | Stage | What it means | Capabilities |
 |---|---|---|
 | **Detect** | Sensing flights that find the problem while it is still small | [7 capabilities](/features/#detect) |
-| **Act** | Treatment that follows the map, so only the affected ground is touched | [6 capabilities](/features/#act) |
+| **Act** | Treatment that follows the map, so only the affected ground is touched | [7 capabilities](/features/#act) |
 | **Operate** | The service, the fleet and the reporting that keep it running | [5 capabilities](/features/#operate) |
 
 A capability is a job the platform does. A [use case](/use-cases/) is the same
@@ -96,7 +100,7 @@ for the same reason.
 | Section | Contents |
 |---|---|
 | [Guide](/guide/quickstart) | Running, extending and deploying this repository |
-| [Capabilities](/features/) | All 18, each with its sensors, cadence, readings, parts list and in-house software |
+| [Capabilities](/features/) | All 19, each with its sensors, cadence, readings, parts list and in-house software |
 | [Use cases](/use-cases/) | All 16, grouped by segment, with the season each one is flown to |
 | [Build](/build/) | Airframes, sensors, positioning, compute, docks, payloads, the software stack, costs, suppliers and regulation |
 

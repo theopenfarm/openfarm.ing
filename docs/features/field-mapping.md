@@ -1,5 +1,7 @@
 # Automated field mapping
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/6) for normal operation, failure handling and required evidence.
+
 > The base layer everything else sits on
 
 One flight produces a high resolution 3D model of the field: elevation,

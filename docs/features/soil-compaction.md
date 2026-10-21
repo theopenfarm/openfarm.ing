@@ -1,5 +1,7 @@
 # Soil compaction detection
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/15) for normal operation, failure handling and required evidence.
+
 > Read the tramlines the crop is drawing for you
 
 Growth patterns, imagery and machine data together show where heavy traffic has

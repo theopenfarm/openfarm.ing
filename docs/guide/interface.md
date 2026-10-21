@@ -1,5 +1,9 @@
 # The interface
 
+These screenshots document an earlier interface with seeded/modelled records,
+not evidence of customer flights. See [implementation status](/features/#implementation-status)
+for current software and the remaining operation gates.
+
 What the product actually looks like. Every image on this page is captured
 from the running application by `buddy docs:screenshots`, not drawn, so it
 shows the real interface with real records behind it.
@@ -34,7 +38,7 @@ follows the map.
 
 ![The capabilities index, grouped into Detect, Act and Operate, with a card per capability](/screenshots/features.webp)
 
-All 18 [capabilities](/features/), grouped exactly as
+All 19 [capabilities](/features/), grouped exactly as
 `featureCategories` orders them: Detect, Act, Operate. Each card carries the
 name, the tagline, the summary and the cadence, all read from
 `app/Support/content/features.ts` through the shared catalog layer. Nothing on
@@ -103,7 +107,7 @@ position are in [Costs](/build/costs#cost-per-hectare).
 The only write the public internet can make. The form is plain server-rendered
 HTML with no client bundle, which is the point on a phone in a farmyard, and
 its fields map one to one onto the
-[`POST /api/demo-requests`](/guide/api#post-apidemo-requests) contract: name,
+[`POST /api/demo-requests`](/guide/api#post-api-demo-requests) contract: name,
 email, holding, segment, hectares, message.
 
 ## The field report
@@ -150,13 +154,14 @@ farmer, which is what keeps one customer's console off another's data.
 
 ### Capabilities, per holding
 
-![The capabilities page: 4 of 18 active, with cadence inputs, Pause, Resume, Remove and Turn on controls](/screenshots/dashboard-capabilities.webp)
+![Historical capabilities screenshot: 4 of 18 active, with cadence inputs, Pause, Resume, Remove and Turn on controls](/screenshots/dashboard-capabilities.webp)
 
 This is [`app/Support/capabilities.ts`](/guide/dashboard#capabilities) made
 visible, and the single best illustration of how the catalog and the console
-relate. **All 18 marketed capabilities appear**, whether or not the farm has
+relate. **All 19 marketed capabilities appear**, whether or not the farm has
 switched them on, so the console can never quietly offer less than the site
-advertises. The header reads "4 of 18".
+advertises. The older screenshot reads "4 of 18"; the current total is derived
+from the 19-entry catalog.
 
 Four states are visible at once:
 
@@ -167,7 +172,7 @@ Four states are visible at once:
 | A Resume button | `paused` |
 | "Requested. This one needs equipment on site or a licence check, so we book it with your next visit." | `requested` |
 
-That last one is wildlife detection, and it is not a rejection: five
+That last one is wildlife detection, and it is not a rejection: six
 capabilities [need a visit first](/guide/dashboard#capabilities-that-need-a-visit)
 because they need equipment on site or a licence check, so turning one on
 records a request rather than promising a flight the schedule cannot keep.

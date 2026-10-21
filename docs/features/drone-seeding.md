@@ -1,5 +1,7 @@
 # Drone seeding
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/16) for normal operation, failure handling and required evidence.
+
 > Sow where the drill cannot go
 
 Drones broadcast seed and seed pods onto ground that is too steep, too wet or

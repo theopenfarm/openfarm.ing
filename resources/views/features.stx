@@ -3,13 +3,13 @@ const nodePath = require('node:path')
 const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.ts'))
 
 const title = 'Capabilities - Open Farming'
-const description = 'Eighteen jobs a drone does better than a walk: weed mapping, disease surveillance, irrigation analysis, yield counts, wildlife searches and the service that flies them.'
 const activeNav = 'features'
 const pagePath = '/features'
 
 const groups = await catalog.displayFeatureGroups()
 
 const total = groups.reduce((n, g) => n + g.items.length, 0)
+const description = `${total} agricultural capabilities in development: explore intended workflows, current software and the implementation roadmap.`
 </script>
 
 @layout('layouts/site')

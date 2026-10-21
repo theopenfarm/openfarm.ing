@@ -151,6 +151,25 @@ describe('translations', () => {
     }
   })
 
+  test('every authored capability has all tokenised prose in every locale', () => {
+    const required = features.flatMap(feature => [
+      ...['name', 'tagline', 'summary', 'problem', 'cadence'].map(field => ({ slug: feature.slug, field })),
+      ...(['sensors', 'outputs', 'readings'] as const).flatMap(field =>
+        Array.from(feature[field].keys(), index => ({ slug: feature.slug, field: `${field}.${index}` }))),
+      ...Array.from(feature.steps.keys()).flatMap(index =>
+        ['title', 'text'].map(field => ({ slug: feature.slug, field: `steps.${index}.${field}` }))),
+    ])
+
+    for (const locale of locales) {
+      const entries = load(locale).features as Record<string, Record<string, unknown>>
+      const missing = required.filter(({ slug, field }) => {
+        const value = entries[slug]?.[field]
+        return typeof value !== 'string' || value.trim().length === 0
+      })
+      expect({ locale, missing }).toEqual({ locale, missing: [] })
+    }
+  })
+
   test('nothing is left untranslated by accident', () => {
     const english = load('en') as Record<string, Record<string, string>>
 

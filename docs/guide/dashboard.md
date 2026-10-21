@@ -1,5 +1,7 @@
 # The farmer console
 
+Implementation and physical-operation limits are recorded in the [capability status and roadmap](/features/#implementation-status). Scheduling and status changes do not execute a flight.
+
 Signed-in farmers get `/dashboard`, plus three sub-pages. Everything is
 server-rendered stx with plain HTML forms, and every write answers with a `303`
 back to the page it came from.
@@ -13,7 +15,7 @@ them is the demonstration field rather than theirs, which is why it carries
 | Page | Shows |
 |---|---|
 | `/dashboard` | The holding: fields, hectares, detections, treated hectares, recent and upcoming flights |
-| `/dashboard/capabilities` | All 18 marketed capabilities and what this holding has done about each |
+| `/dashboard/capabilities` | All 19 marketed capabilities and what this holding has done about each |
 | `/dashboard/flights` | The flight log and the schedule, with a form to book one outside the cadence |
 | `/dashboard/detections` | Findings, with resolve and reopen |
 
@@ -21,15 +23,17 @@ them is the demonstration field rather than theirs, which is why it carries
 
 `app/Support/capabilities.ts` is the bridge between what the site sells and
 what a farmer can switch on. It builds the list **from the catalog**, then
-folds in the holding's own rows. A capability with no row is `off`: offered,
-not yet taken.
+folds in the holding's own rows. A capability with no row is `off`: not configured. Catalog presence does not
+establish operational availability.
 
 That ordering matters. Every capability on the marketing pages appears in the
 console whether or not the farm has turned it on, so the dashboard can never
 quietly offer less than the site advertises. That is also why the header can
-say "4 of 18" without a second source of truth.
+derive its active count and current total of 19 without a second source of truth.
 
-![The capabilities page showing 4 of 18 active: an active capability with its cadence and last flight, an unused one with a Turn on button, a paused one with Resume, and a requested one explaining that it needs a visit](/screenshots/dashboard-capabilities.webp)
+![Historical screenshot showing 4 of 18 active: an active capability with its cadence and last flight, an unused one with a Turn on button, a paused one with Resume, and a requested one explaining that it needs a visit](/screenshots/dashboard-capabilities.webp)
+
+This older screenshot predates the nineteenth capability. The current list is derived from the catalog.
 
 All four states in one view. An active capability shows its cadence, its last
 flight and its flight count; an unused one shows a cadence box and Turn on; a
@@ -37,7 +41,7 @@ paused one shows Resume; and a requested one explains itself.
 
 | Status | Meaning |
 |---|---|
-| `active` | Running on the stated cadence. The scheduler plans flights for it |
+| `active` | Configured for cadence scheduling. The scheduler creates records, not aircraft dispatch |
 | `paused` | Configured but not being scheduled |
 | `requested` | Asked for, waiting on a visit. Never scheduled |
 | `off` | No row exists. The default for everything |
@@ -48,7 +52,7 @@ scheduled by the visit, not by the cadence.
 
 ### Capabilities that need a visit
 
-Five capabilities cannot simply be switched on. Turning one on records a
+Six capabilities cannot simply be switched on. Turning one on records a
 **request** rather than promising a flight the schedule cannot keep.
 
 | Capability | Why |
@@ -58,6 +62,7 @@ Five capabilities cannot simply be switched on. Turning one on records a
 | [Pollination support](/features/pollination-support) | Needs indoor aircraft and a house survey |
 | [Wildlife detection before mowing](/features/wildlife-rescue) | Needs a licence check before a first flight |
 | [Livestock and fence checks](/features/livestock-and-fences) | Needs a licence check and a route survey |
+| [Automated livestock herding](/features/automated-herding) | Needs a route survey and a licence/authorisation check |
 
 `requiresVisit(slug)` is the predicate. `ScheduleCapabilityFlights` skips
 `requested` rows entirely.

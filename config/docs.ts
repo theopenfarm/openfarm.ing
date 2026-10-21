@@ -111,7 +111,7 @@ body,
  * directory as the `docs` static site; see the note there for why `root`
  * points inside `dist/docs`.
  *
- * The sidebar is the table of contents for the whole product: 18 capabilities,
+ * The sidebar is the table of contents for the whole product: 19 capabilities,
  * 16 use cases across 5 segments, and the build guide. A capability added to
  * `app/Support/content/features.ts` needs a page here too - the dashboard
  * lists every marketed capability whether or not a farm has switched it on, so
@@ -241,23 +241,17 @@ const config: BunPressOptions = {
       ],
     },
 
-    /*
-     * `themeConfig` lives under `markdown`, not at the top level. bunpress
-     * accepts both, and the top-level one is the documented home, but the
-     * build path this project uses only reads the nested one - the footer and
-     * the social links silently disappear from the built site when it is moved
-     * up a level.
-     */
-    themeConfig: {
-      logo: '/images/logos/logo-transparent.svg',
-      footer: {
-        message: 'Released under the MIT License.',
-        copyright: 'Copyright 2026-present Open Farming',
-      },
-      socialLinks: [
-        { icon: 'github', link: 'https://github.com/theopenfarm/openfarm.ing' },
-      ],
+  },
+
+  themeConfig: {
+    logo: '/images/logos/logo-transparent.svg',
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright 2026-present Open Farming',
     },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/theopenfarm/openfarm.ing' },
+    ],
   },
 
   sitemap: {

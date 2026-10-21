@@ -1,5 +1,7 @@
 # Targeted weed control
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/13) for normal operation, failure handling and required evidence.
+
 > Spray the weeds, not the field
 
 Cameras and on-board models find weeds plant by plant, then only the affected

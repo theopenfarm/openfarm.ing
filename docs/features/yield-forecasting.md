@@ -1,5 +1,7 @@
 # Yield forecasting
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/10) for normal operation, failure handling and required evidence.
+
 > Count what is actually out there
 
 Drones count plants, fruit or ears and turn the counts into a yield estimate

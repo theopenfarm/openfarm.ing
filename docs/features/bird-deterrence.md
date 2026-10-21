@@ -1,5 +1,7 @@
 # Autonomous bird deterrence
 
+**Implementation status:** This page describes the intended workflow and build requirements, not a qualified field service. See [current software and remaining gates](/features/#implementation-status) and the [capability roadmap](https://github.com/theopenfarm/openfarm.ing/issues/22) for normal operation, failure handling and required evidence.
+
 > Move the flock without living next to a gas gun
 
 Drones clear birds from ripening crops on demand, instead of a permanent noise
