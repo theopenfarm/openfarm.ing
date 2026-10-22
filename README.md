@@ -12,7 +12,7 @@ This repository is the marketing site and the public API behind it, built on
 [Stacks](https://github.com/stacksjs/stacks).
 
 The documentation lives in `docs/` and is published at
-[openfarm.ing/docs](https://openfarm.ing/docs): how the platform works, all 18
+[openfarm.ing/docs](https://openfarm.ing/docs): how the platform works, all 19
 capabilities and 16 use cases, and a build guide covering the hardware, the
 suppliers, the in-house software stack, the costs and the regulation. Build it
 locally with `./buddy build:docs`.
