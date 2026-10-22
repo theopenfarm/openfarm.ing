@@ -51,12 +51,13 @@ audit trail becomes decorative.
 | Layer | Choice | Licence |
 |---|---|---|
 | Relational | SQLite for a single tenant, PostgreSQL with PostGIS at scale | Public domain / PostgreSQL licence |
-| Object | Any S3-compatible store. [SeaweedFS](https://github.com/seaweedfs/seaweedfs) Apache-2.0, [Garage](https://garagehq.deuxfleurs.fr), or a hosted bucket | Permissive |
+| Object | [SeaweedFS](https://github.com/seaweedfs/seaweedfs), [Garage](https://github.com/deuxfleurs-org/garage), or a hosted S3-compatible bucket | Apache-2.0 for SeaweedFS; AGPL-3.0 for Garage; hosted service terms vary |
 | Raster | Cloud Optimized GeoTIFF, with overviews and internal tiling | |
 | Vector | GeoJSON in the record, shapefile and ISOXML as exports | |
 
-MinIO is AGPL-3.0, which matters if you modify it. The permissive alternatives
-above speak the same API.
+MinIO and Garage use AGPL-3.0. Review the selected version and integration.
+S3 compatibility does not make licences, supported operations or access-control
+behavior interchangeable. Qualify the chosen provider against the actual client.
 
 **Cloud Optimized GeoTIFF is the format decision that pays off repeatedly.** A
 COG supports HTTP range reads, so the

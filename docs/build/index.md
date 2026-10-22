@@ -80,17 +80,22 @@ This is the one piece of legal homework that will actually bite.
 |---|---|---|
 | ArduPilot | GPL-3.0 | Modifications distributed with the aircraft must be published. Using it unmodified is fine |
 | PX4 | BSD-3 | Permissive. Often the right choice for a commercial product |
-| OpenDroneMap, WebODM | AGPL-3.0 | Network use of a **modified** version triggers source obligations. Run it unmodified as a batch job, or use the permissive stack |
+| OpenDroneMap, WebODM, OpenMVS | AGPL-3.0 | Review source obligations for modified network services and distribution; batch orchestration is not a blanket exemption |
 | COLMAP | BSD | Permissive |
 | OpenMVG | MPL-2.0 | File-level copyleft, workable |
 | Ultralytics YOLO | AGPL-3.0 or commercial | The most common expensive mistake in this field |
 | RF-DETR, MMDetection, torchvision | Apache-2.0 / BSD | Permissive. Start here |
 | GDAL, PROJ, rasterio, OpenCV | MIT / BSD | Permissive |
-| MinIO | AGPL-3.0 | Consider SeaweedFS (Apache-2.0) or plain S3-compatible hosting |
+| MinIO, Garage | AGPL-3.0 | Review the chosen integration; SeaweedFS uses Apache-2.0 and hosted services have their own terms |
 
-None of these are reasons to avoid open source. They are reasons to pick the
-permissive option **before** the integration exists, because swapping a
-detector after eighteen months of labelled data and tuning is not a weekend.
+Choose a licence-compatible integration before implementation. The table is
+an orientation, not a determination for a specific combined work. Inspect the
+actual version and transitive dependencies, preserve notices, and arrange
+corresponding-source delivery where required. The
+[GNU licence FAQ](https://www.gnu.org/licenses/gpl-faq.html#UnreleasedModsAGPL)
+explains the source offer for users of modified AGPL network services;
+[OpenMVS's copyright record](https://github.com/cdcseacave/openMVS/blob/develop/COPYRIGHT.md)
+also lists third-party components that need their own review.
 
 ## A note on the prices in these pages
 

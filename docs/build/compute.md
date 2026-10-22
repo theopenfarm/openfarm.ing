@@ -105,8 +105,8 @@ policy on day one, in writing, and put it in the customer contract.
 
 Object storage: an S3-compatible store keeps the code portable.
 [SeaweedFS](https://github.com/seaweedfs/seaweedfs) (Apache-2.0) and
-[Garage](https://garagehq.deuxfleurs.fr) are the permissive self-hosted
-options; MinIO is AGPL-3.0, which matters if you modify it. See
+[Garage](https://github.com/deuxfleurs-org/garage) (AGPL-3.0) are self-hosted options.
+MinIO also uses AGPL-3.0. Review the selected version and integration. See
 [Platform](/build/software/platform).
 
 ## Where this repository sits

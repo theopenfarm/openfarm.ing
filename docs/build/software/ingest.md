@@ -42,17 +42,18 @@ Without this, a "change layer" is largely a record of the weather. See
 
 | Option | Licence | Notes |
 |---|---|---|
-| [OpenDroneMap](https://opendronemap.org) via NodeODM | AGPL-3.0 | The complete pipeline: ortho, DSM, DTM, point cloud, multispectral support. Run it unmodified as a batch job |
+| [OpenDroneMap](https://opendronemap.org) via NodeODM | AGPL-3.0 | Reconstruction pipeline candidate; review the selected components and integration |
 | [COLMAP](https://colmap.github.io) | BSD | Structure from motion, permissive, excellent |
 | [OpenMVS](https://github.com/cdcseacave/openMVS) | AGPL-3.0 | Dense reconstruction. Check the licence against your product |
-| [OpenMVG](https://github.com/openMVG/openMVG) | MPL-2.0 | Permissive alternative for SfM |
-| [MicMac](https://github.com/micmacIGN/micmac) | CeCILL-B | French national survey institute, permissive-ish, capable |
+| [OpenMVG](https://github.com/openMVG/openMVG) | MPL-2.0 | Structure from motion with file-level copyleft |
+| [MicMac](https://github.com/micmacIGN/micmac) | CeCILL-B | Reconstruction candidate; review its licence and external tools |
 
-The AGPL question matters. Running unmodified ODM as an internal batch job that
-produces files you then serve is the ordinary, uncontroversial path. Modifying
-ODM and exposing it to customers over a network is where the network clause
-bites. Decide this before the integration exists. See
-[the licence table](/build/#licences-to-decide-before-you-write-integration-code).
+A batch boundary does not establish licence compliance. Review the selected
+versions, modifications, dependencies, distribution and network interaction.
+In particular, OpenMVS remains AGPL-licensed when paired with BSD-licensed
+COLMAP. See [the licence table](/build/#licences-to-decide-before-you-write-integration-code)
+and the [GNU licence FAQ](https://www.gnu.org/licenses/gpl-faq.html#UnreleasedModsAGPL)
+before choosing a reconstruction integration.
 
 ### Getting a good reconstruction
 
@@ -74,7 +75,8 @@ must not lose the flight.
 
 ## Raster derivatives
 
-All of it is GDAL and numpy, and none of it needs a licence.
+These tools are available under open-source licences. Retain the required
+notices and review the licences of the selected versions and dependencies.
 
 | Layer | Tool | Note |
 |---|---|---|

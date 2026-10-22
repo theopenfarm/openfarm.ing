@@ -74,7 +74,7 @@ certificate, and it still removes the drive.
 
 | Item | Why | EU source | US source | Indicative |
 |---|---|---|---|---|
-| Airframe with 35+ minute endurance | Fence lines are long | [Holybro X500 V2](https://holybro.com/products/x500-v2-kits) or a fixed-wing VTOL for large platforms | [GetFPV](https://www.getfpv.com) | €500 to €4,000 |
+| Patrol airframe | Size sorties from measured payload endurance, transit and return reserve | [Airframe design requirements](/build/airframes#class-b-parts-list) | Obtain a matched-build quote | No 35-minute configuration qualified here |
 | Zoom RGB camera | Reading a fence at 40 m and a tag at 15 m are different jobs | [Sony FCB block camera](https://pro.sony) modules | [B&H](https://www.bhphotovideo.com) | €600 to €2,500 |
 | Thermal | Separates an animal ruminating from an animal in trouble, and finds one in a hedge | [InfiRay](https://www.infiray.com) module | [FLIR Boson](https://www.flir.com/products/boson/) | €900 to €4,000 |
 | LTE link | The report has to leave the field | [Teltonika RUTX11](https://teltonika-networks.com/products/routers/rutx11) | [SparkFun](https://www.sparkfun.com) | €150 to €250 |

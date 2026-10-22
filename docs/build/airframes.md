@@ -39,11 +39,30 @@ easier to defend.
 
 ## Class B parts list
 
-A 5 to 7 kg quadcopter with 30 to 40 minutes endurance and a 2 kg payload.
+A 5 to 7 kg quadcopter carrying a 2 kg payload for 30 to 40 minutes is a
+proposed design target. The parts below are component categories, not a
+compatible, tested bill of materials. Select the airframe, propulsion,
+propellers, battery voltage and payload together, then measure endurance with
+the complete aircraft. The price ranges do not establish that target.
+
+The Holybro X500 V2 is a separate, smaller development platform. Its
+[manufacturer specification](https://holybro.com/products/px4-development-kit-x500-v2)
+lists about 18 minutes of hover with no additional payload, tested with a
+5000 mAh battery, and recommends a 4S 3000 to 5000 mAh battery. The listed
+1500 g payload figure excludes the battery and is specified at 70% throttle;
+it is not a 1500 g sensor allowance with an installed flight battery. Do not
+combine the stock X500 powertrain with the 6S battery example below or infer
+Class B endurance from it.
+
+For a Pi 5 development build, start with the shared library's
+[Pi hardware guide](https://github.com/stacksjs/drone/blob/main/docs/hardware.md)
+and [camera bring-up](https://github.com/stacksjs/drone/blob/main/docs/raspberry-pi.md).
+A Pi AI Camera person detector is not a calibrated multispectral sensor or a
+qualified mapping payload.
 
 | Part | Choice | EU source | US source | Indicative |
 |---|---|---|---|---|
-| Frame kit | [Holybro X500 V2](https://holybro.com/products/x500-v2-kits) or [Tarot X4](https://www.tarotrc.com) | [Drone Parts Center](https://www.drone-parts-center.com), [Unmanned Tech](https://www.unmannedtechshop.co.uk) | [GetFPV](https://www.getfpv.com), [RobotShop](https://www.robotshop.com) | €300 to €600 |
+| Frame kit | Select a documented frame and propulsion combination for the declared all-up mass; no Class B kit is qualified here | [Drone Parts Center](https://www.drone-parts-center.com), [Unmanned Tech](https://www.unmannedtechshop.co.uk) | [GetFPV](https://www.getfpv.com), [RobotShop](https://www.robotshop.com) | Obtain a matched-build quote |
 | Flight controller | [Pixhawk 6X](https://holybro.com/products/pixhawk-6x) or [Cube Orange+](https://www.cubepilot.com) | [Drone Parts Center](https://www.drone-parts-center.com) | [GetFPV](https://www.getfpv.com) | €250 to €400 |
 | Motors and ESCs | [T-Motor MN series](https://store.tmotor.com) or [Hobbywing X-series](https://www.hobbywing.com) | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €400 to €900 set |
 | Propellers | Carbon, plus a full spare set | same | same | €80 to €200 |
@@ -58,8 +77,10 @@ A 5 to 7 kg quadcopter with 30 to 40 minutes endurance and a 2 kg payload.
 | Anti-collision light | Green flashing, required for night flight | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €30 to €80 |
 | Case | Hard case, foam cut to fit | [Peli](https://www.peli.com) via [Conrad](https://www.conrad.de) | [B&H](https://www.bhphotovideo.com) | €150 to €400 |
 
-Roughly **€2,200 to €4,500** before the sensor. Add the
-[sensor](/build/sensors) and the [positioning](/build/positioning) service.
+The earlier **€2,200 to €4,500** figure is a preliminary component estimate,
+not a quote for a compatible build or a demonstrated endurance result. Obtain
+a complete matched-build quote, including the [sensor](/build/sensors),
+battery, power conversion and [positioning](/build/positioning) service.
 
 ## The frequency mistake, which is easy and expensive
 

@@ -82,7 +82,7 @@ and photogrammetry software has to model that skew rather than measure ground.
 
 | Item | Why | EU source | US source | Indicative |
 |---|---|---|---|---|
-| Airframe, 5 to 7 kg class | Carries a real camera for 30 minutes | [Holybro X500 V2 kit](https://holybro.com/products/x500-v2-kits) via [Drone Parts Center](https://www.drone-parts-center.com) | [GetFPV](https://www.getfpv.com), [RobotShop](https://www.robotshop.com) | €400 to €600 |
+| Airframe | Size for the complete camera, lens, mount, battery and reserve; survey endurance requires measurement | [Airframe design requirements](/build/airframes#class-b-parts-list) | Obtain a matched-build quote | No qualified configuration priced here |
 | Flight controller | ArduPilot or PX4 | [Pixhawk 6X](https://holybro.com/products/pixhawk-6x) | same | €250 to €330 |
 | RTK GNSS | Centimetre camera positions, which removes most ground control | [ArduSimple simpleRTK2B](https://www.ardusimple.com/product/simplertk2b/) | [SparkFun ZED-F9P](https://www.sparkfun.com/products/16481) | €200 to €300 |
 | Mapping camera | The one part not to economise on | [Sony ILX-LR1](https://pro.sony/en_GB/products/industrial-cameras/ilx-lr1), or a used a6000 or a7R II | [B&H](https://www.bhphotovideo.com) | €400 used to €3,000 new |
@@ -115,12 +115,17 @@ The whole chain runs unattended. One 25 hectare block at 2.5 cm/px is roughly
 
 ### Licence note worth knowing before you build a product on it
 
-OpenDroneMap and WebODM are AGPL-3.0. If a customer interacts with them over a
-network, the AGPL's network clause applies to your modified version. Two clean
-ways out: run ODM as a **batch job** whose outputs you serve, and keep it
-unmodified, or build on the permissive stack instead, COLMAP (BSD) plus OpenMVS
-(AGPL, so check that too) or OpenMVG (MPL-2.0). Get this decided before it
-becomes 40,000 lines of integration.
+[OpenMVS](https://github.com/cdcseacave/openMVS/blob/develop/COPYRIGHT.md) is
+AGPL-licensed. Pairing it with COLMAP does not make the combined selection a
+permissive stack. OpenMVG uses MPL-2.0, a file-level copyleft licence, and
+provides structure from motion rather than a complete replacement for every
+dense reconstruction step.
+
+Review each selected version, dependency and integration boundary before
+shipping. An internal batch job is an architectural choice, not a blanket
+licensing exemption. See the [shared licence review](/build/#licences-to-decide-before-you-write-integration-code)
+and the [GNU licence FAQ](https://www.gnu.org/licenses/gpl-faq.html#UnreleasedModsAGPL)
+for the modified-network-service source requirement.
 
 See [Ingest and photogrammetry](/build/software/ingest) for the pipeline in
 detail.

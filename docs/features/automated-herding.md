@@ -144,7 +144,7 @@ quietly raises its own bar and stops detecting any of them.
 
 | Item | Why | EU source | US source | Indicative |
 |---|---|---|---|---|
-| Airframe with 35+ minute endurance | A move plus the transit either side | [Holybro X500 V2](https://holybro.com/products/x500-v2-kits) | [GetFPV](https://www.getfpv.com) | €500 to €4,000 |
+| Development airframe | A move plus transit and reserve must fit measured payload endurance | [Airframe design requirements](/build/airframes#class-b-parts-list) | Obtain a matched-build quote | No 35-minute configuration qualified here |
 | Zoom RGB camera | Counting a mob at 60 m and reading a tag at 15 are different jobs | [Sony FCB block camera](https://pro.sony) modules | [B&H](https://www.bhphotovideo.com) | €600 to €2,500 |
 | Thermal | Finds the animal in the hedge that the count says is missing | [InfiRay](https://www.infiray.com) module | [FLIR Boson](https://www.flir.com/products/boson/) | €900 to €4,000 |
 | Directional speaker | A mob responds to sound at a distance where it would ignore an airframe, which is what buys the standoff | Horn driver plus amplifier, built in house | | €150 to €600 |

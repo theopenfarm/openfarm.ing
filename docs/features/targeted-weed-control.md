@@ -91,7 +91,7 @@ call comes from leaf shape, and leaf shape needs pixels.
 
 | Item | Why | EU source | US source | Indicative |
 |---|---|---|---|---|
-| Airframe, 6 kg class | Slow, low, stable, 30 minutes | [Holybro X500 V2](https://holybro.com/products/x500-v2-kits) via [Drone Parts Center](https://www.drone-parts-center.com) | [GetFPV](https://www.getfpv.com) | €400 to €700 |
+| Survey airframe | Slow, low capture with the complete payload; endurance requires measurement | [Airframe design requirements](/build/airframes#class-b-parts-list) | Obtain a matched-build quote | No qualified configuration priced here |
 | 24 to 60 MP camera, global or mechanical shutter | 1 cm/px at a sane altitude | [Sony ILX-LR1](https://pro.sony/en_GB/products/industrial-cameras/ilx-lr1) | [B&H](https://www.bhphotovideo.com) | €2,500 to €3,200 new |
 | Budget camera | 1 cm/px at 15 m instead of 40 m | [Raspberry Pi GS camera](https://www.raspberrypi.com/products/raspberry-pi-global-shutter-camera/) at [BerryBase](https://www.berrybase.de) | [Adafruit](https://www.adafruit.com) | €55 plus lens |
 | RTK GNSS | Puts a detection on the right square metre, which is the whole point | [ArduSimple simpleRTK2B](https://www.ardusimple.com/product/simplertk2b/) | [SparkFun](https://www.sparkfun.com/products/16481) | €200 to €300 |
