@@ -30,9 +30,9 @@ work. A Pi companion and this app do not replace that authority.
 | Camera and payload | Adapters and simulated capture/expiry/failure behavior | Actual payload, timing, calibration and storage qualification |
 | App | Farm/field records, capability preferences and scheduled Mission records | Authenticated planning adapter, dispatch, actual execution and verified record ingestion |
 
-## Planning before collection
+## Run the shared planning and collection previews
 
-The first shared integration is a
+The shared library implements a
 [planning preview](https://github.com/stacksjs/drone/issues/37), with required
 explicit configuration and declared farm/field identities. Normalized app
 boundaries, centroid and hectares do not establish a metric coordinate
@@ -41,9 +41,25 @@ CLI declarations do not establish authenticated ownership.
 
 A plan is not collection. A
 [synthetic collection preview](https://github.com/stacksjs/drone/issues/38)
-is a separate integration, retaining simulation flags and source evidence.
-Neither preview can mark an operational Mission completed or a treatment
-applied. A scheduled app row does not dispatch an aircraft.
+is also implemented, retaining raw datasets, simulation flags and source evidence.
+Run these commands from a checkout of `stacksjs/drone`, after following its
+[setup guide](https://github.com/stacksjs/drone/blob/main/docs/index.md):
+
+```sh
+./buddy farming:plan examples/farming-plan.json
+./buddy farming:collect examples/farming-collection.json "$HOME/new-farming-collection"
+```
+
+The collection output directory must not already exist, and its parent must
+exist and be operator controlled. Both commands require explicit request files;
+the committed examples describe fictional synthetic geometry. Use the
+[shared integration guide](https://github.com/stacksjs/drone/blob/main/docs/open-farming.md)
+for the request contracts, retained files, exit codes and failure handling.
+A retained aborted or incomplete simulation is not a successful survey.
+
+The [authenticated app adapter](https://github.com/theopenfarm/openfarm.ing/issues/3)
+remains pending. Neither preview can mark an operational Mission completed or a
+treatment applied. A scheduled app row does not dispatch an aircraft.
 
 Collection is also not reconstruction: capturing overlapping images does not
 produce an orthophoto or a surface model. NDVI samples do not diagnose disease.

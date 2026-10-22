@@ -37,7 +37,8 @@ completion for every entry below. Shared [planning preview #37](https://github.c
 is the first integration slice: explicit declared farm/field scope and metric
 configuration produce a plan, not measurements, authenticated ownership or an
 operational Mission. [Synthetic collection preview #38](https://github.com/stacksjs/drone/issues/38)
-is a separate next step. Neither preview establishes field coverage, crop
+is also implemented in the shared library, with retained raw datasets and explicit
+synthetic outcomes. Neither preview establishes field coverage, crop
 condition, disease diagnosis, treatment, physical flight or service availability.
 Authenticated app integration and hardware/field qualification have their own gates.
 
@@ -126,12 +127,14 @@ preserving: they reason over the record rather than adding a flight.
 
 ## Which one to start with
 
-Build and qualify one integration slice at a time:
+The first two shared-library slices are implemented. Start with their explicit
+CLI declarations, then qualify the remaining app and hardware integrations:
 
 1. [Planning preview #37](https://github.com/stacksjs/drone/issues/37), with explicit metric configuration and declared farm/field scope. A plan is not a flight or a measurement.
 2. [Synthetic collection preview #38](https://github.com/stacksjs/drone/issues/38), retaining source hashes and simulation flags. Authenticated app integration remains separate.
-3. Actual collection and reconstruction, each with its own input integrity, calibration, accuracy and physical-operation gates.
-4. The capability-specific normal, failure and evidence paths in the [roadmap](https://github.com/theopenfarm/openfarm.ing/issues/2), including ground confirmation where a measurement informs a treatment or an animal-welfare decision.
+3. [Authenticated app integration](https://github.com/theopenfarm/openfarm.ing/issues/3), with farm/field authorization and a pinned CLI. A scheduled app record does not dispatch an aircraft.
+4. Actual collection and reconstruction, each with its own input integrity, calibration, accuracy and physical-operation gates.
+5. The capability-specific normal, failure and evidence paths in the [roadmap](https://github.com/theopenfarm/openfarm.ing/issues/2), including ground confirmation where a measurement informs a treatment or an animal-welfare decision.
 
 Do not scale a demonstration into field evidence or mark an operational record
 completed because its planning or simulation step succeeded.
