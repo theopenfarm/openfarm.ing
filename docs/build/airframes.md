@@ -1,7 +1,9 @@
 # Airframes
 
-Four aircraft classes cover all 19 capabilities. Most farms and most operators
-need two of them.
+These four working classes organise the build requirements for the 19 planned
+capabilities. The mass and payload bands below are planning categories, not
+certified aircraft specifications or proof that one aircraft can carry every
+payload.
 
 | Class | Mass | Payload | Covers |
 |---|---|---|---|
@@ -10,32 +12,25 @@ need two of them.
 | **C. Heavy lift** | 25 kg+ | 10 to 40 kg | Seeding, and spraying where an exemption applies |
 | **D. Indoor** | under 1 kg | 0.1 kg | Pollination, glasshouse scouting |
 
-Class B is the one to build or buy first. It carries every survey payload in
-the catalog.
+Choose an aircraft only after weighing the complete payload, mount, power
+conversion and flight battery. A class label does not establish payload
+compatibility, endurance or operational approval.
 
 ## Buy or build
 
 | | Buy integrated | Build |
 |---|---|---|
-| Time to paid work | 2 to 4 weeks | 2 to 4 months |
-| Cost, class B with multispectral | €4,500 to €12,000 | €3,000 to €6,000 |
-| Sensor choice | Their payloads | Anything |
-| Repairability | Their parts, their lead times | Any supplier |
-| Regulatory paperwork | Class marking and manufacturer documentation already exist | Yours to produce |
-| Support when it fails in April | A dealer | You |
+| Preparation | Manufacturer setup and operator qualification | Assembly, integration, testing and operator qualification |
+| Cost | Obtain a quote for the complete aircraft and payload | Quote a matched build, including tools, spares and integration time |
+| Sensor choice | Check the supported payload and trigger interfaces | Verify mechanical, electrical, timing and software interfaces |
+| Repairability | Check part availability and repair terms | Record each selected component and its replacement procedure |
+| Regulatory paperwork | Check the exact model, marking and intended operation | Establish the requirements for the assembled aircraft and operation |
+| Support | Dealer or manufacturer, subject to contract | Your team and component suppliers |
 
-The honest recommendation: **buy the first one, build the second.** A DJI
-Mavic 3 Multispectral or Matrice-class aircraft gets you flying paid work
-almost immediately and comes with a class marking that simplifies the Open
-category case. Build when a payload you need is not sold on a turnkey aircraft,
-which in practice means radiometric thermal at a sane price, high resolution
-global-shutter RGB, or anything that has to sit on a dock you designed.
-
-There is also a strategic argument for building: procurement rules in several
-markets have been tightening around Chinese-manufactured aircraft for public
-sector work. If you expect to fly for municipalities, forestry authorities or
-publicly funded restoration, an aircraft you assembled from open hardware is
-easier to defend.
+Compare integrated and custom aircraft against the same payload and mission.
+Neither route guarantees a date for paid work or permission to operate. For
+public-sector procurement, check the buyer's current eligibility requirements
+for the complete system; assembling open hardware does not establish compliance.
 
 ## Class B parts list
 
@@ -67,70 +62,76 @@ qualified mapping payload.
 | Motors and ESCs | [T-Motor MN series](https://store.tmotor.com) or [Hobbywing X-series](https://www.hobbywing.com) | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €400 to €900 set |
 | Propellers | Carbon, plus a full spare set | same | same | €80 to €200 |
 | Battery, 6S 16000 mAh | [Tattu](https://genstattu.com) | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €250 to €400 each |
-| Charger | Dual channel, 1000 W+ | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €200 to €500 |
+| Charger | Match battery chemistry, cell count, charge rate and available input power | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €200 to €500 |
 | GNSS RTK | [ArduSimple simpleRTK2B](https://www.ardusimple.com/product/simplertk2b/) or [Here4](https://www.cubepilot.com) | [ArduSimple](https://www.ardusimple.com) | [SparkFun](https://www.sparkfun.com/products/16481) | €200 to €300 |
-| Telemetry | **RFD868x in the EU**, RFD900x in the US | [RFDesign resellers](https://store.rfdesign.com.au) | [RFDesign](https://store.rfdesign.com.au) | €250 to €350 pair |
+| Telemetry | Select a locally permitted RFD868x or RFD900x configuration | [RFDesign resellers](https://store.rfdesign.com.au) | [RFDesign](https://store.rfdesign.com.au) | €250 to €350 pair |
 | RC link | ExpressLRS 868/915 as regionally permitted | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €60 to €150 |
 | Rangefinder | [LightWare SF000/B](https://lightwarelidar.com) or [Benewake TFmini-S](https://en.benewake.com) | [Antratek](https://www.antratek.de) | [RobotShop](https://www.robotshop.com) | €40 to €300 |
 | Companion computer | [Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/) or [Jetson Orin Nano](https://developer.nvidia.com/embedded/jetson-orin-nano-super-developer-kit) | [BerryBase](https://www.berrybase.de), [Antratek](https://www.antratek.de) | [The Pi Hut](https://thepihut.com), [Seeed](https://www.seeedstudio.com) | €90 to €300 |
 | Payload mount | Vibration-isolated plate, printed or machined | any | any | €30 to €150 |
-| Anti-collision light | Green flashing, required for night flight | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €30 to €80 |
+| Anti-collision light | Select for the jurisdiction and operation | [Globe Flight](https://www.globe-flight.de) | [GetFPV](https://www.getfpv.com) | €30 to €80 |
 | Case | Hard case, foam cut to fit | [Peli](https://www.peli.com) via [Conrad](https://www.conrad.de) | [B&H](https://www.bhphotovideo.com) | €150 to €400 |
 
-The earlier **€2,200 to €4,500** figure is a preliminary component estimate,
-not a quote for a compatible build or a demonstrated endurance result. Obtain
-a complete matched-build quote, including the [sensor](/build/sensors),
-battery, power conversion and [positioning](/build/positioning) service.
+The euro ranges in this table are unverified budgeting allowances, retained
+as planning assumptions on 22 October 2026. They are not current supplier
+quotes, and exclude tax, shipping, tools, spares and integration labour. They
+do not establish a total build price. Obtain a complete matched-build quote,
+including the [sensor](/build/sensors), battery, power conversion and
+[positioning](/build/positioning) service.
 
 ## The frequency mistake, which is easy and expensive
 
-Radio hardware sold as standard on drone parts sites is frequently US-band.
-
-- **Telemetry:** 900 MHz modules (RFD900x) are **not legal in the EU**. Buy the
-  868 MHz variant (RFD868x).
-- **RC link:** 915 MHz ExpressLRS is US; the EU uses 868 MHz, with duty cycle
-  limits.
-- **Video:** the 5.8 GHz allocations differ by country and several channels
-  used in FPV are not permitted for general use.
-
-Check the band, then check the power limit, before ordering. This is the single
-most common compliance failure on a self-built aircraft.
+A product name or an EU/US shop listing does not establish permission to use
+a radio. Check the exact frequency, firmware region, antenna, effective radiated
+power and duty cycle against the rules at the operating location before ordering.
+The same check applies to telemetry, RC and video. The supplier links above are
+sourcing leads, not a declaration of regional compliance. See
+[Regulation](/build/regulation) for the operational planning context.
 
 ## Endurance, honestly
 
-| Aircraft | Realistic flight time | Realistic coverage |
-|---|---|---|
-| Class A, 3 kg, light payload | 25 to 35 min | 15 to 40 ha at survey altitude |
-| Class B, 6 kg, 1.5 kg payload | 25 to 35 min | 30 to 80 ha at 100 m, 6 to 12 ha at 1 cm/px |
-| Class B with a big camera and wind | 18 to 25 min | Subtract a third |
-| Class C loaded | 8 to 15 min | Sortie-limited, not area-limited |
+No class-wide endurance or hectare figure is qualified here. Measure the
+complete aircraft with the selected battery, payload, reserve policy and
+mission profile. Record all-up mass, battery condition, temperature, wind,
+altitude, speed, takeoff/landing energy and the termination condition. Read a
+manufacturer's figure with its stated test conditions; do not assume every
+advertised result is an unloaded hover test.
 
-Manufacturer figures are hover time at 20 °C with no payload and no wind. Plan
-against two thirds of the advertised number, and hold 20% battery reserve or
-you will eventually pay for an aircraft with a shortcut.
+Estimate coverage from camera footprint, overlap and usable route distance.
+The [worked mapping example](/features/field-mapping#reproducible-planning-example)
+gives the geometry and image count for one declared case. It does not measure
+flight endurance. Deduct transit, turns, terrain following and reserve from any
+measured flight-time budget before deciding how much field fits in one sortie.
 
 ## Fixed wing and VTOL
 
-For [field mapping](/features/field-mapping) over very large areas, a fixed
-wing or VTOL covers several times the hectares per battery. It also cannot
-hover, cannot fly at 15 m for weed detection, and needs more space to launch
-and recover.
+A conventional fixed-wing aircraft needs forward airspeed and cannot hover.
+A hybrid VTOL can take off vertically, hover in its multicopter mode and
+transition to wing-borne flight. The [PX4 VTOL guide](https://docs.px4.io/main/en/frames_vtol/)
+describes those modes and their configuration requirements. Launch, recovery,
+transition space and low-altitude suitability depend on the chosen aircraft
+and mission.
 
-Worth it above roughly 300 hectares of contiguous mapping per outing, which in
-practice means [cooperatives](/use-cases/operators#cooperatives-and-large-estates)
-and [restoration sites](/use-cases/operators#reforestation-and-land-restoration).
-Below that, a multirotor is more flexible and far cheaper to own.
+For large contiguous [mapping blocks](/features/field-mapping), compare the
+measured performance of the candidate aircraft over the same route, resolution,
+overlap, payload, wind and reserve. There is no supported 300-hectare purchase
+threshold. [Cooperatives](/use-cases/operators#cooperatives-and-large-estates)
+and [restoration sites](/use-cases/operators#reforestation-and-land-restoration)
+may benefit from that comparison, but area alone does not choose an aircraft.
+These aircraft descriptions do not establish VTOL support in our owned runtime;
+see the [flight stack](/build/software/flight-stack).
 
 ## Maintenance, which decides your real cost per hectare
 
-| Item | Interval | Cost |
-|---|---|---|
-| Propellers | Inspect every flight, replace every 50 to 100 flights or on any strike | €80 to €200 per set |
-| Motors | Bearing check every 100 hours | €400 to €900 per set |
-| Batteries | Log every cycle. Retire at 80% capacity, typically 150 to 300 cycles | €250 to €400 each |
-| Airframe | Arm and mount inspection monthly | |
-| Sensor calibration | Reflectance panel every flight, full calibration annually | |
+| Item | What the maintenance plan must define |
+|---|---|
+| Propellers | Preflight inspection, damage limits and replacement instructions for the selected propeller |
+| Motors | Bearing, fastener and temperature checks specified for the installed motor and operating conditions |
+| Batteries | Logged cycles, measured capacity, cell balance, damage limits and the manufacturer's retirement criteria |
+| Airframe | Arm, joint and payload-mount checks, including checks after a strike or hard landing |
+| Sensor calibration | The selected sensor's panel captures, calibration procedure and recalibration triggers |
 
-Keep a per-airframe log with total hours, cycles per battery and every part
-change. It is what turns "the drone cost €4,000" into a defensible cost per
-hectare, and it is what an insurer or an authority will ask for.
+A universal flight count, hour interval or remaining-capacity percentage is not
+a substitute for component instructions and condition checks. Keep a per-airframe
+log of hours, battery cycles, inspections, findings and part changes. Use those
+records and actual invoices to calculate cost per hectare.

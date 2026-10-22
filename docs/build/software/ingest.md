@@ -57,21 +57,37 @@ before choosing a reconstruction integration.
 
 ### Getting a good reconstruction
 
-| Parameter | Value | Consequence of getting it wrong |
-|---|---|---|
-| Forward overlap | 75 to 80% | Below 70%, reconstruction fails over uniform canopy |
-| Side overlap | 65 to 70% | Stripes and holes |
-| Altitude consistency | Terrain following | Varying ground resolution across the field |
-| Shutter | 1/1000 s or faster | Motion blur that no processing recovers |
-| Sun angle | Consistent, avoid low sun | Long shadows dominate the model |
-| Ground control | RTK plus 3 to 5 independent checkpoints | You never find out the base coordinate was wrong |
+| Parameter | Plan and verify |
+|---|---|
+| Forward and side overlap | Choose for the scene and required views; use [ODM collection guidance](https://docs.opendronemap.org/flying/) as a starting point |
+| Altitude consistency | Compute height above the actual surface and check resulting GSD throughout the route |
+| Shutter | Calculate motion smear from speed, exposure and GSD; inspect angular motion and vibration too |
+| Illumination | Record lighting and shadow changes rather than assuming one sun angle works for every surface |
+| Ground control | Design surveyed control and independent checkpoints for the required output accuracy |
+
+See the [worked mapping example](/features/field-mapping#reproducible-planning-example)
+for complete geometry, overlap, frame-count and exposure inputs. There is no
+universal overlap percentage below which every reconstruction fails, and a
+fixed shutter speed does not establish a pixel-blur limit for every camera.
 
 ### Runtime
 
-Roughly 600 frames from 25 ha at 2.5 cm/px is 30 to 60 minutes on a
-[mid-range GPU box](/build/compute#processing). Plan the pipeline as a queue
-with retries, not as a synchronous request: a stitch that fails at minute 40
-must not lose the flight.
+No reconstruction-time benchmark is qualified here. The example's 770 planned
+frames and approximately 1.63 cm/px GSD do not imply a fixed runtime. Before
+sizing a [processing machine](/build/compute#processing), retain a benchmark
+record with:
+
+- Dataset identity or hash, actual image count and dimensions, sensor and scene.
+- Exact ODM or alternative version, container digest, reconstruction options,
+  output resolution and enabled stages.
+- CPU, GPU and driver, RAM, storage, operating system and worker concurrency.
+- Cold or warm run conditions, wall time, peak memory, per-stage results and
+  output quality against independent checkpoints.
+
+Use the measured record to plan capacity. Queue the workload with bounded
+retries and retained stage outputs so a failed reconstruction does not erase
+the source flight. Until that orchestration is implemented and qualified, this
+is a design requirement rather than an unattended-service claim.
 
 ## Raster derivatives
 
@@ -147,11 +163,13 @@ somebody notices later:
 |---|---|
 | Frame count against trigger count | A card wrote fewer frames than the aircraft triggered |
 | Pose coverage | Any frame without an interpolated pose |
-| RTK fix ratio | Less than 95% of frames on a fixed solution |
+| RTK fix ratio | Below the project threshold, with per-frame uncertainty and checkpoint evidence retained |
 | Checkpoint residual | Above the tolerance for the capability |
 | Reconstruction coverage | Holes inside the boundary |
 | Calibration present | A multispectral flight with no panel capture |
 | Ground resolution | Achieved GSD outside the planned range |
 
-A flight that fails a gate is reflown. That is far cheaper than a prescription
-built on a bad map, and the customer never sees it.
+A failed gate prevents publication of a qualified output. Retain the reason
+and source data, then decide whether calibration, reprocessing or new
+acquisition is needed. This gate list describes the intended qualification
+workflow; see the [mapping implementation roadmap](https://github.com/theopenfarm/openfarm.ing/issues/6).
