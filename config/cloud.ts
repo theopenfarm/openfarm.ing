@@ -778,6 +778,7 @@ export const tsCloud: TsCloudConfig = {
       // is worse than one that fails loudly.
       preStart: [
         'bun install',
+        'bun node_modules/@stacksjs/buddy/dist/cli.js site:discovery',
         'mkdir -p /var/lib/openfarming',
         'mkdir -p storage/framework/runtime/production',
         'bun build --production --target=bun --packages=external app/ProductionServer.ts --outdir storage/framework/runtime/production --entry-naming serve.js',

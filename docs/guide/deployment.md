@@ -56,6 +56,25 @@ ssh root@178.105.248.188 'sh /etc/rpx/renew-certs-openfarming.sh'
 
 ## The documentation site
 
+### Public discovery
+
+`buddy site:discovery` uses the installed stx generators to write `public/robots.txt`,
+`public/sitemap.xml` and `public/sitemap-pages.xml`. The production `preStart` hook runs
+it before the server starts, and stx serves these files through its native static-file
+handler. A generation error stops the release startup.
+
+The root sitemap is an index linking the marketing sitemap and `/docs/sitemap.xml`,
+which the separate docs build generates. Marketing URLs come from an explicit public
+page list, the capability and use-case catalogs, and the herding scenarios, in English,
+German and Dutch. Account, dashboard, API, login, registration and form-result pages
+are excluded. Regenerate the files after changing these catalogs during local development.
+
+This app uses Stacks 0.74.66, whose production server does not mount the newer native
+request-time discovery handler. The generated files use the existing native serialization
+and serving APIs without replacing the production server. They are ignored build output.
+
+### Serving the docs
+
 `openfarm.ing/docs` is a separate static site in the same deploy. `buddy
 deploy` runs its build locally, ships the rendered directory to
 `/var/www/openfarming-docs`, and the rpx gateway answers `/docs` from it. The

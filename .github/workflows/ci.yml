@@ -60,6 +60,9 @@ jobs:
       - name: Lint
         run: bun buddy lint
 
+      - name: Generate public discovery files
+        run: bun buddy site:discovery
+
       # The deploy builds the docs site as part of shipping openfarm.ing/docs
       # (see the `docs` site in config/cloud.ts). Building it here too means a
       # broken page fails the pull request rather than the deploy.
