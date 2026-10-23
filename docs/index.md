@@ -1,12 +1,12 @@
 ---
 layout: home
 title: Open Farming
-description: Autonomous drone scouting and targeted treatment for farms. How the platform works, how each capability is built, and what the hardware costs.
+description: Current software, intended drone scouting and targeted treatment workflows, hardware build guides and implementation status.
 titleTemplate: Autonomous drone scouting for farms
 hero:
   name: Open Farming
   text: Find it, map it, treat only that.
-  tagline: "A drone flies a fixed route, models locate what is actually wrong, and the findings become a prescription the machine you already own can load. On the demonstration field the boom opens over 4.34 of 24.6 hectares instead of all of it."
+  tagline: "Explore drone scouting and targeted treatment plans on a demonstration field, with build guides and implementation status."
   actions:
     - theme: brand
       text: Read the introduction
@@ -37,6 +37,17 @@ features:
     icon: 🧭
     details: "The demonstration field is generated from a fixed seed, so the database, the API and the rendered map always agree and no quoted figure can drift."
 ---
+
+## Current implementation
+
+The site uses a deterministic demonstration field. Farm records, capability
+preferences and scheduled Mission records are implemented. Authenticated drone
+dispatch, verified flight-data ingestion and detection validated in real fields
+remain open.
+
+Read the [capability status and roadmap](/features/#implementation-status) and
+[flight-stack boundaries](/build/software/flight-stack) before treating an intended
+workflow as an operational capability.
 
 ## Where to start
 

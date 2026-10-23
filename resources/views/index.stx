@@ -4,7 +4,7 @@ const catalog = await import(nodePath.join(process.cwd(), 'app/Support/catalog.t
 const fieldmap = await import(nodePath.join(process.cwd(), 'app/Support/fieldmap.ts'))
 
 const title = 'Open Farming - drone scouting and targeted treatment for farms'
-const description = 'Drones scan the field, the models find the weeds, disease and dry ground, and only the affected square metres get treated. Flights booked by the season, not aircraft bought by the unit.'
+const description = 'Explore a demonstration field, drone scouting plans and targeted treatment workflows. Read the build guides and current implementation status.'
 const activeNav = ''
 const pagePath = '/'
 
