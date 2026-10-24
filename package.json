@@ -112,7 +112,7 @@
   },
   "overrides": {
     "@stacksjs/ts-cloud": "^0.16.11",
-    "@stacksjs/stx": "^0.2.550",
-    "bun-plugin-stx": "^0.2.550"
+    "@stacksjs/stx": "0.2.687",
+    "bun-plugin-stx": "0.2.687"
   }
 }
