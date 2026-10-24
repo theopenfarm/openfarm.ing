@@ -3,10 +3,10 @@ import { isUniqueViolation } from '@stacksjs/orm'
 // The models themselves, not the `@stacksjs/orm` re-exports: those resolve to
 // the wrong thing in the published package (`Subscriber` types as a boolean),
 // and importing the definition gives the narrowed model API.
-import Subscriber from '../../storage/framework/defaults/app/Models/Subscriber'
-import SubscriberEmail from '../../storage/framework/defaults/app/Models/SubscriberEmail'
+import Subscriber from '@stacksjs/defaults/app/Models/Subscriber.ts'
+import SubscriberEmail from '@stacksjs/defaults/app/Models/SubscriberEmail.ts'
 import { rateLimit } from '@stacksjs/router'
-import { sendSubscriptionConfirmation } from '../../storage/framework/defaults/app/Mail/SubscriptionConfirmation'
+import { sendSubscriptionConfirmation } from '@stacksjs/defaults/app/Mail/SubscriptionConfirmation.ts'
 import { seeOther, wantsHtml } from '../Support/formResponse'
 
 /**

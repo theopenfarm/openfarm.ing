@@ -140,3 +140,10 @@ storage/framework/core/defaults/app/
 /public/robots.txt
 /public/sitemap.xml
 /public/sitemap-pages.xml
+
+# The framework defaults: a link to node_modules/@stacksjs/defaults, made on
+# boot. `buddy publish:defaults` replaces it with a copy you commit instead.
+/storage/framework/defaults
+
+# Local TypeScript incremental state
+*.tsbuildinfo

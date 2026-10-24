@@ -7,5 +7,5 @@
  * @see https://docs.stacksjs.org/routing
  */
 
-export * from '../storage/framework/defaults/app/Routes'
-export { default } from '../storage/framework/defaults/app/Routes'
+export * from '@stacksjs/defaults/app/Routes.ts'
+export { default } from '@stacksjs/defaults/app/Routes.ts'

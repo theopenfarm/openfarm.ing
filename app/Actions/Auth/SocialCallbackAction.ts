@@ -1,7 +1,7 @@
 import { Action } from '@stacksjs/actions'
 import { Auth, authCookie } from '@stacksjs/auth'
 import { rateLimit } from '@stacksjs/router'
-import User from '../../../storage/framework/defaults/app/Models/User'
+import User from '@stacksjs/defaults/app/Models/User.ts'
 import { clearStateCookie, providerFor, stateFromRequest, supportedProvider } from '../../Support/social'
 import { seeOther } from '../../Support/formResponse'
 

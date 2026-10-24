@@ -19,7 +19,7 @@ export default {
   // Expose @stacksjs/components' ui library (<Sidebar>, <Button>, ...)
   // to tag resolution everywhere — the dashboard's macOS-style sidebar
   // resolves through this. See the plugin file for the lookup order.
-  plugins: ['./storage/framework/defaults/stx-components-plugin.ts'],
+  plugins: ['@stacksjs/defaults/stx-components-plugin.ts'],
 
   // Layouts directory - for layout templates
   layoutsDir: 'resources/layouts',
