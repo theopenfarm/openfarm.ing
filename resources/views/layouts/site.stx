@@ -1,17 +1,17 @@
 <script server>
 // Fallback page meta. Every page sets these in its own server script and
 // those values win; this only fills the gaps.
-const title = 'Open Farming'
-const description = 'Autonomous drone scouting for farms. Scan the field, find the problem, treat only the square metres that need it.'
-const pagePath = typeof pagePath === 'string' ? pagePath : '/'
-const activeNav = typeof activeNav === 'string' ? activeNav : ''
+const layoutTitle = typeof title === 'string' ? title : 'Open Farming'
+const layoutDescription = typeof description === 'string' ? description : 'Autonomous drone scouting for farms. Scan the field, find the problem, treat only the square metres that need it.'
+const layoutPagePath = typeof pagePath === 'string' ? pagePath : '/'
+const layoutActiveNav = typeof activeNav === 'string' ? activeNav : ''
 const siteUrl = 'https://openfarm.ing'
 // The locale prefix is a translation token for the same reason the share
 // card's is: this script runs once, and which locale is being rendered is
 // only known to the translation pass over the finished HTML. Without it every
 // /de/ page told a crawler its canonical was the English one, and a shared
 // German link resolved to English copy with an English card.
-const canonicalPath = pagePath === '/' ? '' : pagePath.replace(/^\//, '')
+const canonicalPath = layoutPagePath === '/' ? '' : layoutPagePath.replace(/^\//, '')
 const canonicalUrl = `${siteUrl}/{t:og.localePrefix}${canonicalPath}`
 
 // Every page has its own card, carrying that page's headline. The file mirrors
@@ -26,7 +26,7 @@ const canonicalUrl = `${siteUrl}/{t:og.localePrefix}${canonicalPath}`
 // mirrors the URL (`/use-cases/vineyards` -> `use-cases/vineyards.jpg`), so a
 // new page gets one from `buddy og:generate` with nothing to change here.
 // `ogCard` overrides it for pages whose card is named differently.
-const ogPathSlug = pagePath.split('/').filter(Boolean).join('/') || 'home'
+const ogPathSlug = layoutPagePath.split('/').filter(Boolean).join('/') || 'home'
 const ogSlug = typeof ogCard === 'string' && ogCard ? ogCard : ogPathSlug
 // `{t:og.localePrefix}` resolves to '' in English and 'de/' or 'nl/' in the
 // other two, which is exactly where `buddy og:generate` writes each locale's
@@ -38,7 +38,7 @@ const ogImage = `${siteUrl}/images/og/{t:og.localePrefix}${ogSlug}.jpg`
 
 // Locale alternates. stx serves the same page under /de and /nl, and without
 // these a crawler treats the three as unrelated near-duplicates.
-const localePath = pagePath === '/' ? '/' : pagePath
+const localePath = layoutPagePath === '/' ? '/' : layoutPagePath
 const alternates = [
   { hreflang: 'en', href: `${siteUrl}${localePath}` },
   { hreflang: 'de', href: `${siteUrl}/de${localePath === '/' ? '/' : localePath}` },
@@ -52,8 +52,8 @@ const alternates = [
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }}</title>
-  <meta name="description" content="{{ description }}">
+  <title>{{ layoutTitle }}</title>
+  <meta name="description" content="{{ layoutDescription }}">
   <link rel="canonical" href="{{ canonicalUrl }}">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f3f5ef" media="(prefers-color-scheme: light)">
@@ -62,20 +62,20 @@ const alternates = [
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Open Farming">
   <meta property="og:url" content="{{ canonicalUrl }}">
-  <meta property="og:title" content="{{ title }}">
-  <meta property="og:description" content="{{ description }}">
+  <meta property="og:title" content="{{ layoutTitle }}">
+  <meta property="og:description" content="{{ layoutDescription }}">
   <meta property="og:image" content="{{ ogImage }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ title }}">
+  <meta property="og:image:alt" content="{{ layoutTitle }}">
   <meta property="og:locale" content="{t:og.locale}">
   <meta property="og:locale:alternate" content="de_DE">
   <meta property="og:locale:alternate" content="nl_NL">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ title }}">
-  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:title" content="{{ layoutTitle }}">
+  <meta name="twitter:description" content="{{ layoutDescription }}">
   <meta name="twitter:image" content="{{ ogImage }}">
-  <meta name="twitter:image:alt" content="{{ title }}">
+  <meta name="twitter:image:alt" content="{{ layoutTitle }}">
 
   @foreach (alternates as alternate)
     <link rel="alternate" hreflang="{{ alternate.hreflang }}" href="{{ alternate.href }}">
@@ -183,7 +183,7 @@ const alternates = [
 <body>
   <a href="#main" class="focus:absolute focus:z-[60] focus:m-3 focus:px-4 focus:py-2 focus:bg-[var(--panel)] focus:rounded-[10px] sr-only focus:not-sr-only">{t:nav.skip}</a>
 
-  @include('nav.stx')
+  @include('nav.stx', { activeNav: layoutActiveNav })
 
   <main id="main">
     <p class="mx-auto px-5 pt-5 max-w-[1240px] leading-relaxed text-[0.85rem] text-[var(--text-2)]">
