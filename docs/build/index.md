@@ -53,7 +53,7 @@ deliverable.
 Each step should produce a tested deliverable before a larger investment.
 Revenue and the date of paid operation depend on qualification and customer demand.
 
-<!-- The pinned renderer escapes quotes in heading IDs; retain its ID and expose the native search slug too. -->
+<!-- Retain the search anchor used by earlier published documentation. -->
 <span id="what-in-house-does-and-does-not-mean"></span>
 
 ## What "in-house" does and does not mean

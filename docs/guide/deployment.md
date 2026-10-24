@@ -116,12 +116,14 @@ and the build-path fix, this block can move to `themeConfig` and shrink.
 
 ### Search under `/docs`
 
-The native docs build pins BunPress 0.2.14 with a version-specific dependency
-patch. Search results use the same deployment prefix as the rendered navigation,
-so selecting a page or section stays under `/docs` instead of reaching an
-unrelated site-root route. The patch preserves section anchors, locale fallback
-and explicit root deployments. See `patches/README.md` for its source fix and
-removal criteria. This changes documentation navigation, not the flight pipeline.
+The native docs build uses BunPress 0.2.25, which includes the
+[source fix](https://github.com/stacksjs/bunpress/commit/096004cc6e7b4800bfd1e90993866c9011ca706d)
+for deployment paths in search results. Selecting a page or section stays under
+`/docs`, preserving section anchors, locale fallback and explicit root deployments.
+Dependencies are consumed as released packages. Make shared engine changes in
+BunPress's source repository, release them, then upgrade this app and rerun the
+public search regressions, native docs build and browser checks. This changes
+documentation navigation, not the flight pipeline.
 
 ## preStart
 
