@@ -1,6 +1,6 @@
 import { Action } from '@stacksjs/actions'
 import { logoutCookie } from '@stacksjs/auth'
-import { seeOther, wantsHtml } from '../../Support/formResponse'
+import { wantsHtml } from '../../Support/formResponse'
 
 /**
  * Sign out.

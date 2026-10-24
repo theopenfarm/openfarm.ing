@@ -108,7 +108,7 @@
   "devDependencies": {
     "@iconify-json/hugeicons": "^1.2.33",
     "@stacksjs/bunpress": "0.2.25",
-    "pickier": "0.1.43"
+    "better-dx": "^0.2.37"
   },
   "overrides": {
     "@stacksjs/ts-cloud": "^0.16.11",
