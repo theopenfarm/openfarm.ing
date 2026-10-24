@@ -114,6 +114,15 @@ top-level `themeConfig`, while the Stacks config nests it under `markdown`, so
 a nested palette was a silent no-op. Once a bunpress release carries both that
 and the build-path fix, this block can move to `themeConfig` and shrink.
 
+### Search under `/docs`
+
+The native docs build pins BunPress 0.2.14 with a version-specific dependency
+patch. Search results use the same deployment prefix as the rendered navigation,
+so selecting a page or section stays under `/docs` instead of reaching an
+unrelated site-root route. The patch preserves section anchors, locale fallback
+and explicit root deployments. See `patches/README.md` for its source fix and
+removal criteria. This changes documentation navigation, not the flight pipeline.
+
 ## preStart
 
 `catalog:sync` runs on every deploy through `preStart`, so a content edit in

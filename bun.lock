@@ -10,6 +10,7 @@
       },
       "devDependencies": {
         "@iconify-json/hugeicons": "^1.2.33",
+        "@stacksjs/bunpress": "0.2.14",
         "pickier": "0.1.43",
       },
     },
@@ -24,6 +25,9 @@
         "stacks": "^0.70.163",
       },
     },
+  },
+  "patchedDependencies": {
+    "@stacksjs/bunpress@0.2.14": "patches/@stacksjs%2Fbunpress@0.2.14.patch",
   },
   "overrides": {
     "@stacksjs/stx": "^0.2.306",
