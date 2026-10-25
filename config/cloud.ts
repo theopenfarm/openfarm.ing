@@ -737,6 +737,9 @@ export const tsCloud: TsCloudConfig = {
       domain: 'openfarm.ing',
       // Native ts-cloud resolves this release-local executable for systemd.
       start: `${appRuntime} storage/framework/runtime/production/serve.js`,
+      // One scheduler owns app/Scheduler.ts for both main and API.
+      scheduler: true,
+      backgroundBun: 'pantry/.bin/bun',
       port: 3060,
       /*
        * This site's share of a shared box.

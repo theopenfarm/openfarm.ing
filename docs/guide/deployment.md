@@ -134,6 +134,26 @@ the same runtime. This does not upgrade the shared server's
 Bun or Pantry binaries. A runtime installation or version-check failure stops
 startup.
 
+### Scheduled work
+
+The main site explicitly owns the single scheduler for `app/Scheduler.ts`.
+The API does not start another copy. Native ts-cloud 0.16.70 runs this scheduler
+with `backgroundBun: 'pantry/.bin/bun'`, using the physical release directory
+for its executable, working directory and child-command `PATH`.
+
+The native deployment stops background work before replacing an existing
+release directory. After activation it reconciles the services before pruning
+old releases, so a running task retains its admitted runtime and assets until
+it stops. A refused stop fails deployment rather than removing those assets.
+The runtime entry validates executable identity and containment before loading
+application work. A same-ID replacement that fails after draining may require
+a recovery deploy to restart background work.
+
+The app consumes the maintained public package through its normal dependency
+lockfile. It does not override ts-cloud with an older release or rewrite
+installed packages or host units. This scheduler creates planning records;
+it does not dispatch aircraft or mark a physical mission complete.
+
 ## preStart
 
 `catalog:sync` publishes content from `app/Support/content/` on every deploy.

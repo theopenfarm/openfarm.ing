@@ -112,7 +112,6 @@
     "better-dx": "^0.2.37"
   },
   "overrides": {
-    "@stacksjs/ts-cloud": "^0.16.11",
     "@stacksjs/stx": "0.2.687",
     "bun-plugin-stx": "0.2.687"
   },
