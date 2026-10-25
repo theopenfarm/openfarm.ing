@@ -89,7 +89,7 @@
     "craft": "^0.0.19"
   },
   "dependencies": {
-    "stacks": "^0.75.301",
+    "stacks": "^0.75.309",
     "ts-pantry": "0.11.126",
     "ts-images": "^0.2.12"
   },
@@ -112,8 +112,8 @@
     "better-dx": "^0.2.37"
   },
   "overrides": {
-    "@stacksjs/stx": "0.2.687",
-    "bun-plugin-stx": "0.2.687"
+    "@stacksjs/stx": "0.2.691",
+    "bun-plugin-stx": "0.2.691"
   },
   "engines": {
     "bun": "^1.4.4"
