@@ -110,9 +110,11 @@ Get this right before the second customer, not after.
 This repository's approach, worth copying: the console **never accepts a farm
 id from the request**. Every read re-derives the holding from the signed-in
 user, and every write does the same and ignores any farm the request names. The
-generated REST endpoints are narrowed by
-[`FarmScope`](/guide/architecture#multi-tenancy), which pins a read to the
-caller's holdings and rejects a write naming a farm they do not own.
+generated REST reads use native model ownership to resolve the caller's
+current holdings. [`FarmScope`](/guide/architecture#multi-tenancy) checks
+holding eligibility and selectors; the model scope confines both lists and
+individual rows. Generic mutations on the eight farm resources are withheld;
+domain Actions own those workflows.
 
 The processing pipeline needs the same discipline: object storage keys and
 processing jobs scoped by farm, and no path that takes a farm id from anywhere

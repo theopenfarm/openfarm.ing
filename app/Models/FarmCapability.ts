@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import { ownedFarmIds } from '../Support/farmer-ownership'
 import { schema } from '@stacksjs/validation'
 import * as seed from '../Support/factories'
 
@@ -27,6 +28,7 @@ export default defineModel({
   table: 'farm_capabilities',
   primaryKey: 'id',
   autoIncrement: true,
+  ownership: { field: 'farm_id', resolve: ownedFarmIds },
 
   traits: {
     useUuid: true,
@@ -36,7 +38,7 @@ export default defineModel({
     observe: true,
     useApi: {
       uri: 'farm-capabilities',
-      routes: ['index', 'show', 'store', 'update', 'destroy'],
+      routes: ['index', 'show'],
       // Never public: this is one customer's operating plan.
       middleware: ['auth', 'farm-scope'],
     },
@@ -45,14 +47,8 @@ export default defineModel({
   belongsTo: ['Farm', 'Field'],
 
   attributes: {
-    /*
-     * The relation keys are declared so the API can set them.
-     *
-     * `belongsTo` alone gives the query side of a relation, not a writable
-     * column: a POST carrying `farm_id` had it dropped and the row landed
-     * unattached. FarmScope has already checked the caller owns the farm by
-     * the time a handler reads these.
-     */
+    // Declared relation keys support trusted domain writes and API filters.
+    // Native ownership resolves the caller's holding before generated reads.
     farm_id: {
       required: true,
       order: 0,

@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import { ownedFarmIds } from '../Support/farmer-ownership'
 import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
@@ -37,6 +38,7 @@ export default defineModel({
   table: 'herd_moves',
   primaryKey: 'id',
   autoIncrement: true,
+  ownership: { field: 'farm_id', resolve: ownedFarmIds },
 
   traits: {
     useSeeder: { count: 14 },
@@ -51,7 +53,7 @@ export default defineModel({
       // pushing somebody's animals around; it is answerable to a regulator,
       // and an endpoint that erases it is a liability rather than a feature.
       // A move that should not have been planned is `rejected`.
-      routes: ['index', 'show', 'store', 'update'],
+      routes: ['index', 'show'],
       middleware: ['auth', 'farm-scope'],
     },
   },

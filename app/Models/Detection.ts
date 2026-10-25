@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import { ownedMissionIds } from '../Support/farmer-ownership'
 import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
@@ -14,6 +15,7 @@ export default defineModel({
   table: 'detections',
   primaryKey: 'id',
   autoIncrement: true,
+  ownership: { field: 'mission_id', resolve: ownedMissionIds },
 
   traits: {
     useSeeder: { count: 180 },
@@ -21,7 +23,7 @@ export default defineModel({
     useTimestamps: true,
     useApi: {
       uri: 'detections',
-      routes: ['index', 'show', 'update'],
+      routes: ['index', 'show'],
       // A holding's operating data, never public.
       middleware: ['auth', 'farm-scope'],
     },

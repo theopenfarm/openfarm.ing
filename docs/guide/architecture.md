@@ -41,7 +41,8 @@ ever disagree, that is a bug rather than a stale copy.
 | `app/Actions/Leads/` | The field-visit booking endpoint |
 | `app/Commands/` | `catalog:sync`, `imagery:attach`, `demo:account`, `og:images` |
 | `app/Jobs/ScheduleCapabilityFlights.ts` | Turns a standing cadence into flights that are due |
-| `app/Middleware/FarmScope.ts` | Confines every generated REST call to the caller's own holdings |
+| `app/Middleware/FarmScope.ts` | Checks holding eligibility and requested selectors before generated REST handlers |
+| `app/Support/farmer-ownership.ts` | Resolves native model ownership from current holdings and missions |
 | `resources/views/` | The site. `features/[slug].stx` and `use-cases/[slug].stx` render every detail page |
 | `public/site.css` | Design tokens, and the CSS that utilities cannot express |
 | `config/cloud.ts` | Deploy configuration: a tenant on the shared Stacks box |
@@ -88,12 +89,28 @@ re-derives the holding from the signed-in user through `farmFor(userId)`, and
 every dashboard write does the same and ignores any farm the request names.
 A request cannot name a holding, therefore it cannot name somebody else's.
 
-**The generated REST endpoints**, which come from the models' `useApi` traits,
-know nothing about tenancy on their own. `app/Middleware/FarmScope.ts` narrows
-them: a write carrying `farm_id` must name a farm the caller owns, and a read
-without one is answered with `?farm_id=` pinned to their own holding. An
-account with no holding gets a 403 rather than an empty list, because an empty
-list reads as "you have nothing" rather than "you have not started yet".
+**The generated REST endpoints** use native model `ownership` declarations.
+Fields, drones, capabilities, herds, herd moves and missions resolve their
+`farm_id` against all holdings currently owned by the authenticated caller.
+Detections and treatment maps resolve `mission_id` through those holdings.
+The resolver queries the app models on each request, so deleted or reassigned
+holdings stop granting access. Both lists and individual rows use this scope.
+
+`FarmScope` checks holding eligibility and rejects foreign, malformed or
+repeated holding selectors. An account with no holding gets a 403. It does
+not rewrite request URLs or supply the row scope. A caller with several
+holdings can read all of their holdings without exposing another account's
+rows.
+
+These eight generated resource APIs publish `index` and `show` only. Domain
+Actions own customer mutations and workflow transitions. Declaring ownership
+does not enable generic mission completion, herd movement or prescription
+writes.
+
+`tests/unit/farmer-access.test.ts` migrates a private database and exercises the
+native router with actual persisted cookie sessions. It checks two owners,
+multiple holdings, concurrent requests, hostile selectors, parent deletion
+and reassignment, and unavailable generic writes.
 
 The demonstration farm is unowned, which is what keeps the worked example out
 of somebody's real numbers.

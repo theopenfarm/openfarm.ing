@@ -248,7 +248,9 @@ origin where a token from this site could not travel.
 ## Generated REST endpoints
 
 The models carry `useApi` traits, so the operational domain also has generated
-CRUD endpoints. Those are **not** public: they sit behind `Auth` and then
-`FarmScope`, which pins every read to the caller's own holdings and rejects a
-write naming a farm they do not own. See
+resource endpoints. Those are **not** public: they sit behind `Auth` and
+`FarmScope`, with native model ownership confining lists and individual rows
+to the caller's current holdings. Fields, drones, capabilities, herds, herd
+moves, missions, detections and treatment maps expose `index` and `show` only;
+domain Actions own mutations. See
 [Architecture](/guide/architecture#multi-tenancy).

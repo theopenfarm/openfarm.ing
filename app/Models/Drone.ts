@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import { ownedFarmIds } from '../Support/farmer-ownership'
 import { schema } from '@stacksjs/validation'
 
 /** An aircraft in the fleet, and the dock it returns to. */
@@ -7,6 +8,7 @@ export default defineModel({
   table: 'drones',
   primaryKey: 'id',
   autoIncrement: true,
+  ownership: { field: 'farm_id', resolve: ownedFarmIds },
 
   traits: {
     useSeeder: { count: 5 },

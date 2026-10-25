@@ -1,4 +1,5 @@
 import { defineModel } from '@stacksjs/orm'
+import { ownedFarmIds } from '../Support/farmer-ownership'
 import * as seed from '../Support/factories'
 import { schema } from '@stacksjs/validation'
 
@@ -11,6 +12,7 @@ export default defineModel({
   table: 'fields',
   primaryKey: 'id',
   autoIncrement: true,
+  ownership: { field: 'farm_id', resolve: ownedFarmIds },
 
   traits: {
     useSeeder: { count: 12 },
@@ -19,7 +21,7 @@ export default defineModel({
     useSoftDeletes: true,
     useApi: {
       uri: 'fields',
-      routes: ['index', 'show', 'store', 'update', 'destroy'],
+      routes: ['index', 'show'],
       // A holding's operating data, never public.
       middleware: ['auth', 'farm-scope'],
     },
