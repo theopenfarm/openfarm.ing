@@ -8,12 +8,10 @@ import type { BunPressOptions } from '@stacksjs/bunpress'
  * `public/site.css`, so the documentation and the thing it documents are the
  * same colour.
  *
- * It goes through `markdown.css` rather than `themeConfig.colors`. The theme
- * config's `colors`, `fonts`, `cssVars` and `css` keys are typed and
- * documented, and bunpress's dev server does honour them, but the code path
- * that renders the STATIC build does not - so setting them themes the site you
- * develop and not the one you ship. `markdown.css` reaches both. See the
- * upstream note in `docs/guide/deployment.md`.
+ * The palette, light and dark variants, local font declarations and screenshot
+ * styles share this application stylesheet. BunPress 0.2.25 also delivers
+ * themeConfig colors, fonts, cssVars and css in static builds, including the
+ * nested markdown.themeConfig form. See `docs/guide/deployment.md`.
  *
  * The theme keys off `--bp-*` variables and scopes dark mode to a `.dark`
  * class, so both blocks are written out here in full.

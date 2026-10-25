@@ -69,9 +69,9 @@ page list, the capability and use-case catalogs, and the herding scenarios, in E
 German and Dutch. Account, dashboard, API, login, registration and form-result pages
 are excluded. Regenerate the files after changing these catalogs during local development.
 
-This app uses Stacks 0.74.66, whose production server does not mount the newer native
-request-time discovery handler. The generated files use the existing native serialization
-and serving APIs without replacing the production server. They are ignored build output.
+The deployment hook generates these files through the native stx serialization APIs.
+The explicit public-page policy keeps private and account routes out of the published
+sitemaps. Generated discovery files are ignored build output.
 
 ### Serving the docs
 
@@ -88,12 +88,9 @@ Two details in `config/cloud.ts` are load bearing:
 - **`root` points inside `dist/docs`,** because bunpress writes its rendered
   output to `<outDir>/.bunpress`.
 
-The build command is `bun run buddy build:docs`, not `./buddy build:docs`. The
-build action shells out to `bunpress build`, and the only thing that puts that
-binary on PATH is `bun run`, which prepends `node_modules/.bin`. Worse, the
-failure is silent: the action logs "Executable not found" and still exits 0.
-The `&& test -d dist/docs/.bunpress` after it is the guard, so a build that
-quietly produces nothing fails at the build rather than at the packaging.
+Build with `./buddy build docs` or `bun run buddy build:docs`. Stacks resolves
+the project's installed BunPress CLI and propagates a failed build. The deploy
+also checks that `dist/docs/.bunpress` exists before packaging the output.
 
 ### Theming
 
@@ -103,16 +100,12 @@ which mattered once the pages filled up with
 `config/docs.ts` are the tokens from `public/site.css`, so the documentation
 and the thing it documents are the same colour.
 
-It goes through `markdown.css` rather than `themeConfig.colors`. The theme
-config's `colors`, `fonts`, `cssVars` and `css` keys are typed and documented,
-and bunpress's dev server honours them, but the code path that renders the
-static build in the version pinned here does not, so setting them themes the
-site you develop and not the one you ship. `markdown.css` reaches both.
-
-There is a related upstream fix: `generateThemeOverrideCss` read only the
-top-level `themeConfig`, while the Stacks config nests it under `markdown`, so
-a nested palette was a silent no-op. Once a bunpress release carries both that
-and the build-path fix, this block can move to `themeConfig` and shrink.
+The palette, light and dark variants, local font declarations and screenshot
+styles live together in the application's `markdown.css`. This is ordinary
+application styling. The pinned BunPress 0.2.25 also supports `themeConfig`
+colors, fonts, CSS variables and raw CSS in static builds. Both top-level
+`themeConfig` and `markdown.themeConfig` reach the shared layout renderer;
+when a key appears in both, the top-level value wins.
 
 ### Search under `/docs`
 
@@ -125,12 +118,37 @@ BunPress's source repository, release them, then upgrade this app and rerun the
 public search regressions, native docs build and browser checks. This changes
 documentation navigation, not the flight pipeline.
 
+## Application runtime
+
+Each atomic `main` and `api` release installs Bun 1.4.4 into its own `pantry/`
+directory using the pinned Pantry SDK. The shared host's Bun bootstraps the
+frozen JavaScript dependency install and that native runtime installer. The
+application build, commands and services then use `./pantry/.bin/bun`.
+
+The startup hook exports the release's absolute runtime directory into its
+shell `PATH` and checks both the direct runtime and a real `bun` child before
+discovery, migration or catalog publication. This export matters because service
+environment variables do not configure the deployment hook's shell. Service
+`PATH` also starts with the release's `pantry/.bin`, so its child commands use
+the same runtime. This does not upgrade the shared server's
+Bun or Pantry binaries. A runtime installation or version-check failure stops
+startup.
+
 ## preStart
 
-`catalog:sync` runs on every deploy through `preStart`, so a content edit in
-`app/Support/content/` ships with the code and needs no separate step. Because
-the sync truncates and rewrites, a deploy also repairs a database whose catalog
-tables have drifted.
+`catalog:sync` publishes content from `app/Support/content/` on every deploy.
+It refreshes the capability and use-case tables, retains the reserved demo farm,
+field and aircraft IDs, and restores soft-deleted demo farm and field records.
+Derived demo missions, detections and treatments are rebuilt. Existing published
+orthomosaic metadata is copied to the new demo mission; customer records remain
+outside the refresh.
+
+The command refuses a reserved demo farm owned by an account, or a reserved
+field or aircraft attached to another farm, before changing business rows.
+[Stacks 0.75.301](https://github.com/stacksjs/stacks/releases/tag/v0.75.301)
+repairs missing owner columns on empty legacy trait pivots during native
+migration. A populated ambiguous pivot fails migration without assigning an
+owner. Migration failures stop startup before catalog publication.
 
 ## Where the flight pipeline would run
 

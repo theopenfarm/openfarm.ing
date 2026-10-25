@@ -3,6 +3,13 @@ import type { CloudConfig as TsCloudConfig } from '@stacksjs/ts-cloud'
 import { servers } from '../cloud/servers'
 import { env } from '@stacksjs/env'
 
+// Each atomic release owns its runtime. The shared server keeps its own Bun.
+const appRuntime = './pantry/.bin/bun'
+const installAppRuntime = 'bun node_modules/ts-pantry/dist/bin/cli.js install bun.sh@1.4.4 --install-dir pantry --quiet'
+const activateAppRuntime = 'export PATH="$PWD/pantry/.bin:/usr/local/bin:/usr/bin:/bin"'
+const checkAppRuntime = `${appRuntime} --eval 'if (Bun.version !== "1.4.4") throw new Error("Application requires Bun 1.4.4"); const child = Bun.spawnSync(["bun", "--version"], { stdout: "pipe", stderr: "pipe", timeout: 10000 }); if (child.exitCode !== 0 || child.stdout.toString().trim() !== "1.4.4") throw new Error("Application child commands require Bun 1.4.4"); console.log("Application Bun " + Bun.version + " including child commands")'`
+const appRuntimePath = './pantry/.bin:/usr/local/bin:/usr/bin:/bin'
+
 /**
  * Stacks Cloud Configuration
  *
@@ -728,9 +735,8 @@ export const tsCloud: TsCloudConfig = {
       root: '.',
       path: '/',
       domain: 'openfarm.ing',
-      // ts-cloud prepends the runtime, so this has to be a file bun can
-      // execute — not the ./buddy shell wrapper.
-      start: 'bun storage/framework/runtime/production/serve.js',
+      // Native ts-cloud resolves this release-local executable for systemd.
+      start: `${appRuntime} storage/framework/runtime/production/serve.js`,
       port: 3060,
       /*
        * This site's share of a shared box.
@@ -771,21 +777,26 @@ export const tsCloud: TsCloudConfig = {
       // Runs after the repo and the resolved production env are in place and
       // before the systemd service starts. Migrate runs ONLY here: the API
       // site shares the same SQLite file, so migrating from both would put two
-      // writers on one file. `catalog:sync` replaces the catalog and the
-      // demonstration field and leaves every other row alone, so it is safe to
-      // run against a database farmers have accounts in. It is deliberately
+      // writers on one file. `catalog:sync` restores the reserved demo records
+      // with stable identities, preserves published imagery metadata, and
+      // refuses customer-owned identifier conflicts before changing the catalog.
+      // It is deliberately
       // NOT `|| true`, because a deploy that silently ships an empty catalog
       // is worse than one that fails loudly.
       preStart: [
-        'bun install',
-        'bun node_modules/@stacksjs/buddy/dist/cli.js site:discovery',
+        'bun install --frozen-lockfile',
+        installAppRuntime,
+        activateAppRuntime,
+        checkAppRuntime,
+        `${appRuntime} node_modules/@stacksjs/buddy/dist/cli.js site:discovery`,
         'mkdir -p /var/lib/openfarming',
         'mkdir -p storage/framework/runtime/production',
-        'bun build --production --target=bun --packages=external app/ProductionServer.ts --outdir storage/framework/runtime/production --entry-naming serve.js',
-        'bun node_modules/@stacksjs/buddy/dist/cli.js migrate || true',
-        'bun node_modules/@stacksjs/buddy/dist/cli.js catalog:sync',
+        `${appRuntime} build --production --target=bun --packages=external app/ProductionServer.ts --outdir storage/framework/runtime/production --entry-naming serve.js`,
+        `${appRuntime} node_modules/@stacksjs/buddy/dist/cli.js migrate`,
+        `${appRuntime} node_modules/@stacksjs/buddy/dist/cli.js catalog:sync`,
       ],
       env: {
+        PATH: appRuntimePath,
         HOST: '127.0.0.1',
         APP_ENV: 'production',
         NODE_ENV: 'production',
@@ -803,14 +814,15 @@ export const tsCloud: TsCloudConfig = {
     // exclusively through the app's same-origin /api proxy.
     api: {
       root: '.',
-      start: 'bun node_modules/@stacksjs/actions/dist/serve/api.js',
+      start: `${appRuntime} node_modules/@stacksjs/actions/dist/serve/api.js`,
       port: 3068,
       // The API is the same runtime serving JSON, so it wants the same
       // ceiling as `main` above.
       memoryHigh: '512M',
       memoryMax: '768M',
-      preStart: ['bun install'],
+      preStart: ['bun install --frozen-lockfile', installAppRuntime, activateAppRuntime, checkAppRuntime],
       env: {
+        PATH: appRuntimePath,
         HOST: '127.0.0.1',
         APP_ENV: 'production',
         NODE_ENV: 'production',

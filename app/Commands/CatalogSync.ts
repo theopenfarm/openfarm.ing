@@ -1,6 +1,7 @@
 import type { CLI } from '@stacksjs/types'
 import process from 'node:process'
 import { log } from '@stacksjs/cli'
+import { bootAppListeners } from '@stacksjs/events'
 import { ExitCode } from '@stacksjs/types'
 import Detection from '../Models/Detection'
 import Drone from '../Models/Drone'
@@ -22,7 +23,7 @@ import { features } from '../Support/content/features'
 import { useCases } from '../Support/content/use-cases'
 
 /**
- * `buddy catalog:sync` — publish the catalog and the demonstration field.
+ * `buddy catalog:sync`, publish the catalog and the demonstration field.
  *
  * Writes everything the site and the public API serve:
  *
@@ -38,14 +39,15 @@ import { useCases } from '../Support/content/use-cases'
  * dataset whose figures are quoted in the copy, so it has to come out
  * identical on every machine. Publishing it is a deploy step, not a seed.
  *
- * Re-running is safe. Every table is truncated first, so this is also how a
- * content edit reaches production: `preStart` runs it on every deploy.
+ * Re-running keeps the reserved demo identities and replaces their derived
+ * observations. `preStart` runs this on every deploy.
  */
 export default function (cli: CLI) {
   cli
     .command('catalog:sync', 'Publish the capability catalog and the demonstration field into the database')
     .action(async () => {
       try {
+        await bootAppListeners({ base: process.cwd() })
         await syncCatalog()
         log.success(`Catalog synced: ${features.length} capabilities, ${useCases.length} use cases, and the demonstration field.`)
       }
@@ -92,11 +94,9 @@ async function syncCatalog(): Promise<void> {
    * that farmers have accounts: the deploy runs this on every release, and a
    * truncate would take a customer's fields and flights with it. The catalog
    * tables are wholly derived from the content modules and can be replaced;
-   * the demonstration records are found by their own slug and removed
-   * individually, children first so nothing is orphaned.
+   * the reserved demonstration identities are kept. Their derived mission
+   * observations are replaced, children first so nothing is orphaned.
    */
-  await UseCase.truncate()
-  await Feature.truncate()
 
   /*
    * What `buddy imagery:attach` published outlives the rewrite.
@@ -112,7 +112,19 @@ async function syncCatalog(): Promise<void> {
    */
   let publishedImagery: Record<string, unknown> | null = null
 
-  const demoFarm = await Farm.where('slug', DEMO_FARM.slug).first()
+  const demoFarm = await Farm.withTrashed().where('slug', DEMO_FARM.slug).first()
+  const demoField = await Field.withTrashed().where('slug', DEMO_FIELD.slug).first()
+  const demoDrone = await Drone.where('callsign', 'OF-K12').first()
+  if (demoFarm && demoFarm.user_id != null)
+    throw new Error('The reserved demonstration farm belongs to an account; refusing to overwrite it')
+  for (const record of [demoField, demoDrone]) {
+    if (record && (!demoFarm || Number(record.farm_id) !== Number(demoFarm.id)))
+      throw new Error('A reserved demonstration identity belongs to another farm; refusing to overwrite it')
+  }
+
+  // Ownership checks finish before the first destructive catalog write.
+  await UseCase.truncate()
+  await Feature.truncate()
   if (demoFarm?.id) {
     const farmId = Number(demoFarm.id)
     const missions = await Mission.where('farm_id', farmId).get()
@@ -133,9 +145,6 @@ async function syncCatalog(): Promise<void> {
     }
 
     await Mission.where('farm_id', farmId).delete()
-    await Field.where('farm_id', farmId).delete()
-    await Drone.where('farm_id', farmId).delete()
-    await Farm.where('id', farmId).delete()
   }
 
   await Feature.createMany(features.map(f => ({
@@ -170,15 +179,23 @@ async function syncCatalog(): Promise<void> {
   })))
 
   // The demonstration field.
-  const farm = await Farm.create({
+  const farmData = {
     name: DEMO_FARM.name,
     slug: DEMO_FARM.slug,
     region: DEMO_FARM.region,
     segment: DEMO_FARM.segment,
     hectares: DEMO_FARM.hectares,
-  }) as Record<string, any>
+  }
+  if (demoFarm) {
+    if (demoFarm.deleted_at != null)
+      await Farm.restore(Number(demoFarm.id))
+    await Farm.update(Number(demoFarm.id), farmData)
+  }
+  const farm = (demoFarm ? await Farm.find(Number(demoFarm.id)) : await Farm.create(farmData))
+  if (!farm)
+    throw new Error('The demonstration farm could not be read after publication')
 
-  const drone = await Drone.create({
+  const droneData = {
     callsign: 'OF-K12',
     model: 'Scout',
     payload: 'multispectral',
@@ -187,9 +204,14 @@ async function syncCatalog(): Promise<void> {
     battery_percent: 100,
     flight_hours: 412,
     farm_id: farm.id,
-  }) as Record<string, any>
+  } as const
+  if (demoDrone)
+    await Drone.update(Number(demoDrone.id), droneData)
+  const drone = (demoDrone ? await Drone.find(Number(demoDrone.id)) : await Drone.create(droneData))
+  if (!drone)
+    throw new Error('The demonstration aircraft could not be read after publication')
 
-  const field = await Field.create({
+  const fieldData = {
     name: DEMO_FIELD.name,
     slug: DEMO_FIELD.slug,
     crop: DEMO_FIELD.crop,
@@ -199,7 +221,15 @@ async function syncCatalog(): Promise<void> {
     longitude: DEMO_FIELD.longitude,
     boundary: JSON.stringify(DEMO_BOUNDARY),
     farm_id: farm.id,
-  }) as Record<string, any>
+  } as const
+  if (demoField) {
+    if (demoField.deleted_at != null)
+      await Field.restore(Number(demoField.id))
+    await Field.update(Number(demoField.id), fieldData)
+  }
+  const field = (demoField ? await Field.find(Number(demoField.id)) : await Field.create(fieldData))
+  if (!field)
+    throw new Error('The demonstration field could not be read after publication')
 
   const detections = demoDetections()
   const zones = demoZones(detections)
@@ -217,7 +247,9 @@ async function syncCatalog(): Promise<void> {
     field_id: field.id,
     drone_id: drone.id,
     ...publishedImagery,
-  }) as Record<string, any>
+  })
+  if (!mission)
+    throw new Error('The demonstration mission could not be read after publication')
 
   await Detection.createMany(detections.map(d => ({
     kind: d.kind,
