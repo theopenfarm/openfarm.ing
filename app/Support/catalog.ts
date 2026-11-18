@@ -205,7 +205,7 @@ function parseJson<T>(value: unknown, fallback: T): T {
 }
 
 /** Run an ORM query, falling back when the table is missing or unmigrated. */
-async function query<T>(run: () => Promise<T>, fallback: T): Promise<T> {
+async function query<T, F>(run: () => T, fallback: F): Promise<Awaited<T> | F> {
   try {
     return await run()
   }

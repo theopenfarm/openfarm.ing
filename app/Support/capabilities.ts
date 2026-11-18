@@ -75,7 +75,7 @@ function day(value: unknown): string {
   return Number.isNaN(date.getTime()) ? '' : date.toISOString().slice(0, 10)
 }
 
-async function safely<T>(run: () => Promise<T>, fallback: T): Promise<T> {
+async function safely<T, F>(run: () => T, fallback: F): Promise<Awaited<T> | F> {
   try {
     return await run()
   }
@@ -92,15 +92,15 @@ async function safely<T>(run: () => Promise<T>, fallback: T): Promise<T> {
  * folded in. A capability with no row is `off` — offered, not yet taken.
  */
 export async function managedCapabilities(farmId: number): Promise<CapabilityGroup[]> {
-  const rows = await safely(() => FarmCapability.where('farm_id', farmId).get() as Promise<any[]>, [])
-  const fields = await safely(() => Field.where('farm_id', farmId).get() as Promise<any[]>, [])
-  const flights = await safely(() => Mission.where('farm_id', farmId).get() as Promise<any[]>, [])
+  const rows = await safely(() => FarmCapability.where('farm_id', farmId).get(), [])
+  const fields = await safely(() => Field.where('farm_id', farmId).get(), [])
+  const flights = await safely(() => Mission.where('farm_id', farmId).get(), [])
 
   const fieldNames = new Map<number, string>()
   for (const field of fields)
     fieldNames.set(Number(field.id), String(field.name ?? ''))
 
-  const bySlug = new Map<string, any[]>()
+  const bySlug = new Map<string, (typeof rows)[number][]>()
   for (const row of rows) {
     const slug = String(row.feature_slug ?? '')
     bySlug.set(slug, [...(bySlug.get(slug) ?? []), row])

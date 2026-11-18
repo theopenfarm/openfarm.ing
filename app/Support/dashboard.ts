@@ -53,7 +53,7 @@ function round(value: number): number {
   return Math.round(value * 100) / 100
 }
 
-async function safely<T>(run: () => Promise<T>, fallback: T): Promise<T> {
+async function safely<T, F>(run: () => T, fallback: F): Promise<Awaited<T> | F> {
   try {
     return await run()
   }
@@ -74,7 +74,7 @@ export async function farmFor(userId: number): Promise<{ id: number, name: strin
   if (!userId)
     return null
 
-  const farm = await safely(() => Farm.where('user_id', userId).first(), null) as any
+  const farm = await safely(() => Farm.where('user_id', userId).first(), null)
   if (!farm?.id)
     return null
 
@@ -83,7 +83,7 @@ export async function farmFor(userId: number): Promise<{ id: number, name: strin
 
 /** The holding's parcels, for the pages that let a farmer scope work to one. */
 export async function fieldsFor(farmId: number): Promise<{ id: number, name: string, crop: string, hectares: number }[]> {
-  const rows = await safely(() => Field.where('farm_id', farmId).orderBy('name').get() as Promise<any[]>, [])
+  const rows = await safely(() => Field.where('farm_id', farmId).orderBy('name').get(), [])
 
   return rows.map(row => ({
     id: Number(row.id),
@@ -100,13 +100,13 @@ export async function fieldsFor(farmId: number): Promise<{ id: number, name: str
  * as what has been flown, and the capability schedule is what puts them there.
  */
 export async function flightsFor(farmId: number): Promise<{ id: number, field: string, purpose: string, status: string, flownOn: string, hectares: number, detections: number }[]> {
-  const rows = await safely(() => Mission.where('farm_id', farmId).orderByDesc('id').get() as Promise<any[]>, [])
-  const fields = await safely(() => Field.where('farm_id', farmId).get() as Promise<any[]>, [])
+  const rows = await safely(() => Mission.where('farm_id', farmId).orderByDesc('id').get(), [])
+  const fields = await safely(() => Field.where('farm_id', farmId).get(), [])
   const names = new Map(fields.map(field => [Number(field.id), String(field.name ?? '')]))
 
   const missionIds = rows.map(row => Number(row.id))
   const detections = missionIds.length > 0
-    ? await safely(() => Detection.whereIn('mission_id', missionIds).get() as Promise<any[]>, [])
+    ? await safely(() => Detection.whereIn('mission_id', missionIds).get(), [])
     : []
 
   const found = new Map<number, number>()
@@ -134,16 +134,16 @@ export async function flightsFor(farmId: number): Promise<{ id: number, field: s
  * whether to look at that patch again.
  */
 export async function detectionsFor(farmId: number): Promise<{ id: number, kind: string, label: string, severity: string, status: string, field: string, foundOn: string }[]> {
-  const flights = await safely(() => Mission.where('farm_id', farmId).get() as Promise<any[]>, [])
+  const flights = await safely(() => Mission.where('farm_id', farmId).get(), [])
   const ids = flights.map(flight => Number(flight.id))
   if (ids.length === 0)
     return []
 
   const flownAt = new Map(flights.map(flight => [Number(flight.id), day(flight.flown_at)]))
-  const fields = await safely(() => Field.where('farm_id', farmId).get() as Promise<any[]>, [])
+  const fields = await safely(() => Field.where('farm_id', farmId).get(), [])
   const names = new Map(fields.map(field => [Number(field.id), String(field.name ?? '')]))
 
-  const rows = await safely(() => Detection.whereIn('mission_id', ids).get() as Promise<any[]>, [])
+  const rows = await safely(() => Detection.whereIn('mission_id', ids).get(), [])
 
   return rows.map(row => ({
     id: Number(row.id),
